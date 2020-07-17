@@ -43,12 +43,14 @@ public class LoginActivity extends AppCompatActivity {
     private static ProgressBar pr1;
     private String mail;
     private String pwd;
+    private EditText edUserEmail;
+    private EditText edPasswd;
     //public static String GetUserID;
     public static boolean a = false;
     private Button btnLogin;
     private ImageButton imbtnFacebook;
-    //private ImageButton imbtnGoogle;
-    SignInButton sign_in_button;
+    private ImageButton imbtnGoogle;
+//    SignInButton sign_in_button;
     int RC_SIGN_IN = 100; //自己定義的int在onActivityResult才可以抓到是利用Google登入的
     GoogleSignInClient mGoogleSignInClient;
 
@@ -56,6 +58,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        edUserEmail = findViewById(R.id.userEmail);
+        edUserEmail.setText(sqlReturn.RegisterEmail);
+        edPasswd = findViewById(R.id.password);
+        edPasswd.setText(sqlReturn.RegisterPassword);
 
         final TextView registerLink = (TextView) findViewById(R.id.register);
         registerLink.setOnClickListener(new View.OnClickListener() {
@@ -83,28 +90,28 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //imbtnGoogle = findViewById(R.id.imbtnGoogle);
-//        imbtnGoogle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                switch (v.getId()){
-//                    case R.id.imbtnGoogle:
-//                        signIn();
-//                        break;
-//                }
-//            }
-//        });
-        sign_in_button = findViewById(R.id.sign_in_button);
-        sign_in_button.setOnClickListener(new View.OnClickListener() {
+        imbtnGoogle = findViewById(R.id.imbtnGoogle);
+        imbtnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
-                    case R.id.sign_in_button:
+                    case R.id.imbtnGoogle:
                         signIn();
                         break;
                 }
             }
         });
+//        sign_in_button = findViewById(R.id.sign_in_button);
+//        sign_in_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                switch (v.getId()){
+//                    case R.id.sign_in_button:
+//                        signIn();
+//                        break;
+//                }
+//            }
+//        });
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -145,8 +152,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     public void login(){
-        final EditText edUserEmail = findViewById(R.id.userEmail);
-        final EditText edPasswd = findViewById(R.id.password);
+        edUserEmail = findViewById(R.id.userEmail);
+        edPasswd = findViewById(R.id.password);
         pr1 = findViewById(R.id.progressBar1);
         mail = edUserEmail.getText().toString();
         pwd = edPasswd.getText().toString();
@@ -269,16 +276,27 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (sqlReturn.LoginTextViewContext!=null){
-                //Toast.makeText(activity, "載入成功", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                intent.putExtra("id",1);
-                startActivity(intent,options.toBundle());
+                if(!sqlReturn.RegisterFirstLogin){
+                    Intent intent = new Intent(LoginActivity.this, PersonalActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                    intent.putExtra("id",1);
+                    startActivity(intent,options.toBundle());
+                }
             }else {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("id",1);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                startActivity(intent,options.toBundle());
+                if(!sqlReturn.RegisterFirstLogin){
+                    Intent intent = new Intent(LoginActivity.this, PersonalActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("id",1);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                    startActivity(intent,options.toBundle());
+                }
             }
         }
 

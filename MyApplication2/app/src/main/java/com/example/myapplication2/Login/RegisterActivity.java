@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.R;
+import com.example.myapplication2.sqlReturn;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +30,9 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
 
     private static ProgressBar pr2;
+    private EditText etName, etEmail, etPassword, etPasswordCheck;
+    private TextView txtMessage;
+    private static String email, password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void Register(View v){
-        final EditText etName = findViewById(R.id.etName);
-        final EditText etEmail = findViewById(R.id.etEmail);
-        final EditText etPassword = findViewById(R.id.etPassword);
-        final EditText etPasswordCheck = findViewById(R.id.etPasswordCheck);
-        final TextView txtMessage = findViewById(R.id.txtMessage);
+        etName = findViewById(R.id.etName);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        etPasswordCheck = findViewById(R.id.etPasswordCheck);
+        txtMessage = findViewById(R.id.txtMessage);
         pr2 = findViewById(R.id.progressBar2);
         String Name = etName.getText().toString();
         String Email = etEmail.getText().toString();
@@ -90,6 +94,9 @@ public class RegisterActivity extends AppCompatActivity {
                 map.put("email", Email);
                 new Regsiter(this).execute((HashMap)map);
                 pr2.setVisibility(View.VISIBLE);
+                email = etEmail.getText().toString();
+                password = etPassword.getText().toString();
+
             }else{
                 txtMessage.setText("密碼不相同");
                 return;
@@ -97,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
     }
-    private static class Regsiter extends HttpURLConnection_AsyncTask{
+    public class Regsiter extends HttpURLConnection_AsyncTask{
         WeakReference<Activity> activityReference;
         Regsiter(Activity context){
             activityReference = new WeakReference<>(context);
@@ -118,10 +125,11 @@ public class RegisterActivity extends AppCompatActivity {
             if (status){
                 Toast.makeText(activity, "註冊成功", Toast.LENGTH_LONG).show();
                 // 對Context進行操作
-                activity.finish();
-                if (!activity.isDestroyed()){
-                    Log.d("LOG TEST", "Activity未關閉");
-                }
+                sqlReturn.RegisterEmail = email;
+                sqlReturn.RegisterPassword = password;
+                sqlReturn.RegisterFirstLogin = false;
+                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                startActivity(intent);
             }else {
                 new AlertDialog.Builder(activity)
                         .setTitle("註冊失敗")
