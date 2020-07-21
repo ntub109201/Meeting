@@ -64,6 +64,15 @@ public class LoginActivity extends AppCompatActivity {
         edPasswd = findViewById(R.id.password);
         edPasswd.setText(sqlReturn.RegisterPassword);
 
+        final TextView test = findViewById(R.id.register2);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,PersonalActivity.class);
+                startActivity(intent);
+            }
+        });
+
         final TextView registerLink = (TextView) findViewById(R.id.register);
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
