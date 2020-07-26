@@ -2,6 +2,7 @@ package com.example.myapplication2.ui.friend;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.example.myapplication2.Diary.DiaryActivity;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.Login.LoginActivity;
 import com.example.myapplication2.MainActivity;
+import com.example.myapplication2.ModifyPersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 
@@ -54,6 +56,7 @@ public class FriendFragment extends Fragment {
     private MyAdapter myAdapter;
     private ProgressBar progressBarFriend;
     private SwipeRefreshLayout RefreshLayoutFriend;
+    private ImageButton imBtnPersonal;
 
     public static int FriendTag;
 
@@ -91,6 +94,16 @@ public class FriendFragment extends Fragment {
         mRecyclerView = root.findViewById(R.id.RecyclerView_1);
         progressBarFriend.setVisibility(View.VISIBLE);
 
+        imBtnPersonal = root.findViewById(R.id.imBtnPersonal);
+        imBtnPersonal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendFragment.super.getActivity(), ModifyPersonalActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(FriendFragment.super.getActivity());
+                intent.putExtra("pageId",3);
+                startActivity(intent,options.toBundle());
+            }
+        });
 
 
         return root;

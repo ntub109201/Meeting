@@ -3,6 +3,7 @@ package com.example.myapplication2.Login;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -15,17 +16,28 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PersonalActivity extends AppCompatActivity {
 
     private Button goToMain,btnBirthday;
     private EditText edtBirthday;
+    private TextView txtSkip;
+    private Spinner spinGender, spinJob, spinTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +53,11 @@ public class PersonalActivity extends AppCompatActivity {
         goToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //personalData();
                 Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PersonalActivity.this);
                 intent.putExtra("id",1);
                 startActivity(intent,options.toBundle());
-
             }
         });
         edtBirthday = findViewById(R.id.edtBirthday);
@@ -62,13 +74,74 @@ public class PersonalActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+        txtSkip = findViewById(R.id.txtSkip);
+        txtSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(PersonalActivity.this)
+                        .setTitle("提醒您")
+                        .setMessage("之後可以再到個人資料修改歐!!!")
+                        .setPositiveButton("OK", null)
+                        .show();
+//                Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
+//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PersonalActivity.this);
+//                intent.putExtra("id",1);
+//                startActivity(intent,options.toBundle());
+            }
+
+        });
 
     }
 
+    public void personalData(){
+        spinGender = findViewById(R.id.spinGender);
+        spinJob = findViewById(R.id.spinJob);
+        spinTag = findViewById(R.id.spinTag);
+        String gender = spinGender.getSelectedItem().toString();
+        String job = spinJob.getSelectedItem().toString();
+        String hobby = spinTag.getSelectedItem().toString();
+        String birthday = edtBirthday.getText().toString();
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "newPersonInfo");
+        map.put("uid", uid);
+        map.put("birthday", birthday);
+        map.put("job", job);
+        map.put("hobby", hobby);
+        map.put("gender", gender);
+        new personalData(this).execute((HashMap)map);
+    }
+    private class personalData extends HttpURLConnection_AsyncTask {
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        personalData(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                if(status){
+
+                }
+
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+    }
     private DatePickerDialog.OnDateSetListener datePickerDlgOnDateSet = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            edtBirthday.setText("生日："+String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth));
+            edtBirthday.setText(String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth));
         }
     };
     // 擋住手機上回上一頁鍵

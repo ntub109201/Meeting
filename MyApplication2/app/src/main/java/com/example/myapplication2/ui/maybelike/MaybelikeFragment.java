@@ -1,6 +1,8 @@
 package com.example.myapplication2.ui.maybelike;
 
 import android.animation.ValueAnimator;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.myapplication2.MainActivity;
+import com.example.myapplication2.ModifyPersonalActivity;
 import com.example.myapplication2.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -28,6 +32,7 @@ public class MaybelikeFragment extends Fragment {
 
     private TabLayout mTabs;
     private ViewPager mViewPager;
+    private ImageButton imBtnPersonal;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +48,17 @@ public class MaybelikeFragment extends Fragment {
         mViewPager = root.findViewById(R.id.mViewPager);
         mViewPager.setAdapter(new MyPagerAdapter());
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabs));
+
+        imBtnPersonal = root.findViewById(R.id.imBtnPersonal);
+        imBtnPersonal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MaybelikeFragment.super.getActivity(), ModifyPersonalActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MaybelikeFragment.super.getActivity());
+                intent.putExtra("pageId",4);
+                startActivity(intent,options.toBundle());
+            }
+        });
 
 
         return root;

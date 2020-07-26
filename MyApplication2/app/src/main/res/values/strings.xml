@@ -16,11 +16,26 @@
     <string name="facebook_app_id">713862382739973</string>
     <string name="fb_login_protocol_scheme">fb713862382739973</string>
     <string-array name="tag_list">
-        <item>美食類</item>
-        <item>購物類</item>
-        <item>感情類</item>
-        <item>旅遊類</item>
-        <item>休閒娛樂類</item>
+        <item>美食</item>
+        <item>購物</item>
+        <item>感情</item>
+        <item>旅遊</item>
+        <item>休閒娛樂</item>
+        <item>其他</item>
     </string-array>
-
+    <string-array name="sex_list">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+    <string-array name="profession_list">
+        <item>學生</item>
+        <item>上班族</item>
+        <item>農業</item>
+        <item>漁業</item>
+        <item>交通運輸業</item>
+        <item>餐旅業</item>
+        <item>製造業</item>
+        <item>娛樂業</item>
+        <item>其他</item>
+    </string-array>
 </resources>

@@ -2,6 +2,7 @@ package com.example.myapplication2.ui.home;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.Login.LoginActivity;
 import com.example.myapplication2.MainActivity;
+import com.example.myapplication2.ModifyPersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 
@@ -64,6 +67,7 @@ public class HomeFragment extends Fragment {
     private Button searchBtnHandWrite;
     private ProgressBar progressBarHome;
     private SwipeRefreshLayout RefreshLayoutHome;
+    private ImageButton imBtnPersonal;
 
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
@@ -223,7 +227,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
+        // Personal
+        imBtnPersonal = root.findViewById(R.id.imBtnPersonal);
+        imBtnPersonal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeFragment.super.getActivity(), ModifyPersonalActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HomeFragment.super.getActivity());
+                intent.putExtra("pageId",1);
+                startActivity(intent,options.toBundle());
+            }
+        });
 
         // 時間
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
