@@ -18,15 +18,12 @@
     <string-array name="tag_list">
         <item>美食</item>
         <item>購物</item>
-        <item>感情</item>
+        <item>戀愛</item>
         <item>旅遊</item>
         <item>休閒娛樂</item>
         <item>其他</item>
     </string-array>
-    <string-array name="sex_list">
-        <item>男</item>
-        <item>女</item>
-    </string-array>
+
     <string-array name="profession_list">
         <item>學生</item>
         <item>上班族</item>

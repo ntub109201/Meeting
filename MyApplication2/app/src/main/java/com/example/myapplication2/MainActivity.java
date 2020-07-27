@@ -27,6 +27,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import android.graphics.Color;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private ConstraintLayout mLayout;
@@ -107,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
     // 變化背景動畫
     private View.OnClickListener btnChangeColorOnClick = new View.OnClickListener() {
         public void onClick(View v) {

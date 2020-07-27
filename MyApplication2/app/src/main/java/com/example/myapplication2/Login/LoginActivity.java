@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.MainActivity;
@@ -208,6 +209,7 @@ public class LoginActivity extends AppCompatActivity {
                 MainActivity.login = true;
                 a = true;
                 history();
+                searchFriend();
             }else {
                 new AlertDialog.Builder(activity)
                         .setTitle("登入失敗")
@@ -306,6 +308,58 @@ public class LoginActivity extends AppCompatActivity {
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
                     startActivity(intent,options.toBundle());
                 }
+            }
+        }
+
+    }
+    // 此為社群好友貼文全抓
+    public void searchFriend(){
+        while (LoginActivity.a) {
+            String uid = sqlReturn.GetUserID;
+            Map<String, String> map = new HashMap<>();
+            map.put("command", "friendList");
+            map.put("uid", uid);
+            new searchFriend(this).execute((HashMap) map);
+            break;
+        }
+    }
+    private class searchFriend extends HttpURLConnection_AsyncTask {
+
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        searchFriend(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+
+                sqlReturn.textViewContextFriend = jsonObject.getString("results");
+                sqlReturn.SearchCountFriend = jsonObject.getInt("rowcount");
+                jsonArray = new JSONArray(sqlReturn.textViewContextFriend);
+                sqlReturn.contentFriend = new String[sqlReturn.SearchCountFriend];
+                sqlReturn.tagNameFriend = new String[sqlReturn.SearchCountFriend];
+                sqlReturn.moodFriend = new String[sqlReturn.SearchCountFriend];
+                sqlReturn.dateFriend = new String[sqlReturn.SearchCountFriend];
+                sqlReturn.friendName = new String[sqlReturn.SearchCountFriend];
+                for(int i = 0; i<sqlReturn.SearchCountFriend; i++){
+                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    sqlReturn.contentFriend[i] = obj.getString("content");
+                    sqlReturn.tagNameFriend[i] = obj.getString("tagName");
+                    sqlReturn.moodFriend[i] = obj.getString("mood");
+                    sqlReturn.dateFriend[i] = obj.getString("date");
+                    sqlReturn.friendName[i] = obj.getString("friendName01");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
 

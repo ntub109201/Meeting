@@ -32,7 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
     private static ProgressBar pr2;
     private EditText etName, etEmail, etPassword, etPasswordCheck;
     private TextView txtMessage;
-    private static String email, password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,8 +93,6 @@ public class RegisterActivity extends AppCompatActivity {
                 map.put("email", Email);
                 new Regsiter(this).execute((HashMap)map);
                 pr2.setVisibility(View.VISIBLE);
-                email = etEmail.getText().toString();
-                password = etPassword.getText().toString();
 
             }else{
                 txtMessage.setText("密碼不相同");
@@ -125,8 +122,9 @@ public class RegisterActivity extends AppCompatActivity {
             if (status){
                 Toast.makeText(activity, "註冊成功", Toast.LENGTH_LONG).show();
                 // 對Context進行操作
-                sqlReturn.RegisterEmail = email;
-                sqlReturn.RegisterPassword = password;
+                sqlReturn.RegisterEmail = etEmail.getText().toString();
+                sqlReturn.RegisterPassword = etPassword.getText().toString();
+                sqlReturn.RegisterName = etName.getText().toString();
                 sqlReturn.RegisterFirstLogin = false;
                 Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                 startActivity(intent);

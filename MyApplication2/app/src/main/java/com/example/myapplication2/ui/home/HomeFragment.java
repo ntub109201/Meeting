@@ -233,9 +233,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeFragment.super.getActivity(), ModifyPersonalActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HomeFragment.super.getActivity());
                 intent.putExtra("pageId",1);
-                startActivity(intent,options.toBundle());
+                startActivity(intent);
             }
         });
 

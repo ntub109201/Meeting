@@ -57,9 +57,8 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardFragment.super.getActivity(), ModifyPersonalActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DashboardFragment.super.getActivity());
                 intent.putExtra("pageId",2);
-                startActivity(intent,options.toBundle());
+                startActivity(intent);
             }
         });
 

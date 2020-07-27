@@ -54,7 +54,6 @@ public class FriendFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private LinkedList<HashMap<String,String>> data;
     private MyAdapter myAdapter;
-    private ProgressBar progressBarFriend;
     private SwipeRefreshLayout RefreshLayoutFriend;
     private ImageButton imBtnPersonal;
 
@@ -65,14 +64,21 @@ public class FriendFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_friend, container, false);
 
-        progressBarFriend = root.findViewById(R.id.progressBarFriend);
-
         if(MainActivity.changeBtn == true){
             MainActivity.changeBtn = false;
         }
 
+        // adapter
+        mRecyclerView = root.findViewById(R.id.RecyclerView_1);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(FriendFragment.super.getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        doData();
         searchFriendList();
         searchFriend();
+        myAdapter = new MyAdapter();
+        mRecyclerView.setAdapter(myAdapter);
 
         RefreshLayoutFriend = root.findViewById(R.id.RefreshLayoutFriend);
         RefreshLayoutFriend.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -92,16 +98,14 @@ public class FriendFragment extends Fragment {
         });
 
         mRecyclerView = root.findViewById(R.id.RecyclerView_1);
-        progressBarFriend.setVisibility(View.VISIBLE);
 
         imBtnPersonal = root.findViewById(R.id.imBtnPersonal);
         imBtnPersonal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FriendFragment.super.getActivity(), ModifyPersonalActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(FriendFragment.super.getActivity());
                 intent.putExtra("pageId",3);
-                startActivity(intent,options.toBundle());
+                startActivity(intent);
             }
         });
 
@@ -221,7 +225,6 @@ public class FriendFragment extends Fragment {
                 e.printStackTrace();
             }
             if (sqlReturn.textViewContextFriend!=null){
-                //Toast.makeText(activity, String.valueOf(sqlReturn.SearchCountMood), Toast.LENGTH_LONG).show();
                 doData();
                 // 這裡是 adapter
                 mRecyclerView.setHasFixedSize(true);
@@ -229,15 +232,7 @@ public class FriendFragment extends Fragment {
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 myAdapter = new MyAdapter();
                 mRecyclerView.setAdapter(myAdapter);
-                progressBarFriend.setVisibility(View.INVISIBLE);
                 RefreshLayoutFriend.setRefreshing(false);
-            }else {
-                progressBarFriend.setVisibility(View.INVISIBLE);
-//                new AlertDialog.Builder(activity)
-//                        .setTitle("日記載入失敗")
-//                        .setMessage("請確認網路是否連通!!")
-//                        .setPositiveButton("OK", null)
-//                        .show();
             }
         }
 

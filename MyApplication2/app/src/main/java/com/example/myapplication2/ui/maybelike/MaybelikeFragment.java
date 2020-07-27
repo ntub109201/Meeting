@@ -54,9 +54,8 @@ public class MaybelikeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MaybelikeFragment.super.getActivity(), ModifyPersonalActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MaybelikeFragment.super.getActivity());
                 intent.putExtra("pageId",4);
-                startActivity(intent,options.toBundle());
+                startActivity(intent);
             }
         });
 
