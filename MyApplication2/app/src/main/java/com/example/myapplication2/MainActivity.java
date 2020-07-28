@@ -26,6 +26,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import android.graphics.Color;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
+
+
 
 
         int id = getIntent().getIntExtra("id",0);
@@ -111,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
         btnAnim = findViewById(R.id.btnAnim);
         mLayout = findViewById(R.id.testConstraint);
         btnAnim.setOnClickListener(btnChangeColorOnClick);
-
-
 
     }
 

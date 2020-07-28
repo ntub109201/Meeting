@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,7 +40,9 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_personal);
 
+        personalData();
         spinJob = findViewById(R.id.spinJob);
+
         spinTag = findViewById(R.id.spinTag);
 
         edtEmail = findViewById(R.id.edtEmail);
@@ -47,7 +50,8 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.edtPassword);
         edtPassword.setText(sqlReturn.RegisterPassword);
         edtName = findViewById(R.id.edtName);
-        edtName.setText(sqlReturn.RegisterName);
+        //edtName.setText(sqlReturn.PersonalName[0]);
+        edtName.setText(sqlReturn.PersonalName);
 
         final int pageId = getIntent().getIntExtra("pageId",0);
         imBackHome_ModifyPersonal = findViewById(R.id.imBackHome_ModifyPersonal);
@@ -64,6 +68,8 @@ public class ModifyPersonalActivity extends AppCompatActivity {
 
         btnBirthday = findViewById(R.id.btnBirthday);
         edtBirthday = findViewById(R.id.edtBirthday);
+        //edtBirthday.setText(sqlReturn.PersonalBirthday[0]);
+        edtBirthday.setText(sqlReturn.PersonalBirthday);
         btnBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,9 +91,68 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         }
     };
 
+    // 取個人資料
     public void personalData(){
         String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "getInfo");
+        map.put("uid", uid);
+        new personalData(this).execute((HashMap)map);
+    }
+    private class personalData extends HttpURLConnection_AsyncTask {
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        personalData(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            //JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                if(status){
+                    sqlReturn.PersonalContext = jsonObject.getString("results");
+//                    int rowcount = jsonObject.getInt("rowcount");
+//                    jsonArray = new JSONArray(sqlReturn.PersonalContext);
+//                    sqlReturn.PersonalName = new String[rowcount];
+//                    sqlReturn.PersonalBirthday = new String[rowcount];
+//                    sqlReturn.PersonalJob = new String[rowcount];
+//                    sqlReturn.PersonalHobby = new String[rowcount];
+//                    for(int i = 0; i<rowcount; i++){
+//                        JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+//                        sqlReturn.PersonalName[i] = obj.getString("userName");
+//                        sqlReturn.PersonalBirthday[i] = obj.getString("birthday");
+//                        sqlReturn.PersonalJob[i] = obj.getString("job");
+//                        sqlReturn.PersonalHobby[i] = obj.getString("hobby");
+//                    }
+                    sqlReturn.PersonalName = jsonObject.getString("userName");
+                    sqlReturn.PersonalHobby = jsonObject.getString("hobby");
+                    sqlReturn.PersonalJob = jsonObject.getString("job");
+                    sqlReturn.PersonalBirthday = jsonObject.getString("birthday");
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+            if(status){
+                Toast.makeText(activity, "填寫成功", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
+
+    public void sendPersonalData(){
+        String uid = sqlReturn.GetUserID;
+        //String job = sqlReturn.PersonalJob[0];
         String job = sqlReturn.PersonalJob;
+        //String hobby = sqlReturn.PersonalHobby[0];
         String hobby = sqlReturn.PersonalHobby;
         Map<String,String> map = new HashMap<>();
         map.put("command", "newPersonInfo");
@@ -97,10 +162,10 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         map.put("hobby", hobby);
         new personalData(this).execute((HashMap)map);
     }
-    private class personalData extends HttpURLConnection_AsyncTask {
+    private class sendPersonalData extends HttpURLConnection_AsyncTask {
         // 建立弱連結
         WeakReference<Activity> activityReference;
-        personalData(Activity context){
+        sendPersonalData(Activity context){
             activityReference = new WeakReference<>(context);
         }
         @Override
@@ -119,6 +184,9 @@ public class ModifyPersonalActivity extends AppCompatActivity {
             }
             if(status){
                 Toast.makeText(activity, "填寫成功", Toast.LENGTH_LONG).show();
+//                sqlReturn.PersonalBirthday[0] = edtBirthday.getText().toString();
+//                sqlReturn.PersonalJob[0] = spinJob.getSelectedItem().toString();
+//                sqlReturn.PersonalHobby[0] = spinTag.getSelectedItem().toString();
                 sqlReturn.PersonalBirthday = edtBirthday.getText().toString();
                 sqlReturn.PersonalJob = spinJob.getSelectedItem().toString();
                 sqlReturn.PersonalHobby = spinTag.getSelectedItem().toString();

@@ -49,18 +49,30 @@
         app:layout_constraintVertical_bias="0.175" />
 
     <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:ems="10"
+        android:hint="電子郵件信箱(帳號)"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.322" />
+
+    <EditText
         android:id="@+id/etName"
         android:layout_width="320dp"
         android:layout_height="70dp"
         android:ems="10"
-        android:hint="使用者名稱"
+        android:hint="使用者暱稱"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintVertical_bias="0.689" />
 
     <EditText
         android:id="@+id/etPasswordCheck"
@@ -71,10 +83,9 @@
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.623" />
+        app:layout_constraintVertical_bias="0.566" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -86,24 +97,9 @@
         android:onClick="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518" />
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="320dp"
-        android:layout_height="70dp"
-        android:ems="10"
-        android:hint="電子郵件信箱"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.413" />
+        app:layout_constraintVertical_bias="0.443" />
 
     <ImageButton
         android:id="@+id/imbtnBackToLogin"

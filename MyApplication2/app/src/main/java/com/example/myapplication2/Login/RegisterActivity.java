@@ -124,7 +124,6 @@ public class RegisterActivity extends AppCompatActivity {
                 // 對Context進行操作
                 sqlReturn.RegisterEmail = etEmail.getText().toString();
                 sqlReturn.RegisterPassword = etPassword.getText().toString();
-                sqlReturn.RegisterName = etName.getText().toString();
                 sqlReturn.RegisterFirstLogin = false;
                 Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                 startActivity(intent);

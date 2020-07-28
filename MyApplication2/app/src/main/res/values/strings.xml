@@ -9,7 +9,7 @@
     <string name="title_friend">社群</string>
     <string name="title_maybelike">推薦</string>
     <string name="title_activity_login">登入</string>
-    <string name="prompt_email">帳號</string>
+    <string name="prompt_email">信箱(帳號)</string>
     <string name="prompt_password">密碼</string>
     <string name="action_sign_in">登入</string>
     <string name="action_sign_in_short">登入</string>

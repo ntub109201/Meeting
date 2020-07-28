@@ -54,14 +54,19 @@ public class sqlReturn{
     public static int SearchCountFriendList;
     public static String[] friendListName;
     // 註冊成功
+    public static Boolean RegisterFirstLogin = true;
     public static String RegisterEmail = "1234";
     public static String RegisterPassword = "1234";
-    public static String RegisterName = "測試1234";
-    public static Boolean RegisterFirstLogin = true;
     // 個人資料
+//    public static String[] PersonalName;
+//    public static String[] PersonalPicture;
+//    public static String[] PersonalHobby;
+//    public static String[] PersonalBirthday;
+//    public static String[] PersonalJob;
+    public static String PersonalContext = null;
+    public static String PersonalName;
+    public static String PersonalPicture;
+    public static String PersonalHobby;
     public static String PersonalBirthday;
     public static String PersonalJob;
-    public static String PersonalHobby;
-
-
 }
