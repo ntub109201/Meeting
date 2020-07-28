@@ -30,7 +30,7 @@ import java.util.Map;
 public class ModifyPersonalActivity extends AppCompatActivity {
 
     private ImageButton imBackHome_ModifyPersonal;
-    private Button btnBirthday, btnPassword;
+    private Button btnBirthday, btnPassword, btnSave;
     private EditText edtBirthday, edtPassword, edtEmail, edtName;
     private Spinner spinJob, spinTag;
     private String birthday ="";
@@ -40,17 +40,69 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_personal);
 
-        personalData();
         spinJob = findViewById(R.id.spinJob);
-
+        switch (sqlReturn.PersonalJob){
+            case "學生":
+                spinJob.setSelection(0);
+                break;
+            case "上班族":
+                spinJob.setSelection(1);
+                break;
+            case "農業":
+                spinJob.setSelection(2);
+                break;
+            case "漁業":
+                spinJob.setSelection(3);
+                break;
+            case "交通運輸業":
+                spinJob.setSelection(4);
+                break;
+            case "餐旅業":
+                spinJob.setSelection(5);
+                break;
+            case "製造業":
+                spinJob.setSelection(6);
+                break;
+            case "娛樂業":
+                spinJob.setSelection(7);
+                break;
+            case "其他":
+                spinJob.setSelection(8);
+                break;
+            default:
+                spinJob.setSelection(0);
+                break;
+        }
         spinTag = findViewById(R.id.spinTag);
+        switch (sqlReturn.PersonalHobby){
+            case "美食":
+                spinTag.setSelection(0);
+                break;
+            case "購物":
+                spinTag.setSelection(1);
+                break;
+            case "戀愛":
+                spinTag.setSelection(2);
+                break;
+            case "旅遊":
+                spinTag.setSelection(3);
+                break;
+            case "休閒娛樂":
+                spinTag.setSelection(4);
+                break;
+            case "其他":
+                spinTag.setSelection(5);
+                break;
+            default:
+                spinTag.setSelection(0);
+                break;
+        }
 
         edtEmail = findViewById(R.id.edtEmail);
         edtEmail.setText(sqlReturn.RegisterEmail);
         edtPassword = findViewById(R.id.edtPassword);
         edtPassword.setText(sqlReturn.RegisterPassword);
         edtName = findViewById(R.id.edtName);
-        //edtName.setText(sqlReturn.PersonalName[0]);
         edtName.setText(sqlReturn.PersonalName);
 
         final int pageId = getIntent().getIntExtra("pageId",0);
@@ -58,17 +110,23 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         imBackHome_ModifyPersonal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //personalData();
-                Intent intent = new Intent(ModifyPersonalActivity.this,MainActivity.class);
+                Intent intent = new Intent(ModifyPersonalActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",pageId);
                 startActivity(intent);
             }
         });
 
+        btnSave = findViewById(R.id.btnSave);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendPersonalData();
+            }
+        });
+
         btnBirthday = findViewById(R.id.btnBirthday);
         edtBirthday = findViewById(R.id.edtBirthday);
-        //edtBirthday.setText(sqlReturn.PersonalBirthday[0]);
         edtBirthday.setText(sqlReturn.PersonalBirthday);
         btnBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,79 +146,28 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             edtBirthday.setText(String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth));
+            birthday = year+"-"+(month+1)+"-"+dayOfMonth;
         }
     };
-
-    // 取個人資料
-    public void personalData(){
-        String uid = sqlReturn.GetUserID;
-        Map<String,String> map = new HashMap<>();
-        map.put("command", "getInfo");
-        map.put("uid", uid);
-        new personalData(this).execute((HashMap)map);
-    }
-    private class personalData extends HttpURLConnection_AsyncTask {
-        // 建立弱連結
-        WeakReference<Activity> activityReference;
-        personalData(Activity context){
-            activityReference = new WeakReference<>(context);
-        }
-        @Override
-        protected void onPostExecute(String result) {
-            JSONObject jsonObject = null;
-            //JSONArray jsonArray = null;
-            boolean status = false;
-            // 取得弱連結的Context
-            Activity activity = activityReference.get();
-            if (activity == null || activity.isFinishing()) return;
-
-            try {
-                jsonObject = new JSONObject(result);
-                status = jsonObject.getBoolean("status");
-                if(status){
-                    sqlReturn.PersonalContext = jsonObject.getString("results");
-//                    int rowcount = jsonObject.getInt("rowcount");
-//                    jsonArray = new JSONArray(sqlReturn.PersonalContext);
-//                    sqlReturn.PersonalName = new String[rowcount];
-//                    sqlReturn.PersonalBirthday = new String[rowcount];
-//                    sqlReturn.PersonalJob = new String[rowcount];
-//                    sqlReturn.PersonalHobby = new String[rowcount];
-//                    for(int i = 0; i<rowcount; i++){
-//                        JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
-//                        sqlReturn.PersonalName[i] = obj.getString("userName");
-//                        sqlReturn.PersonalBirthday[i] = obj.getString("birthday");
-//                        sqlReturn.PersonalJob[i] = obj.getString("job");
-//                        sqlReturn.PersonalHobby[i] = obj.getString("hobby");
-//                    }
-                    sqlReturn.PersonalName = jsonObject.getString("userName");
-                    sqlReturn.PersonalHobby = jsonObject.getString("hobby");
-                    sqlReturn.PersonalJob = jsonObject.getString("job");
-                    sqlReturn.PersonalBirthday = jsonObject.getString("birthday");
-                }
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-            if(status){
-                Toast.makeText(activity, "填寫成功", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
 
 
     public void sendPersonalData(){
         String uid = sqlReturn.GetUserID;
-        //String job = sqlReturn.PersonalJob[0];
-        String job = sqlReturn.PersonalJob;
-        //String hobby = sqlReturn.PersonalHobby[0];
-        String hobby = sqlReturn.PersonalHobby;
+        String job = spinJob.getSelectedItem().toString();
+        String hobby = spinTag.getSelectedItem().toString();
+        String userName = edtName.getText().toString();
+        String email = edtEmail.getText().toString();
+        String userPass = edtPassword.getText().toString();
         Map<String,String> map = new HashMap<>();
         map.put("command", "newPersonInfo");
         map.put("uid", uid);
         map.put("birthday", birthday);
         map.put("job", job);
         map.put("hobby", hobby);
-        new personalData(this).execute((HashMap)map);
+        map.put("userName",userName);
+        map.put("email",email);
+        map.put("userPass",userPass);
+        new sendPersonalData(this).execute((HashMap)map);
     }
     private class sendPersonalData extends HttpURLConnection_AsyncTask {
         // 建立弱連結
@@ -179,21 +186,17 @@ public class ModifyPersonalActivity extends AppCompatActivity {
             try {
                 jsonObject = new JSONObject(result);
                 status = jsonObject.getBoolean("status");
+                if(status){
+                    Toast.makeText(activity, "修改成功", Toast.LENGTH_LONG).show();
+                    sqlReturn.PersonalBirthday = edtBirthday.getText().toString();
+                    sqlReturn.PersonalJob = spinJob.getSelectedItem().toString();
+                    sqlReturn.PersonalHobby = spinTag.getSelectedItem().toString();
+                    sqlReturn.PersonalName = edtName.getText().toString();
+                    sqlReturn.RegisterEmail = edtEmail.getText().toString();
+                    sqlReturn.RegisterPassword = edtPassword.getText().toString();
+                }
             }catch (JSONException e){
                 e.printStackTrace();
-            }
-            if(status){
-                Toast.makeText(activity, "填寫成功", Toast.LENGTH_LONG).show();
-//                sqlReturn.PersonalBirthday[0] = edtBirthday.getText().toString();
-//                sqlReturn.PersonalJob[0] = spinJob.getSelectedItem().toString();
-//                sqlReturn.PersonalHobby[0] = spinTag.getSelectedItem().toString();
-                sqlReturn.PersonalBirthday = edtBirthday.getText().toString();
-                sqlReturn.PersonalJob = spinJob.getSelectedItem().toString();
-                sqlReturn.PersonalHobby = spinTag.getSelectedItem().toString();
-                Intent intent = new Intent(ModifyPersonalActivity.this, MainActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ModifyPersonalActivity.this);
-                intent.putExtra("id",1);
-                startActivity(intent,options.toBundle());
             }
         }
     }

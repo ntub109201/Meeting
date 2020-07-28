@@ -142,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                 a = true;
                 history();
                 searchFriend();
+                personalData();
             }else {
                 new AlertDialog.Builder(activity)
                         .setTitle("登入失敗")
@@ -295,6 +296,47 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    // 取個人資料
+    public void personalData(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "getInfo");
+        map.put("uid", uid);
+        new personalData(this).execute((HashMap)map);
+    }
+    private class personalData extends HttpURLConnection_AsyncTask {
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        personalData(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            //JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                if(status){
+                    sqlReturn.PersonalName = jsonObject.getString("userName");
+                    sqlReturn.PersonalHobby = jsonObject.getString("hobby");
+                    sqlReturn.PersonalJob = jsonObject.getString("job");
+                    sqlReturn.PersonalBirthday = jsonObject.getString("birthday");
+                    if(sqlReturn.PersonalBirthday.equals("null")){
+                        sqlReturn.PersonalBirthday = "";
+                    }
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
     }
 
 
