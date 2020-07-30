@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -179,7 +180,7 @@ public class DiaryWhatActivity extends AppCompatActivity{
         });
 
         // 前往preview
-        final Button mPreview = findViewById(R.id.btn_preview_what);
+        final TextView mPreview = findViewById(R.id.btn_preview_what);
         mPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,7 +197,7 @@ public class DiaryWhatActivity extends AppCompatActivity{
         });
 
         //跳題
-        final Button btn_skip = findViewById(R.id.btn_skip);
+        final TextView btn_skip = findViewById(R.id.btn_skip);
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

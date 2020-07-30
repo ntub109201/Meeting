@@ -10,10 +10,12 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
+import com.example.myapplication2.sqlReturn;
 
 public class DiaryActivity extends AppCompatActivity {
 
@@ -22,6 +24,9 @@ public class DiaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
+        final TextView txtHelloName = findViewById(R.id.txtHelloName);
+        String getName = sqlReturn.PersonalName;
+        txtHelloName.setText("Hello "+getName+"：）");
 
         // 前往下一頁 sun -----------------------------------------------
         final Button btnsun = findViewById(R.id.btn_sun);

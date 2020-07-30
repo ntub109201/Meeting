@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -86,7 +87,7 @@ public class DiaryTagActivity extends AppCompatActivity {
 //            }
 //        });
         // 前往 preview
-        final Button btn_preview = findViewById(R.id.btn_preview);
+        final TextView btn_preview = findViewById(R.id.btn_preview);
         btn_preview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
