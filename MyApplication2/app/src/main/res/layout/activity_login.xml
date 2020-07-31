@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="#33FDD300"
+    android:background="@color/guibackcolor"
     tools:context=".Login.LoginActivity">
 
     <Button

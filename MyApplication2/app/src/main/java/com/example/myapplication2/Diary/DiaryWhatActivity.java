@@ -11,9 +11,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.myapplication2.Diary.DiaryWhatFragment.DiaryWhatFirstFragment;
+import com.example.myapplication2.Diary.DiaryWhatFragment.DiaryWhatSecondFragment;
 import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.R;
+import com.google.android.material.tabs.TabLayout;
 
 public class DiaryWhatActivity extends AppCompatActivity{
 
@@ -35,149 +42,13 @@ public class DiaryWhatActivity extends AppCompatActivity{
             }
         });
 
-        // 前往下一頁 taiwan
-        final Button btnTaiwan = findViewById(R.id.btn_taiwan);
-        btnTaiwan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DiaryValue.txtWhat = "台式料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
-                Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
-                DiaryWhatActivity.this.startActivity(intent,options.toBundle());
-            }
-        });
+        InnerPagerAdapter pagerAdapter = new InnerPagerAdapter(getSupportFragmentManager());
 
-        // 前往下一頁 china
-        final Button btnChina = findViewById(R.id.btn_china);
-        btnChina.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DiaryValue.txtWhat = "中式料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
-                Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
-                DiaryWhatActivity.this.startActivity(intent,options.toBundle());
-            }
-        });
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(pagerAdapter);
 
-        // 前往下一頁 france
-        final Button btnFrance = findViewById(R.id.btn_france);
-        btnFrance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DiaryValue.txtWhat = "法式料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
-                Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
-                DiaryWhatActivity.this.startActivity(intent,options.toBundle());
-            }
-        });
-
-        // 前往下一頁 italy
-        final Button btnItaly = findViewById(R.id.btn_italy);
-        btnItaly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DiaryValue.txtWhat = "義式料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
-                Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
-                DiaryWhatActivity.this.startActivity(intent,options.toBundle());
-            }
-        });
-
-        // 前往下一頁 Kong
-        final Button btnKong = findViewById(R.id.btn_kong);
-        btnKong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DiaryValue.txtWhat = "港式料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
-                Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
-                DiaryWhatActivity.this.startActivity(intent,options.toBundle());
-            }
-        });
-
-        // 前往下一頁 japan
-        final Button btnJapan = findViewById(R.id.btn_japan);
-        btnJapan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DiaryValue.txtWhat = "日式料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
-                Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
-                DiaryWhatActivity.this.startActivity(intent,options.toBundle());
-            }
-        });
-
-        // 前往下一頁 korea
-        final Button btnKorea = findViewById(R.id.btn_korea);
-        btnKorea.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DiaryValue.txtWhat = "韓式料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
-                Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
-                DiaryWhatActivity.this.startActivity(intent,options.toBundle());
-            }
-        });
-
-        // 前往下一頁 random
-        final Button btnRandom = findViewById(R.id.btn_random);
-        btnRandom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DiaryValue.txtWhat = "無菜單料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
-                Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
-                DiaryWhatActivity.this.startActivity(intent,options.toBundle());
-            }
-        });
-
-        // 前往下一頁 ider
-        final Button btnider = findViewById(R.id.btn_ider);
-        btnider.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DiaryValue.txtWhat = "創意料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
-                Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
-                DiaryWhatActivity.this.startActivity(intent,options.toBundle());
-            }
-        });
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
 
         // 前往preview
         final TextView mPreview = findViewById(R.id.btn_preview_what);
@@ -209,6 +80,44 @@ public class DiaryWhatActivity extends AppCompatActivity{
         });
 
     }
+
+    public class InnerPagerAdapter extends FragmentPagerAdapter {
+        public InnerPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position){
+            Fragment fragment = null;
+            switch (position){
+                case 0:
+                    fragment = new DiaryWhatFirstFragment();
+                    break;
+                case 1:
+                    fragment = new DiaryWhatSecondFragment();
+                    break;
+            }
+            return fragment;
+        }
+        @Override
+        public int getCount(){
+            return 2;
+        }
+        @Override
+        public CharSequence getPageTitle(int position){
+            switch (position) {
+                case 0:
+                    return "1";
+                case 1:
+                    return "2";
+                default:
+                    return null;
+            }
+        }
+
+    }
+
+
     // 擋住手機上回上一頁鍵
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
