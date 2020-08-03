@@ -57,6 +57,7 @@ public class DiaryWhatActivity extends AppCompatActivity{
             public void onClick(View v) {
                 DiaryValue.txtWhat = "";
                 DiaryValue.txtWhy = "";
+                DiaryValue.txtWhere = "";
                 Intent intent = new Intent();
                 intent.setClass(DiaryWhatActivity.this,DiaryPreviewActivity.class);
                 Bundle tagData = new Bundle();

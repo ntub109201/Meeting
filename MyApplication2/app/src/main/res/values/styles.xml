@@ -297,4 +297,13 @@
         <item name="android:background">@drawable/btn_usershape</item>
         <!--<item name="android:padding">10dip</item>-->
     </style>
+
+    <style name="btn_market" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_market</item>
+        <item name="android:paddingTop">0dp</item>
+
+    </style>
 </resources>

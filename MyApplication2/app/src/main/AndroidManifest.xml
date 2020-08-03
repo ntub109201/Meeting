@@ -15,13 +15,16 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ModifyPersonalActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".Login.PersonalActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Login.GoogleLoginActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".Diary.DiaryWhereActivity"></activity>
+        <activity
+            android:name=".ModifyPersonalActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Login.PersonalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login.GoogleLoginActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

@@ -6,6 +6,7 @@ public class DiaryValue {
     public static String txtTag;
     public static String txtWhat;
     public static String txtWhy;
+    public static String txtWhere;
     public static boolean WhatLock = true;
     public static String option = "無菜單料理";
     //public static int save = 0;

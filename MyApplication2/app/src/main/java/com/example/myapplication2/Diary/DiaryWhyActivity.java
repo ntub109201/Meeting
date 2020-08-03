@@ -24,8 +24,8 @@ public class DiaryWhyActivity extends AppCompatActivity{
         setContentView(R.layout.activity_diarywhy);
 
         // 反回上一頁
-        final ImageButton imbtnReturnFrontPage2 = findViewById(R.id.imbtnReturnFrontPage2);
-        imbtnReturnFrontPage2.setOnClickListener(new View.OnClickListener() {
+        final ImageButton imbtnReturnFrontPage3 = findViewById(R.id.imbtnReturnFrontPage3);
+        imbtnReturnFrontPage3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DiaryValue.WhatLock = true;
@@ -35,33 +35,27 @@ public class DiaryWhyActivity extends AppCompatActivity{
             }
         });
 
-        // 暫時前往結束頁
+        // 前往Where
         final Button btn_nowhy = findViewById(R.id.btn_nowhy);
         btn_nowhy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhy = "沒為什麼";
                 Intent intent = new Intent();
-                intent.setClass(DiaryWhyActivity.this,DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1","End");
-                intent.putExtras(tagData);
+                intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                 startActivity(intent,options.toBundle());
             }
         });
 
-        // 暫時前往結束頁
+        // 前往Where
         final Button btn_hungry = findViewById(R.id.btn_hungry);
         btn_hungry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhy = "餓了";
                 Intent intent = new Intent();
-                intent.setClass(DiaryWhyActivity.this,DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1","End");
-                intent.putExtras(tagData);
+                intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                 startActivity(intent,options.toBundle());
             }
@@ -73,11 +67,9 @@ public class DiaryWhyActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhy = "";
+                DiaryValue.txtWhere = "";
                 Intent intent = new Intent();
-                intent.setClass(DiaryWhyActivity.this,DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1","DiaryWhyActivity");
-                intent.putExtras(tagData);
+                intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                 startActivity(intent,options.toBundle());
             }
