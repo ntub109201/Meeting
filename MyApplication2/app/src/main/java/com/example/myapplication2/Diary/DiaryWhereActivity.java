@@ -29,6 +29,7 @@ public class DiaryWhereActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private DiaryWhereActivity.MyAdapter myAdapter;
     private LinkedList<HashMap<String,String>> data;
+    public static int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +102,7 @@ public class DiaryWhereActivity extends AppCompatActivity {
         class MyViewHolder extends RecyclerView.ViewHolder{
             public View itemView;
             public ImageView imageView;
-            int position;
+
             public MyViewHolder(View view){
                 super(view);
                 itemView = view;
