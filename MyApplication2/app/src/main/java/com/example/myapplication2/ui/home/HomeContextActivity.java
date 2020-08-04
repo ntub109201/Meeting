@@ -70,23 +70,29 @@ public class HomeContextActivity extends AppCompatActivity {
             textTitle.setText(mood);
             textDescription.setText(date);
             if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("1")){
-                ContextImageView.setImageResource(R.drawable.japan_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("2")){
-                ContextImageView.setImageResource(R.drawable.korea_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("3")){
+                ContextImageView.setImageResource(R.mipmap.ic_usa_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("4")){
-                ContextImageView.setImageResource(R.drawable.taiwan_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("6")){
-                ContextImageView.setImageResource(R.drawable.italy_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("7")){
-                ContextImageView.setImageResource(R.drawable.france_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_france_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("8")){
-                ContextImageView.setImageResource(R.drawable.china_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("9")){
-                ContextImageView.setImageResource(R.drawable.kong_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("10")){
-                ContextImageView.setImageResource(R.drawable.ider_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_idea_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("11")){
-                ContextImageView.setImageResource(R.drawable.random_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("12")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("13")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("42")){
                 ContextImageView.setImageResource(R.drawable.handwrite);
             }
@@ -98,23 +104,29 @@ public class HomeContextActivity extends AppCompatActivity {
             textTitle.setText(mood);
             textDescription.setText(date);
             if(sqlReturn.Option1[HomeFragment.homeTag].equals("1")){
-                ContextImageView.setImageResource(R.drawable.japan_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("2")){
-                ContextImageView.setImageResource(R.drawable.korea_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("3")){
+                ContextImageView.setImageResource(R.mipmap.ic_usa_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("4")){
-                ContextImageView.setImageResource(R.drawable.taiwan_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("6")){
-                ContextImageView.setImageResource(R.drawable.italy_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("7")){
-                ContextImageView.setImageResource(R.drawable.france_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_france_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("8")){
-                ContextImageView.setImageResource(R.drawable.china_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("9")){
-                ContextImageView.setImageResource(R.drawable.kong_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("10")){
-                ContextImageView.setImageResource(R.drawable.ider_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_idea_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("11")){
-                ContextImageView.setImageResource(R.drawable.random_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("12")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("13")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("42")){
                 ContextImageView.setImageResource(R.drawable.handwrite);
             }
@@ -126,23 +138,29 @@ public class HomeContextActivity extends AppCompatActivity {
             textTitle.setText(mood);
             textDescription.setText(date);
             if(sqlReturn.Option2[HomeFragment.homeTag].equals("1")){
-                ContextImageView.setImageResource(R.drawable.japan_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("2")){
-                ContextImageView.setImageResource(R.drawable.korea_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("3")){
+                ContextImageView.setImageResource(R.mipmap.ic_usa_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("4")){
-                ContextImageView.setImageResource(R.drawable.taiwan_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("6")){
-                ContextImageView.setImageResource(R.drawable.italy_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("7")){
-                ContextImageView.setImageResource(R.drawable.france_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_france_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("8")){
-                ContextImageView.setImageResource(R.drawable.china_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("9")){
-                ContextImageView.setImageResource(R.drawable.kong_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("10")){
-                ContextImageView.setImageResource(R.drawable.ider_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_idea_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("11")){
-                ContextImageView.setImageResource(R.drawable.random_icon);
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("12")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("13")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("42")){
                 ContextImageView.setImageResource(R.drawable.handwrite);
             }

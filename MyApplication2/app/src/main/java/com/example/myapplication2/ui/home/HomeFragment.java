@@ -392,67 +392,85 @@ public class HomeFragment extends Fragment {
 
             if(sqlReturn.model == 1){
                 if(sqlReturn.LoginOption[position].equals("1")){
-                    holder.imageView.setImageResource(R.drawable.japan_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_japan_foreground);
                 }else if(sqlReturn.LoginOption[position].equals("2")){
-                    holder.imageView.setImageResource(R.drawable.korea_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_korea_foreground);
+                }else if(sqlReturn.LoginOption[position].equals("3")){
+                    holder.imageView.setImageResource(R.mipmap.ic_usa_foreground);
                 }else if(sqlReturn.LoginOption[position].equals("4")){
-                    holder.imageView.setImageResource(R.drawable.taiwan_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_taiwan_foreground);
                 }else if(sqlReturn.LoginOption[position].equals("6")){
-                    holder.imageView.setImageResource(R.drawable.italy_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_italy_foreground);
                 }else if(sqlReturn.LoginOption[position].equals("7")){
-                    holder.imageView.setImageResource(R.drawable.france_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_france_foreground);
                 }else if(sqlReturn.LoginOption[position].equals("8")){
-                    holder.imageView.setImageResource(R.drawable.china_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_china_foreground);
                 }else if(sqlReturn.LoginOption[position].equals("9")){
-                    holder.imageView.setImageResource(R.drawable.kong_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_hongkong_foreground);
                 }else if(sqlReturn.LoginOption[position].equals("10")){
-                    holder.imageView.setImageResource(R.drawable.ider_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_idea_foreground);
                 }else if(sqlReturn.LoginOption[position].equals("11")){
-                    holder.imageView.setImageResource(R.drawable.random_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_random_foreground);
+                }else if(sqlReturn.LoginOption[position].equals("12")){
+                    holder.imageView.setImageResource(R.mipmap.ic_drinks_foreground);
+                }else if(sqlReturn.LoginOption[position].equals("13")){
+                    holder.imageView.setImageResource(R.mipmap.ic_alcohol_foreground);
                 }else if(sqlReturn.LoginOption[position].equals("42")){
                     holder.imageView.setImageResource(R.drawable.handwrite);
                 }
             }else if(sqlReturn.model == 2){
                 if(sqlReturn.Option1[position].equals("1")){
-                    holder.imageView.setImageResource(R.drawable.japan_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_japan_foreground);
                 }else if(sqlReturn.Option1[position].equals("2")){
-                    holder.imageView.setImageResource(R.drawable.korea_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_korea_foreground);
+                }else if(sqlReturn.Option1[position].equals("3")){
+                    holder.imageView.setImageResource(R.mipmap.ic_usa_foreground);
                 }else if(sqlReturn.Option1[position].equals("4")){
-                    holder.imageView.setImageResource(R.drawable.taiwan_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_taiwan_foreground);
                 }else if(sqlReturn.Option1[position].equals("6")){
-                    holder.imageView.setImageResource(R.drawable.italy_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_italy_foreground);
                 }else if(sqlReturn.Option1[position].equals("7")){
-                    holder.imageView.setImageResource(R.drawable.france_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_france_foreground);
                 }else if(sqlReturn.Option1[position].equals("8")){
-                    holder.imageView.setImageResource(R.drawable.china_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_china_foreground);
                 }else if(sqlReturn.Option1[position].equals("9")){
-                    holder.imageView.setImageResource(R.drawable.kong_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_hongkong_foreground);
                 }else if(sqlReturn.Option1[position].equals("10")){
-                    holder.imageView.setImageResource(R.drawable.ider_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_idea_foreground);
                 }else if(sqlReturn.Option1[position].equals("11")){
-                    holder.imageView.setImageResource(R.drawable.random_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_random_foreground);
+                }else if(sqlReturn.Option1[position].equals("12")){
+                    holder.imageView.setImageResource(R.mipmap.ic_drinks_foreground);
+                }else if(sqlReturn.Option1[position].equals("13")){
+                    holder.imageView.setImageResource(R.mipmap.ic_alcohol_foreground);
                 }else if(sqlReturn.Option1[position].equals("42")){
                     holder.imageView.setImageResource(R.drawable.handwrite);
                 }
             }else if(sqlReturn.model == 3){
                 if(sqlReturn.Option2[position].equals("1")){
-                    holder.imageView.setImageResource(R.drawable.japan_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_japan_foreground);
                 }else if(sqlReturn.Option2[position].equals("2")){
-                    holder.imageView.setImageResource(R.drawable.korea_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_korea_foreground);
+                }else if(sqlReturn.Option2[position].equals("3")){
+                    holder.imageView.setImageResource(R.mipmap.ic_usa_foreground);
                 }else if(sqlReturn.Option2[position].equals("4")){
-                    holder.imageView.setImageResource(R.drawable.taiwan_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_taiwan_foreground);
                 }else if(sqlReturn.Option2[position].equals("6")){
-                    holder.imageView.setImageResource(R.drawable.italy_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_italy_foreground);
                 }else if(sqlReturn.Option2[position].equals("7")){
-                    holder.imageView.setImageResource(R.drawable.france_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_france_foreground);
                 }else if(sqlReturn.Option2[position].equals("8")){
-                    holder.imageView.setImageResource(R.drawable.china_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_china_foreground);
                 }else if(sqlReturn.Option2[position].equals("9")){
-                    holder.imageView.setImageResource(R.drawable.kong_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_hongkong_foreground);
                 }else if(sqlReturn.Option2[position].equals("10")){
-                    holder.imageView.setImageResource(R.drawable.ider_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_idea_foreground);
                 }else if(sqlReturn.Option2[position].equals("11")){
-                    holder.imageView.setImageResource(R.drawable.random_icon);
+                    holder.imageView.setImageResource(R.mipmap.ic_random_foreground);
+                }else if(sqlReturn.Option2[position].equals("12")){
+                    holder.imageView.setImageResource(R.mipmap.ic_drinks_foreground);
+                }else if(sqlReturn.Option2[position].equals("13")){
+                    holder.imageView.setImageResource(R.mipmap.ic_alcohol_foreground);
                 }else if(sqlReturn.Option2[position].equals("42")){
                     holder.imageView.setImageResource(R.drawable.handwrite);
                 }
