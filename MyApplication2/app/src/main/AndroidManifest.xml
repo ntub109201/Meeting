@@ -15,10 +15,11 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Diary.DiaryWhereActivity"></activity>
+        <activity android:name=".Diary.DiaryHowPackage.DiaryHowActivity"></activity>
+        <activity android:name=".Diary.DiaryWhereActivity" />
         <activity
             android:name=".ModifyPersonalActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Login.PersonalActivity"
             android:screenOrientation="portrait" />

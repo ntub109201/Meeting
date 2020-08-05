@@ -306,4 +306,77 @@
         <item name="android:paddingTop">0dp</item>
 
     </style>
+
+    <style name="btn_eye" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_primary2</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:drawableTop">@mipmap/ic_eye_foreground</item>
+    </style>
+    <style name="btn_ear" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_primary2</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:drawableTop">@mipmap/ic_ear_foreground</item>
+    </style>
+    <style name="btn_nose" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_primary2</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:drawableTop">@mipmap/ic_nose_foreground</item>
+    </style>
+    <style name="btn_mouth" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_primary2</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:drawableTop">@mipmap/ic_mouth_foreground</item>
+    </style>
+    <style name="btn_normal" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_normal</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:drawableTop">@mipmap/ic_normal_foreground</item>
+    </style>
+    <style name="btn_phase" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_phase</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:drawableTop">@mipmap/ic_phase_foreground</item>
+    </style>
+    <style name="btn_strange" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_strange</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:drawableTop">@mipmap/ic_strange_foreground</item>
+    </style>
+    <style name="btn_delicate" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_delicate</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:drawableTop">@mipmap/ic_delicate_foreground</item>
+    </style>
+    <style name="btn_special" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_special</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:drawableTop">@mipmap/ic_special_foreground</item>
+    </style>
 </resources>
