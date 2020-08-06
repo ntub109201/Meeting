@@ -35,7 +35,6 @@ public class DiaryWhyActivity extends AppCompatActivity{
             }
         });
 
-        // 前往Where
         final Button btn_nowhy = findViewById(R.id.btn_nowhy);
         btn_nowhy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +47,18 @@ public class DiaryWhyActivity extends AppCompatActivity{
             }
         });
 
-        // 前往Where
+        final Button btn_party = findViewById(R.id.btn_party);
+        btn_party.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhy = "聚會";
+                Intent intent = new Intent();
+                intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                startActivity(intent,options.toBundle());
+            }
+        });
+
         final Button btn_hungry = findViewById(R.id.btn_hungry);
         btn_hungry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,13 +71,47 @@ public class DiaryWhyActivity extends AppCompatActivity{
             }
         });
 
-        //跳題
-        final TextView btn_skip = findViewById(R.id.btn_skip);
-        btn_skip.setOnClickListener(new View.OnClickListener() {
+        final Button btn_celebrate = findViewById(R.id.btn_celebrate);
+        btn_celebrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWhy = "";
-                DiaryValue.txtWhere = "";
+                DiaryValue.txtWhy = "慶祝";
+                Intent intent = new Intent();
+                intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                startActivity(intent,options.toBundle());
+            }
+        });
+
+        final Button btn_try = findViewById(R.id.btn_try);
+        btn_try.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhy = "嚐鮮";
+                Intent intent = new Intent();
+                intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                startActivity(intent,options.toBundle());
+            }
+        });
+
+        final Button btn_yummy = findViewById(R.id.btn_yummy);
+        btn_yummy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhy = "合胃口";
+                Intent intent = new Intent();
+                intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                startActivity(intent,options.toBundle());
+            }
+        });
+
+        final Button btn_tired = findViewById(R.id.btn_tired);
+        btn_tired.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhy = "嘴饞";
                 Intent intent = new Intent();
                 intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
@@ -81,6 +125,8 @@ public class DiaryWhyActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhy = "";
+                DiaryValue.txtWhere = "";
+                DiaryValue.txtHow_1[0] = "";
                 Intent intent = new Intent();
                 intent.setClass(DiaryWhyActivity.this,DiaryPreviewActivity.class);
                 Bundle tagData = new Bundle();
@@ -90,6 +136,21 @@ public class DiaryWhyActivity extends AppCompatActivity{
                 startActivity(intent,options.toBundle());
             }
         });
+
+        //跳題
+        final TextView btn_skip = findViewById(R.id.btn_skip);
+        btn_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhy = "";
+                Intent intent = new Intent();
+                intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                startActivity(intent,options.toBundle());
+            }
+        });
+
+
     }
     // 擋住手機上回上一頁鍵
     public boolean onKeyDown(int keyCode, KeyEvent event) {

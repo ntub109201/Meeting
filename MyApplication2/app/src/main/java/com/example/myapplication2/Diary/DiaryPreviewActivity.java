@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.myapplication2.Diary.DiaryHowPackage.DiaryHowActivity;
 import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
@@ -69,7 +70,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                     DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
                 }else if(tag1.equals("DiaryWhatActivity")){
-
                     Intent intent = new Intent(DiaryPreviewActivity.this,DiaryWhatActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                     DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
@@ -81,6 +81,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                         Intent intent = new Intent(DiaryPreviewActivity.this, DiaryWhereActivity.class);
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                         DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
+                }else if(tag1.equals("DiaryHowActivity")) {
+                    Intent intent = new Intent(DiaryPreviewActivity.this, DiaryHowActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
+                    DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
                 }else if(tag1.equals("End")){
                     Intent intent = new Intent(DiaryPreviewActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);

@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myapplication2.Diary.DiaryHowPackage.DiaryHowActivity;
 import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.R;
 
@@ -56,12 +57,14 @@ public class DiaryWhereActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(myAdapter);
         doData();
 
-        //跳題
-        final TextView btn_skip = findViewById(R.id.btn_skip);
-        btn_skip.setOnClickListener(new View.OnClickListener() {
+
+        // 前往preview
+        final TextView mPreview = findViewById(R.id.btn_preview_where);
+        mPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhere = "";
+                DiaryValue.txtHow_1[0] = "";
                 Intent intent = new Intent();
                 intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
                 Bundle tagData = new Bundle();
@@ -72,17 +75,14 @@ public class DiaryWhereActivity extends AppCompatActivity {
             }
         });
 
-        // 前往preview
-        final TextView mPreview = findViewById(R.id.btn_preview_where);
-        mPreview.setOnClickListener(new View.OnClickListener() {
+        //跳題
+        final TextView btn_skip = findViewById(R.id.btn_skip);
+        btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhere = "";
                 Intent intent = new Intent();
-                intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1","DiaryWhereActivity");
-                intent.putExtras(tagData);
+                intent.setClass(DiaryWhereActivity.this,DiaryHowActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                 startActivity(intent,options.toBundle());
             }
@@ -114,73 +114,49 @@ public class DiaryWhereActivity extends AppCompatActivity {
                         if(position == 0){
                             DiaryValue.txtWhere = "夜市";
                             Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
-                            Bundle tagData = new Bundle();
-                            tagData.putString("1","End");
-                            intent.putExtras(tagData);
+                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                             startActivity(intent,options.toBundle());
                         }else if(position == 1){
                             DiaryValue.txtWhere = "咖啡廳";
                             Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
-                            Bundle tagData = new Bundle();
-                            tagData.putString("1","End");
-                            intent.putExtras(tagData);
+                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                             startActivity(intent,options.toBundle());
                         }else if(position == 2){
                             DiaryValue.txtWhere = "速食店";
                             Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
-                            Bundle tagData = new Bundle();
-                            tagData.putString("1","End");
-                            intent.putExtras(tagData);
+                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                             startActivity(intent,options.toBundle());
                         }else if(position == 3){
                             DiaryValue.txtWhere = "居酒屋";
                             Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
-                            Bundle tagData = new Bundle();
-                            tagData.putString("1","End");
-                            intent.putExtras(tagData);
+                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                             startActivity(intent,options.toBundle());
                         }else if(position == 4){
                             DiaryValue.txtWhere = "辦公室";
                             Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
-                            Bundle tagData = new Bundle();
-                            tagData.putString("1","End");
-                            intent.putExtras(tagData);
+                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                             startActivity(intent,options.toBundle());
                         }else if(position == 5){
                             DiaryValue.txtWhere = "餐廳";
                             Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
-                            Bundle tagData = new Bundle();
-                            tagData.putString("1","End");
-                            intent.putExtras(tagData);
+                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                             startActivity(intent,options.toBundle());
                         }else if(position == 6){
                             DiaryValue.txtWhere = "路邊攤";
                             Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
-                            Bundle tagData = new Bundle();
-                            tagData.putString("1","End");
-                            intent.putExtras(tagData);
+                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                             startActivity(intent,options.toBundle());
                         }else if(position == 7){
                             DiaryValue.txtWhere = "學校";
                             Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
-                            Bundle tagData = new Bundle();
-                            tagData.putString("1","End");
-                            intent.putExtras(tagData);
+                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                             startActivity(intent,options.toBundle());
                         }else if(position == 8){
