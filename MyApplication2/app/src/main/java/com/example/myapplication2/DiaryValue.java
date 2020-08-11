@@ -8,8 +8,9 @@ public class DiaryValue {
     public static String txtWhy;
     public static String txtWhere;
     public static int howCount = 0;
-    public static String[] txtHow_1 = new String[5];
-    public static String[] txtHow_2 = new String[10];
+    public static int SelectCount = 0;
+    public static String[] txtHow_choose = new String[5];
+    public static String[] txtHow_food = new String[100];
     public static boolean WhatLock = true;
     public static String option = "無菜單料理";
     //public static int save = 0;

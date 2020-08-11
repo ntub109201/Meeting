@@ -95,6 +95,9 @@ public class DiaryTagActivity extends AppCompatActivity {
                 DiaryValue.txtWhat = "";
                 DiaryValue.txtWhy = "";
                 DiaryValue.txtWhere = "";
+                for(int i = 0; i< 5; i++){
+                    DiaryValue.txtHow_choose[i] = "";
+                }
                 Intent intent = new Intent();
                 intent.setClass(DiaryTagActivity.this,DiaryPreviewActivity.class);
                 Bundle tagData = new Bundle();

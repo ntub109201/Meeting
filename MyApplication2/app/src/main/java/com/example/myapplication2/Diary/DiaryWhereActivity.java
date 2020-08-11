@@ -64,7 +64,9 @@ public class DiaryWhereActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhere = "";
-                DiaryValue.txtHow_1[0] = "";
+                for(int i = 0; i< 5; i++){
+                    DiaryValue.txtHow_choose[i] = "";
+                }
                 Intent intent = new Intent();
                 intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
                 Bundle tagData = new Bundle();

@@ -55,6 +55,9 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                         total = edit;
                     }
                 }
+                // 很重要
+                DiaryValue.howCount = 0;
+                DiaryValue.SelectCount = 0;
                 Intent intent = new Intent(DiaryPreviewActivity.this, DiaryTagActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                 startActivity(intent,options.toBundle());
@@ -82,6 +85,9 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                         DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
                 }else if(tag1.equals("DiaryHowActivity")) {
+                    // 很重要
+                    DiaryValue.howCount = 0;
+                    DiaryValue.SelectCount = 0;
                     Intent intent = new Intent(DiaryPreviewActivity.this, DiaryHowActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                     DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
@@ -94,6 +100,7 @@ public class DiaryPreviewActivity extends AppCompatActivity{
         });
 
 
+
         // total
         final Guidor guidor = new Guidor(getApplicationContext(),"diary.db",null,1);
         String a = "";
@@ -102,21 +109,49 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                 if(DiaryValue.txtWhy.equals("")){
                     if(DiaryValue.txtWhere.equals("")){
                         guidor.setMood(DiaryValue.txtMood);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }else {
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setWhere(DiaryValue.txtWhere);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }
                 }else {
                     if(DiaryValue.txtWhere.equals("")){
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setWhere(DiaryValue.txtWhy);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }else {
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setWhy(DiaryValue.txtWhy);
                         guidor.setWhere(DiaryValue.txtWhere);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }
                 }
@@ -125,11 +160,25 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                     if(DiaryValue.txtWhere.equals("")){
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setWhat(DiaryValue.txtWhat);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }else {
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setWhere(DiaryValue.txtWhere);
                         guidor.setWhat(DiaryValue.txtWhat);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }
                 }else{
@@ -137,12 +186,26 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setWhy(DiaryValue.txtWhy);
                         guidor.setWhat(DiaryValue.txtWhat);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }else {
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setWhy(DiaryValue.txtWhy);
                         guidor.setWhere(DiaryValue.txtWhere);
                         guidor.setWhat(DiaryValue.txtWhat);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }
                 }
@@ -153,11 +216,25 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                     if(DiaryValue.txtWhere.equals("")){
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setTag(DiaryValue.txtTag);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }else {
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setTag(DiaryValue.txtTag);
                         guidor.setWhere(DiaryValue.txtWhere);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }
                 }else {
@@ -165,12 +242,26 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setTag(DiaryValue.txtTag);
                         guidor.setWhy(DiaryValue.txtWhy);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }else {
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setTag(DiaryValue.txtTag);
                         guidor.setWhy(DiaryValue.txtWhy);
                         guidor.setWhere(DiaryValue.txtWhere);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }
                 }
@@ -180,12 +271,26 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setTag(DiaryValue.txtTag);
                         guidor.setWhat(DiaryValue.txtWhat);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }else {
                         guidor.setMood(DiaryValue.txtMood);
                         guidor.setTag(DiaryValue.txtTag);
                         guidor.setWhere(DiaryValue.txtWhere);
                         guidor.setWhat(DiaryValue.txtWhat);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }
                 }else {
@@ -194,6 +299,13 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                         guidor.setTag(DiaryValue.txtTag);
                         guidor.setWhy(DiaryValue.txtWhy);
                         guidor.setWhat(DiaryValue.txtWhat);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }else {
                         guidor.setMood(DiaryValue.txtMood);
@@ -201,6 +313,13 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                         guidor.setWhy(DiaryValue.txtWhy);
                         guidor.setWhere(DiaryValue.txtWhere);
                         guidor.setWhat(DiaryValue.txtWhat);
+                        for(int i = 0; i< DiaryValue.howCount; i++){
+                            if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                for(int j = 0; j < DiaryValue.SelectCount; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food[j]);
+                                }
+                            }
+                        }
                         a = guidor.getDiary();
                     }
                 }

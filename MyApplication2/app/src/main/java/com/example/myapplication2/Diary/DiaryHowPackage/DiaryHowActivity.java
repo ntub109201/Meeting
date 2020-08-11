@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.example.myapplication2.R;
 
 public class DiaryHowActivity extends AppCompatActivity {
 
+    private Button btn_eye;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,22 @@ public class DiaryHowActivity extends AppCompatActivity {
         imbtnReturnFrontPage5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DiaryValue.howCount = 0;
+                DiaryValue.SelectCount = 0;
                 Intent intent = new Intent(DiaryHowActivity.this, DiaryWhereActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                DiaryHowActivity.this.startActivity(intent,options.toBundle());
+            }
+        });
+
+        btn_eye = findViewById(R.id.btn_eye);
+        btn_eye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 很重要
+                DiaryValue.howCount = 0;
+                DiaryValue.SelectCount = 0;
+                Intent intent = new Intent(DiaryHowActivity.this, DiaryHowEyeActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
                 DiaryHowActivity.this.startActivity(intent,options.toBundle());
             }
@@ -39,7 +56,9 @@ public class DiaryHowActivity extends AppCompatActivity {
         mPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtHow_1[0] = "";
+                for(int i = 0; i< 5; i++){
+                    DiaryValue.txtHow_choose[i] = "";
+                }
                 Intent intent = new Intent();
                 intent.setClass(DiaryHowActivity.this,DiaryPreviewActivity.class);
                 Bundle tagData = new Bundle();
@@ -56,7 +75,7 @@ public class DiaryHowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(btn_skip.getText().toString().equals("跳題")){
-                    DiaryValue.txtHow_1[0] = "";
+                    DiaryValue.txtHow_choose[0] = "";
                     Intent intent = new Intent();
                     intent.setClass(DiaryHowActivity.this, DiaryPreviewActivity.class);
                     Bundle tagData = new Bundle();
