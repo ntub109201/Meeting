@@ -109,9 +109,9 @@ public class DiaryWhatActivity extends AppCompatActivity{
         public CharSequence getPageTitle(int position){
             switch (position) {
                 case 0:
-                    return "1";
+                    return "";
                 case 1:
-                    return "2";
+                    return " ";
                 default:
                     return null;
             }
