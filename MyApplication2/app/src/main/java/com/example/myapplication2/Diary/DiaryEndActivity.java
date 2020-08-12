@@ -150,6 +150,7 @@ public class DiaryEndActivity extends AppCompatActivity {
                 DiaryPreviewActivity.totalPlus = "";
                 DiaryPreviewActivity.total = "";
                 DiaryValue.WhatLock = true;
+                DiaryValue.howCount = 0;
                 Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(DiaryEndActivity.this, MainActivity.class);
                 intent.putExtra("id",1);

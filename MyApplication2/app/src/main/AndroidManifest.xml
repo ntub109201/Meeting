@@ -15,15 +15,16 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Diary.DiaryHowPackage.DiaryHowMouthActivity"></activity>
         <activity
             android:name=".Diary.DiaryHowPackage.DiaryHowEyeActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Diary.DiaryHowPackage.DiaryHowActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Diary.DiaryWhereActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ModifyPersonalActivity"
             android:screenOrientation="portrait" />

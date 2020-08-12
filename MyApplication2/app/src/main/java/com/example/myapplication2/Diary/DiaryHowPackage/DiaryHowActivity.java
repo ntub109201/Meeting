@@ -19,7 +19,8 @@ import com.example.myapplication2.R;
 
 public class DiaryHowActivity extends AppCompatActivity {
 
-    private Button btn_eye;
+    private Button btn_eye, btn_mouth;
+    private TextView mPreview, btn_skip, txtTest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +32,30 @@ public class DiaryHowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.howCount = 0;
-                DiaryValue.SelectCount = 0;
+                DiaryValue.Eye_Count = 0;
                 Intent intent = new Intent(DiaryHowActivity.this, DiaryWhereActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                DiaryHowActivity.this.startActivity(intent,options.toBundle());
+            }
+        });
+
+        txtTest = findViewById(R.id.txtTest);
+        txtTest.setText(String.valueOf(DiaryValue.howCount));
+
+
+        btn_mouth = findViewById(R.id.btn_mouth);
+        btn_mouth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 很重要
+                if(btn_skip.getText().toString().equals("跳題")){
+                    DiaryValue.howCount = 0;
+                }
+                if(DiaryValue.howCount == 2){
+                    DiaryValue.howCount -= 1;
+                }
+                DiaryValue.Mouth_Count = 0;
+                Intent intent = new Intent(DiaryHowActivity.this, DiaryHowMouthActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
                 DiaryHowActivity.this.startActivity(intent,options.toBundle());
             }
@@ -43,8 +66,13 @@ public class DiaryHowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 很重要
-                DiaryValue.howCount = 0;
-                DiaryValue.SelectCount = 0;
+                if(btn_skip.getText().toString().equals("跳題")){
+                    DiaryValue.howCount = 0;
+                }
+                if(DiaryValue.howCount == 2){
+                    DiaryValue.howCount -= 1;
+                }
+                DiaryValue.Eye_Count = 0;
                 Intent intent = new Intent(DiaryHowActivity.this, DiaryHowEyeActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
                 DiaryHowActivity.this.startActivity(intent,options.toBundle());
@@ -52,7 +80,7 @@ public class DiaryHowActivity extends AppCompatActivity {
         });
 
         // 前往preview
-        final TextView mPreview = findViewById(R.id.btn_preview_how);
+        mPreview = findViewById(R.id.btn_preview_how);
         mPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +98,7 @@ public class DiaryHowActivity extends AppCompatActivity {
         });
 
         //跳題
-        final TextView btn_skip = findViewById(R.id.btn_skip);
+        btn_skip = findViewById(R.id.btn_skip);
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
