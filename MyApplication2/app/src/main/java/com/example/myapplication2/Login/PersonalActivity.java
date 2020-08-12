@@ -24,19 +24,26 @@ import com.google.android.material.tabs.TabLayout;
 
 public class PersonalActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
-//        new AlertDialog.Builder(this)
-//                .setTitle("歡迎使用Guidary")
-//                .setMessage("請填寫個人基本資料以幫助我們更了解您")
-//                .setPositiveButton("OK", null)
-//                .show();
-//        sqlReturn.RegisterFirstLogin = true;
-
-
+        sqlReturn.RegisterFirstLogin = true;
     }
 
+    // 擋住手機上回上一頁鍵
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
+                event.startTracking();
+            } else {
+                onBackPressed(); // 是其他按鍵則再Call Back方法
+            }
+        }
+        return false;
+    }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return super.onKeyUp(keyCode, event);
+    }
 }
