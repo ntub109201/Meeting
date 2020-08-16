@@ -81,172 +81,171 @@
             app:layout_constraintVertical_bias="0.034" />
 
         <Button
-            android:id="@+id/btn_homeTown"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
-            android:text="家鄉味"
+            android:id="@+id/btn_nausea"
+            style="@style/btn_shape"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="噁    心"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.138"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.175" />
+            app:layout_constraintVertical_bias="0.773" />
+
+        <Button
+            android:id="@+id/btn_homeTown"
+            style="@style/btn_shape"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:text="家    鄉    味"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.084"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.262" />
 
         <Button
             android:id="@+id/btn_single"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
-            android:text="單調"
+            style="@style/btn_shape"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="單    調"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.524"
+            app:layout_constraintHorizontal_bias="0.933"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.175" />
+            app:layout_constraintVertical_bias="0.42" />
 
         <Button
             android:id="@+id/btn_simple"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
-            android:text="樸實"
+            style="@style/btn_shape"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="樸   實"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.907"
+            app:layout_constraintHorizontal_bias="0.933"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.175" />
+            app:layout_constraintVertical_bias="0.591" />
 
         <Button
             android:id="@+id/btn_plenty"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
-            android:text="豐富"
+            style="@style/btn_shape"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="豐    富"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.138"
+            app:layout_constraintHorizontal_bias="0.066"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.381" />
+            app:layout_constraintVertical_bias="0.42" />
 
         <Button
             android:id="@+id/btn_bitter"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
+            style="@style/btn_shape"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:text="苦"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.524"
+            app:layout_constraintHorizontal_bias="0.941"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.381" />
+            app:layout_constraintVertical_bias="0.262" />
 
         <Button
             android:id="@+id/btn_hot"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
+            style="@style/btn_shape"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:text="辣"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.907"
+            app:layout_constraintHorizontal_bias="0.944"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.381" />
+            app:layout_constraintVertical_bias="0.773" />
 
         <Button
             android:id="@+id/btn_acid"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
+            style="@style/btn_shape"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:text="酸"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.138"
+            app:layout_constraintHorizontal_bias="0.055"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.59" />
+            app:layout_constraintVertical_bias="0.591" />
 
         <Button
             android:id="@+id/btn_sweet"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
+            style="@style/btn_shape"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:text="甜"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.524"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.59" />
+            app:layout_constraintVertical_bias="0.42" />
 
         <Button
             android:id="@+id/btn_salty"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
+            style="@style/btn_shape"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:text="鹹"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.907"
+            app:layout_constraintHorizontal_bias="0.668"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.59" />
+            app:layout_constraintVertical_bias="0.262" />
 
         <Button
             android:id="@+id/btn_fantastic"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
-            android:text="奇妙"
+            style="@style/btn_shape"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="奇    妙"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.138"
+            app:layout_constraintHorizontal_bias="0.395"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.811" />
+            app:layout_constraintVertical_bias="0.591" />
 
         <Button
             android:id="@+id/btn_unique"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
-            android:text="獨特"
+            style="@style/btn_shape"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="獨    特"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.524"
+            app:layout_constraintHorizontal_bias="0.066"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.811" />
-
-        <Button
-            android:id="@+id/btn_nausea"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/how_color1"
-            android:text="噁心"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.907"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.811" />
+            app:layout_constraintVertical_bias="0.773" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

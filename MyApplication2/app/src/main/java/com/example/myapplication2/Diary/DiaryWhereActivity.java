@@ -164,10 +164,7 @@ public class DiaryWhereActivity extends AppCompatActivity {
                         }else if(position == 8){
                             DiaryValue.txtWhere = "小吃店";
                             Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
-                            Bundle tagData = new Bundle();
-                            tagData.putString("1","End");
-                            intent.putExtras(tagData);
+                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                             startActivity(intent,options.toBundle());
                         }

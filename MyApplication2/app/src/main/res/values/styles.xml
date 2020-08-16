@@ -13,6 +13,9 @@
         <item name="android:windowExitTransition">@transition/explode_anim</item>
     </style>
 
+    <style name="btn_shape">
+        <item name="android:background">@drawable/button_shape</item>
+    </style>
     <style name="btn_diarybtn" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/btn_diarybtn</item>
     </style>

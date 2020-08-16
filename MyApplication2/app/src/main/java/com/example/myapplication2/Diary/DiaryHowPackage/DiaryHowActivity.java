@@ -39,8 +39,8 @@ public class DiaryHowActivity extends AppCompatActivity {
             }
         });
 
-        txtTest = findViewById(R.id.txtTest);
-        txtTest.setText(String.valueOf(DiaryValue.howCount));
+//        txtTest = findViewById(R.id.txtTest);
+//        txtTest.setText(String.valueOf(DiaryValue.howCount));
 
 
         btn_mouth = findViewById(R.id.btn_mouth);
