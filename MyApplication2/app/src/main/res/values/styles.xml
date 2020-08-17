@@ -390,4 +390,5 @@
         <item name="android:paddingRight">0dp</item>
         <item name="android:drawableTop">@mipmap/ic_habitfood_foreground</item>
     </style>
+
 </resources>

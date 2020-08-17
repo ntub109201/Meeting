@@ -59,6 +59,7 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                 DiaryValue.howCount = 0;
                 DiaryValue.Eye_Count = 0;
                 DiaryValue.Mouth_Count = 0;
+                DiaryValue.Smell_Count = 0;
                 Intent intent = new Intent(DiaryPreviewActivity.this, DiaryTagActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                 startActivity(intent,options.toBundle());
@@ -90,6 +91,7 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                     DiaryValue.howCount = 0;
                     DiaryValue.Eye_Count = 0;
                     DiaryValue.Mouth_Count = 0;
+                    DiaryValue.Smell_Count = 0;
                     Intent intent = new Intent(DiaryPreviewActivity.this, DiaryHowActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                     DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
@@ -120,6 +122,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
                                 }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                }
                             }
                         }
                         a = guidor.getDiary();
@@ -134,6 +140,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                             }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
                                 }
                             }
                         }
@@ -152,6 +162,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
                                 }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                }
                             }
                         }
                         a = guidor.getDiary();
@@ -167,6 +181,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                             }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
                                 }
                             }
                         }
@@ -187,6 +205,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
                                 }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                }
                             }
                         }
                         a = guidor.getDiary();
@@ -202,6 +224,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                             }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
                                 }
                             }
                         }
@@ -221,6 +247,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
                                 }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                }
                             }
                         }
                         a = guidor.getDiary();
@@ -237,6 +267,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                             }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
                                 }
                             }
                         }
@@ -259,6 +293,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
                                 }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                }
                             }
                         }
                         a = guidor.getDiary();
@@ -274,6 +312,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                             }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
                                 }
                             }
                         }
@@ -293,6 +335,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
                                 }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                }
                             }
                         }
                         a = guidor.getDiary();
@@ -309,6 +355,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                             }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
                                 }
                             }
                         }
@@ -331,6 +381,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
                                 }
                                 i++;
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                }
                             }
                         }
                         a = guidor.getDiary();
@@ -348,6 +402,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                             }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
                                 }
                             }
                         }
@@ -368,6 +426,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
                                 }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                }
                             }
                         }
                         a = guidor.getDiary();
@@ -385,6 +447,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                             }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
                                 for(int j = 0; j < DiaryValue.Mouth_Count; j++){
                                     guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                }
+                            }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                    guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
                                 }
                             }
                         }

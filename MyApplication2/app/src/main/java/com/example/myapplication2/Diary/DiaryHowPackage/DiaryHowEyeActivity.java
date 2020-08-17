@@ -34,7 +34,7 @@ public class DiaryHowEyeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 很重要
-                DiaryValue.howCount = 0;
+                //DiaryValue.howCount = 0;
                 DiaryValue.Eye_Count = 0;
                 Intent intent = new Intent(DiaryHowEyeActivity.this, DiaryHowActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowEyeActivity.this);
