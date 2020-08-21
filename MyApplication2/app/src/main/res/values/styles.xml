@@ -32,6 +32,42 @@
         <item name="android:paddingTop">20dp</item>
         <item name="android:drawableTop">@mipmap/ic_shop_foreground</item>
     </style>
+
+    <style name="btn_friendback" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_friendlistshape</item>
+        <!--<item name="android:padding">10dip</item>-->
+        <item name="android:drawableTop">@mipmap/ic_friendlist_foreground</item>
+    </style>
+    <style name="btn_friendback1" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_friendlistshape</item>
+        <!--<item name="android:padding">10dip</item>-->
+        <item name="android:drawableTop">@mipmap/ic_friendback_foreground</item>
+    </style>
+    <style name="btn_addphoto" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_primary</item>
+        <item name="android:paddingRight">-20dp</item>
+        <item name="android:drawableRight">@mipmap/ic_addphoto_foreground</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="btn_check" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_primary</item>
+        <item name="android:paddingRight">-30dp</item>
+        <item name="android:drawableRight">@mipmap/ic_check_foreground</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="btn_food" parent="@android:style/Widget.Button">
         <!--<item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>-->
@@ -389,6 +425,86 @@
         <item name="android:background">@drawable/btn_habitfood</item>
         <item name="android:paddingRight">0dp</item>
         <item name="android:drawableTop">@mipmap/ic_habitfood_foreground</item>
+    </style>
+	<style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#ADC7A5</item>
+    </style>
+    <style name="btn_friendsearch" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_friendlistshape</item>
+        <!--<item name="android:padding">10dip</item>-->
+        <item name="android:drawableTop">@mipmap/ic_friendsearch_foreground</item>
+    </style>
+    <style name="btn_friendlist" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_friendlistshape</item>
+        <!--<item name="android:padding">10dip</item>-->
+        <item name="android:drawableTop">@mipmap/ic_friendlist_foreground</item>
+    </style>
+    <style name="btn_friendconfirm" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_friendconfirm</item>
+        <!--<item name="android:padding">10dip</item>-->
+    </style>
+    <style name="btn_edit" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/friend_primary</item>
+        <item name="android:paddingRight">-30dp</item>
+        <item name="android:drawableRight">@mipmap/ic_edit_foreground</item>
+    </style>
+    <style name="btn_setback" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/friend_primary</item>
+        <item name="android:paddingRight">-30dp</item>
+        <item name="android:drawableRight">@mipmap/ic_setback_foreground</item>
+    </style>
+    <style name="btn_chapassword" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/friend_primary</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawableLeft">@mipmap/ic_chpassword_foreground</item>
+    </style>
+    <style name="btn_chapersoninfo" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/friend_primary</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawableLeft">@mipmap/ic_chpersoninfo_foreground</item>
+    </style>
+    <style name="btn_info" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/friend_primary</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawableLeft">@mipmap/ic_info_foreground</item>
+    </style>
+    <style name="btn_logout" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/friend_primary</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawableLeft">@mipmap/ic_logout_foreground</item>
     </style>
 
 </resources>
