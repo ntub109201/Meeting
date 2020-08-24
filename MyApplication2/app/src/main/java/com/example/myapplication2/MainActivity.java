@@ -97,14 +97,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // OCR暫時沒有
-//        final Button goToOCR = findViewById(R.id.goToOCRbutton);
-//        goToOCR.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                Intent registerIntent = new Intent(MainActivity.this, OCRActivity.class);
-//                MainActivity.this.startActivity(registerIntent);
-//            }
-//        });
+        final Button goToOCR = findViewById(R.id.goToOCRbutton);
+        goToOCR.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(MainActivity.this, OCRActivity.class);
+                MainActivity.this.startActivity(registerIntent);
+            }
+        });
 
 
 
