@@ -20,7 +20,7 @@
             android:id="@+id/btn_friendsearch"
             android:layout_width="60dp"
             android:layout_height="61dp"
-            android:background="@mipmap/ic_friendsearch_foreground"
+            android:background="@mipmap/ic_addbestfriend_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

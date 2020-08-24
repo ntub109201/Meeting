@@ -82,18 +82,30 @@
         app:layout_constraintVertical_bias="0.8">
 
         <Button
-            android:id="@+id/btnBirthday"
-            style="@style/btn_primary"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:text="選擇"
-            android:textColor="#FFFFFFFF"
+            android:id="@+id/btnDate"
+            style="@style/btn_primary2"
+            android:layout_width="73dp"
+            android:layout_height="71dp"
+            android:background="@mipmap/ic_date_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.89"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.088" />
+
+        <Button
+            android:id="@+id/btn"
+            style="@style/btn_primary2"
+            android:layout_width="73dp"
+            android:layout_height="71dp"
+            android:background="@mipmap/ic_date_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.236"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.233" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <ProgressBar
