@@ -126,6 +126,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
             public void onClick(View v) {
                 DiaryValue.txtWhy = "";
                 DiaryValue.txtWhere = "";
+                DiaryValue.txtWhen = "";
                 for(int i = 0; i< 5; i++){
                     DiaryValue.txtHow_choose[i] = "";
                 }

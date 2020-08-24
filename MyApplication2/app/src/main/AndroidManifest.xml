@@ -15,8 +15,12 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Diary.DiaryHowPackage.DiaryHowSmellActivity"></activity>
-        <activity android:name=".Diary.DiaryHowPackage.DiaryHowMouthActivity" />
+        <activity android:name=".Diary.DiaryWhenActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Diary.DiaryHowPackage.DiaryHowSmellActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Diary.DiaryHowPackage.DiaryHowMouthActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Diary.DiaryHowPackage.DiaryHowEyeActivity"
             android:screenOrientation="portrait" />

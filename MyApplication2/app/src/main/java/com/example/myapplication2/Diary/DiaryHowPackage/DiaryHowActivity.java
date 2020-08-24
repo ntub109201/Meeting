@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.myapplication2.Diary.DiaryPreviewActivity;
+import com.example.myapplication2.Diary.DiaryWhenActivity;
 import com.example.myapplication2.Diary.DiaryWhereActivity;
 import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.R;
@@ -104,6 +105,7 @@ public class DiaryHowActivity extends AppCompatActivity {
         mPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DiaryValue.txtWhen = "";
                 for(int i = 0; i< 5; i++){
                     DiaryValue.txtHow_choose[i] = "";
                 }
@@ -123,20 +125,16 @@ public class DiaryHowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(btn_skip.getText().toString().equals("跳題")){
-                    DiaryValue.txtHow_choose[0] = "";
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
                     Intent intent = new Intent();
-                    intent.setClass(DiaryHowActivity.this, DiaryPreviewActivity.class);
-                    Bundle tagData = new Bundle();
-                    tagData.putString("1","DiaryHowActivity");
-                    intent.putExtras(tagData);
+                    intent.setClass(DiaryHowActivity.this, DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
                     startActivity(intent,options.toBundle());
                 }else {
                     Intent intent = new Intent();
-                    intent.setClass(DiaryHowActivity.this, DiaryPreviewActivity.class);
-                    Bundle tagData = new Bundle();
-                    tagData.putString("1","DiaryHowActivity");
-                    intent.putExtras(tagData);
+                    intent.setClass(DiaryHowActivity.this, DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
                     startActivity(intent,options.toBundle());
                 }

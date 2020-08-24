@@ -95,6 +95,7 @@ public class DiaryTagActivity extends AppCompatActivity {
                 DiaryValue.txtWhat = "";
                 DiaryValue.txtWhy = "";
                 DiaryValue.txtWhere = "";
+                DiaryValue.txtWhen = "";
                 for(int i = 0; i< 5; i++){
                     DiaryValue.txtHow_choose[i] = "";
                 }

@@ -86,6 +86,10 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                         Intent intent = new Intent(DiaryPreviewActivity.this, DiaryWhereActivity.class);
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                         DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
+                }else if(tag1.equals("DiaryWhenActivity")) {
+                    Intent intent = new Intent(DiaryPreviewActivity.this, DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
+                    DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
                 }else if(tag1.equals("DiaryHowActivity")) {
                     // 很重要
                     DiaryValue.howCount = 0;
