@@ -1,6 +1,7 @@
 package com.example.myapplication2.Diary;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
@@ -88,12 +89,88 @@ public class DiaryWhenActivity extends AppCompatActivity {
             }
         });
 
+        final Button btn_morning = findViewById(R.id.btn_morning);
+        btn_morning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhen = "早上";
+                Intent intent = new Intent();
+                intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                Bundle tagData = new Bundle();
+                tagData.putString("1","DiaryWhenActivity");
+                intent.putExtras(tagData);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                startActivity(intent,options.toBundle());
+            }
+        });
+
+        final Button btn_noon = findViewById(R.id.btn_noon);
+        btn_noon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhen = "中午";
+                Intent intent = new Intent();
+                intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                Bundle tagData = new Bundle();
+                tagData.putString("1","DiaryWhenActivity");
+                intent.putExtras(tagData);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                startActivity(intent,options.toBundle());
+            }
+        });
+
+        final Button btn_afternoon = findViewById(R.id.btn_afternoon);
+        btn_afternoon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhen = "下午";
+                Intent intent = new Intent();
+                intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                Bundle tagData = new Bundle();
+                tagData.putString("1","DiaryWhenActivity");
+                intent.putExtras(tagData);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                startActivity(intent,options.toBundle());
+            }
+        });
+
+        final Button btn_night = findViewById(R.id.btn_night);
+        btn_night.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhen = "晚上";
+                Intent intent = new Intent();
+                intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                Bundle tagData = new Bundle();
+                tagData.putString("1","DiaryWhenActivity");
+                intent.putExtras(tagData);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                startActivity(intent,options.toBundle());
+            }
+        });
+
+        final Button btn_latenight = findViewById(R.id.btn_latenight);
+        btn_latenight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhen = "深夜";
+                Intent intent = new Intent();
+                intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                Bundle tagData = new Bundle();
+                tagData.putString("1","DiaryWhenActivity");
+                intent.putExtras(tagData);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                startActivity(intent,options.toBundle());
+            }
+        });
+
     }
 
     private DatePickerDialog.OnDateSetListener datePickerDlgOnDateSet = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             txtDate.setText(String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth));
+            DiaryValue.Time = txtDate.getText().toString();
         }
     };
     // 擋住手機上回上一頁鍵

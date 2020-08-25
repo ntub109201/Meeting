@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication2.Diary.DiaryHowPackage.DiaryHowActivity;
 import com.example.myapplication2.Diary.DiaryHowPackage.DiaryHowEyeActivity;
+import com.example.myapplication2.Diary.DiaryWhenActivity;
 import com.example.myapplication2.Diary.DiaryWhereActivity;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.MainActivity;
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, PersonalActivity.class);
+                Intent intent = new Intent(LoginActivity.this, DiaryWhenActivity.class);
                 startActivity(intent);
             }
         });

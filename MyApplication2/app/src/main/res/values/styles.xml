@@ -505,5 +505,92 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:drawableLeft">@mipmap/ic_logout_foreground</item>
     </style>
+    <style name="btn_afternoon" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_afternoon_background</item>
+        <item name="android:drawableTop">@mipmap/btn_afternoon_foreground</item>
+    </style>
+
+    <style name="btn_latenight" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_latenight_background</item>
+        <item name="android:drawableTop">@mipmap/btn_latenight_foreground</item>
+    </style>
+
+    <style name="btn_morning" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_morning_background</item>
+        <item name="android:drawableTop">@mipmap/btn_morning_foreground</item>
+    </style>
+    <style name="btn_night" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_night_background</item>
+        <item name="android:drawableTop">@mipmap/btn_night_foreground</item>
+    </style>
+    <style name="btn_noon" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_noon_background</item>
+        <item name="android:drawableTop">@mipmap/btn_noon_foreground</item>
+    </style>
+
+
+    <style name="bg_line" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/bg_line</item>
+    </style>
+    <style name="bg_round" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/bg_round</item>
+    </style>
+    <style name="bg_date" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/bg_date_background</item>
+        <item name="android:drawableTop">@mipmap/bg_date_foreground</item>
+    </style>
+    <style name="btn_family" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_family_background</item>
+        <item name="android:drawableTop">@mipmap/btn_family_foreground</item>
+    </style>
+
+    <style name="btn_friend" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_friend_background</item>
+        <item name="android:drawableTop">@mipmap/btn_friend_foreground</item>
+    </style>
+    <style name="btn_lover" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_lover_background</item>
+        <item name="android:drawableTop">@mipmap/btn_lover_foreground</item>
+    </style>
+    <style name="btn_self" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_self_background</item>
+        <item name="android:drawableTop">@mipmap/btn_self_foreground</item>
+    </style>
 
 </resources>
