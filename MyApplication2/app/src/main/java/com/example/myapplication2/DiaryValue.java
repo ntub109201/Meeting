@@ -8,6 +8,7 @@ public class DiaryValue {
     public static String txtWhy;
     public static String txtWhere;
     public static String txtWhen;
+    public static String txtWho;
     public static String Time = "";
     public static int howCount = 0;
     public static int Eye_Count = 0;

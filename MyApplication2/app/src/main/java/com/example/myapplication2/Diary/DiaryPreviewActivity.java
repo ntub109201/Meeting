@@ -85,12 +85,16 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                     DiaryPreviewActivity.this.startActivity(intent, options.toBundle());
                 }else if(tag1.equals("DiaryWhereActivity")) {
-                        Intent intent = new Intent(DiaryPreviewActivity.this, DiaryWhereActivity.class);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
-                        DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
+                    Intent intent = new Intent(DiaryPreviewActivity.this, DiaryWhereActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
+                    DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
                 }else if(tag1.equals("DiaryWhenActivity")) {
                     DiaryValue.Time = "";
                     Intent intent = new Intent(DiaryPreviewActivity.this, DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
+                    DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
+                }else if(tag1.equals("DiaryWhoActivity")) {
+                    Intent intent = new Intent(DiaryPreviewActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                     DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
                 }else if(tag1.equals("DiaryHowActivity")) {
@@ -116,169 +120,352 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                 if(DiaryValue.txtWhy.equals("")){
                     if(DiaryValue.txtWhere.equals("")){
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWho(DiaryValue.txtWho);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
+
                         }
                     }else {
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }
                 }else {
                     if(DiaryValue.txtWhere.equals("")){
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
+
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
+
                         }
                     }else {
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }
                 }
@@ -286,177 +473,365 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                 if(DiaryValue.txtWhy.equals("")) {
                     if(DiaryValue.txtWhere.equals("")){
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }else {
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }
                 }else{
                     if(DiaryValue.txtWhere.equals("")){
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }else {
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }
                 }
@@ -466,177 +841,367 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                 if(DiaryValue.txtWhy.equals("")){
                     if(DiaryValue.txtWhere.equals("")){
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWho(DiaryValue.txtWho);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }else {
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
+
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
+
                         }
                     }
                 }else {
                     if(DiaryValue.txtWhere.equals("")){
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }else {
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }
                 }
@@ -644,189 +1209,389 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                 if(DiaryValue.txtWhy.equals("")){
                     if(DiaryValue.txtWhere.equals("")){
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                    i++;
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                        i++;
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                        i++;
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                    i++;
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                        i++;
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                        i++;
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }else {
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                    i++;
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                        i++;
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                        i++;
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                    i++;
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                        i++;
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                        i++;
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }
                 }else {
                     if(DiaryValue.txtWhere.equals("")){
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }else {
                         if(DiaryValue.txtWhen.equals("")){
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }else {
-                            guidor.setMood(DiaryValue.txtMood);
-                            guidor.setTag(DiaryValue.txtTag);
-                            guidor.setWhen(DiaryValue.txtWhen);
-                            guidor.setWhy(DiaryValue.txtWhy);
-                            guidor.setWhere(DiaryValue.txtWhere);
-                            guidor.setWhat(DiaryValue.txtWhat);
-                            for(int i = 0; i< DiaryValue.howCount; i++){
-                                if(DiaryValue.txtHow_choose[i].equals("視覺")){
-                                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
-                                    for(int j = 0; j < DiaryValue.Mouth_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
-                                    }
-                                }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
-                                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                                        guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
                                     }
                                 }
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                for(int i = 0; i< DiaryValue.howCount; i++){
+                                    if(DiaryValue.txtHow_choose[i].equals("視覺")){
+                                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Eye[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("味覺")){
+                                        for(int j = 0; j < DiaryValue.Mouth_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Mouth[j]);
+                                        }
+                                    }else if(DiaryValue.txtHow_choose[i].equals("嗅覺")){
+                                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                                            guidor.setHow(DiaryValue.txtHow_choose[i],DiaryValue.txtHow_food_Smell[j]);
+                                        }
+                                    }
+                                }
+                                a = guidor.getDiary();
                             }
-                            a = guidor.getDiary();
                         }
                     }
                 }

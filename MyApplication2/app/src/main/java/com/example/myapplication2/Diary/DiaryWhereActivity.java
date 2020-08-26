@@ -65,6 +65,7 @@ public class DiaryWhereActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DiaryValue.txtWhere = "";
                 DiaryValue.txtWhen = "";
+                DiaryValue.txtWho = "";
                 for(int i = 0; i< 5; i++){
                     DiaryValue.txtHow_choose[i] = "";
                 }
