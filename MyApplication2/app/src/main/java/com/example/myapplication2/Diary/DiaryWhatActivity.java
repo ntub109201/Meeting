@@ -54,7 +54,7 @@ public class DiaryWhatActivity extends AppCompatActivity{
         mPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWhat = "";
+                DiaryValue.txtWhat = "無菜單料理";
                 DiaryValue.txtWhy = "";
                 DiaryValue.txtWhere = "";
                 DiaryValue.txtWhen = "";
@@ -77,7 +77,7 @@ public class DiaryWhatActivity extends AppCompatActivity{
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWhat = "";
+                DiaryValue.txtWhat = "無菜單料理";
                 Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                 DiaryWhatActivity.this.startActivity(intent,options.toBundle());

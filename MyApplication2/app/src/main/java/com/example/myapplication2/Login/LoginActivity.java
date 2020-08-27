@@ -5,7 +5,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -13,18 +12,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.myapplication2.Diary.DiaryHowPackage.DiaryHowActivity;
-import com.example.myapplication2.Diary.DiaryHowPackage.DiaryHowEyeActivity;
-import com.example.myapplication2.Diary.DiaryWhenActivity;
-import com.example.myapplication2.Diary.DiaryWhereActivity;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.MainActivity;
+import com.example.myapplication2.PersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 
@@ -60,14 +54,14 @@ public class LoginActivity extends AppCompatActivity {
         edPasswd = findViewById(R.id.password);
         edPasswd.setText(sqlReturn.RegisterPassword);
 
-        final TextView test = findViewById(R.id.register2);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, DiaryWhenActivity.class);
-                startActivity(intent);
-            }
-        });
+//        final TextView test = findViewById(R.id.register2);
+//        test.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(LoginActivity.this, PersonalActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         final Button registerLink = findViewById(R.id.register);
         registerLink.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +141,8 @@ public class LoginActivity extends AppCompatActivity {
                 history();
                 searchFriend();
                 personalData();
+                sqlReturn.RegisterEmail = edUserEmail.getText().toString();
+                sqlReturn.RegisterPassword = edPasswd.getText().toString();
             }else {
                 new AlertDialog.Builder(activity)
                         .setTitle("登入失敗")
@@ -225,7 +221,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             if (sqlReturn.LoginTextViewContext!=null){
                 if(!sqlReturn.RegisterFirstLogin){
-                    Intent intent = new Intent(LoginActivity.this, PersonalActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
                     startActivity(intent,options.toBundle());
                 }else {
@@ -236,7 +232,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }else {
                 if(!sqlReturn.RegisterFirstLogin){
-                    Intent intent = new Intent(LoginActivity.this, PersonalActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
                     startActivity(intent,options.toBundle());
                 }else {

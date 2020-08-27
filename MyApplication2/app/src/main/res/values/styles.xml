@@ -592,5 +592,19 @@
         <item name="android:background">@drawable/btn_self_background</item>
         <item name="android:drawableTop">@mipmap/btn_self_foreground</item>
     </style>
+    <style name="btn_colleague" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_colleague_background</item>
+        <item name="android:drawableTop">@mipmap/btn_colleague_foreground</item>
+    </style>
+    <style name="btn_ambiguous" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_ambiguous_background</item>
+        <item name="android:drawableTop">@mipmap/btn_ambiguous_foreground</item>
+    </style>
 
 </resources>

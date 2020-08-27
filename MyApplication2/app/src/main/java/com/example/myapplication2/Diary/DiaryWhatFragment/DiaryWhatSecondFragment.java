@@ -29,10 +29,6 @@ public class DiaryWhatSecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhat = "義式料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
                 Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhyActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
                 startActivity(intent,options.toBundle());
@@ -45,10 +41,6 @@ public class DiaryWhatSecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhat = "法式料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
                 Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhyActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
                 startActivity(intent,options.toBundle());
@@ -61,10 +53,6 @@ public class DiaryWhatSecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhat = "中式料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
                 Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhyActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
                 startActivity(intent,options.toBundle());
@@ -77,10 +65,6 @@ public class DiaryWhatSecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhat = "美式料理";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
                 Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhyActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
                 startActivity(intent,options.toBundle());
@@ -93,10 +77,6 @@ public class DiaryWhatSecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhat = "酒類";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
                 Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhyActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
                 startActivity(intent,options.toBundle());
@@ -109,10 +89,6 @@ public class DiaryWhatSecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhat = "飲料";
-                if(DiaryValue.WhatLock){
-                    DiaryValue.option = DiaryValue.txtWhat;
-                    DiaryValue.WhatLock = false;
-                }
                 Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhyActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
                 startActivity(intent,options.toBundle());

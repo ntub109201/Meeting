@@ -28,7 +28,6 @@ public class DiaryWhyActivity extends AppCompatActivity{
         imbtnReturnFrontPage3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.WhatLock = true;
                 Intent intent = new Intent(DiaryWhyActivity.this, DiaryWhatActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                 DiaryWhyActivity.this.startActivity(intent,options.toBundle());

@@ -104,6 +104,12 @@
                 android:layout_gravity="center"
                 android:text="2" />
 
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="3" />
+
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager.widget.ViewPager

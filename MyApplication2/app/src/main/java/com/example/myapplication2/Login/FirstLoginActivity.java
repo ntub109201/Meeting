@@ -1,36 +1,26 @@
 package com.example.myapplication2.Login;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.example.myapplication2.Diary.DiaryWhatFragment.DiaryWhatFirstFragment;
-import com.example.myapplication2.Diary.DiaryWhatFragment.DiaryWhatSecondFragment;
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
-import com.google.android.material.tabs.TabLayout;
 
 
-public class PersonalActivity extends AppCompatActivity {
+public class FirstLoginActivity extends AppCompatActivity {
 
     ImageButton btn_food, btn_shop, btn_hobby, btn_travel, btn_love, btn_others;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personal);
+        setContentView(R.layout.activity_first_login);
         sqlReturn.RegisterFirstLogin = true;
 
         btn_food = findViewById(R.id.btn_food);
@@ -38,7 +28,7 @@ public class PersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "美食";
-                Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
+                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
                 startActivity(intent);
@@ -49,7 +39,7 @@ public class PersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "購物";
-                Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
+                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
                 startActivity(intent);
@@ -60,7 +50,7 @@ public class PersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "戀愛";
-                Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
+                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
                 startActivity(intent);
@@ -71,7 +61,7 @@ public class PersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "旅遊";
-                Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
+                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
                 startActivity(intent);
@@ -82,7 +72,7 @@ public class PersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "休閒娛樂";
-                Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
+                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
                 startActivity(intent);
@@ -93,7 +83,7 @@ public class PersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "其他";
-                Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
+                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
                 startActivity(intent);

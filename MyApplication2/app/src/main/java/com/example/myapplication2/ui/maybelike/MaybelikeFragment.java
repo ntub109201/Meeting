@@ -25,6 +25,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.ModifyPersonalActivity;
+import com.example.myapplication2.PersonalActivity;
 import com.example.myapplication2.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -53,7 +54,7 @@ public class MaybelikeFragment extends Fragment {
         imBtnPersonal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MaybelikeFragment.super.getActivity(), ModifyPersonalActivity.class);
+                Intent intent = new Intent(MaybelikeFragment.super.getActivity(), PersonalActivity.class);
                 intent.putExtra("pageId",4);
                 startActivity(intent);
             }

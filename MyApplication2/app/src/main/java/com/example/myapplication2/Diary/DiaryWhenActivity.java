@@ -65,13 +65,9 @@ public class DiaryWhenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhen = "";
-                Intent intent = new Intent();
-                intent.setClass(DiaryWhenActivity.this, DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1","DiaryWhenActivity");
-                intent.putExtras(tagData);
+                Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
-                startActivity(intent,options.toBundle());
+                DiaryWhenActivity.this.startActivity(intent,options.toBundle());
             }
         });
 

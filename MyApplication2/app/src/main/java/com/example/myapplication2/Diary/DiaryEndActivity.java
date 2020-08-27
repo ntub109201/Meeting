@@ -121,7 +121,7 @@ public class DiaryEndActivity extends AppCompatActivity {
         map.put("diaryTag","美食");
         map.put("diaryDate",currentDate);
         map.put("diaryMood", DiaryValue.txtMood);
-        map.put("diaryOptionClass", DiaryValue.option);
+        map.put("diaryOptionClass", DiaryValue.txtWhat);
         new DiaryInsert(this).execute((HashMap)map);
     }
 
@@ -149,7 +149,6 @@ public class DiaryEndActivity extends AppCompatActivity {
             if (status){
                 DiaryPreviewActivity.totalPlus = "";
                 DiaryPreviewActivity.total = "";
-                DiaryValue.WhatLock = true;
                 DiaryValue.howCount = 0;
                 Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(DiaryEndActivity.this, MainActivity.class);

@@ -21,7 +21,7 @@ import com.example.myapplication2.R;
 public class DiaryHowActivity extends AppCompatActivity {
 
     private Button btn_eye, btn_mouth, btn_nose;
-    private TextView mPreview, btn_skip, txtTest;
+    private TextView mPreview, btn_skip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,9 @@ public class DiaryHowActivity extends AppCompatActivity {
         imbtnReturnFrontPage5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for(int i = 0; i< 5; i++){
+                    DiaryValue.txtHow_choose[i] = "";
+                }
                 DiaryValue.howCount = 0;
                 DiaryValue.Eye_Count = 0;
                 DiaryValue.Mouth_Count = 0;
@@ -41,9 +44,6 @@ public class DiaryHowActivity extends AppCompatActivity {
                 DiaryHowActivity.this.startActivity(intent,options.toBundle());
             }
         });
-
-        txtTest = findViewById(R.id.txtTest);
-        txtTest.setText(String.valueOf(DiaryValue.howCount));
 
 
         btn_mouth = findViewById(R.id.btn_mouth);
@@ -106,6 +106,7 @@ public class DiaryHowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhen = "";
+                DiaryValue.txtWho = "";
                 for(int i = 0; i< 5; i++){
                     DiaryValue.txtHow_choose[i] = "";
                 }

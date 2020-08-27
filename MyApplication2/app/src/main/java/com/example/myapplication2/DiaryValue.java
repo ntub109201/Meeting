@@ -18,7 +18,5 @@ public class DiaryValue {
     public static String[] txtHow_food_Eye = new String[100];
     public static String[] txtHow_food_Mouth = new String[100];
     public static String[] txtHow_food_Smell = new String[100];
-    public static boolean WhatLock = true;
-    public static String option = "無菜單料理";
     //public static int save = 0;
 }

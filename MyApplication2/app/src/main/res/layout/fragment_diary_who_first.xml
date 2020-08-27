@@ -7,23 +7,50 @@
     android:layout_height="match_parent"
     tools:context=".Diary.DiaryWhoFragment.DiaryWhoFirstFragment">
 
+    <ImageView
+        style="@style/btn_shape"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:backgroundTint="#C2D2DA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.458">
+    </ImageView>
+
     <Button
         android:id="@+id/btn_family"
-        android:layout_width="182dp"
-        android:layout_height="197dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:background="@mipmap/btn_family_foreground"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.46" />
+        app:layout_constraintVertical_bias="0.459" />
+
+    <ImageView
+        style="@style/btn_shape"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:backgroundTint="#C2D2DA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.458">
+
+    </ImageView>
 
     <Button
         android:id="@+id/btn_friend"
-        android:layout_width="182dp"
-        android:layout_height="197dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:background="@mipmap/btn_friend_foreground"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,5 +58,5 @@
         app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.46" />
+        app:layout_constraintVertical_bias="0.459" />
 </androidx.constraintlayout.widget.ConstraintLayout>

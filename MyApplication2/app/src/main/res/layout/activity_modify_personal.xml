@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/imBackHome_ModifyPersonal"
+            android:id="@+id/imBackPersonal"
             android:layout_width="65dp"
             android:layout_height="61dp"
             android:background="#33FDD300"
@@ -64,7 +64,7 @@
             app:layout_constraintHorizontal_bias="0.12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.518" />
+            app:layout_constraintVertical_bias="0.444" />
 
         <TextView
             android:id="@+id/textView5"
@@ -78,7 +78,7 @@
             app:layout_constraintHorizontal_bias="0.12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.146" />
+            app:layout_constraintVertical_bias="0.157" />
 
         <TextView
             android:id="@+id/textView12"
@@ -93,7 +93,7 @@
             app:layout_constraintHorizontal_bias="0.12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.269" />
+            app:layout_constraintVertical_bias="0.297" />
 
         <TextView
             android:id="@+id/textView4"
@@ -107,7 +107,7 @@
             app:layout_constraintHorizontal_bias="0.12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.648" />
+            app:layout_constraintVertical_bias="0.602" />
 
         <TextView
             android:id="@+id/textView14"
@@ -121,7 +121,7 @@
             app:layout_constraintHorizontal_bias="0.12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.773" />
+            app:layout_constraintVertical_bias="0.759" />
 
         <Spinner
             android:id="@+id/spinTag"
@@ -133,7 +133,7 @@
             app:layout_constraintHorizontal_bias="0.645"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.639" />
+            app:layout_constraintVertical_bias="0.598" />
 
         <EditText
             android:id="@+id/edtBirthday"
@@ -147,7 +147,7 @@
             app:layout_constraintHorizontal_bias="0.531"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.155" />
+            app:layout_constraintVertical_bias="0.165" />
 
         <Button
             android:id="@+id/btnBirthday"
@@ -163,34 +163,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.146" />
 
-        <Button
-            android:id="@+id/btnPassword"
-            style="@style/btn_primary"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:text="更改"
-            android:textColor="#FFFFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.903"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.393" />
-
-        <EditText
-            android:id="@+id/edtPassword"
-            android:layout_width="125dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:enabled="false"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.531"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.398" />
-
         <EditText
             android:id="@+id/edtEmail"
             android:layout_width="200dp"
@@ -202,7 +174,7 @@
             app:layout_constraintHorizontal_bias="0.781"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.276" />
+            app:layout_constraintVertical_bias="0.305" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -213,22 +185,8 @@
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.806"
+            app:layout_constraintVertical_bias="0.791"
             app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
-
-        <TextView
-            android:id="@+id/textView11"
-            style="@style/btn_primary"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:backgroundTint="#89FF90"
-            android:text="密碼"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.12"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.393" />
 
         <Spinner
             android:id="@+id/spinJob"
@@ -240,7 +198,7 @@
             app:layout_constraintHorizontal_bias="0.645"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.519" />
+            app:layout_constraintVertical_bias="0.443" />
 
         <TextView
             android:id="@+id/textView10"
@@ -274,10 +232,10 @@
             style="@style/btn_primary"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="28dp"
+            android:backgroundTint="#00C1FF"
             android:text="儲存修改"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#00C1FF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -34,6 +34,7 @@ import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.Login.LoginActivity;
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.ModifyPersonalActivity;
+import com.example.myapplication2.PersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 
@@ -103,7 +104,7 @@ public class FriendFragment extends Fragment {
         imBtnPersonal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FriendFragment.super.getActivity(), ModifyPersonalActivity.class);
+                Intent intent = new Intent(FriendFragment.super.getActivity(), PersonalActivity.class);
                 intent.putExtra("pageId",3);
                 startActivity(intent);
             }

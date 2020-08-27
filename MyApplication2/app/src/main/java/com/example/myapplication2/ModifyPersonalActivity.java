@@ -29,9 +29,9 @@ import java.util.Map;
 
 public class ModifyPersonalActivity extends AppCompatActivity {
 
-    private ImageButton imBackHome_ModifyPersonal;
-    private Button btnBirthday, btnPassword, btnSave;
-    private EditText edtBirthday, edtPassword, edtEmail, edtName;
+    private ImageButton imBackPersonal;
+    private Button btnBirthday, btnSave;
+    private EditText edtBirthday, edtEmail, edtName;
     private Spinner spinJob, spinTag;
     private String birthday ="";
 
@@ -100,17 +100,15 @@ public class ModifyPersonalActivity extends AppCompatActivity {
 
         edtEmail = findViewById(R.id.edtEmail);
         edtEmail.setText(sqlReturn.RegisterEmail);
-        edtPassword = findViewById(R.id.edtPassword);
-        edtPassword.setText(sqlReturn.RegisterPassword);
         edtName = findViewById(R.id.edtName);
         edtName.setText(sqlReturn.PersonalName);
 
         final int pageId = getIntent().getIntExtra("pageId",0);
-        imBackHome_ModifyPersonal = findViewById(R.id.imBackHome_ModifyPersonal);
-        imBackHome_ModifyPersonal.setOnClickListener(new View.OnClickListener() {
+        imBackPersonal = findViewById(R.id.imBackPersonal);
+        imBackPersonal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ModifyPersonalActivity.this, MainActivity.class);
+                Intent intent = new Intent(ModifyPersonalActivity.this, PersonalActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",pageId);
                 startActivity(intent);
@@ -157,7 +155,7 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         String hobby = spinTag.getSelectedItem().toString();
         String userName = edtName.getText().toString();
         String email = edtEmail.getText().toString();
-        String userPass = edtPassword.getText().toString();
+        String userPass = sqlReturn.RegisterPassword;
         Map<String,String> map = new HashMap<>();
         map.put("command", "newPersonInfo");
         map.put("uid", uid);
@@ -193,7 +191,11 @@ public class ModifyPersonalActivity extends AppCompatActivity {
                     sqlReturn.PersonalHobby = spinTag.getSelectedItem().toString();
                     sqlReturn.PersonalName = edtName.getText().toString();
                     sqlReturn.RegisterEmail = edtEmail.getText().toString();
-                    sqlReturn.RegisterPassword = edtPassword.getText().toString();
+                    Intent intent = new Intent(ModifyPersonalActivity.this,PersonalActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    final int pageId = getIntent().getIntExtra("pageId",0);
+                    intent.putExtra("id",pageId);
+                    startActivity(intent);
                 }
             }catch (JSONException e){
                 e.printStackTrace();

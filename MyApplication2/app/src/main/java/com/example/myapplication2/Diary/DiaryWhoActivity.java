@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.myapplication2.Diary.DiaryWhoFragment.DiaryWhoFirstFragment;
 import com.example.myapplication2.Diary.DiaryWhoFragment.DiaryWhoSecondFragment;
+import com.example.myapplication2.Diary.DiaryWhoFragment.DiaryWhoThirdFragment;
 import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.R;
 import com.google.android.material.tabs.TabLayout;
@@ -69,9 +70,13 @@ public class DiaryWhoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWho = "";
-                Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhyActivity.class);
+                Intent intent = new Intent();
+                intent.setClass(DiaryWhoActivity.this,DiaryPreviewActivity.class);
+                Bundle tagData = new Bundle();
+                tagData.putString("1","DiaryWhoActivity");
+                intent.putExtras(tagData);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
-                DiaryWhoActivity.this.startActivity(intent,options.toBundle());
+                startActivity(intent,options.toBundle());
             }
         });
     }
@@ -90,12 +95,15 @@ public class DiaryWhoActivity extends AppCompatActivity {
                 case 1:
                     fragment = new DiaryWhoSecondFragment();
                     break;
+                case 2:
+                    fragment = new DiaryWhoThirdFragment();
+                    break;
             }
             return fragment;
         }
         @Override
         public int getCount(){
-            return 2;
+            return 3;
         }
         @Override
         public CharSequence getPageTitle(int position){
@@ -104,6 +112,8 @@ public class DiaryWhoActivity extends AppCompatActivity {
                     return "";
                 case 1:
                     return " ";
+                case 2:
+                    return "   ";
                 default:
                     return null;
             }
