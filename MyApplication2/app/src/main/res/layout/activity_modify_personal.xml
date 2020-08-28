@@ -31,7 +31,7 @@
             app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="個人資料"
