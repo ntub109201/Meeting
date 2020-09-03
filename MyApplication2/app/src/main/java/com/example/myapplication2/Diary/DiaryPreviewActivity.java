@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.myapplication2.Diary.DiaryHowPackage.DiaryHowActivity;
 import com.example.myapplication2.DiaryValue;
-import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
 
 import java.util.Calendar;
@@ -37,7 +35,7 @@ public class DiaryPreviewActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acitivity_diarypreview);
+        setContentView(R.layout.acitivty_diarypreview);
 
         Bundle tag = getIntent().getExtras();
         final String tag1 = tag.getString("1");

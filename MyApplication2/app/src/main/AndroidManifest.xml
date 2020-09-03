@@ -15,10 +15,14 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PersonalActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Diary.DiaryWhoActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.friend.SetBestFriendActivity"></activity>
+        <activity android:name=".ui.friend.BestFriendActivity" />
+        <activity
+            android:name=".PersonalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Diary.DiaryWhoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Diary.DiaryWhenActivity"
             android:screenOrientation="portrait" />

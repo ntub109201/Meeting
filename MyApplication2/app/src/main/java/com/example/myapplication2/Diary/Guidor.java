@@ -1,5 +1,5 @@
 package com.example.myapplication2.Diary;
-
+// version 2020/08/03
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,7 +20,8 @@ public class Guidor {
     private JSONArray how_option = new JSONArray(), taste = new JSONArray(),
             visual = new JSONArray(), smell = new JSONArray(), tactile = new JSONArray(), hearing = new JSONArray();
     private ArrayList<String> howSeq = new ArrayList<>();
-    private String mood_option, tag_option, what_option, who_option, when_option, why_option, where_option, diary;
+    private String mood_option, tag_option, what_option, who_option, when_option, why_option, where_option, diary, previous_patternNo;
+    private boolean prologue;
     // curProp : what、when、who ... etc
     // curDiaryContentNo : 1、2、3 ... etc，即DB裡的Sentence-Pattern的編號
     //private String curProp = "", curDiaryContentNo = "";
@@ -34,6 +35,7 @@ public class Guidor {
     }
     //public abstract void openDB();
     private void init(){
+        this.prologue = true;
         this.mood_option = "";
         this.tag_option = "";
         this.what_option = "";
@@ -130,6 +132,12 @@ public class Guidor {
         }
         //this.how_option = how;
     }
+    public void setDiary(String diary){
+        this.diary = diary;
+    }
+    public void setPrologue(boolean flag){
+        this.prologue = flag;
+    }
     public void preQuestion(){
         if (propSeq.isEmpty())
             return;
@@ -139,7 +147,7 @@ public class Guidor {
         }
     }
     public String getDiary(){
-        if (this.diary.equals(""))
+        if (this.diary.equals("") && prologue)
             addPrologue();
         if (propSeq.size() == diaryContentNoSeq.size())
             return this.diary;
@@ -161,10 +169,11 @@ public class Guidor {
         ArrayList<String> addDiaryContentNoSeq = new ArrayList<>();
         while(propSeq.size() > diaryContentNoSeq.size()){
             String index = getPatternIndex();
+            previous_patternNo = index;
             diaryContentNoSeq.add(index);
             addDiaryContentNoSeq.add(index);
             if (debug)
-                Log.d("prop diaryContentNoSeq", propSeq.size() + String.valueOf(diaryContentNoSeq.size()));
+                Log.d("prop diaryContentNoSeq", propSeq.size() + String.valueOf(diaryContentNoSeq.size()) + " -> " + index);
         }
         for (String s : diaryContentNoSeq){
             if (debug)
@@ -202,8 +211,8 @@ public class Guidor {
                         cursor.moveToFirst();
                         if (debug)
                             Log.d("NiCe", "SELECT punctuationMark\n" +
-                                    "FROM pattern_link\n" +
-                                    "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "");
+                                "FROM pattern_link\n" +
+                                "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "");
                         do{
                             punctuations.add(cursor.getString(0));
                         }while(cursor.moveToNext());
@@ -300,8 +309,8 @@ public class Guidor {
                     cursor.moveToFirst();
                     if (debug)
                         Log.d("NiCe", "SELECT punctuationMark\n" +
-                                "FROM pattern_link\n" +
-                                "WHERE sentencePatternNo = " + diaryContentNoSeq.get(i-1) + " AND nextPattern = " + index + "");
+                            "FROM pattern_link\n" +
+                            "WHERE sentencePatternNo = " + diaryContentNoSeq.get(i-1) + " AND nextPattern = " + index + "");
                     do{
                         punctuations.add(cursor.getString(0));
                     }while(cursor.moveToNext());
@@ -315,8 +324,8 @@ public class Guidor {
                 cursor.moveToFirst();
                 if (debug)
                     Log.d("NiCe", "SELECT pattern\n" +
-                            "FROM sentence_pattern\n" +
-                            "WHERE sentencePatternNo = '" + index + "'");
+                        "FROM sentence_pattern\n" +
+                        "WHERE sentencePatternNo = '" + index + "'");
                 pattern = cursor.getString(0);
 
                 switch (propSeq.get(i)){
@@ -438,27 +447,27 @@ public class Guidor {
                         "AND pattern LIKE '%_multiOption_%' OR pattern LIKE '" + like.toString() + "'", null);
                 if (debug)
                     Log.d("NiCe", "SELECT sentencePatternNo\n" +
-                            "FROM sentence_pattern\n" +
-                            "WHERE sentencePatternNo IN (\n" +
-                            "\tSELECT sentencePatternNo\n" +
-                            "\tFROM pattern_index\n" +
-                            "\tWHERE optionNo = (\n" +
-                            "\t\tSELECT optionNo\n" +
-                            "\t\tFROM `option`\t\n" +
-                            "\t\tWHERE questionClassNo = (\n" +
-                            "\t\t\tSELECT questionClassNo\n" +
-                            "\t\t\tFROM questionclass\n" +
-                            "\t\t\tWHERE questionNo = (\n" +
-                            "\t\t\t\tSELECT questionNo\n" +
-                            "\t\t\t\tFROM question\n" +
-                            "\t\t\t\tWHERE mood = '" + mood_option + "' AND tag = '" + tag_option + "'\n" +
-                            "\t\t\t)\n" +
-                            "\t\t\tAND questionClass = 'how'\n" +
-                            "\t\t)\n" +
-                            "\t\tAND optionClass = '" + optionClass + "'\n" +
-                            "\t)\n" +
-                            ")\n" +
-                            "AND pattern LIKE '%_multiOption_%' OR pattern LIKE '" + like.toString() + "'");
+                        "FROM sentence_pattern\n" +
+                        "WHERE sentencePatternNo IN (\n" +
+                        "\tSELECT sentencePatternNo\n" +
+                        "\tFROM pattern_index\n" +
+                        "\tWHERE optionNo = (\n" +
+                        "\t\tSELECT optionNo\n" +
+                        "\t\tFROM `option`\t\n" +
+                        "\t\tWHERE questionClassNo = (\n" +
+                        "\t\t\tSELECT questionClassNo\n" +
+                        "\t\t\tFROM questionclass\n" +
+                        "\t\t\tWHERE questionNo = (\n" +
+                        "\t\t\t\tSELECT questionNo\n" +
+                        "\t\t\t\tFROM question\n" +
+                        "\t\t\t\tWHERE mood = '" + mood_option + "' AND tag = '" + tag_option + "'\n" +
+                        "\t\t\t)\n" +
+                        "\t\t\tAND questionClass = 'how'\n" +
+                        "\t\t)\n" +
+                        "\t\tAND optionClass = '" + optionClass + "'\n" +
+                        "\t)\n" +
+                        ")\n" +
+                        "AND pattern LIKE '%_multiOption_%' OR pattern LIKE '" + like.toString() + "'");
                 cursor.moveToFirst();
                 do {
                     indexes.add(cursor.getString(0));
@@ -499,22 +508,22 @@ public class Guidor {
             cursor.moveToFirst();
             if (debug)
                 Log.d("NiCe", "SELECT sentencePatternNo\n" +
-                        "FROM `pattern_index`\n" +
-                        "WHERE optionNo = (\n" +
-                        "\tSELECT optionNo\n" +
-                        "\tFROM `option`\n" +
-                        "\tWHERE questionClassNo = (\n" +
-                        "\t\tSELECT questionClassNo\n" +
-                        "\t\tFROM questionclass\n" +
-                        "\t\tWHERE questionNo = (\n" +
-                        "\t\t\tSELECT questionNo\n" +
-                        "\t\t\tFROM question\n" +
-                        "\t\t\tWHERE mood = '" + mood_option + "' AND tag = '" + tag_option + "'\n" +
-                        "\t\t)\n" +
-                        "\t\tAND questionClass = '" + prop + "'\n" +
-                        "\t)\n" +
-                        "\tAND optionClass = '" + option + "'\n" +
-                        ")");
+                    "FROM `pattern_index`\n" +
+                    "WHERE optionNo = (\n" +
+                    "\tSELECT optionNo\n" +
+                    "\tFROM `option`\n" +
+                    "\tWHERE questionClassNo = (\n" +
+                    "\t\tSELECT questionClassNo\n" +
+                    "\t\tFROM questionclass\n" +
+                    "\t\tWHERE questionNo = (\n" +
+                    "\t\t\tSELECT questionNo\n" +
+                    "\t\t\tFROM question\n" +
+                    "\t\t\tWHERE mood = '" + mood_option + "' AND tag = '" + tag_option + "'\n" +
+                    "\t\t)\n" +
+                    "\t\tAND questionClass = '" + prop + "'\n" +
+                    "\t)\n" +
+                    "\tAND optionClass = '" + option + "'\n" +
+                    ")");
             do {
                 indexes.add(cursor.getString(0));
                 if (debug)
@@ -534,57 +543,73 @@ public class Guidor {
                     selectedIndexes.deleteCharAt(selectedIndexes.length()-2);
                     indexes.clear();
 
-                    cursor = db.rawQuery("SELECT DISTINCT sentencePatternNo\n" +
-                            "FROM pattern_link\n" +
-                            "WHERE nextPattern in (\n" +
-                            "\tSELECT nextPattern\n" +
-                            "\tFROM pattern_link\n" +
-                            "\tWHERE sentencePatternNo in (\n" +
-                            "\t\tSELECT sentencePatternNo\n" +
-                            "\t\tFROM sentence_pattern\n" +
-                            "\t\tWHERE questionClassNo in (\n" +
-                            "\t\t\tSELECT questionClassNo\n" +
-                            "\t\t\tFROM questionclass\n" +
-                            "\t\t\tWHERE questionNo = (\n" +
-                            "\t\t\t\tSELECT questionNo\n" +
-                            "\t\t\t\tFROM question\n" +
-                            "\t\t\t\tWHERE mood = '" + mood_option + "' AND tag = '" + tag_option + "'\n" +
-                            "\t\t\t)\n" +
-                            "\t\t\tAND questionclass NOT IN (\n" +
-                            "\t\t\t\t" + existProp.toString() + "\n" +
-                            "\t\t\t)\n" +
-                            "\t\t)\n" +
-                            "\t)\n" +
-                            ")\n" +
-                            "AND sentencePatternNo IN (\n" +
-                            "\t" + selectedIndexes.toString() + "\n" +
-                            ")\n",null);
+//                    cursor = db.rawQuery("SELECT DISTINCT sentencePatternNo\n" +
+//                            "FROM pattern_link\n" +
+//                            "WHERE nextPattern in (\n" +
+//                            "\tSELECT nextPattern\n" +
+//                            "\tFROM pattern_link\n" +
+//                            "\tWHERE sentencePatternNo in (\n" +
+//                            "\t\tSELECT sentencePatternNo\n" +
+//                            "\t\tFROM sentence_pattern\n" +
+//                            "\t\tWHERE questionClassNo in (\n" +
+//                            "\t\t\tSELECT questionClassNo\n" +
+//                            "\t\t\tFROM questionclass\n" +
+//                            "\t\t\tWHERE questionNo = (\n" +
+//                            "\t\t\t\tSELECT questionNo\n" +
+//                            "\t\t\t\tFROM question\n" +
+//                            "\t\t\t\tWHERE mood = '" + mood_option + "' AND tag = '" + tag_option + "'\n" +
+//                            "\t\t\t)\n" +
+//                            "\t\t\tAND questionclass NOT IN (\n" +
+//                            "\t\t\t\t" + existProp.toString() + "\n" +
+//                            "\t\t\t)\n" +
+//                            "\t\t)\n" +
+//                            "\t)\n" +
+//                            ")\n" +
+//                            "AND sentencePatternNo IN (\n" +
+//                            "\t" + selectedIndexes.toString() + "\n" +
+//                            ")\n",null);
+                    cursor = db.rawQuery("SELECT nextPattern\n" +
+                            "    FROM pattern_link\n" +
+                            "    WHERE nextPattern in (\n" +
+                            "    \t" + selectedIndexes.toString() + " \n" +
+                            "    )\n" +
+                            "    AND sentencePatternNo IN (\n" +
+                            "    \t" + previous_patternNo + "\n" +
+                            "    )", null);
                     if (debug)
-                        Log.d("NiCe", "SELECT DISTINCT sentencePatternNo\n" +
-                                "FROM pattern_link\n" +
-                                "WHERE nextPattern in (\n" +
-                                "\tSELECT nextPattern\n" +
-                                "\tFROM pattern_link\n" +
-                                "\tWHERE sentencePatternNo in (\n" +
-                                "\t\tSELECT sentencePatternNo\n" +
-                                "\t\tFROM sentence_pattern\n" +
-                                "\t\tWHERE questionClassNo in (\n" +
-                                "\t\t\tSELECT questionClassNo\n" +
-                                "\t\t\tFROM questionclass\n" +
-                                "\t\t\tWHERE questionNo = (\n" +
-                                "\t\t\t\tSELECT questionNo\n" +
-                                "\t\t\t\tFROM question\n" +
-                                "\t\t\t\tWHERE mood = '" + mood_option + "' AND tag = '" + tag_option + "'\n" +
-                                "\t\t\t)\n" +
-                                "\t\t\tAND questionclass NOT IN (\n" +
-                                "\t\t\t\t" + existProp.toString() + "\n" +
-                                "\t\t\t)\n" +
-                                "\t\t)\n" +
-                                "\t)\n" +
-                                ")\n" +
-                                "AND sentencePatternNo IN (\n" +
-                                "\t" + selectedIndexes.toString() + "\n" +
-                                ")\n");
+//                        Log.d("NiCe", "SELECT DISTINCT sentencePatternNo\n" +
+//                            "FROM pattern_link\n" +
+//                            "WHERE nextPattern in (\n" +
+//                            "\tSELECT nextPattern\n" +
+//                            "\tFROM pattern_link\n" +
+//                            "\tWHERE sentencePatternNo in (\n" +
+//                            "\t\tSELECT sentencePatternNo\n" +
+//                            "\t\tFROM sentence_pattern\n" +
+//                            "\t\tWHERE questionClassNo in (\n" +
+//                            "\t\t\tSELECT questionClassNo\n" +
+//                            "\t\t\tFROM questionclass\n" +
+//                            "\t\t\tWHERE questionNo = (\n" +
+//                            "\t\t\t\tSELECT questionNo\n" +
+//                            "\t\t\t\tFROM question\n" +
+//                            "\t\t\t\tWHERE mood = '" + mood_option + "' AND tag = '" + tag_option + "'\n" +
+//                            "\t\t\t)\n" +
+//                            "\t\t\tAND questionclass NOT IN (\n" +
+//                            "\t\t\t\t" + existProp.toString() + "\n" +
+//                            "\t\t\t)\n" +
+//                            "\t\t)\n" +
+//                            "\t)\n" +
+//                            ")\n" +
+//                            "AND sentencePatternNo IN (\n" +
+//                            "\t" + selectedIndexes.toString() + "\n" +
+//                            ")\n");
+                        Log.d("NiCe", "SELECT nextPattern\n" +
+                                "    FROM pattern_link\n" +
+                                "    WHERE nextPattern in (\n" +
+                                "    \t" + selectedIndexes.toString() + "\n" +
+                                "    )\n" +
+                                "    AND sentencePatternNo IN (\n" +
+                                "    \t" + previous_patternNo + "\n" +
+                                "    )");
                     cursor.moveToFirst();
                     do{
                         indexes.add(cursor.getString(0));
@@ -609,6 +634,12 @@ public class Guidor {
         switch (s){
             case "1":
                 return "，";
+            case "2":
+                return "。";
+            case "3":
+                return "；";
+            case "4":
+                return "...";
             default:
                 return "";
         }

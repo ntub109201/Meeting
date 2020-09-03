@@ -1,13 +1,21 @@
 package com.example.myapplication2.Diary;
-
+// version 2020/08/03
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
+    private Context mContext;
     private String
             createTable_question_b = "CREATE TABLE `question_b` (\n" +
             "  `questionNo` INTEGER PRIMARY KEY NOT NULL ,\n" +
@@ -880,54 +888,80 @@ public class DBHelper extends SQLiteOpenHelper {
                 drop_pattern_link = "DROP TABLE pattern_link_b";
     public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+        mContext = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(createTable_question_b);
-        sqLiteDatabase.execSQL(createTable_questionclass_b);
-        sqLiteDatabase.execSQL(createTable_questioncontent_b);
-        sqLiteDatabase.execSQL(createTable_option_b);
-        sqLiteDatabase.execSQL(createTable_how_describe_b);
-        sqLiteDatabase.execSQL(createTable_sentence_pattern_b);
-        sqLiteDatabase.execSQL(createTable_pattern_index_b);
-        sqLiteDatabase.execSQL(createTable_pattern_link_b);
-        sqLiteDatabase.execSQL(insertValues_question_b);
-        sqLiteDatabase.execSQL(insertValues_questionclass_b);
-        sqLiteDatabase.execSQL(insertValues_questioncontent_b);
-        sqLiteDatabase.execSQL(insertValues_option_b);
-        sqLiteDatabase.execSQL(insertValues_how_describe_b);
-        sqLiteDatabase.execSQL(insertValues_sentence_pattern_b);
-        sqLiteDatabase.execSQL(insertValues_pattern_index_b);
-        sqLiteDatabase.execSQL(insertValues_pattern_link_b);
-        sqLiteDatabase.execSQL(createTable_question);
-        sqLiteDatabase.execSQL(createTable_questionclass);
-        sqLiteDatabase.execSQL(createTable_questioncontent);
-        sqLiteDatabase.execSQL(createTable_option);
-        sqLiteDatabase.execSQL(createTable_how_describe);
-        sqLiteDatabase.execSQL(createTable_sentence_pattern);
-        sqLiteDatabase.execSQL(createTable_pattern_index);
-        sqLiteDatabase.execSQL(createTable_pattern_link);
-        sqLiteDatabase.execSQL(insertValues_question);
-        sqLiteDatabase.execSQL(insertValues_questionclass);
-        sqLiteDatabase.execSQL(insertValues_questioncontent);
-        sqLiteDatabase.execSQL(insertValues_option);
-        sqLiteDatabase.execSQL(insertValues_how_describe);
-        sqLiteDatabase.execSQL(insertValues_sentence_pattern);
-        sqLiteDatabase.execSQL(insertValues_pattern_index);
-        sqLiteDatabase.execSQL(insertValues_pattern_link);
-        sqLiteDatabase.execSQL(drop_question_b);
-        sqLiteDatabase.execSQL(drop_questionclass_b);
-        sqLiteDatabase.execSQL(drop_questioncontent_b);
-        sqLiteDatabase.execSQL(drop_option_b);
-        sqLiteDatabase.execSQL(drop_how_describe_b);
-        sqLiteDatabase.execSQL(drop_sentence_pattern);
-        sqLiteDatabase.execSQL(drop_pattern_index);
-        sqLiteDatabase.execSQL(drop_pattern_link);
+//        sqLiteDatabase.execSQL(createTable_question_b);
+//        sqLiteDatabase.execSQL(createTable_questionclass_b);
+//        sqLiteDatabase.execSQL(createTable_questioncontent_b);
+//        sqLiteDatabase.execSQL(createTable_option_b);
+//        sqLiteDatabase.execSQL(createTable_how_describe_b);
+//        sqLiteDatabase.execSQL(createTable_sentence_pattern_b);
+//        sqLiteDatabase.execSQL(createTable_pattern_index_b);
+//        sqLiteDatabase.execSQL(createTable_pattern_link_b);
+//        sqLiteDatabase.execSQL(insertValues_question_b);
+//        sqLiteDatabase.execSQL(insertValues_questionclass_b);
+//        sqLiteDatabase.execSQL(insertValues_questioncontent_b);
+//        sqLiteDatabase.execSQL(insertValues_option_b);
+//        sqLiteDatabase.execSQL(insertValues_how_describe_b);
+//        sqLiteDatabase.execSQL(insertValues_sentence_pattern_b);
+//        sqLiteDatabase.execSQL(insertValues_pattern_index_b);
+//        sqLiteDatabase.execSQL(insertValues_pattern_link_b);
+//        sqLiteDatabase.execSQL(createTable_question);
+//        sqLiteDatabase.execSQL(createTable_questionclass);
+//        sqLiteDatabase.execSQL(createTable_questioncontent);
+//        sqLiteDatabase.execSQL(createTable_option);
+//        sqLiteDatabase.execSQL(createTable_how_describe);
+//        sqLiteDatabase.execSQL(createTable_sentence_pattern);
+//        sqLiteDatabase.execSQL(createTable_pattern_index);
+//        sqLiteDatabase.execSQL(createTable_pattern_link);
+//        sqLiteDatabase.execSQL(insertValues_question);
+//        sqLiteDatabase.execSQL(insertValues_questionclass);
+//        sqLiteDatabase.execSQL(insertValues_questioncontent);
+//        sqLiteDatabase.execSQL(insertValues_option);
+//        sqLiteDatabase.execSQL(insertValues_how_describe);
+//        sqLiteDatabase.execSQL(insertValues_sentence_pattern);
+//        sqLiteDatabase.execSQL(insertValues_pattern_index);
+//        sqLiteDatabase.execSQL(insertValues_pattern_link);
+//        sqLiteDatabase.execSQL(drop_question_b);
+//        sqLiteDatabase.execSQL(drop_questionclass_b);
+//        sqLiteDatabase.execSQL(drop_questioncontent_b);
+//        sqLiteDatabase.execSQL(drop_option_b);
+//        sqLiteDatabase.execSQL(drop_how_describe_b);
+//        sqLiteDatabase.execSQL(drop_sentence_pattern);
+//        sqLiteDatabase.execSQL(drop_pattern_index);
+//        sqLiteDatabase.execSQL(drop_pattern_link);
+        executeAssetsSQL(sqLiteDatabase, "");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+    }
+    private void executeAssetsSQL(SQLiteDatabase db, String schemaName) {
+        BufferedReader in = null;
+        // Uri guidary_sql = Uri.parse("android.resource://com.cpt.sample/raw/guidary.sql");
+        try { in = new BufferedReader(new InputStreamReader(mContext.getAssets().open("guidary.sql"))); //System.out.println("路徑:" + Configuration.DB_PATH + "/" + schemaName);
+            String line;
+            String buffer = "";
+            while ((line = in .readLine()) != null) {
+                buffer += line;
+                if (line.trim().endsWith(";")) {
+                    db.execSQL(buffer.replace(";", ""));
+                    buffer = "";
+                }
+            }
+        } catch (IOException e) {
+            Log.e("db-error", e.toString());
+        } finally {
+            try {
+                if ( in != null) in .close();
+            } catch (IOException e) {
+                Log.e("db-error", e.toString());
+            }
+        }
+        Log.d("nice", "");
     }
 }

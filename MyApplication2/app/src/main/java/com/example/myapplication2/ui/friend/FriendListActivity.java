@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -59,6 +60,15 @@ public class FriendListActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
+
+        final Button btn_friendlist = findViewById(R.id.btn_friendlist);
+        btn_friendlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendListActivity.this,BestFriendActivity.class);
+                startActivity(intent);
+            }
+        });
 
         RecyclerView1 = findViewById(R.id.recyclerView1);
         RecyclerView1.setHasFixedSize(true);

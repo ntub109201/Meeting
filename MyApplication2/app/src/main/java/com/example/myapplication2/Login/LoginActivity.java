@@ -68,8 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent registerIntent = new Intent(LoginActivity.this,RegisterActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                LoginActivity.this.startActivity(registerIntent,options.toBundle());
+                LoginActivity.this.startActivity(registerIntent);
             }
         });
 

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,14 +30,13 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static ProgressBar pr2;
     private EditText etName, etEmail, etPassword, etPasswordCheck;
     private TextView txtMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        final ImageButton imBtnBack = (ImageButton) findViewById(R.id.imbtnBackToLogin);
+        final Button imBtnBack = findViewById(R.id.imbtnBackToLogin);
 
         imBtnBack.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -53,7 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         etPasswordCheck = findViewById(R.id.etPasswordCheck);
         txtMessage = findViewById(R.id.txtMessage);
-        pr2 = findViewById(R.id.progressBar2);
         String Name = etName.getText().toString();
         String Email = etEmail.getText().toString();
         String password1 = etPassword.getText().toString();
@@ -62,27 +61,34 @@ public class RegisterActivity extends AppCompatActivity {
             if(Email.equals("")){
                 if(password1.equals("")){
                     txtMessage.setText("未輸入基本資料");
+                    txtMessage.setTextColor(Color.rgb(236, 17, 17));
                     return;
                 }else {
                     txtMessage.setText("未輸入使用者名稱及電子信箱");
+                    txtMessage.setTextColor(Color.rgb(236, 17, 17));
                     return;
                 }
             }else if(password1.equals("")){
                 txtMessage.setText("未輸入使用者名稱及密碼");
+                txtMessage.setTextColor(Color.rgb(236, 17, 17));
                 return;
             }else{
                 txtMessage.setText("未輸入使用者名稱");
+                txtMessage.setTextColor(Color.rgb(236, 17, 17));
                 return;
             }
         }else if(Email.equals("")){
             if(password1.equals("")){
                 txtMessage.setText("未輸入電子郵件及密碼");
+                txtMessage.setTextColor(Color.rgb(236, 17, 17));
             }else{
                 txtMessage.setText("未輸入電子郵件信箱");
+                txtMessage.setTextColor(Color.rgb(236, 17, 17));
                 return;
             }
         }else if(password1.equals("")){
             txtMessage.setText("未輸入密碼");
+            txtMessage.setTextColor(Color.rgb(236, 17, 17));
             return;
         }else{
             if(password1.equals(password2)){
@@ -92,10 +98,10 @@ public class RegisterActivity extends AppCompatActivity {
                 map.put("name", Name);
                 map.put("email", Email);
                 new Regsiter(this).execute((HashMap)map);
-                pr2.setVisibility(View.VISIBLE);
 
             }else{
                 txtMessage.setText("密碼不相同");
+                txtMessage.setTextColor(Color.rgb(236, 17, 17));
                 return;
             }
         }
@@ -133,7 +139,6 @@ public class RegisterActivity extends AppCompatActivity {
                         .setMessage("請確認網路是否開啟!!")
                         .setPositiveButton("OK", null)
                         .show();
-                pr2.setVisibility(View.INVISIBLE);
             }
 
 
