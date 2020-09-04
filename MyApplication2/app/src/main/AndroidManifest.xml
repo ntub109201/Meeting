@@ -15,7 +15,8 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.friend.SetBestFriendActivity"></activity>
+        <activity android:name=".Login.FirstLoginActivity2"></activity>
+        <activity android:name=".ui.friend.SetBestFriendActivity" />
         <activity android:name=".ui.friend.BestFriendActivity" />
         <activity
             android:name=".PersonalActivity"
