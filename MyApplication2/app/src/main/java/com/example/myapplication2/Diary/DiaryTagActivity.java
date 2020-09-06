@@ -31,13 +31,13 @@ public class DiaryTagActivity extends AppCompatActivity {
                 DiaryTagActivity.this.startActivity(intent,options.toBundle());
             }
         });
-//        // 前往下一頁 clothes
+        // 前往下一頁 clothes
 //        final Button btn_clothes = findViewById(R.id.btn_clothes);
 //        btn_clothes.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                txtTag ="因為我今天買了";
-//                Intent intent = new Intent(DiaryTagActivity.this, DiaryWhatActivity.class);
+//                DiaryValue.txtTag ="購物";
+//                Intent intent = new Intent(DiaryTagActivity.this, DiaryWhereActivity.class);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                DiaryTagActivity.this.startActivity(intent);
 //            }

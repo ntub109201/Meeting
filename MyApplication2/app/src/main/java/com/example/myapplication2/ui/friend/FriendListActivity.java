@@ -44,6 +44,7 @@ public class FriendListActivity extends AppCompatActivity {
     private MyAdapter1 myAdapter1;
     private MyAdapter2 myAdapter2;
     private SwipeRefreshLayout RefreshLayoutFriendList1, RefreshLayoutFriendList2;
+    public static int data1_list = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +107,8 @@ public class FriendListActivity extends AppCompatActivity {
 
     private void doData1(){
         data1 = new LinkedList<>();
-        for(int i = 0; i < 3; i++){
+
+        for(int i = 0; i < data1_list; i++){
             HashMap<String,String> row = new HashMap<>();
             data1.add(row);
         }
@@ -117,9 +119,12 @@ public class FriendListActivity extends AppCompatActivity {
         class MyViewHolder extends RecyclerView.ViewHolder{
             public View itemView;
             public TextView textName;
+            public Button btn_confirm,btn_cancel;
             public MyViewHolder(View view){
                 super(view);
                 itemView = view;
+                btn_confirm = itemView.findViewById(R.id.btn_confirm);
+                btn_cancel = itemView.findViewById(R.id.btn_cancel);
             }
         }
 

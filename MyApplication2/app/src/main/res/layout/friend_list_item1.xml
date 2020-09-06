@@ -44,7 +44,7 @@
                 app:riv_oval="true" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btn_confirm"
                 style="@style/btn_friendconfirm"
                 android:layout_width="60dp"
                 android:layout_height="45dp"
@@ -59,7 +59,7 @@
                 app:layout_constraintVertical_bias="0.511" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btn_cancel"
                 style="@style/btn_friendconfirm"
                 android:layout_width="60dp"
                 android:layout_height="45dp"

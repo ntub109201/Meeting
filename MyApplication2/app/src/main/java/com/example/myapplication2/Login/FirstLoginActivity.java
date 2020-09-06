@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
+import com.example.myapplication2.ui.friend.FriendListActivity;
 
 
 public class FirstLoginActivity extends AppCompatActivity {
@@ -28,9 +29,7 @@ public class FirstLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "美食";
-                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("id",1);
+                Intent intent = new Intent(FirstLoginActivity.this, FirstLoginActivity2.class);
                 startActivity(intent);
             }
         });
@@ -39,9 +38,7 @@ public class FirstLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "購物";
-                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("id",1);
+                Intent intent = new Intent(FirstLoginActivity.this, FirstLoginActivity2.class);
                 startActivity(intent);
             }
         });
@@ -50,9 +47,7 @@ public class FirstLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "戀愛";
-                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("id",1);
+                Intent intent = new Intent(FirstLoginActivity.this, FirstLoginActivity2.class);
                 startActivity(intent);
             }
         });
@@ -61,9 +56,7 @@ public class FirstLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "旅遊";
-                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("id",1);
+                Intent intent = new Intent(FirstLoginActivity.this, FirstLoginActivity2.class);
                 startActivity(intent);
             }
         });
@@ -72,9 +65,7 @@ public class FirstLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "休閒娛樂";
-                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("id",1);
+                Intent intent = new Intent(FirstLoginActivity.this, FirstLoginActivity2.class);
                 startActivity(intent);
             }
         });
@@ -83,9 +74,7 @@ public class FirstLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sqlReturn.PersonalHobby = "其他";
-                Intent intent = new Intent(FirstLoginActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("id",1);
+                Intent intent = new Intent(FirstLoginActivity.this, FirstLoginActivity2.class);
                 startActivity(intent);
             }
         });

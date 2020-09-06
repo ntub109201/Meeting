@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication2.R;
+import com.example.myapplication2.sqlReturn;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.HashMap;
@@ -63,10 +65,9 @@ public class SetBestFriendActivity extends AppCompatActivity {
     private void doData1(){
         data1 = new LinkedList<>();
 
-        String[] b = {"陳昱","振宇","景婷","詩庭","允謙","臭鼬","家豪","路人甲","路人乙","路人丙"};
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < sqlReturn.SearchCountFriendList; i++) {
             HashMap<String, String> row = new HashMap<>();
-            row.put("txtName",b[i]);
+            row.put("txtName",sqlReturn.friendListName[i]);
             data1.add(row);
         }
     }
@@ -84,6 +85,20 @@ public class SetBestFriendActivity extends AppCompatActivity {
                 textName = itemView.findViewById(R.id.textName);
                 roundedImageView = itemView.findViewById(R.id.roundedImageView);
                 btn_add = itemView.findViewById(R.id.btn_add);
+                btn_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(btn_add.getText().toString().equals("新增")){
+                            btn_add.setText("已新增");
+                            btn_add.setTextColor(Color.parseColor("#FFFFFF"));
+                            btn_add.setBackgroundResource(R.drawable.btn_friendconfirm2);
+                        }else if(btn_add.getText().toString().equals("已新增")){
+                            btn_add.setText("新增");
+                            btn_add.setTextColor(Color.parseColor("#73AF00"));
+                            btn_add.setBackgroundResource(R.drawable.btn_friendconfirm);
+                        }
+                    }
+                });
             }
         }
 

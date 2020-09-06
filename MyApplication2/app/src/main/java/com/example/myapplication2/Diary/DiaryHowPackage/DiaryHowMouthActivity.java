@@ -116,11 +116,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(homeTownClick){
                     homeTownClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_homeTown.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_homeTown.setBackgroundResource(R.drawable.button_shape);
                 }else if(!homeTownClick){
                     homeTownClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_homeTown.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_homeTown.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
@@ -131,11 +131,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(singleClick){
                     singleClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_single.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_single.setBackgroundResource(R.drawable.button_shape);
                 }else if(!singleClick){
                     singleClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_single.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_single.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
@@ -146,11 +146,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(simpleClick){
                     simpleClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_simple.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_simple.setBackgroundResource(R.drawable.button_shape);
                 }else if(!simpleClick){
                     simpleClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_simple.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_simple.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
@@ -161,11 +161,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(plentyClick){
                     plentyClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_plenty.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_plenty.setBackgroundResource(R.drawable.button_shape);
                 }else if(!plentyClick){
                     plentyClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_plenty.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_plenty.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
@@ -176,11 +176,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(bitterClick){
                     bitterClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_bitter.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_bitter.setBackgroundResource(R.drawable.button_shape);
                 }else if(!bitterClick){
                     bitterClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_bitter.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_bitter.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
@@ -191,11 +191,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(hotClick){
                     hotClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_hot.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_hot.setBackgroundResource(R.drawable.button_shape);
                 }else if(!hotClick){
                     hotClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_hot.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_hot.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
@@ -206,11 +206,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(acidClick){
                     acidClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_acid.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_acid.setBackgroundResource(R.drawable.button_shape);
                 }else if(!acidClick){
                     acidClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_acid.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_acid.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
@@ -221,11 +221,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(sweetClick){
                     sweetClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_sweet.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_sweet.setBackgroundResource(R.drawable.button_shape);
                 }else if(!sweetClick){
                     sweetClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_sweet.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_sweet.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
@@ -236,11 +236,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(saltyClick){
                     saltyClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_salty.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_salty.setBackgroundResource(R.drawable.button_shape);
                 }else if(!saltyClick){
                     saltyClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_salty.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_salty.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
@@ -251,11 +251,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(fantasticClick){
                     fantasticClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_fantastic.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_fantastic.setBackgroundResource(R.drawable.button_shape);
                 }else if(!fantasticClick){
                     fantasticClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_fantastic.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_fantastic.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
@@ -266,11 +266,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(uniqueClick){
                     uniqueClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_unique.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_unique.setBackgroundResource(R.drawable.button_shape);
                 }else if(!uniqueClick){
                     uniqueClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_unique.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_unique.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
@@ -281,11 +281,11 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
                 if(nauseaClick){
                     nauseaClick = false;
                     DiaryValue.Mouth_Count -=1;
-                    btn_nausea.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_nausea.setBackgroundResource(R.drawable.button_shape);
                 }else if(!nauseaClick){
                     nauseaClick = true;
                     DiaryValue.Mouth_Count +=1;
-                    btn_nausea.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_nausea.setBackgroundResource(R.drawable.button_shape2);
                 }
             }
         });
