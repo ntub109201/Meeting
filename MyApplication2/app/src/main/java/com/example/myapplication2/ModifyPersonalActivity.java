@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -135,6 +136,7 @@ public class ModifyPersonalActivity extends AppCompatActivity {
                 datePickerDialog.setMessage("請選擇您的生日日期");
                 datePickerDialog.setIcon(android.R.drawable.ic_dialog_info);
                 datePickerDialog.setCancelable(false);
+                datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
                 datePickerDialog.show();
             }
         });

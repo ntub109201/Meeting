@@ -51,16 +51,6 @@ public class FriendListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
 
-//        final ImageButton imbtnReturnToSocial = findViewById(R.id.imbtnReturnToSocial);
-//        imbtnReturnToSocial.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(FriendListActivity.this, MainActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                intent.putExtra("id",3);
-//                startActivity(intent);
-//            }
-//        });
 
         final Button btn_friendlist = findViewById(R.id.btn_friendlist);
         btn_friendlist.setOnClickListener(new View.OnClickListener() {

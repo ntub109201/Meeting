@@ -6,30 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".OCRActivity">
 
-    <GridView
-        android:id="@+id/gridView1"
+
+    <ImageView
+        android:id="@+id/imgPhoto"
         android:layout_width="0dp"
-        android:layout_height="400dp"
-        android:gravity="center"
-        android:horizontalSpacing="1dp"
-        android:numColumns="4"
-        android:verticalSpacing="1dp"
+        android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/ic_logo_foreground"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

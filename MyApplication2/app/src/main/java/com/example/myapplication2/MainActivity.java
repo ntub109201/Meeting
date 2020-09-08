@@ -7,17 +7,11 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.transition.Explode;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import com.example.myapplication2.Diary.DiaryActivity;
-import com.example.myapplication2.Login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -25,16 +19,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import android.graphics.Color;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Button goToDiarybutton, goToOCRbutton, goToHandwritebutton, btnAnim;
     public static boolean changeBtn = false;
     public static boolean login = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +86,9 @@ public class MainActivity extends AppCompatActivity {
         goToOCR.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(MainActivity.this, OCRActivity.class);
-                MainActivity.this.startActivity(registerIntent);
+                Intent registerIntent = new Intent(MainActivity.this,OCRActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
+                MainActivity.this.startActivity(registerIntent,options.toBundle());
             }
         });
 
@@ -116,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         btnAnim.setOnClickListener(btnChangeColorOnClick);
 
     }
+
+
 
 
     // 變化背景動畫

@@ -15,9 +15,15 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login.FirstLoginActivity2"></activity>
-        <activity android:name=".ui.friend.SetBestFriendActivity" />
-        <activity android:name=".ui.friend.BestFriendActivity" />
+        <activity
+            android:name=".Login.FirstLoginActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.friend.SetBestFriendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.friend.BestFriendActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PersonalActivity"
             android:screenOrientation="portrait" />

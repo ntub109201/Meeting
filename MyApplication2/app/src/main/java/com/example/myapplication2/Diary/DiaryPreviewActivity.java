@@ -1601,17 +1601,17 @@ public class DiaryPreviewActivity extends AppCompatActivity{
             finalTotal = total+ totalPlus;
             if(DiaryValue.Time.equals("")){
                 Calendar c = Calendar.getInstance();
-                textView.setText(finalTotal+"\n"+"撰寫時間"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH));
+                textView.setText("  時間"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH)+"\n"+finalTotal+"\n");
             }else {
-                textView.setText(finalTotal+"\n"+"撰寫時間"+DiaryValue.Time);
+                textView.setText("  時間"+DiaryValue.Time+"\n"+finalTotal+"\n");
             }
         }else{
             finalTotal = edit;
             if(DiaryValue.Time.equals("")){
                 Calendar c = Calendar.getInstance();
-                textView.setText(finalTotal+"\n"+"撰寫時間"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH));
+                textView.setText("  時間"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH)+"\n"+finalTotal+"\n");
             }else {
-                textView.setText(finalTotal+"\n"+"撰寫時間"+DiaryValue.Time);
+                textView.setText("  時間"+DiaryValue.Time+"\n"+finalTotal+"\n");
             }
         }
 

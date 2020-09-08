@@ -49,7 +49,7 @@ public class DiaryEndActivity extends AppCompatActivity {
     private ImageView imageDiaryGetPhoto;
     private String DiaryContext;
     private ImageButton btn_DiaryEnd;
-
+    private String currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +113,12 @@ public class DiaryEndActivity extends AppCompatActivity {
     }
 
     public void DiaryInsert(){
-        String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        if(DiaryValue.Time.equals("")){
+            currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        }else {
+            currentDate = DiaryValue.EndTime;
+        }
         Map<String,String> map = new HashMap<>();
         map.put("command", "newDiary");
         map.put("uid", sqlReturn.GetUserID);

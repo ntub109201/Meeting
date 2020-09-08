@@ -20,6 +20,7 @@ import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.R;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class DiaryWhenActivity extends AppCompatActivity {
 
@@ -82,6 +83,7 @@ public class DiaryWhenActivity extends AppCompatActivity {
                 datePickerDialog.setMessage("請選擇日期");
                 datePickerDialog.setIcon(android.R.drawable.ic_dialog_info);
                 datePickerDialog.setCancelable(false);
+                datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
                 datePickerDialog.show();
             }
         });
@@ -148,6 +150,7 @@ public class DiaryWhenActivity extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             txtDate.setText(String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth));
             DiaryValue.Time = txtDate.getText().toString();
+            DiaryValue.EndTime = (String.valueOf(year)+"-"+String.valueOf(month+1)+"-"+String.valueOf(dayOfMonth));
         }
     };
     // 擋住手機上回上一頁鍵
