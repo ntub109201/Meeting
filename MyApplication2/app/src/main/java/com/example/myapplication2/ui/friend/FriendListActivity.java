@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +58,16 @@ public class FriendListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FriendListActivity.this,BestFriendActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        final Button btn_friendsearch = findViewById(R.id.btn_friendsearch);
+        btn_friendsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendListActivity.this,SearchFriendActivity.class);
                 startActivity(intent);
             }
         });
