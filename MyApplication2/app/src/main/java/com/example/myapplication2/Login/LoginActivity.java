@@ -21,6 +21,8 @@ import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.PersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
+import com.example.myapplication2.ui.friend.FriendListActivity;
+import com.example.myapplication2.ui.home.HomeContextActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,14 +56,14 @@ public class LoginActivity extends AppCompatActivity {
         edPasswd = findViewById(R.id.password);
         edPasswd.setText(sqlReturn.RegisterPassword);
 
-//        final TextView test = findViewById(R.id.register2);
-//        test.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(LoginActivity.this, PersonalActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        final TextView test = findViewById(R.id.register2);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, HomeContextActivity.class);
+                startActivity(intent);
+            }
+        });
 
         final Button registerLink = findViewById(R.id.register);
         registerLink.setOnClickListener(new View.OnClickListener() {

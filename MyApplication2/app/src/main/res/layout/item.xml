@@ -4,82 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item1"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/photo_image"
-                    android:layout_width="0dp"
-                    android:layout_height="280dp"
-                    android:layout_marginEnd="1dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintEnd_toEndOf="parent"
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/roundedImageView3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@mipmap/ic_usericon_foreground"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_border_color="#333333"
+                    app:riv_oval="true" />
+
+                <TextView
+                    android:id="@+id/place_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓名"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.32"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.06" />
 
                 <TextView
                     android:id="@+id/place_description_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="128dp"
-                    android:layout_marginBottom="20dp"
-                    android:textColor="@color/cardview_dark_background"
-                    android:textSize="18dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/photo_image"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:text="日期"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.95"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.06" />
+
+                <ImageView
+                    android:id="@+id/photo_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="320dp"
+                    android:layout_marginTop="84dp"
+                    android:layout_marginBottom="8dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toTopOf="@+id/textView16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@mipmap/ic_wallpaper_foreground" />
 
                 <TextView
                     android:id="@+id/tag_text"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="文章開頭"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/photo_image"
-                    app:layout_constraintEnd_toEndOf="@+id/photo_image"
-                    app:layout_constraintHorizontal_bias="0.958"
-                    app:layout_constraintStart_toStartOf="@+id/photo_image"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.949" />
-
-                <TextView
-                    android:id="@+id/place_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="128dp"
-                    android:layout_marginBottom="44dp"
-                    android:textColor="#ff414141"
-                    android:textSize="18dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/photo_image"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <LinearLayout
-                    style="@style/btn_user"
-                    android:layout_width="85dp"
-                    android:layout_height="87dp"
-
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="48dp"
-                    android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                        <com.makeramen.roundedimageview.RoundedImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/user"
-                            app:riv_border_color="#333333"
-                            app:riv_oval="true" />
-
-                </LinearLayout>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.743" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </LinearLayout>
 
-<!--    android:src="@drawable/images"-->
+    <!--    android:src="@drawable/images"-->

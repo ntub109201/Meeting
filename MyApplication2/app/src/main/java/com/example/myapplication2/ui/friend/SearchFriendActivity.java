@@ -60,13 +60,13 @@ public class SearchFriendActivity extends AppCompatActivity {
                             .setPositiveButton("OK", null)
                             .show();
                 }else {
-                    searchFriend();
-//                    doData();
-//                    recyclerView.setHasFixedSize(true);
-//                    mLayoutManager = new LinearLayoutManager(SearchFriendActivity.this);
-//                    recyclerView.setLayoutManager(mLayoutManager);
-//                    myAdapter = new MyAdapter();
-//                    recyclerView.setAdapter(myAdapter);
+                    //searchFriend();
+                    doData();
+                    recyclerView.setHasFixedSize(true);
+                    mLayoutManager = new LinearLayoutManager(SearchFriendActivity.this);
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    myAdapter = new MyAdapter();
+                    recyclerView.setAdapter(myAdapter);
                 }
             }
         });
@@ -124,16 +124,16 @@ public class SearchFriendActivity extends AppCompatActivity {
     private void doData(){
 
         data = new LinkedList<>();
-        for(int i = 0; i < sqlReturn.SearchFriend; i++){
-            HashMap<String,String> row = new HashMap<>();
-            row.put("textName",sqlReturn.SearchFriendName[i]);
-            data.add(row);
-        }
-//        for(int i = 0; i < 5; i++){
+//        for(int i = 0; i < sqlReturn.SearchFriend; i++){
 //            HashMap<String,String> row = new HashMap<>();
-//            row.put("textName",editText.getText().toString() );
+//            row.put("textName",sqlReturn.SearchFriendName[i]);
 //            data.add(row);
 //        }
+        for(int i = 0; i < 5; i++){
+            HashMap<String,String> row = new HashMap<>();
+            row.put("textName",editText.getText().toString() );
+            data.add(row);
+        }
     }
 
     private class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {

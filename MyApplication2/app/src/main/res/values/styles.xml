@@ -678,5 +678,38 @@
         <item name="android:background">@drawable/btn_backsignup</item>
         <item name="android:drawableRight">@mipmap/ic_backsignup_foreground</item>
     </style>
+	<style name="btn_historydiaryback" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_friendlistshape</item>
+        <!--<item name="android:padding">10dip</item>-->
+        <item name="android:drawableTop">@mipmap/ic_histortdiaryback_foreground</item>
+    </style>
+    <style name="btn_historydiarysave" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_friendlistshape</item>
+        <!--<item name="android:padding">10dip</item>-->
+        <item name="android:drawableTop">@mipmap/ic_histortdiarysave_foreground</item>
+    </style>
+    <style name="btn_historydiarydelete" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_friendlistshape</item>
+        <!--<item name="android:padding">10dip</item>-->
+        <item name="android:drawableTop">@mipmap/ic_histortdiarydelete_foreground</item>
+    </style>
+    <style name="btn_profileset" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_friendlistshape</item>
+        <item name="android:paddingTop">-10dp</item>
+        <item name="android:drawablePadding">-35dp</item>
+        <item name="android:drawableTop">@mipmap/ic_profileset_foreground</item>
+    </style>
 
 </resources>

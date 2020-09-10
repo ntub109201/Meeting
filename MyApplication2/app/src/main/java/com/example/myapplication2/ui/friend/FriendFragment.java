@@ -124,6 +124,13 @@ public class FriendFragment extends Fragment {
             row.put("tag_text",sqlReturn.tagNameFriend[i]);
             data.add(row);
         }
+//        for(int i = 0; i < 5; i++){
+//            HashMap<String,String> row = new HashMap<>();
+//            row.put("place_text","姓名"+i);
+//            row.put("place_description_text","日期"+i);
+//            row.put("tag_text","文章開頭"+i);
+//            data.add(row);
+//        }
     }
 
     private class  MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -165,10 +172,12 @@ public class FriendFragment extends Fragment {
             holder.place_text.setText(data.get(position).get("place_text"));
             holder.place_description_text.setText(data.get(position).get("place_description_text"));
             holder.tag_text.setText(data.get(position).get("tag_text"));
-            if(position % 2 == 0){
+            if(position % 3 == 0){
                 holder.photo_image.setImageResource(R.drawable.images);
-            }else {
+            }else if(position % 3 == 1){
                 holder.photo_image.setImageResource(R.drawable.image2);
+            }else {
+                holder.photo_image.setImageResource(R.mipmap.ic_wallpaper_foreground);
             }
 
         }
