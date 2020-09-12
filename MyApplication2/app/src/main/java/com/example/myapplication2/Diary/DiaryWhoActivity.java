@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.myapplication2.Diary.DiaryWhoFragment.DiaryWhoFirstFragment;
@@ -29,6 +30,19 @@ public class DiaryWhoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_who);
 
+        final TextView txtWho_title = findViewById(R.id.txtWho_title);
+        if(DiaryValue.txtTag.equals("美食")){
+
+        }else if(DiaryValue.txtTag.equals("購物")){
+            txtWho_title.setText("有誰和你一起去買呢?");
+        }
+
+        final ProgressBar progressBarWho = findViewById(R.id.progressBarWho);
+        if(DiaryValue.txtTag.equals("美食")){
+
+        }else if(DiaryValue.txtTag.equals("購物")){
+            progressBarWho.setProgress(40);
+        }
 
         // 反回上一頁
         final ImageButton imbtnReturnFrontPage7 = findViewById(R.id.imbtnReturnFrontPage7);

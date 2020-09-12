@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.myapplication2.Diary.DiaryHowPackage.DiaryHowActivity;
@@ -37,6 +38,21 @@ public class DiaryWhereActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_where);
 
+
+        final TextView txtWhere_title = findViewById(R.id.txtWhere_title);
+        if(DiaryValue.txtTag.equals("美食")){
+
+        }else if(DiaryValue.txtTag.equals("購物")){
+            txtWhere_title.setText("這是在哪裡買的呢?");
+        }
+
+        final ProgressBar progressBarWhere = findViewById(R.id.progressBarWhere);
+        if(DiaryValue.txtTag.equals("美食")){
+
+        }else if(DiaryValue.txtTag.equals("購物")){
+            progressBarWhere.setProgress(80);
+        }
+
         // 反回上一頁
         final ImageButton imbtnReturnFrontPage4 = findViewById(R.id.imbtnReturnFrontPage4);
         imbtnReturnFrontPage4.setOnClickListener(new View.OnClickListener() {
@@ -58,13 +74,6 @@ public class DiaryWhereActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(myAdapter);
 
         doData();
-
-        if (DiaryValue.txtTag.equals("美食")) {
-
-        } else if (DiaryValue.txtTag.equals("購物")) {
-
-        }
-
 
         // 前往preview
         final TextView mPreview = findViewById(R.id.btn_preview_where);

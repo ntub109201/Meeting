@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication2.Diary.DiaryActivity;
+import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.PersonalActivity;
@@ -56,14 +58,14 @@ public class LoginActivity extends AppCompatActivity {
         edPasswd = findViewById(R.id.password);
         edPasswd.setText(sqlReturn.RegisterPassword);
 
-//        final TextView test = findViewById(R.id.register2);
-//        test.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(LoginActivity.this, HomeContextActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        final TextView test = findViewById(R.id.register2);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, DiaryActivity.class);
+                startActivity(intent);
+            }
+        });
 
         final Button registerLink = findViewById(R.id.register);
         registerLink.setOnClickListener(new View.OnClickListener() {

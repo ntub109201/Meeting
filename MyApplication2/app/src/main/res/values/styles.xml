@@ -711,5 +711,25 @@
         <item name="android:drawablePadding">-35dp</item>
         <item name="android:drawableTop">@mipmap/ic_profileset_foreground</item>
     </style>
+    <style name="btn_impulsive" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_impulsive</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:drawableTop">@mipmap/btn_impulsive_foreground</item>
+    </style>
+    <style name="btn_nogo" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_nogo</item>
+        <item name="android:drawableTop">@mipmap/btn_nogo_foreground</item>
+    </style>
+    <style name="btn_request" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_request</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:drawableTop">@mipmap/btn_requests_foreground
+        </item>
+    </style>
+    <style name="btn_shopping" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_shopping</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:drawableTop">@mipmap/btn_shopping_foreground</item>
+    </style>
 
 </resources>

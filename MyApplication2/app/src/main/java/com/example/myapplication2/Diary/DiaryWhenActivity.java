@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.myapplication2.Diary.DiaryHowPackage.DiaryHowActivity;
@@ -31,6 +32,20 @@ public class DiaryWhenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_when);
+
+        final TextView txtWhen_title = findViewById(R.id.txtWhen_title);
+        if(DiaryValue.txtTag.equals("美食")){
+
+        }else if(DiaryValue.txtTag.equals("購物")){
+            txtWhen_title.setText("什麼時間去買的呢?");
+        }
+
+        final ProgressBar progressBarWhen = findViewById(R.id.progressBarWhen);
+        if(DiaryValue.txtTag.equals("美食")){
+
+        }else if(DiaryValue.txtTag.equals("購物")){
+            progressBarWhen.setProgress(20);
+        }
 
         // 反回上一頁
         final ImageButton imbtnReturnFrontPage6 = findViewById(R.id.imbtnReturnFrontPage6);

@@ -57,7 +57,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtWhere_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="你在那裡吃的呢？"
@@ -96,6 +96,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
+        android:id="@+id/progressBarWhere"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="390dp"
         android:layout_height="24dp"

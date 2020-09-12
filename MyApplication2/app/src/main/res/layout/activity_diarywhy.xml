@@ -73,6 +73,7 @@
         <Button
             android:id="@+id/btn_nowhy"
             style="@style/btn_nowhy"
+            android:background="@drawable/btn_nowhy"
             android:layout_width="140dp"
             android:layout_height="135dp"
             android:gravity="center"
@@ -163,7 +164,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtWhy_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="為什麼會想吃這個美食？"
@@ -176,6 +177,7 @@
         app:layout_constraintVertical_bias="0.15" />
 
     <ProgressBar
+        android:id="@+id/progressBarWhy"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="390dp"
         android:layout_height="24dp"
