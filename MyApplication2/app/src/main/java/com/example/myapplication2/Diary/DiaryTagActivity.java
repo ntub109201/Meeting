@@ -31,24 +31,26 @@ public class DiaryTagActivity extends AppCompatActivity {
                 DiaryTagActivity.this.startActivity(intent,options.toBundle());
             }
         });
-        // 前往下一頁 clothes
-//        final Button btn_clothes = findViewById(R.id.btn_clothes);
-//        btn_clothes.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DiaryValue.txtTag ="購物";
-//                Intent intent = new Intent(DiaryTagActivity.this, DiaryWhereActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                DiaryTagActivity.this.startActivity(intent);
-//            }
-//        });
-        // 前往下一頁 food
+
+        // 前往下一頁 美食
         final Button btn_food = findViewById(R.id.btn_food);
         btn_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtTag ="美食";
                 Intent intent = new Intent(DiaryTagActivity.this, DiaryWhatActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTagActivity.this);
+                DiaryTagActivity.this.startActivity(intent,options.toBundle());
+            }
+        });
+
+        // 前往下一頁 購物
+        final Button btn_clothes = findViewById(R.id.btn_clothes);
+        btn_clothes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtTag ="購物";
+                Intent intent = new Intent(DiaryTagActivity.this, DiaryWhenActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTagActivity.this);
                 DiaryTagActivity.this.startActivity(intent,options.toBundle());
             }

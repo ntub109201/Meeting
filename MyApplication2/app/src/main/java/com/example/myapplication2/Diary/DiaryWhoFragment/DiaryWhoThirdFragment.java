@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.myapplication2.Diary.DiaryPreviewActivity;
+import com.example.myapplication2.Diary.DiaryWhyActivity;
 import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.R;
 
@@ -29,14 +30,21 @@ public class DiaryWhoThirdFragment extends Fragment {
         btn_colleague.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWho = "同事";
-                Intent intent = new Intent();
-                intent.setClass(DiaryWhoThirdFragment.super.getActivity(), DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1","DiaryWhoActivity");
-                intent.putExtras(tagData);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoThirdFragment.super.getActivity());
-                startActivity(intent,options.toBundle());
+                if(DiaryValue.txtTag.equals("美食")){
+                    DiaryValue.txtWho = "同事";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhoThirdFragment.super.getActivity(), DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhoActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoThirdFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("購物")){
+                    DiaryValue.txtWho = "同事";
+                    Intent intent = new Intent(DiaryWhoThirdFragment.super.getActivity(), DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoThirdFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
+                }
             }
         });
 
@@ -44,14 +52,21 @@ public class DiaryWhoThirdFragment extends Fragment {
         btn_ambiguous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWho = "曖昧對象";
-                Intent intent = new Intent();
-                intent.setClass(DiaryWhoThirdFragment.super.getActivity(),DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1","DiaryWhoActivity");
-                intent.putExtras(tagData);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoThirdFragment.super.getActivity());
-                startActivity(intent,options.toBundle());
+                if(DiaryValue.txtTag.equals("美食")){
+                    DiaryValue.txtWho = "曖昧對象";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhoThirdFragment.super.getActivity(),DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhoActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoThirdFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("購物")){
+                    DiaryValue.txtWho = "曖昧對象";
+                    Intent intent = new Intent(DiaryWhoThirdFragment.super.getActivity(), DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoThirdFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
+                }
             }
         });
 

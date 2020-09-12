@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
@@ -37,6 +39,7 @@ public class SearchFriendActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private LinkedList<HashMap<String,String>> data;
     private MyAdapter myAdapter;
+    private ProgressBar progressBar1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +49,33 @@ public class SearchFriendActivity extends AppCompatActivity {
 
         // adapter
         recyclerView = findViewById(R.id.recyclerView);
+        progressBar1 = findViewById(R.id.progressBar1);
 
+        final Button btn_friendback = findViewById(R.id.btn_friendback);
+        btn_friendback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchFriendActivity.this,FriendListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
         editText = findViewById(R.id.editText);
         btn_friendsearch = findViewById(R.id.btn_friendsearch);
         btn_friendsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar1.setVisibility(View.VISIBLE);
                 if (editText.getText().toString().equals("")){
                     new AlertDialog.Builder(SearchFriendActivity.this)
                             .setTitle("提醒")
                             .setMessage("請至少輸入一個字!!")
                             .setPositiveButton("OK", null)
                             .show();
+                    progressBar1.setVisibility(View.INVISIBLE);
                 }else {
-                    //searchFriend();
-                    doData();
-                    recyclerView.setHasFixedSize(true);
-                    mLayoutManager = new LinearLayoutManager(SearchFriendActivity.this);
-                    recyclerView.setLayoutManager(mLayoutManager);
-                    myAdapter = new MyAdapter();
-                    recyclerView.setAdapter(myAdapter);
+                    searchFriend();
                 }
             }
         });
@@ -97,9 +106,12 @@ public class SearchFriendActivity extends AppCompatActivity {
             if (activity == null || activity.isFinishing()) return;
 
             try {
+                jsonObject = new JSONObject(result);
                 sqlReturn.textViewSearchFriend = jsonObject.getString("results");
+                status = jsonObject.getBoolean("status");
                 sqlReturn.SearchFriend = jsonObject.getInt("rowcount");
                 jsonArray = new JSONArray(sqlReturn.textViewSearchFriend);
+                sqlReturn.SearchFriendUserId = new String[sqlReturn.SearchFriend];
                 sqlReturn.SearchFriendName = new String[sqlReturn.SearchFriend];
                 for(int i = 0; i<sqlReturn.SearchFriend; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
@@ -109,7 +121,7 @@ public class SearchFriendActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (sqlReturn.textViewSearchFriend!=null){
+            if (status){
                 doData();
                 // 這裡是 adapter
                 recyclerView.setHasFixedSize(true);
@@ -117,6 +129,14 @@ public class SearchFriendActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(mLayoutManager);
                 myAdapter = new MyAdapter();
                 recyclerView.setAdapter(myAdapter);
+                progressBar1.setVisibility(View.INVISIBLE);
+            } else {
+                new AlertDialog.Builder(SearchFriendActivity.this)
+                        .setTitle("提醒")
+                        .setMessage("查無"+editText.getText().toString()+"這個人!!")
+                        .setPositiveButton("OK", null)
+                        .show();
+                progressBar1.setVisibility(View.INVISIBLE);
             }
         }
     }
@@ -124,14 +144,9 @@ public class SearchFriendActivity extends AppCompatActivity {
     private void doData(){
 
         data = new LinkedList<>();
-//        for(int i = 0; i < sqlReturn.SearchFriend; i++){
-//            HashMap<String,String> row = new HashMap<>();
-//            row.put("textName",sqlReturn.SearchFriendName[i]);
-//            data.add(row);
-//        }
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < sqlReturn.SearchFriend; i++){
             HashMap<String,String> row = new HashMap<>();
-            row.put("textName",editText.getText().toString() );
+            row.put("textName",sqlReturn.SearchFriendName[i]);
             data.add(row);
         }
     }

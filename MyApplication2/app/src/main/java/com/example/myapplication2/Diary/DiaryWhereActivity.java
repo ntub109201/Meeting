@@ -29,8 +29,9 @@ public class DiaryWhereActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private DiaryWhereActivity.MyAdapter myAdapter;
-    private LinkedList<HashMap<String,String>> data;
+    private LinkedList<HashMap<String, String>> data;
     public static int position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,7 @@ public class DiaryWhereActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DiaryWhereActivity.this, DiaryWhyActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                DiaryWhereActivity.this.startActivity(intent,options.toBundle());
+                DiaryWhereActivity.this.startActivity(intent, options.toBundle());
             }
         });
 
@@ -55,7 +56,14 @@ public class DiaryWhereActivity extends AppCompatActivity {
 
         myAdapter = new MyAdapter();
         mRecyclerView.setAdapter(myAdapter);
+
         doData();
+
+        if (DiaryValue.txtTag.equals("美食")) {
+
+        } else if (DiaryValue.txtTag.equals("購物")) {
+
+        }
 
 
         // 前往preview
@@ -63,19 +71,35 @@ public class DiaryWhereActivity extends AppCompatActivity {
         mPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWhere = "";
-                DiaryValue.txtWhen = "";
-                DiaryValue.txtWho = "";
-                for(int i = 0; i< 5; i++){
-                    DiaryValue.txtHow_choose[i] = "";
+                if (DiaryValue.txtTag.equals("美食")) {
+                    DiaryValue.txtWhere = "";
+                    DiaryValue.txtWhen = "";
+                    DiaryValue.txtWho = "";
+                    for (int i = 0; i < 5; i++) {
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhereActivity.this, DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1", "DiaryWhereActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                    startActivity(intent, options.toBundle());
+                } else if (DiaryValue.txtTag.equals("購物")) {
+                    DiaryValue.txtWhat = "";
+                    DiaryValue.txtWhy = "";
+                    DiaryValue.txtWhere = "";
+                    for (int i = 0; i < 5; i++) {
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhereActivity.this, DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1", "DiaryWhereActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                    startActivity(intent, options.toBundle());
                 }
-                Intent intent = new Intent();
-                intent.setClass(DiaryWhereActivity.this,DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1","DiaryWhereActivity");
-                intent.putExtras(tagData);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                startActivity(intent,options.toBundle());
             }
         });
 
@@ -84,91 +108,141 @@ public class DiaryWhereActivity extends AppCompatActivity {
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWhere = "";
-                Intent intent = new Intent();
-                intent.setClass(DiaryWhereActivity.this,DiaryHowActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                startActivity(intent,options.toBundle());
+                if (DiaryValue.txtTag.equals("美食")) {
+                    DiaryValue.txtWhere = "";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                    startActivity(intent, options.toBundle());
+                } else if (DiaryValue.txtTag.equals("購物")) {
+                    DiaryValue.txtWhere = "";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                    startActivity(intent, options.toBundle());
+                }
             }
         });
 
     }
-    public void doData(){
+
+    public void doData() {
         data = new LinkedList<>();
-        for(int i = 0; i < 9; i++){
-            HashMap<String,String> row = new HashMap<>();
-            data.add(row);
+        if (DiaryValue.txtTag.equals("美食")) {
+            for (int i = 0; i < 9; i++) {
+                HashMap<String, String> row = new HashMap<>();
+                data.add(row);
+            }
+        } else if (DiaryValue.txtTag.equals("購物")) {
+            for (int i = 0; i < 5; i++) {
+                HashMap<String, String> row = new HashMap<>();
+                data.add(row);
+            }
         }
     }
 
     private class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-        class MyViewHolder extends RecyclerView.ViewHolder{
+        class MyViewHolder extends RecyclerView.ViewHolder {
             public View itemView;
             public ImageView imageView;
 
-            public MyViewHolder(View view){
+            public MyViewHolder(View view) {
                 super(view);
                 itemView = view;
                 imageView = itemView.findViewById(R.id.imageView);
-                itemView.setOnClickListener(new View.OnClickListener(){
+                itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         position = getAdapterPosition();
-                        if(position == 0){
-                            DiaryValue.txtWhere = "夜市";
-                            Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                            startActivity(intent,options.toBundle());
-                        }else if(position == 1){
-                            DiaryValue.txtWhere = "咖啡廳";
-                            Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                            startActivity(intent,options.toBundle());
-                        }else if(position == 2){
-                            DiaryValue.txtWhere = "速食店";
-                            Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                            startActivity(intent,options.toBundle());
-                        }else if(position == 3){
-                            DiaryValue.txtWhere = "居酒屋";
-                            Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                            startActivity(intent,options.toBundle());
-                        }else if(position == 4){
-                            DiaryValue.txtWhere = "辦公室";
-                            Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                            startActivity(intent,options.toBundle());
-                        }else if(position == 5){
-                            DiaryValue.txtWhere = "餐廳";
-                            Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                            startActivity(intent,options.toBundle());
-                        }else if(position == 6){
-                            DiaryValue.txtWhere = "路邊攤";
-                            Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                            startActivity(intent,options.toBundle());
-                        }else if(position == 7){
-                            DiaryValue.txtWhere = "學校";
-                            Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                            startActivity(intent,options.toBundle());
-                        }else if(position == 8){
-                            DiaryValue.txtWhere = "小吃店";
-                            Intent intent = new Intent();
-                            intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
-                            startActivity(intent,options.toBundle());
+                        if (DiaryValue.txtTag.equals("美食")) {
+                            if (position == 0) {
+                                DiaryValue.txtWhere = "夜市";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 1) {
+                                DiaryValue.txtWhere = "咖啡廳";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 2) {
+                                DiaryValue.txtWhere = "速食店";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 3) {
+                                DiaryValue.txtWhere = "居酒屋";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 4) {
+                                DiaryValue.txtWhere = "辦公室";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 5) {
+                                DiaryValue.txtWhere = "餐廳";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 6) {
+                                DiaryValue.txtWhere = "路邊攤";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 7) {
+                                DiaryValue.txtWhere = "學校";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 8) {
+                                DiaryValue.txtWhere = "小吃店";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryHowActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            }
+                        } else if (DiaryValue.txtTag.equals("購物")) {
+                            if (position == 0) {
+                                DiaryValue.txtWhere = "大賣場";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 1) {
+                                DiaryValue.txtWhere = "百貨公司";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 2) {
+                                DiaryValue.txtWhere = "傳統市場";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 3) {
+                                DiaryValue.txtWhere = "商圈";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 4) {
+                                DiaryValue.txtWhere = "線上購物";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            }
                         }
                     }
                 });
@@ -180,33 +254,47 @@ public class DiaryWhereActivity extends AppCompatActivity {
         public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
             View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.where_foodlist,parent,false);
+                    .inflate(R.layout.where_foodlist, parent, false);
             MyViewHolder vh = new MyViewHolder(itemView);
             return vh;
         }
 
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
-
-            if(position == 0){
-                holder.imageView.setImageResource(R.mipmap.ic_nightmarket2_foreground);
-            }else if(position == 1){
-                holder.imageView.setImageResource(R.mipmap.ic_cafe_foreground);
-            }else if(position == 2){
-                holder.imageView.setImageResource(R.mipmap.ic_fastfood_foreground);
-            }else if(position == 3){
-                holder.imageView.setImageResource(R.mipmap.ic_japanbar_foreground);
-            }else if(position == 4){
-                holder.imageView.setImageResource(R.mipmap.ic_office_foreground);
-            }else if(position == 5){
-                holder.imageView.setImageResource(R.mipmap.ic_restaurant_foreground);
-            }else if(position == 6){
-                holder.imageView.setImageResource(R.mipmap.ic_roadfood_foreground);
-            }else if(position == 7){
-                holder.imageView.setImageResource(R.mipmap.ic_school_foreground);
-            }else if(position == 8){
-                holder.imageView.setImageResource(R.mipmap.ic_snack_foreground);
+            if (DiaryValue.txtTag.equals("美食")) {
+                if (position == 0) {
+                    holder.imageView.setImageResource(R.mipmap.ic_nightmarket2_foreground);
+                } else if (position == 1) {
+                    holder.imageView.setImageResource(R.mipmap.ic_cafe_foreground);
+                } else if (position == 2) {
+                    holder.imageView.setImageResource(R.mipmap.ic_fastfood_foreground);
+                } else if (position == 3) {
+                    holder.imageView.setImageResource(R.mipmap.ic_japanbar_foreground);
+                } else if (position == 4) {
+                    holder.imageView.setImageResource(R.mipmap.ic_office_foreground);
+                } else if (position == 5) {
+                    holder.imageView.setImageResource(R.mipmap.ic_restaurant_foreground);
+                } else if (position == 6) {
+                    holder.imageView.setImageResource(R.mipmap.ic_roadfood_foreground);
+                } else if (position == 7) {
+                    holder.imageView.setImageResource(R.mipmap.ic_school_foreground);
+                } else if (position == 8) {
+                    holder.imageView.setImageResource(R.mipmap.ic_snack_foreground);
+                }
+            } else if (DiaryValue.txtTag.equals("購物")) {
+                if (position == 0) {
+                    holder.imageView.setImageResource(R.mipmap.ic_grocery_foreground);
+                } else if (position == 1) {
+                    holder.imageView.setImageResource(R.mipmap.ic_departmentstore_foreground);
+                } else if (position == 2) {
+                    holder.imageView.setImageResource(R.mipmap.ic_market_foreground);
+                } else if (position == 3) {
+                    holder.imageView.setImageResource(R.mipmap.ic_downtown_foreground);
+                } else if (position == 4) {
+                    holder.imageView.setImageResource(R.mipmap.ic_onlineshop_foreground);
+                }
             }
+
         }
 
         @Override
@@ -214,6 +302,8 @@ public class DiaryWhereActivity extends AppCompatActivity {
             return data.size();
         }
     }
+
+
     //----------------------------------------------------------------------------------------------
 
     // 擋住手機上回上一頁鍵
@@ -227,6 +317,7 @@ public class DiaryWhereActivity extends AppCompatActivity {
         }
         return false;
     }
+
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         return super.onKeyUp(keyCode, event);

@@ -29,14 +29,21 @@ public class DiaryWhoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_who);
 
+
         // 反回上一頁
         final ImageButton imbtnReturnFrontPage7 = findViewById(R.id.imbtnReturnFrontPage7);
         imbtnReturnFrontPage7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhenActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
-                DiaryWhoActivity.this.startActivity(intent,options.toBundle());
+                if(DiaryValue.txtTag.equals("美食")){
+                    Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    DiaryWhoActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("購物")){
+                    Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    DiaryWhoActivity.this.startActivity(intent,options.toBundle());
+                }
             }
         });
 
@@ -53,14 +60,31 @@ public class DiaryWhoActivity extends AppCompatActivity {
         mPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWho = "";
-                Intent intent = new Intent();
-                intent.setClass(DiaryWhoActivity.this,DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1","DiaryWhoActivity");
-                intent.putExtras(tagData);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
-                startActivity(intent,options.toBundle());
+                if(DiaryValue.txtTag.equals("美食")){
+                    DiaryValue.txtWho = "";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhoActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhoActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("購物")){
+                    DiaryValue.txtWhat = "";
+                    DiaryValue.txtWhy = "";
+                    DiaryValue.txtWhere = "";
+                    DiaryValue.txtWho = "";
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhoActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhoActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    startActivity(intent,options.toBundle());
+                }
             }
         });
 
@@ -69,14 +93,21 @@ public class DiaryWhoActivity extends AppCompatActivity {
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWho = "";
-                Intent intent = new Intent();
-                intent.setClass(DiaryWhoActivity.this,DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1","DiaryWhoActivity");
-                intent.putExtras(tagData);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
-                startActivity(intent,options.toBundle());
+                if(DiaryValue.txtTag.equals("美食")){
+                    DiaryValue.txtWho = "";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhoActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhoActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("購物")){
+                    DiaryValue.txtWho = "";
+                    Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    DiaryWhoActivity.this.startActivity(intent,options.toBundle());
+                }
             }
         });
     }
