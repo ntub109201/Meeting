@@ -53,9 +53,15 @@ public class DiaryWhenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(DiaryValue.txtTag.equals("美食")) {
-                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryHowActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
-                    DiaryWhenActivity.this.startActivity(intent, options.toBundle());
+                    if(DiaryValue.txtWhat.equals("")){
+                        Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                        DiaryWhenActivity.this.startActivity(intent, options.toBundle());
+                    }else {
+                        Intent intent = new Intent(DiaryWhenActivity.this, DiaryHowActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                        DiaryWhenActivity.this.startActivity(intent, options.toBundle());
+                    }
                 }else if(DiaryValue.txtTag.equals("購物")){
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryTagActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);

@@ -223,6 +223,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 } else if (DiaryValue.txtTag.equals("購物")) {
+                    DiaryValue.txtWhat = "";
                     DiaryValue.txtWhy = "";
                     DiaryValue.txtWhere = "";
                     for(int i = 0; i< 5; i++){

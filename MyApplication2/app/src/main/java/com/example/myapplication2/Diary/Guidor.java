@@ -160,6 +160,7 @@ public class Guidor {
     }
     public void clearDiary(){
         diaryContentNoSeq.clear();
+        propSeq.clear();
         this.diary = "";
     }
     private void recreateDiary(){
@@ -299,7 +300,10 @@ public class Guidor {
 
                     }
                 }
-            }else{
+            }else if (propSeq.get(i).equals("when") && tag_option.equals("旅遊")){
+
+            }
+            else{
                 index = diaryContentNoSeq.get(i);
                 // append punctuation
                 if (i != 0){
@@ -484,6 +488,8 @@ public class Guidor {
                     ret += "_";
                 indexes.clear();
             }
+
+        }else if (prop.equals("when") && tag_option.equals("旅遊")){
 
         }else {
             int randomIndex;
