@@ -114,9 +114,11 @@ public class DiaryPreviewActivity extends AppCompatActivity{
         final Guidor guidor = new Guidor(getApplicationContext(),"diary.db",null,1);
         String a = "";
         if(DiaryValue.txtTag.equals("")) {
+            guidor.clearDiary();
             guidor.setMood(DiaryValue.txtMood);
             a = guidor.getDiary();
         }else if(DiaryValue.txtTag.equals("美食")){
+            guidor.clearDiary();
             if(DiaryValue.txtWhat.equals("")){
                 if(DiaryValue.txtWhy.equals("")){
                     if(DiaryValue.txtWhere.equals("")){
@@ -125,13 +127,11 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWho(DiaryValue.txtWho);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWho.equals("")){
@@ -139,14 +139,12 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWhen(DiaryValue.txtWhen);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWhen(DiaryValue.txtWhen);
                                 guidor.setWho(DiaryValue.txtWho);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }else {
@@ -156,14 +154,12 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWho(DiaryValue.txtWho);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWho.equals("")){
@@ -172,7 +168,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhen(DiaryValue.txtWhen);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -180,7 +175,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWho(DiaryValue.txtWho);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }
@@ -192,14 +186,12 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWho(DiaryValue.txtWho);
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWho.equals("")){
@@ -208,7 +200,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhen(DiaryValue.txtWhen);
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -216,7 +207,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWho(DiaryValue.txtWho);
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }else {
@@ -227,7 +217,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -235,7 +224,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWho.equals("")){
@@ -245,7 +233,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -254,7 +241,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }
@@ -283,7 +269,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -305,7 +290,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWho.equals("")){
@@ -329,7 +313,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -352,7 +335,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }else {
@@ -378,7 +360,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -401,7 +382,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWho.equals("")){
@@ -426,7 +406,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -450,7 +429,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }
@@ -478,7 +456,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -501,7 +478,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWho.equals("")){
@@ -526,7 +502,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -550,7 +525,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }else {
@@ -577,7 +551,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -601,7 +574,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWho.equals("")){
@@ -627,7 +599,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -652,13 +623,13 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                     }
                                 }
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }
                 }
             }
         }else if(DiaryValue.txtTag.equals("購物")){
+            guidor.clearDiary();
             if(DiaryValue.txtWhen.equals("")){
                 if(DiaryValue.txtWho.equals("")){
                     if(DiaryValue.txtWhy.equals("")){
@@ -667,13 +638,11 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWhat.equals("")){
@@ -681,14 +650,12 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }else {
@@ -698,14 +665,12 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWhat.equals("")){
@@ -714,7 +679,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -722,7 +686,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }
@@ -734,14 +697,12 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWho(DiaryValue.txtWho);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWho(DiaryValue.txtWho);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWhat.equals("")){
@@ -750,7 +711,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWho(DiaryValue.txtWho);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -758,7 +718,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }else {
@@ -769,7 +728,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWho(DiaryValue.txtWho);
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -777,7 +735,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWhat.equals("")){
@@ -787,7 +744,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -796,7 +752,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }
@@ -810,14 +765,12 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWhen(DiaryValue.txtWhen);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
                                 guidor.setWhen(DiaryValue.txtWhen);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWhat.equals("")){
@@ -826,7 +779,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhen(DiaryValue.txtWhen);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -834,7 +786,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }else {
@@ -845,7 +796,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhen(DiaryValue.txtWhen);
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -853,7 +803,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWhat.equals("")){
@@ -863,7 +812,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -872,7 +820,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }
@@ -885,7 +832,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhen(DiaryValue.txtWhen);
                                 guidor.setWho(DiaryValue.txtWho);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -893,7 +839,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWho(DiaryValue.txtWho);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWhat.equals("")){
@@ -903,7 +848,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWho(DiaryValue.txtWho);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -912,7 +856,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }else {
@@ -924,7 +867,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWho(DiaryValue.txtWho);
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -933,7 +875,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }else {
                             if(DiaryValue.txtWhat.equals("")){
@@ -944,7 +885,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhy(DiaryValue.txtWhy);
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }else {
                                 guidor.setMood(DiaryValue.txtMood);
                                 guidor.setTag(DiaryValue.txtTag);
@@ -954,13 +894,13 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                                 guidor.setWhere(DiaryValue.txtWhere);
                                 guidor.setWhat(DiaryValue.txtWhat);
                                 a = guidor.getDiary();
-                                guidor.clearDiary();
                             }
                         }
                     }
                 }
             }
         }
+        guidor.clearDiary();
 
         totalPlus = ("    "+ a+"\n");
         if(edit == null){
