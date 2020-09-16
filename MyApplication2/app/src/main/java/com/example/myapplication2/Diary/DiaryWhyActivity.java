@@ -142,13 +142,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
         });
 
         final Button btn_try = findViewById(R.id.btn_try);
-        if (DiaryValue.txtTag.equals("美食")) {
-            btn_try.setEnabled(true);
-            btn_try.setVisibility(View.VISIBLE);
-        } else if (DiaryValue.txtTag.equals("購物")) {
-            btn_try.setEnabled(false);
-            btn_try.setVisibility(View.INVISIBLE);
-        }
+
         btn_try.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,6 +195,14 @@ public class DiaryWhyActivity extends AppCompatActivity{
                 }
             }
         });
+
+        if (DiaryValue.txtTag.equals("美食")) {
+            btn_try.setEnabled(true);
+            btn_try.setVisibility(View.VISIBLE);
+        } else if (DiaryValue.txtTag.equals("購物")) {
+            btn_try.setEnabled(false);
+            btn_try.setVisibility(View.INVISIBLE);
+        }
 
         // 前往preview
         final TextView mPreview = findViewById(R.id.btn_preview_why);
@@ -265,8 +267,13 @@ public class DiaryWhyActivity extends AppCompatActivity{
         if(DiaryValue.txtTag.equals("美食")){
 
         }else if(DiaryValue.txtTag.equals("購物")){
-            //btn_party.setBackgroundResource(R.mipmap);
-
+            btn_party.setBackgroundResource(R.drawable.btn_tired);
+            Drawable party = getResources().getDrawable(R.drawable.btn_tired);
+            btn_party.setCompoundDrawablesWithIntrinsicBounds(null,party,null,null);
+            //btn_party.setPadding(0,15,0,0);
+            btn_party.setX(50);
+            btn_party.setY(50);
+            btn_party.setText("衝動性消費");
 
             btn_yummy.setBackgroundResource(R.drawable.btn_nogo);
             Drawable yummy = getResources().getDrawable(R.mipmap.btn_nogo_foreground);

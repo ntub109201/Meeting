@@ -181,7 +181,7 @@ public class HomeFragment extends Fragment {
                     searchByMood();
                 }else if(searchBtn2.getText().equals("購物")){
                     buttonTest.setText("購物");
-                    //searchTag();
+                    searchByTag();
                 }
             }
         });
@@ -665,8 +665,10 @@ public class HomeFragment extends Fragment {
     public String searchTag;
     public void searchByTag(){
 
-        if(searchBtn1.getText().equals("美食")){
+        if(buttonTest.getText().equals("美食")){
             searchTag = "美食";
+        }else if(buttonTest.getText().equals("購物")){
+            searchTag = "購物";
         }
         String uid = sqlReturn.GetUserID;
         Map<String,String> map = new HashMap<>();
@@ -727,12 +729,6 @@ public class HomeFragment extends Fragment {
                 mRecyclerView.setAdapter(myAdapter);
                 progressBarHome.setVisibility(View.INVISIBLE);
                 RefreshLayoutHome.setRefreshing(false);
-            }else {
-//                new AlertDialog.Builder(activity)
-//                        .setTitle("日記載入失敗")
-//                        .setMessage("請確認網路是否連通!!")
-//                        .setPositiveButton("OK", null)
-//                        .show();
             }
         }
 

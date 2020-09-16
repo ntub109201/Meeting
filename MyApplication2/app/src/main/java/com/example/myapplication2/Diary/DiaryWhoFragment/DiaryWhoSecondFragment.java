@@ -39,7 +39,7 @@ public class DiaryWhoSecondFragment extends Fragment {
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoSecondFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("購物")){
-                    DiaryValue.txtWho = "情人";
+                    DiaryValue.txtWho = "另一半";
                     Intent intent = new Intent(DiaryWhoSecondFragment.super.getActivity(), DiaryWhyActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoSecondFragment.super.getActivity());
                     startActivity(intent,options.toBundle());

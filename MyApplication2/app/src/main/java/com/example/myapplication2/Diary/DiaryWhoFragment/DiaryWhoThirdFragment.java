@@ -49,6 +49,13 @@ public class DiaryWhoThirdFragment extends Fragment {
         });
 
         final Button btn_ambiguous = root.findViewById(R.id.btn_ambiguous);
+        if(DiaryValue.txtTag.equals("購物")){
+            btn_ambiguous.setVisibility(View.INVISIBLE);
+            btn_ambiguous.setEnabled(false);
+        }else {
+            btn_ambiguous.setVisibility(View.VISIBLE);
+            btn_ambiguous.setEnabled(true);
+        }
         btn_ambiguous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,11 +66,6 @@ public class DiaryWhoThirdFragment extends Fragment {
                     Bundle tagData = new Bundle();
                     tagData.putString("1","DiaryWhoActivity");
                     intent.putExtras(tagData);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoThirdFragment.super.getActivity());
-                    startActivity(intent,options.toBundle());
-                }else if(DiaryValue.txtTag.equals("購物")){
-                    DiaryValue.txtWho = "曖昧對象";
-                    Intent intent = new Intent(DiaryWhoThirdFragment.super.getActivity(), DiaryWhyActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoThirdFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
                 }
