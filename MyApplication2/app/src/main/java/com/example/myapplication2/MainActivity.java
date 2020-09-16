@@ -1,9 +1,12 @@
 package com.example.myapplication2;
 
+import android.Manifest;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,8 +16,11 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import com.example.myapplication2.Diary.DiaryActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -26,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Button goToDiarybutton, goToOCRbutton, goToHandwritebutton, btnAnim;
     public static boolean changeBtn = false;
     public static boolean login = false;
-
+    private static boolean camera = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,24 +92,47 @@ public class MainActivity extends AppCompatActivity {
         goToOCR.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(MainActivity.this,OCRActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
-                MainActivity.this.startActivity(registerIntent,options.toBundle());
+                getPermissionsCamera();
+                if(camera){
+                    Intent intent = new Intent(MainActivity.this,OCRActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
+                    MainActivity.this.startActivity(intent,options.toBundle());
+                }
             }
         });
 
-
-
+        getPermissionsCamera();
         goToDiarybutton = findViewById(R.id.goToDiarybutton);
         goToOCRbutton = findViewById(R.id.goToOCRbutton);
         goToHandwritebutton = findViewById(R.id.goToHandwritebutton);
         btnAnim = findViewById(R.id.btnAnim);
         mLayout = findViewById(R.id.testConstraint);
         btnAnim.setOnClickListener(btnChangeColorOnClick);
-
     }
 
-
+    public void getPermissionsCamera(){
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                    Manifest.permission.CAMERA)) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setCancelable(false)
+                        .setTitle("提醒您")
+                        .setMessage("需要開啟相機權限才可使用照相功能歐!!")
+                        .setPositiveButton("了解", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CAMERA},1);
+                            }
+                        })
+                        .show();
+            }else{
+                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CAMERA},1);
+            }
+        }else {
+            camera = true;
+        }
+    }
 
 
     // 變化背景動畫

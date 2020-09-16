@@ -144,7 +144,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 searchBtn1.setText("美食");
                 searchBtn2.setText("購物");
-                searchBtn3.setText("感情");
+                searchBtn3.setText("愛情");
                 searchBtn4.setText("旅遊");
                 searchBtn5.setText("娛樂");
             }
@@ -193,8 +193,8 @@ public class HomeFragment extends Fragment {
                     progressBarHome.setVisibility(View.VISIBLE);
                     searchByMood();
                     //doDataSearchMood();
-                }else if(searchBtn3.getText().equals("感情")){
-                    buttonTest.setText("感情");
+                }else if(searchBtn3.getText().equals("愛情")){
+                    buttonTest.setText("愛情");
                     //searchTag();
                 }
             }
@@ -392,7 +392,9 @@ public class HomeFragment extends Fragment {
 
 
             if(sqlReturn.model == 1){
-                if(sqlReturn.LoginOption[position].equals("1")){
+                if(sqlReturn.LoginOption[position].equals("null")){
+                    holder.imageView.setImageResource(R.mipmap.ic_no_tag_foreground);
+                }else if(sqlReturn.LoginOption[position].equals("1")){
                     holder.imageView.setImageResource(R.mipmap.ic_japan_foreground);
                 }else if(sqlReturn.LoginOption[position].equals("2")){
                     holder.imageView.setImageResource(R.mipmap.ic_korea_foreground);
@@ -418,9 +420,23 @@ public class HomeFragment extends Fragment {
                     holder.imageView.setImageResource(R.mipmap.ic_alcohol_foreground);
                 }else if(sqlReturn.LoginOption[position].equals("42")){
                     holder.imageView.setImageResource(R.drawable.handwrite);
+                }else if(sqlReturn.LoginOption[position].equals("45")){
+                    holder.imageView.setImageResource(R.mipmap.ic_daily_foreground);
+                }else if(sqlReturn.LoginOption[position].equals("46")){
+                    holder.imageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+                }else if(sqlReturn.LoginOption[position].equals("47")){
+                    holder.imageView.setImageResource(R.mipmap.ic_3c_foreground);
+                }else if(sqlReturn.LoginOption[position].equals("48")){
+                    holder.imageView.setImageResource(R.mipmap.ic_makeup_foreground);
+                }else if(sqlReturn.LoginOption[position].equals("49")){
+                    holder.imageView.setImageResource(R.mipmap.ic_car_foreground);
+                }else if(sqlReturn.LoginOption[position].equals("50")){
+                    holder.imageView.setImageResource(R.mipmap.ic_clothes_foreground);
                 }
             }else if(sqlReturn.model == 2){
-                if(sqlReturn.Option1[position].equals("1")){
+                if(sqlReturn.Option1[position].equals("null")){
+                    holder.imageView.setImageResource(R.mipmap.ic_no_tag_foreground);
+                }else if(sqlReturn.Option1[position].equals("1")){
                     holder.imageView.setImageResource(R.mipmap.ic_japan_foreground);
                 }else if(sqlReturn.Option1[position].equals("2")){
                     holder.imageView.setImageResource(R.mipmap.ic_korea_foreground);
@@ -446,9 +462,23 @@ public class HomeFragment extends Fragment {
                     holder.imageView.setImageResource(R.mipmap.ic_alcohol_foreground);
                 }else if(sqlReturn.Option1[position].equals("42")){
                     holder.imageView.setImageResource(R.drawable.handwrite);
+                }else if(sqlReturn.Option1[position].equals("45")){
+                    holder.imageView.setImageResource(R.mipmap.ic_daily_foreground);
+                }else if(sqlReturn.Option1[position].equals("46")){
+                    holder.imageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+                }else if(sqlReturn.Option1[position].equals("47")){
+                    holder.imageView.setImageResource(R.mipmap.ic_3c_foreground);
+                }else if(sqlReturn.Option1[position].equals("48")){
+                    holder.imageView.setImageResource(R.mipmap.ic_makeup_foreground);
+                }else if(sqlReturn.Option1[position].equals("49")){
+                    holder.imageView.setImageResource(R.mipmap.ic_car_foreground);
+                }else if(sqlReturn.Option1[position].equals("50")){
+                    holder.imageView.setImageResource(R.mipmap.ic_clothes_foreground);
                 }
             }else if(sqlReturn.model == 3){
-                if(sqlReturn.Option2[position].equals("1")){
+                if(sqlReturn.Option2[position].equals("null")){
+                    holder.imageView.setImageResource(R.mipmap.ic_no_tag_foreground);
+                }else if(sqlReturn.Option2[position].equals("1")){
                     holder.imageView.setImageResource(R.mipmap.ic_japan_foreground);
                 }else if(sqlReturn.Option2[position].equals("2")){
                     holder.imageView.setImageResource(R.mipmap.ic_korea_foreground);
@@ -474,6 +504,18 @@ public class HomeFragment extends Fragment {
                     holder.imageView.setImageResource(R.mipmap.ic_alcohol_foreground);
                 }else if(sqlReturn.Option2[position].equals("42")){
                     holder.imageView.setImageResource(R.drawable.handwrite);
+                }else if(sqlReturn.Option2[position].equals("45")){
+                    holder.imageView.setImageResource(R.mipmap.ic_daily_foreground);
+                }else if(sqlReturn.Option2[position].equals("46")){
+                    holder.imageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+                }else if(sqlReturn.Option2[position].equals("47")){
+                    holder.imageView.setImageResource(R.mipmap.ic_3c_foreground);
+                }else if(sqlReturn.Option2[position].equals("48")){
+                    holder.imageView.setImageResource(R.mipmap.ic_makeup_foreground);
+                }else if(sqlReturn.Option2[position].equals("49")){
+                    holder.imageView.setImageResource(R.mipmap.ic_car_foreground);
+                }else if(sqlReturn.Option2[position].equals("50")){
+                    holder.imageView.setImageResource(R.mipmap.ic_clothes_foreground);
                 }
             }else if(sqlReturn.model == 4){
                 holder.imageView.setImageResource(R.drawable.handwrite);

@@ -123,7 +123,7 @@ public class DiaryEndActivity extends AppCompatActivity {
         map.put("command", "newDiary");
         map.put("uid", sqlReturn.GetUserID);
         map.put("diaryContent",DiaryContext);
-        map.put("diaryTag","美食");
+        map.put("diaryTag",DiaryValue.txtTag);
         map.put("diaryDate",currentDate);
         map.put("diaryMood", DiaryValue.txtMood);
         map.put("diaryOptionClass", DiaryValue.txtWhat);

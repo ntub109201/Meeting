@@ -70,12 +70,10 @@
 
         <Button
             android:id="@+id/btn_spice"
-            style="@style/btn_diarybtn"
+            style="@style/btn_spice"
             android:backgroundTint="@color/how_color1"
             android:layout_width="115dp"
             android:layout_height="115dp"
-            android:text="香"
-            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.277"
@@ -85,12 +83,10 @@
 
         <Button
             android:id="@+id/btn_thick"
-            style="@style/btn_diarybtn"
+            style="@style/btn_thick"
             android:layout_width="115dp"
             android:layout_height="115dp"
             android:backgroundTint="@color/how_color1"
-            android:text="濃厚"
-            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.144"
@@ -100,12 +96,10 @@
 
         <Button
             android:id="@+id/btn_stink"
-            style="@style/btn_diarybtn"
+            style="@style/btn_stink"
             android:layout_width="115dp"
             android:layout_height="115dp"
             android:backgroundTint="@color/how_color1"
-            android:text="臭"
-            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.854"
@@ -115,12 +109,10 @@
 
         <Button
             android:id="@+id/btn_light_incense"
-            style="@style/btn_diarybtn"
+            style="@style/btn_light_incense"
             android:layout_width="115dp"
             android:layout_height="115dp"
             android:backgroundTint="@color/how_color1"
-            android:text="淡香"
-            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.872"
@@ -130,12 +122,10 @@
 
         <Button
             android:id="@+id/btn_Pungent"
-            style="@style/btn_diarybtn"
+            style="@style/btn_pungent"
             android:layout_width="115dp"
             android:layout_height="115dp"
             android:backgroundTint="@color/how_color1"
-            android:text="刺鼻"
-            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.33"

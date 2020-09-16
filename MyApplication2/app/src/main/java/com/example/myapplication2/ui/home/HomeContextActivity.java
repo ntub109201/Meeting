@@ -69,7 +69,9 @@ public class HomeContextActivity extends AppCompatActivity {
             txtHistoryDiary.setText(total);
             textTitle.setText(mood);
             textDescription.setText(date);
-            if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("1")){
+            if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("null")){
+                ContextImageView.setImageResource(R.mipmap.ic_no_tag_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("1")){
                 ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("2")){
                 ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
@@ -95,6 +97,18 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("42")){
                 ContextImageView.setImageResource(R.drawable.handwrite);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("45")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("46")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("47")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("48")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("49")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("50")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
             }
         }else if(Getdata == 2){
             String total = "    "+ sqlReturn.content1[HomeFragment.homeTag];
@@ -103,7 +117,9 @@ public class HomeContextActivity extends AppCompatActivity {
             txtHistoryDiary.setText(total);
             textTitle.setText(mood);
             textDescription.setText(date);
-            if(sqlReturn.Option1[HomeFragment.homeTag].equals("1")){
+            if(sqlReturn.Option1[HomeFragment.homeTag].equals("null")){
+                ContextImageView.setImageResource(R.mipmap.ic_no_tag_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("1")){
                 ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("2")){
                 ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
@@ -129,6 +145,18 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("42")){
                 ContextImageView.setImageResource(R.drawable.handwrite);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("45")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("46")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("47")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("48")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("49")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("50")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
             }
         }else if(Getdata == 3){
             String total = "    "+ sqlReturn.content2[HomeFragment.homeTag];
@@ -137,7 +165,9 @@ public class HomeContextActivity extends AppCompatActivity {
             txtHistoryDiary.setText(total);
             textTitle.setText(mood);
             textDescription.setText(date);
-            if(sqlReturn.Option2[HomeFragment.homeTag].equals("1")){
+            if(sqlReturn.Option2[HomeFragment.homeTag].equals("null")){
+                ContextImageView.setImageResource(R.mipmap.ic_no_tag_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("1")){
                 ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("2")){
                 ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
@@ -163,6 +193,18 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("42")){
                 ContextImageView.setImageResource(R.drawable.handwrite);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("45")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("46")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("47")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("48")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("49")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("50")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
             }
         }else if(Getdata == 4){
             String total = "    "+ sqlReturn.content3[HomeFragment.homeTag];

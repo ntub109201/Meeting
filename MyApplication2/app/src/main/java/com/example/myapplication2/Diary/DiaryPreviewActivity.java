@@ -902,22 +902,22 @@ public class DiaryPreviewActivity extends AppCompatActivity{
         }
         guidor.clearDiary();
 
-        totalPlus = ("    "+ a+"\n");
+        totalPlus = (a+"\n");
         if(edit == null){
             finalTotal = total+ totalPlus;
             if(DiaryValue.Time.equals("")){
                 Calendar c = Calendar.getInstance();
-                textView.setText("  時間"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH)+"\n"+finalTotal+"\n");
+                textView.setText("時間"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH)+"\n"+finalTotal+"\n");
             }else {
-                textView.setText("  時間"+DiaryValue.Time+"\n"+finalTotal+"\n");
+                textView.setText("時間"+DiaryValue.Time+"\n"+finalTotal+"\n");
             }
         }else{
             finalTotal = edit;
             if(DiaryValue.Time.equals("")){
                 Calendar c = Calendar.getInstance();
-                textView.setText("  時間"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH)+"\n"+finalTotal+"\n");
+                textView.setText("時間"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH)+"\n"+finalTotal+"\n");
             }else {
-                textView.setText("  時間"+DiaryValue.Time+"\n"+finalTotal+"\n");
+                textView.setText("時間"+DiaryValue.Time+"\n"+finalTotal+"\n");
             }
         }
 
