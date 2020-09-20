@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ public class SearchFriendActivity extends AppCompatActivity {
     private LinkedList<HashMap<String,String>> data;
     private MyAdapter myAdapter;
     private ProgressBar progressBar1;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,7 @@ public class SearchFriendActivity extends AppCompatActivity {
         Map<String,String> map = new HashMap<>();
         map.put("command", "strangerSearch");
         map.put("searchStranger", editText.getText().toString());
+        map.put("uid", sqlReturn.GetUserID);
         new searchFriend(this).execute((HashMap)map);
     }
 
@@ -147,6 +150,7 @@ public class SearchFriendActivity extends AppCompatActivity {
         for(int i = 0; i < sqlReturn.SearchFriend; i++){
             HashMap<String,String> row = new HashMap<>();
             row.put("textName",sqlReturn.SearchFriendName[i]);
+            row.put("textUserID",sqlReturn.SearchFriendUserId[i]);
             data.add(row);
         }
     }
@@ -155,11 +159,32 @@ public class SearchFriendActivity extends AppCompatActivity {
 
         class MyViewHolder extends RecyclerView.ViewHolder{
             public View itemView;
-            public TextView textName;
+            public TextView textName, textUserID;
+            public Button btnAdd;
             public MyViewHolder(View view){
                 super(view);
                 itemView = view;
                 textName = itemView.findViewById(R.id.textName);
+                textUserID = itemView.findViewById(R.id.textUserID);
+                btnAdd = itemView.findViewById(R.id.btnAdd);
+                btnAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new AlertDialog.Builder(SearchFriendActivity.this)
+                                .setCancelable(false)
+                                .setTitle("提醒您")
+                                .setMessage("確定新增"+textName.getText().toString()+"為好友?")
+                                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        userID = textUserID.getText().toString();
+                                        addFriend();
+                                        progressBar1.setVisibility(View.VISIBLE);
+                                    }
+                                }).setNegativeButton("我選錯了",null).create()
+                                .show();
+                    }
+                });
             }
         }
 
@@ -176,11 +201,54 @@ public class SearchFriendActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
             holder.textName.setText(data.get(position).get("textName"));
+            holder.textUserID.setText(data.get(position).get("textUserID"));
         }
 
         @Override
         public int getItemCount() {
             return data.size();
+        }
+
+    }
+
+    public void addFriend(){
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "addFriend");
+        map.put("uid", sqlReturn.GetUserID);
+        map.put("friendNum",userID);
+        new addFriend(this).execute((HashMap)map);
+    }
+
+    private class addFriend extends HttpURLConnection_AsyncTask {
+
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        addFriend(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            boolean status = false;
+            JSONArray jsonArray = null;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (status){
+                progressBar1.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(SearchFriendActivity.this,FriendListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            } else {
+                progressBar1.setVisibility(View.INVISIBLE);
+            }
         }
     }
 }

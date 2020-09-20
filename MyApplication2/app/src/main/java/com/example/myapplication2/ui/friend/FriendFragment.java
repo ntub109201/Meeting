@@ -289,11 +289,7 @@ public class FriendFragment extends Fragment {
             if (sqlReturn.textViewContextFriendList!=null){
                 //Toast.makeText(activity, String.valueOf(sqlReturn.SearchCountMood), Toast.LENGTH_LONG).show();
             }else {
-//                new AlertDialog.Builder(activity)
-//                        .setTitle("日記載入失敗")
-//                        .setMessage("請確認網路是否連通!!")
-//                        .setPositiveButton("OK", null)
-//                        .show();
+
             }
         }
     }

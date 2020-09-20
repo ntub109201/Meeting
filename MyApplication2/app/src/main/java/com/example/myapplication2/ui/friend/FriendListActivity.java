@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.Login.LoginActivity;
@@ -99,7 +100,7 @@ public class FriendListActivity extends AppCompatActivity {
         RefreshLayoutFriendList2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                doData2();
+                searchFriendList();
                 RefreshLayoutFriendList2.setRefreshing(false);
             }
         });
@@ -164,16 +165,18 @@ public class FriendListActivity extends AppCompatActivity {
         }
         for(int i = 0; i < a; i++) {
             HashMap<String, String> row = new HashMap<>();
-            row.put("textName", sqlReturn.friendListName[c]);
-            c ++;
-            if(c < sqlReturn.SearchCountFriendList){
-                row.put("textName1", sqlReturn.friendListName[c]);
-                c++;
+            if(c + 1 == sqlReturn.SearchCountFriendList){
+                row.put("textName", sqlReturn.friendListName[c]);
+            }else if(c + 2 == sqlReturn.SearchCountFriendList){
+                row.put("textName1", sqlReturn.friendListName[c+1]);
+            }else if(c + 3 == sqlReturn.SearchCountFriendList){
+                row.put("textName2", sqlReturn.friendListName[c+2]);
+            }else {
+                row.put("textName", sqlReturn.friendListName[c]);
+                row.put("textName1", sqlReturn.friendListName[c+1]);
+                row.put("textName2", sqlReturn.friendListName[c+2]);
             }
-            if (c < sqlReturn.SearchCountFriendList){
-                row.put("textName2", sqlReturn.friendListName[c]);
-                c++;
-            }
+            c = c+ 3;
             data2.add(row);
         }
 
@@ -217,6 +220,53 @@ public class FriendListActivity extends AppCompatActivity {
         @Override
         public int getItemCount() {
             return data2.size();
+        }
+    }
+
+    public void searchFriendList(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "friendInfoList");
+        map.put("uid", uid);
+        new searchFriendList(this).execute((HashMap)map);
+    }
+
+    private class searchFriendList extends HttpURLConnection_AsyncTask {
+
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        searchFriendList(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+
+                sqlReturn.textViewContextFriendList = jsonObject.getString("results");
+                sqlReturn.SearchCountFriendList = jsonObject.getInt("rowcount");
+                jsonArray = new JSONArray(sqlReturn.textViewContextFriendList);
+                sqlReturn.friendListName = new String[sqlReturn.SearchCountFriendList];
+                for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
+                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    sqlReturn.friendListName[i] = obj.getString("friendName01");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (sqlReturn.textViewContextFriendList!=null){
+                doData2();
+                Toast.makeText(activity, "成功", Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(activity, "失敗", Toast.LENGTH_LONG).show();
+            }
         }
     }
 

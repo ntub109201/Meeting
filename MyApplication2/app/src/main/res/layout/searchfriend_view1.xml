@@ -41,7 +41,7 @@
                 app:riv_oval="true" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnAdd"
                 style="@style/btn_friendconfirm"
                 android:layout_width="84dp"
                 android:layout_height="47dp"
@@ -65,6 +65,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.63" />
+
+            <TextView
+                android:id="@+id/textUserID"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.159"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.916" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
