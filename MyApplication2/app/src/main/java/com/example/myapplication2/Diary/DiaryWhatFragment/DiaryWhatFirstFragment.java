@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.myapplication2.Diary.DiaryPreviewActivity;
+import com.example.myapplication2.Diary.DiaryWhenActivity;
 import com.example.myapplication2.Diary.DiaryWhyActivity;
 import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.R;
@@ -47,6 +48,11 @@ public class DiaryWhatFirstFragment extends Fragment {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWhat = "看電影";
+                    Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -68,6 +74,11 @@ public class DiaryWhatFirstFragment extends Fragment {
                     Bundle tagData = new Bundle();
                     tagData.putString("1","DiaryWhatActivity");
                     intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWhat = "運動";
+                    Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
                 }
@@ -93,6 +104,11 @@ public class DiaryWhatFirstFragment extends Fragment {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWhat = "聽歌";
+                    Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -114,6 +130,11 @@ public class DiaryWhatFirstFragment extends Fragment {
                     Bundle tagData = new Bundle();
                     tagData.putString("1","DiaryWhatActivity");
                     intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWhat = "唱歌";
+                    Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
                 }
@@ -193,6 +214,32 @@ public class DiaryWhatFirstFragment extends Fragment {
             btn_ider.setBackgroundResource(R.drawable.btn_selectfood);
             Drawable ider = getResources().getDrawable(R.mipmap.ic_clothes_foreground);
             btn_ider.setCompoundDrawablesWithIntrinsicBounds(null,ider,null,null);
+        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+
+            btn_taiwan.setBackgroundResource(R.drawable.btn_selectfood);
+            Drawable taiwan = getResources().getDrawable(R.mipmap.ic_movie_foreground);
+            btn_taiwan.setCompoundDrawablesWithIntrinsicBounds(null,taiwan,null,null);
+            btn_taiwan.setY(150);
+
+            btn_kong.setBackgroundResource(R.drawable.btn_selectfood);
+            Drawable kong = getResources().getDrawable(R.mipmap.ic_workout_foreground);
+            btn_kong.setCompoundDrawablesWithIntrinsicBounds(null,kong,null,null);
+            btn_kong.setY(150);
+
+            btn_japan.setBackgroundResource(R.drawable.btn_selectfood);
+            Drawable japan = getResources().getDrawable(R.mipmap.ic_listen_foreground);
+            btn_japan.setCompoundDrawablesWithIntrinsicBounds(null,japan,null,null);
+            btn_japan.setY(300);
+
+            btn_korea.setBackgroundResource(R.drawable.btn_selectfood);
+            Drawable korea = getResources().getDrawable(R.mipmap.ic_sing_foreground);
+            btn_korea.setCompoundDrawablesWithIntrinsicBounds(null,korea,null,null);
+            btn_korea.setY(300);
+
+            btn_random.setVisibility(View.INVISIBLE);
+            btn_random.setEnabled(false);
+            btn_ider.setVisibility(View.INVISIBLE);
+            btn_ider.setEnabled(false);
         }
 
         return root;

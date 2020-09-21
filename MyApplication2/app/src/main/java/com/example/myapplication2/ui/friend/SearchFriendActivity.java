@@ -110,16 +110,34 @@ public class SearchFriendActivity extends AppCompatActivity {
 
             try {
                 jsonObject = new JSONObject(result);
-                sqlReturn.textViewSearchFriend = jsonObject.getString("results");
                 status = jsonObject.getBoolean("status");
-                sqlReturn.SearchFriend = jsonObject.getInt("rowcount");
-                jsonArray = new JSONArray(sqlReturn.textViewSearchFriend);
-                sqlReturn.SearchFriendUserId = new String[sqlReturn.SearchFriend];
-                sqlReturn.SearchFriendName = new String[sqlReturn.SearchFriend];
-                for(int i = 0; i<sqlReturn.SearchFriend; i++){
-                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
-                    sqlReturn.SearchFriendUserId[i] = obj.getString("userID");
-                    sqlReturn.SearchFriendName[i] = obj.getString("strangerName");
+                sqlReturn.Message = jsonObject.getString("message");
+                if(sqlReturn.Message.equals("已經是好友")){
+                    new AlertDialog.Builder(SearchFriendActivity.this)
+                            .setTitle("提醒")
+                            .setMessage(editText.getText().toString()+"已經是您的好友")
+                            .setPositiveButton("OK", null)
+                            .show();
+                    status = false;
+                }else if(sqlReturn.Message.equals("找不到此人")){
+                    new AlertDialog.Builder(SearchFriendActivity.this)
+                            .setTitle("提醒")
+                            .setMessage("查無"+editText.getText().toString()+"這個人!!")
+                            .setPositiveButton("OK", null)
+                            .show();
+                    status = false;
+                }else if(sqlReturn.Message.equals("可以加好友")){
+                    sqlReturn.SearchFriend = jsonObject.getInt("rowcount");
+                    sqlReturn.FriendYesNo = jsonObject.getString("FriendYesNo");
+                    sqlReturn.textViewSearchFriend = jsonObject.getString("results");
+                    jsonArray = new JSONArray(sqlReturn.textViewSearchFriend);
+                    sqlReturn.SearchFriendUserId = new String[sqlReturn.SearchFriend];
+                    sqlReturn.SearchFriendName = new String[sqlReturn.SearchFriend];
+                    for (int i = 0; i < sqlReturn.SearchFriend; i++) {
+                        JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                        sqlReturn.SearchFriendUserId[i] = obj.getString("userID");
+                        sqlReturn.SearchFriendName[i] = obj.getString("strangerName");
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -134,11 +152,6 @@ public class SearchFriendActivity extends AppCompatActivity {
                 recyclerView.setAdapter(myAdapter);
                 progressBar1.setVisibility(View.INVISIBLE);
             } else {
-                new AlertDialog.Builder(SearchFriendActivity.this)
-                        .setTitle("提醒")
-                        .setMessage("查無"+editText.getText().toString()+"這個人!!")
-                        .setPositiveButton("OK", null)
-                        .show();
                 progressBar1.setVisibility(View.INVISIBLE);
             }
         }

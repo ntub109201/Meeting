@@ -66,6 +66,8 @@ public class sqlReturn{
     // 此為搜尋好友
     public static String textViewSearchFriend = null;
     public static int SearchFriend;
+    public static String Message;
+    public static String FriendYesNo;
     public static String[] SearchFriendUserId;
     public static String[] SearchFriendName;
 }

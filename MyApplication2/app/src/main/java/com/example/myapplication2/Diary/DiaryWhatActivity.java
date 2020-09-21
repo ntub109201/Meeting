@@ -35,6 +35,8 @@ public class DiaryWhatActivity extends AppCompatActivity{
 
         }else if(DiaryValue.txtTag.equals("購物")){
             txtWhat_title.setText("今天去買了什麼呢?");
+        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+            txtWhat_title.setText("做了什麼事呀？");
         }
 
         final ProgressBar progressBarWhat = findViewById(R.id.progressBarWhat);
@@ -42,6 +44,8 @@ public class DiaryWhatActivity extends AppCompatActivity{
 
         }else if(DiaryValue.txtTag.equals("購物")){
             progressBarWhat.setProgress(100);
+        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+            progressBarWhat.setProgress(35);
         }
 
 
@@ -55,8 +59,12 @@ public class DiaryWhatActivity extends AppCompatActivity{
                     Intent intent = new Intent(DiaryWhatActivity.this, DiaryTagActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                     DiaryWhatActivity.this.startActivity(intent,options.toBundle());
-                }else if(DiaryValue.txtTag.equals("購物")){
+                } else if(DiaryValue.txtTag.equals("購物")){
                     Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhereActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
+                    DiaryWhatActivity.this.startActivity(intent,options.toBundle());
+                } else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                     DiaryWhatActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -104,6 +112,21 @@ public class DiaryWhatActivity extends AppCompatActivity{
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWhat = "";
+                    DiaryValue.txtWhere = "";
+                    DiaryValue.txtWhen = "";
+                    DiaryValue.txtWho = "";
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhatActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhyActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -127,6 +150,11 @@ public class DiaryWhatActivity extends AppCompatActivity{
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWhat = "";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhatActivity.this,DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                 }
             }
         });
@@ -157,6 +185,15 @@ public class DiaryWhatActivity extends AppCompatActivity{
                         fragment = new DiaryWhatFirstFragment();
                         break;
                 }
+            }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                switch (position){
+                    case 0:
+                        fragment = new DiaryWhatFirstFragment();
+                        break;
+                    case 1:
+                        fragment = new DiaryWhatSecondFragment();
+                        break;
+                }
             }
 
             return fragment;
@@ -169,6 +206,8 @@ public class DiaryWhatActivity extends AppCompatActivity{
                 a = 2;
             }else if(DiaryValue.txtTag.equals("購物")){
                 a = 1;
+            }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                a = 2;
             }
             return a;
         }
@@ -190,6 +229,15 @@ public class DiaryWhatActivity extends AppCompatActivity{
                 switch (position) {
                     case 0:
                         a = "";
+                    default:
+                        a = null;
+                }
+            }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                switch (position) {
+                    case 0:
+                        a = "";
+                    case 1:
+                        a = " ";
                     default:
                         a = null;
                 }

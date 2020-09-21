@@ -214,9 +214,8 @@ public class FriendFragment extends Fragment {
 
             try {
                 jsonObject = new JSONObject(result);
-
-                sqlReturn.textViewContextFriend = jsonObject.getString("results");
                 sqlReturn.SearchCountFriend = jsonObject.getInt("rowcount");
+                sqlReturn.textViewContextFriend = jsonObject.getString("results");
                 jsonArray = new JSONArray(sqlReturn.textViewContextFriend);
                 sqlReturn.contentFriend = new String[sqlReturn.SearchCountFriend];
                 sqlReturn.tagNameFriend = new String[sqlReturn.SearchCountFriend];
@@ -274,9 +273,8 @@ public class FriendFragment extends Fragment {
 
             try {
                 jsonObject = new JSONObject(result);
-
-                sqlReturn.textViewContextFriendList = jsonObject.getString("results");
                 sqlReturn.SearchCountFriendList = jsonObject.getInt("rowcount");
+                sqlReturn.textViewContextFriendList = jsonObject.getString("results");
                 jsonArray = new JSONArray(sqlReturn.textViewContextFriendList);
                 sqlReturn.friendListName = new String[sqlReturn.SearchCountFriendList];
                 for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){

@@ -249,9 +249,8 @@ public class FriendListActivity extends AppCompatActivity {
 
             try {
                 jsonObject = new JSONObject(result);
-
-                sqlReturn.textViewContextFriendList = jsonObject.getString("results");
                 sqlReturn.SearchCountFriendList = jsonObject.getInt("rowcount");
+                sqlReturn.textViewContextFriendList = jsonObject.getString("results");
                 jsonArray = new JSONArray(sqlReturn.textViewContextFriendList);
                 sqlReturn.friendListName = new String[sqlReturn.SearchCountFriendList];
                 for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
