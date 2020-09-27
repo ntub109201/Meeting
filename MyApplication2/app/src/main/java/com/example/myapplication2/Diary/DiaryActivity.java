@@ -45,7 +45,7 @@ public class DiaryActivity extends AppCompatActivity {
         btnsuncloud.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                DiaryValue.txtMood = "心情1";
+                DiaryValue.txtMood = "心情2";
                 Intent registerIntent = new Intent(DiaryActivity.this, DiaryTagActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryActivity.this);
                 DiaryActivity.this.startActivity(registerIntent,options.toBundle());
@@ -57,7 +57,7 @@ public class DiaryActivity extends AppCompatActivity {
         btncloud.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                DiaryValue.txtMood = "心情1";
+                DiaryValue.txtMood = "心情3";
                 Intent registerIntent = new Intent(DiaryActivity.this, DiaryTagActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryActivity.this);
                 DiaryActivity.this.startActivity(registerIntent,options.toBundle());
@@ -69,7 +69,7 @@ public class DiaryActivity extends AppCompatActivity {
         btnrain.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                DiaryValue.txtMood = "心情1";
+                DiaryValue.txtMood = "心情4";
                 Intent registerIntent = new Intent(DiaryActivity.this, DiaryTagActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryActivity.this);
                 DiaryActivity.this.startActivity(registerIntent,options.toBundle());
@@ -81,7 +81,7 @@ public class DiaryActivity extends AppCompatActivity {
         btnthunder.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                DiaryValue.txtMood = "心情1";
+                DiaryValue.txtMood = "心情5";
                 Intent registerIntent = new Intent(DiaryActivity.this, DiaryTagActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryActivity.this);
                 DiaryActivity.this.startActivity(registerIntent,options.toBundle());

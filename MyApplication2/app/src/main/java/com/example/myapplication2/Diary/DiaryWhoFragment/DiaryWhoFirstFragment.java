@@ -43,6 +43,15 @@ public class DiaryWhoFirstFragment extends Fragment {
                     Intent intent = new Intent(DiaryWhoFirstFragment.super.getActivity(), DiaryWhyActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWho = "家人";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhoFirstFragment.super.getActivity(),DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhoActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -63,6 +72,15 @@ public class DiaryWhoFirstFragment extends Fragment {
                 }else if(DiaryValue.txtTag.equals("購物")){
                     DiaryValue.txtWho = "朋友";
                     Intent intent = new Intent(DiaryWhoFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWho = "朋友";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhoFirstFragment.super.getActivity(),DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhoActivity");
+                    intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
                 }

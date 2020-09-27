@@ -168,13 +168,17 @@ public class FriendListActivity extends AppCompatActivity {
             if(c + 1 == sqlReturn.SearchCountFriendList){
                 row.put("textName", sqlReturn.friendListName[c]);
             }else if(c + 2 == sqlReturn.SearchCountFriendList){
+                row.put("textName", sqlReturn.friendListName[c]);
                 row.put("textName1", sqlReturn.friendListName[c+1]);
             }else if(c + 3 == sqlReturn.SearchCountFriendList){
+                row.put("textName", sqlReturn.friendListName[c]);
+                row.put("textName1", sqlReturn.friendListName[c+1]);
                 row.put("textName2", sqlReturn.friendListName[c+2]);
             }else {
                 row.put("textName", sqlReturn.friendListName[c]);
                 row.put("textName1", sqlReturn.friendListName[c+1]);
                 row.put("textName2", sqlReturn.friendListName[c+2]);
+
             }
             c = c+ 3;
             data2.add(row);

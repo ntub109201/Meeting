@@ -112,7 +112,11 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 } else if(DiaryValue.txtTag.equals("休閒娛樂")){
-                    DiaryValue.txtWhy = "想瘦身";
+                    if(DiaryValue.txtMood.equals("心情5")){
+                        DiaryValue.txtWhy = "跟別人鬧不開心";
+                    }else {
+                        DiaryValue.txtWhy = "想瘦身";
+                    }
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhyActivity.this,DiaryWhatActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
@@ -158,7 +162,12 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 } else if(DiaryValue.txtTag.equals("休閒娛樂")){
-                    DiaryValue.txtWhy = "無聊";
+
+                    if(DiaryValue.txtMood.equals("心情5")){
+                        DiaryValue.txtWhy = "壓力過大";
+                    }else {
+                        DiaryValue.txtWhy = "無聊";
+                    }
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhyActivity.this,DiaryWhatActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
@@ -199,7 +208,11 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 } else if(DiaryValue.txtTag.equals("休閒娛樂")){
-                    DiaryValue.txtWhy = "打發時間";
+                    if(DiaryValue.txtMood.equals("心情5")){
+                        DiaryValue.txtWhy = "做事情不順";
+                    }else {
+                        DiaryValue.txtWhy = "打發時間";
+                    }
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhyActivity.this,DiaryWhatActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
@@ -225,7 +238,11 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 } else if(DiaryValue.txtTag.equals("休閒娛樂")){
-                    DiaryValue.txtWhy = "紓壓";
+                    if(DiaryValue.txtMood.equals("心情5")){
+                        DiaryValue.txtWhy = "考試考不好";
+                    }else {
+                        DiaryValue.txtWhy = "紓壓";
+                    }
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhyActivity.this,DiaryWhatActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
@@ -306,20 +323,18 @@ public class DiaryWhyActivity extends AppCompatActivity{
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DiaryValue.txtWhy = "";
                 if (DiaryValue.txtTag.equals("美食")) {
-                    DiaryValue.txtWhy = "";
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 } else if (DiaryValue.txtTag.equals("購物")) {
-                    DiaryValue.txtWhy = "";
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 } else if(DiaryValue.txtTag.equals("休閒娛樂")){
-                    DiaryValue.txtWhy = "";
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhyActivity.this,DiaryWhatActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
@@ -332,17 +347,18 @@ public class DiaryWhyActivity extends AppCompatActivity{
 
         }else if(DiaryValue.txtTag.equals("購物")){
             btn_party.setBackgroundResource(R.drawable.btn_tired);
-            Drawable party = getResources().getDrawable(R.drawable.btn_tired);
+            Drawable party = getResources().getDrawable(R.mipmap.ic_impulsive_foreground);
             btn_party.setCompoundDrawablesWithIntrinsicBounds(null,party,null,null);
-            btn_party.setX(50);
+            btn_party.setPadding(0,30,0,0);
+            btn_party.setX(60);
             btn_party.setY(50);
-            btn_party.setText("衝動性消費");
 
             btn_yummy.setBackgroundResource(R.drawable.btn_nogo);
             Drawable yummy = getResources().getDrawable(R.mipmap.btn_nogo_foreground);
             btn_yummy.setCompoundDrawablesWithIntrinsicBounds(null,yummy,null,null);
             btn_yummy.setPadding(0,15,0,0);
             btn_yummy.setX(70);
+            btn_yummy.setY(-30);
 
             btn_hungry.setBackgroundResource(R.drawable.btn_shopping);
             Drawable hungry = getResources().getDrawable(R.mipmap.btn_shopping_foreground);
@@ -357,45 +373,77 @@ public class DiaryWhyActivity extends AppCompatActivity{
             btn_celebrate.setY(50);
 
             btn_tired.setBackgroundResource(R.drawable.btn_impulsive);
-            Drawable tired = getResources().getDrawable(R.mipmap.btn_impulsive_foreground);
+            Drawable tired = getResources().getDrawable(R.mipmap.ic_gift_foreground);
             btn_tired.setCompoundDrawablesWithIntrinsicBounds(null,tired,null,null);
             btn_tired.setPadding(0,50,0,0);
             btn_tired.setX(-50);
+            btn_tired.setY(-30);
         } else if(DiaryValue.txtTag.equals("休閒娛樂")){
 
-            btn_nowhy.setY(50);
-            btn_nowhy.setX(100);
+            if(DiaryValue.txtMood.equals("心情5")){
+                btn_party.setBackgroundResource(R.drawable.btn_meeting);
+                Drawable party = getResources().getDrawable(R.mipmap.ic_argue_foreground);
+                btn_party.setCompoundDrawablesWithIntrinsicBounds(null,party,null,null);
+                btn_party.setPadding(0,15,0,0);
+                btn_party.setX(100);
+                btn_party.setY(-200);
 
-            btn_party.setBackgroundResource(R.drawable.btn_meeting);
-            Drawable party = getResources().getDrawable(R.mipmap.ic_loseweight_foreground);
-            btn_party.setCompoundDrawablesWithIntrinsicBounds(null,party,null,null);
-            btn_party.setPadding(0,15,0,0);
-            btn_party.setX(50);
-            btn_party.setY(30);
+                btn_yummy.setBackgroundResource(R.drawable.btn_yummy);
+                Drawable yummy = getResources().getDrawable(R.mipmap.ic_badthings_foreground);
+                btn_yummy.setCompoundDrawablesWithIntrinsicBounds(null,yummy,null,null);
+                btn_yummy.setPadding(0,15,0,0);
+                btn_yummy.setX(100);
+                btn_yummy.setY(-250);
 
-            btn_yummy.setBackgroundResource(R.drawable.btn_yummy);
-            Drawable yummy = getResources().getDrawable(R.mipmap.ic_passtime_foreground);
-            btn_yummy.setCompoundDrawablesWithIntrinsicBounds(null,yummy,null,null);
-            btn_yummy.setPadding(0,15,0,0);
-            btn_yummy.setX(100);
-            btn_yummy.setY(-100);
+                btn_celebrate.setBackgroundResource(R.drawable.btn_celebrate);
+                Drawable celebrate = getResources().getDrawable(R.mipmap.ic_stressful_foreground);
+                btn_celebrate.setCompoundDrawablesWithIntrinsicBounds(null,celebrate,null,null);
+                btn_celebrate.setPadding(5,15,0,0);
+                btn_celebrate.setX(-70);
+                btn_celebrate.setY(-150);
 
-            btn_celebrate.setBackgroundResource(R.drawable.btn_celebrate);
-            Drawable celebrate = getResources().getDrawable(R.mipmap.ic_boring_foreground);
-            btn_celebrate.setCompoundDrawablesWithIntrinsicBounds(null,celebrate,null,null);
-            btn_celebrate.setPadding(5,15,0,0);
-            btn_celebrate.setX(-70);
-            btn_celebrate.setY(-100);
+                btn_tired.setBackgroundResource(R.drawable.btn_tired);
+                Drawable tired = getResources().getDrawable(R.mipmap.ic_testfail_foreground);
+                btn_tired.setCompoundDrawablesWithIntrinsicBounds(null,tired,null,null);
+                btn_tired.setPadding(0,50,0,0);
+                btn_tired.setX(-70);
+                btn_tired.setY(-200);
 
-            btn_tired.setBackgroundResource(R.drawable.btn_tired);
-            Drawable tired = getResources().getDrawable(R.mipmap.ic_relax_foreground);
-            btn_tired.setCompoundDrawablesWithIntrinsicBounds(null,tired,null,null);
-            btn_tired.setPadding(0,50,0,0);
-            btn_tired.setX(-70);
-            btn_tired.setY(-200);
+                btn_nowhy.setVisibility(View.INVISIBLE);
+                btn_nowhy.setEnabled(false);
+            }else {
+                btn_nowhy.setY(50);
+                btn_nowhy.setX(100);
+
+                btn_party.setBackgroundResource(R.drawable.btn_meeting);
+                Drawable party = getResources().getDrawable(R.mipmap.ic_loseweight_foreground);
+                btn_party.setCompoundDrawablesWithIntrinsicBounds(null,party,null,null);
+                btn_party.setPadding(0,15,0,0);
+                btn_party.setX(50);
+                btn_party.setY(30);
+
+                btn_yummy.setBackgroundResource(R.drawable.btn_yummy);
+                Drawable yummy = getResources().getDrawable(R.mipmap.ic_passtime_foreground);
+                btn_yummy.setCompoundDrawablesWithIntrinsicBounds(null,yummy,null,null);
+                btn_yummy.setPadding(0,15,0,0);
+                btn_yummy.setX(100);
+                btn_yummy.setY(-100);
+
+                btn_celebrate.setBackgroundResource(R.drawable.btn_celebrate);
+                Drawable celebrate = getResources().getDrawable(R.mipmap.ic_boring_foreground);
+                btn_celebrate.setCompoundDrawablesWithIntrinsicBounds(null,celebrate,null,null);
+                btn_celebrate.setPadding(5,15,0,0);
+                btn_celebrate.setX(-70);
+                btn_celebrate.setY(-100);
+
+                btn_tired.setBackgroundResource(R.drawable.btn_tired);
+                Drawable tired = getResources().getDrawable(R.mipmap.ic_relax_foreground);
+                btn_tired.setCompoundDrawablesWithIntrinsicBounds(null,tired,null,null);
+                btn_tired.setPadding(0,50,0,0);
+                btn_tired.setX(-70);
+                btn_tired.setY(-200);
+            }
         }
-
-
     }
     // 擋住手機上回上一頁鍵
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -899,6 +899,277 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                     }
                 }
             }
+        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+            guidor.clearDiary();
+            if(DiaryValue.txtWhy.equals("")){
+                if(DiaryValue.txtWhat.equals("")){
+                    if(DiaryValue.txtWhen.equals("")){
+                        if(DiaryValue.txtWhere.equals("")){
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }else {
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }
+                    }else {
+                        if(DiaryValue.txtWhere.equals("")){
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }else {
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }
+                    }
+                }else {
+                    if(DiaryValue.txtWhen.equals("")){
+                        if(DiaryValue.txtWhere.equals("")){
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }else {
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }
+                    }else {
+                        if(DiaryValue.txtWhere.equals("")){
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }else {
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }
+                    }
+                }
+            }else{
+                if(DiaryValue.txtWhat.equals("")){
+                    if(DiaryValue.txtWhen.equals("")){
+                        if(DiaryValue.txtWhere.equals("")){
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }else {
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }
+                    }else {
+                        if(DiaryValue.txtWhere.equals("")){
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }else {
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }
+                    }
+                }else {
+                    if(DiaryValue.txtWhen.equals("")){
+                        if(DiaryValue.txtWhere.equals("")){
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }else {
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }
+                    }else {
+                        if(DiaryValue.txtWhere.equals("")){
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }else {
+                            if(DiaryValue.txtWho.equals("")){
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                a = guidor.getDiary();
+                            }else {
+                                guidor.setMood(DiaryValue.txtMood);
+                                guidor.setTag(DiaryValue.txtTag);
+                                guidor.setWhat(DiaryValue.txtWhat);
+                                guidor.setWhy(DiaryValue.txtWhy);
+                                guidor.setWhen(DiaryValue.txtWhen);
+                                guidor.setWhere(DiaryValue.txtWhere);
+                                guidor.setWho(DiaryValue.txtWho);
+                                a = guidor.getDiary();
+                            }
+                        }
+                    }
+                }
+            }
         }
         guidor.clearDiary();
 

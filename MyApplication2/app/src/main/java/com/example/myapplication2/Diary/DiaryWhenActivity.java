@@ -38,6 +38,8 @@ public class DiaryWhenActivity extends AppCompatActivity {
 
         }else if(DiaryValue.txtTag.equals("購物")){
             txtWhen_title.setText("什麼時間去買的呢?");
+        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+            txtWhen_title.setText("什麼時候做這個事呢?");
         }
 
         final ProgressBar progressBarWhen = findViewById(R.id.progressBarWhen);
@@ -45,6 +47,8 @@ public class DiaryWhenActivity extends AppCompatActivity {
 
         }else if(DiaryValue.txtTag.equals("購物")){
             progressBarWhen.setProgress(20);
+        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+            progressBarWhen.setProgress(50);
         }
 
         // 反回上一頁
@@ -64,6 +68,10 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     }
                 }else if(DiaryValue.txtTag.equals("購物")){
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryTagActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhatActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -101,6 +109,17 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWhere = "";
+                    DiaryValue.txtWhen = "";
+                    DiaryValue.txtWho = "";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhenActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -110,14 +129,17 @@ public class DiaryWhenActivity extends AppCompatActivity {
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DiaryValue.txtWhen = "";
                 if(DiaryValue.txtTag.equals("美食")){
-                    DiaryValue.txtWhen = "";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("購物")){
-                    DiaryValue.txtWhen = "";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -144,14 +166,17 @@ public class DiaryWhenActivity extends AppCompatActivity {
         btn_morning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DiaryValue.txtWhen = "早上";
                 if(DiaryValue.txtTag.equals("美食")){
-                    DiaryValue.txtWhen = "早上";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("購物")){
-                    DiaryValue.txtWhen = "早上";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -162,14 +187,17 @@ public class DiaryWhenActivity extends AppCompatActivity {
         btn_noon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DiaryValue.txtWhen = "中午";
                 if(DiaryValue.txtTag.equals("美食")){
-                    DiaryValue.txtWhen = "中午";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("購物")){
-                    DiaryValue.txtWhen = "中午";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -180,14 +208,17 @@ public class DiaryWhenActivity extends AppCompatActivity {
         btn_afternoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DiaryValue.txtWhen = "下午";
                 if(DiaryValue.txtTag.equals("美食")){
-                    DiaryValue.txtWhen = "下午";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("購物")){
-                    DiaryValue.txtWhen = "下午";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -198,14 +229,17 @@ public class DiaryWhenActivity extends AppCompatActivity {
         btn_night.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DiaryValue.txtWhen = "晚上";
                 if(DiaryValue.txtTag.equals("美食")){
-                    DiaryValue.txtWhen = "晚上";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("購物")){
-                    DiaryValue.txtWhen = "晚上";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -216,14 +250,17 @@ public class DiaryWhenActivity extends AppCompatActivity {
         btn_latenight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DiaryValue.txtWhen = "深夜";
                 if(DiaryValue.txtTag.equals("美食")){
-                    DiaryValue.txtWhen = "深夜";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("購物")){
-                    DiaryValue.txtWhen = "深夜";
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }

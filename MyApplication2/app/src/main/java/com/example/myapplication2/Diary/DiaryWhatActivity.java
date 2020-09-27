@@ -123,7 +123,7 @@ public class DiaryWhatActivity extends AppCompatActivity{
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhatActivity.this,DiaryPreviewActivity.class);
                     Bundle tagData = new Bundle();
-                    tagData.putString("1","DiaryWhyActivity");
+                    tagData.putString("1","DiaryWhatActivity");
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                     startActivity(intent,options.toBundle());
@@ -136,13 +136,12 @@ public class DiaryWhatActivity extends AppCompatActivity{
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DiaryValue.txtWhat = "";
                 if(DiaryValue.txtTag.equals("美食")){
-                    DiaryValue.txtWhat = "";
                     Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                     DiaryWhatActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("購物")){
-                    DiaryValue.txtWhat = "";
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhatActivity.this,DiaryPreviewActivity.class);
                     Bundle tagData = new Bundle();
@@ -151,7 +150,6 @@ public class DiaryWhatActivity extends AppCompatActivity{
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                     startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("休閒娛樂")){
-                    DiaryValue.txtWhat = "";
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhatActivity.this,DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);

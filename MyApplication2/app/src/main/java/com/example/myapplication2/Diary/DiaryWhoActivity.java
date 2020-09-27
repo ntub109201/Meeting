@@ -35,6 +35,8 @@ public class DiaryWhoActivity extends AppCompatActivity {
 
         }else if(DiaryValue.txtTag.equals("購物")){
             txtWho_title.setText("有誰和你一起去買呢?");
+        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+            txtWho_title.setText("什麼時候做這個事呢?");
         }
 
         final ProgressBar progressBarWho = findViewById(R.id.progressBarWho);
@@ -42,6 +44,8 @@ public class DiaryWhoActivity extends AppCompatActivity {
 
         }else if(DiaryValue.txtTag.equals("購物")){
             progressBarWho.setProgress(40);
+        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+            progressBarWho.setProgress(80);
         }
 
         // 反回上一頁
@@ -55,6 +59,10 @@ public class DiaryWhoActivity extends AppCompatActivity {
                     DiaryWhoActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("購物")){
                     Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    DiaryWhoActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
                     DiaryWhoActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -98,6 +106,15 @@ public class DiaryWhoActivity extends AppCompatActivity {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWho = "";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhoActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhoActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -121,6 +138,15 @@ public class DiaryWhoActivity extends AppCompatActivity {
                     Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhyActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
                     DiaryWhoActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWho = "";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhoActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhoActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });

@@ -1,5 +1,5 @@
 package com.example.myapplication2.Diary;
-// version 2020/08/03
+// version 2020/09/22
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -301,6 +301,20 @@ public class Guidor {
                     }
                 }
             }else if (propSeq.get(i).equals("when") && tag_option.equals("旅遊")){
+                // append punctuation
+                if (i != 0){
+
+                }
+                // get pattern
+                cursor = db.rawQuery("SELECT pattern\n" +
+                        "FROM sentence_pattern\n" +
+                        "WHERE sentencePatternNo = '" + index + "'", null);
+                cursor.moveToFirst();
+                if (debug)
+                    Log.d("NiCe", "SELECT pattern\n" +
+                            "FROM sentence_pattern\n" +
+                            "WHERE sentencePatternNo = '" + index + "'");
+                pattern = cursor.getString(0);
 
             }
             else{
@@ -658,12 +672,16 @@ public class Guidor {
                 mood_pattern_1 = new String[]{"心情很棒", "心情很讚", "心情很好", "心情特別好", "心情十分愉悅", "心情十分雀躍", "心情很愉快"};
                 break;
             case "心情2":
+                mood_pattern_1 = new String[]{"心情不錯", "心情還不錯", "心情還蠻不錯的", "心情還挺讚的", "心情有點開心", "心情有點快樂"};
                 break;
             case "心情3":
+                mood_pattern_1 = new String[]{"心情普普通通", "心情很普通", "心情沒什麼特別的", "心情就跟平常一樣", "心情沒有特別的起伏"};
                 break;
             case "心情4":
+                mood_pattern_1 = new String[]{"心情不太好", "心情不太OK", "心情有點差", "心情有些鬱鬱寡歡", "心情有點糟", "心情有點差"};
                 break;
             case "心情5":
+                mood_pattern_1 = new String[]{"心情很差", "心情很爛", "心情很糟糕", "心情很不好", "心情十分鬱悶"};
                 break;
         }
         this.diary = mood_pattern[(int)(Math.random()*mood_pattern.length)] + mood_pattern_1[(int)(Math.random()*mood_pattern_1.length)] + "，";
