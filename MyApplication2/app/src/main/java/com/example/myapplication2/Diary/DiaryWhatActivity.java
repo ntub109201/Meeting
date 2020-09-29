@@ -37,6 +37,8 @@ public class DiaryWhatActivity extends AppCompatActivity{
             txtWhat_title.setText("今天去買了什麼呢?");
         }else if(DiaryValue.txtTag.equals("休閒娛樂")){
             txtWhat_title.setText("做了什麼事呀？");
+        }else if(DiaryValue.txtTag.equals("戀愛")){
+            txtWhat_title.setText("今天做了哪些事呢");
         }
 
         final ProgressBar progressBarWhat = findViewById(R.id.progressBarWhat);
@@ -45,6 +47,8 @@ public class DiaryWhatActivity extends AppCompatActivity{
         }else if(DiaryValue.txtTag.equals("購物")){
             progressBarWhat.setProgress(100);
         }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+            progressBarWhat.setProgress(35);
+        }else if(DiaryValue.txtTag.equals("戀愛")){
             progressBarWhat.setProgress(35);
         }
 
@@ -65,6 +69,10 @@ public class DiaryWhatActivity extends AppCompatActivity{
                     DiaryWhatActivity.this.startActivity(intent,options.toBundle());
                 } else if(DiaryValue.txtTag.equals("休閒娛樂")){
                     Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
+                    DiaryWhatActivity.this.startActivity(intent,options.toBundle());
+                } else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                     DiaryWhatActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -127,6 +135,21 @@ public class DiaryWhatActivity extends AppCompatActivity{
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    DiaryValue.txtWhat = "";
+                    DiaryValue.txtWhy = "";
+                    DiaryValue.txtWhen = "";
+                    DiaryValue.txtWho = "";
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhatActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhatActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -136,12 +159,13 @@ public class DiaryWhatActivity extends AppCompatActivity{
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWhat = "";
                 if(DiaryValue.txtTag.equals("美食")){
+                    DiaryValue.txtWhat = "";
                     Intent intent = new Intent(DiaryWhatActivity.this, DiaryWhyActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                     DiaryWhatActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("購物")){
+                    DiaryValue.txtWhat = "";
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhatActivity.this,DiaryPreviewActivity.class);
                     Bundle tagData = new Bundle();
@@ -150,9 +174,17 @@ public class DiaryWhatActivity extends AppCompatActivity{
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
                     startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWhat = "";
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhatActivity.this,DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    DiaryValue.txtWhat = "";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhatActivity.this,DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -192,6 +224,12 @@ public class DiaryWhatActivity extends AppCompatActivity{
                         fragment = new DiaryWhatSecondFragment();
                         break;
                 }
+            }else if(DiaryValue.txtTag.equals("戀愛")){
+                switch (position){
+                    case 0:
+                        fragment = new DiaryWhatFirstFragment();
+                        break;
+                }
             }
 
             return fragment;
@@ -206,6 +244,8 @@ public class DiaryWhatActivity extends AppCompatActivity{
                 a = 1;
             }else if(DiaryValue.txtTag.equals("休閒娛樂")){
                 a = 2;
+            }else if(DiaryValue.txtTag.equals("戀愛")){
+                a = 1;
             }
             return a;
         }
@@ -236,6 +276,13 @@ public class DiaryWhatActivity extends AppCompatActivity{
                         a = "";
                     case 1:
                         a = " ";
+                    default:
+                        a = null;
+                }
+            }else if(DiaryValue.txtTag.equals("戀愛")){
+                switch (position) {
+                    case 0:
+                        a = "";
                     default:
                         a = null;
                 }

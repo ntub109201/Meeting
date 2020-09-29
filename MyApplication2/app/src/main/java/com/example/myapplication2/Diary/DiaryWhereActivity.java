@@ -46,6 +46,8 @@ public class DiaryWhereActivity extends AppCompatActivity {
             txtWhere_title.setText("這是在哪裡買的呢?");
         }else if(DiaryValue.txtTag.equals("休閒娛樂")){
             txtWhere_title.setText("在哪裡做這件事呢？");
+        }else if(DiaryValue.txtTag.equals("戀愛")){
+            txtWhere_title.setText("去哪裡做這件事呢？");
         }
 
         final ProgressBar progressBarWhere = findViewById(R.id.progressBarWhere);
@@ -55,6 +57,8 @@ public class DiaryWhereActivity extends AppCompatActivity {
             progressBarWhere.setProgress(80);
         }else if(DiaryValue.txtTag.equals("休閒娛樂")){
             progressBarWhere.setProgress(65);
+        }else if(DiaryValue.txtTag.equals("戀愛")){
+            progressBarWhere.setProgress(20);
         }
 
         // 反回上一頁
@@ -72,6 +76,10 @@ public class DiaryWhereActivity extends AppCompatActivity {
                     DiaryWhereActivity.this.startActivity(intent, options.toBundle());
                 }else if(DiaryValue.txtTag.equals("休閒娛樂")){
                     Intent intent = new Intent(DiaryWhereActivity.this, DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                    DiaryWhereActivity.this.startActivity(intent, options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent(DiaryWhereActivity.this, DiaryTagActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                     DiaryWhereActivity.this.startActivity(intent, options.toBundle());
                 }
@@ -134,6 +142,22 @@ public class DiaryWhereActivity extends AppCompatActivity {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                     startActivity(intent, options.toBundle());
+                } else if(DiaryValue.txtTag.equals("戀愛")){
+                    DiaryValue.txtWhat = "";
+                    DiaryValue.txtWhy = "";
+                    DiaryValue.txtWhere = "";
+                    DiaryValue.txtWhen = "";
+                    DiaryValue.txtWho = "";
+                    for (int i = 0; i < 5; i++) {
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhereActivity.this, DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1", "DiaryWhereActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                    startActivity(intent, options.toBundle());
                 }
             }
         });
@@ -166,6 +190,11 @@ public class DiaryWhereActivity extends AppCompatActivity {
                     intent.setClass(DiaryWhereActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                     startActivity(intent, options.toBundle());
+                } else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                    startActivity(intent, options.toBundle());
                 }
             }
         });
@@ -185,6 +214,11 @@ public class DiaryWhereActivity extends AppCompatActivity {
                 data.add(row);
             }
         } else if (DiaryValue.txtTag.equals("休閒娛樂")) {
+            for (int i = 0; i < 7; i++) {
+                HashMap<String, String> row = new HashMap<>();
+                data.add(row);
+            }
+        } else if (DiaryValue.txtTag.equals("戀愛")) {
             for (int i = 0; i < 7; i++) {
                 HashMap<String, String> row = new HashMap<>();
                 data.add(row);
@@ -401,6 +435,50 @@ public class DiaryWhereActivity extends AppCompatActivity {
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
                                 startActivity(intent, options.toBundle());
                             }
+                        }else if(DiaryValue.txtTag.equals("戀愛")){
+                            if (position == 0) {
+                                DiaryValue.txtWhere = "家裡";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 1) {
+                                DiaryValue.txtWhere = "公園";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 2) {
+                                DiaryValue.txtWhere = "餐廳";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 3) {
+                                DiaryValue.txtWhere = "賣場(超市)";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 4) {
+                                DiaryValue.txtWhere = "百貨公司";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 5) {
+                                DiaryValue.txtWhere = "商圈";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            } else if (position == 6) {
+                                DiaryValue.txtWhere = "夜市";
+                                Intent intent = new Intent();
+                                intent.setClass(DiaryWhereActivity.this, DiaryWhatActivity.class);
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                                startActivity(intent, options.toBundle());
+                            }
                         }
                     }
                 });
@@ -466,6 +544,22 @@ public class DiaryWhereActivity extends AppCompatActivity {
                     holder.imageView.setImageResource(R.mipmap.ic_park_foreground);
                 } else if(position == 6){
                     holder.imageView.setImageResource(R.mipmap.ic_mrt_foreground);
+                }
+            } else if(DiaryValue.txtTag.equals("戀愛")){
+                if (position == 0) {
+                    holder.imageView.setImageResource(R.mipmap.ic_home_foreground);
+                } else if(position == 1){
+                    holder.imageView.setImageResource(R.mipmap.ic_park_foreground);
+                } else if(position == 2){
+                    holder.imageView.setImageResource(R.mipmap.ic_restaurant_foreground);
+                } else if(position == 3){
+                    holder.imageView.setImageResource(R.mipmap.ic_supermarket_foreground);
+                } else if(position == 4){
+                    holder.imageView.setImageResource(R.mipmap.ic_departmentstore_foreground);
+                } else if(position == 5){
+                    holder.imageView.setImageResource(R.mipmap.ic_downtown_foreground);
+                } else if(position == 6){
+                    holder.imageView.setImageResource(R.mipmap.ic_nightmarket2_foreground);
                 }
             }
 

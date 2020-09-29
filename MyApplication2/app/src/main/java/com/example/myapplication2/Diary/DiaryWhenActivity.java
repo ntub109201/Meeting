@@ -40,6 +40,8 @@ public class DiaryWhenActivity extends AppCompatActivity {
             txtWhen_title.setText("什麼時間去買的呢?");
         }else if(DiaryValue.txtTag.equals("休閒娛樂")){
             txtWhen_title.setText("什麼時候做這個事呢?");
+        }else if(DiaryValue.txtTag.equals("戀愛")){
+            txtWhen_title.setText("大概什麼時候呢?");
         }
 
         final ProgressBar progressBarWhen = findViewById(R.id.progressBarWhen);
@@ -49,6 +51,8 @@ public class DiaryWhenActivity extends AppCompatActivity {
             progressBarWhen.setProgress(20);
         }else if(DiaryValue.txtTag.equals("休閒娛樂")){
             progressBarWhen.setProgress(50);
+        }else if(DiaryValue.txtTag.equals("戀愛")){
+            progressBarWhen.setProgress(80);
         }
 
         // 反回上一頁
@@ -72,6 +76,10 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("休閒娛樂")){
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhatActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -120,6 +128,15 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                    DiaryValue.txtWhen = "";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhenActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -142,6 +159,14 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhenActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -179,6 +204,14 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhenActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -200,6 +233,14 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhenActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -221,6 +262,14 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhenActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -242,6 +291,14 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhenActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -263,6 +320,14 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhenActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });

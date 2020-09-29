@@ -66,17 +66,17 @@ public class DiaryTagActivity extends AppCompatActivity {
 //                DiaryTagActivity.this.startActivity(intent);
 //            }
 //        });
-//        // 前往下一頁 emotion
-//        final Button btn_emotion = findViewById(R.id.btn_emotion);
-//        btn_emotion.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                txtTag ="因為我今天感情";
-//                Intent intent = new Intent(DiaryTagActivity.this, DiaryWhatActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                DiaryTagActivity.this.startActivity(intent);
-//            }
-//        });
+        // 前往下一頁 emotion
+        final Button btn_emotion = findViewById(R.id.btn_emotion);
+        btn_emotion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtTag ="戀愛";
+                Intent intent = new Intent(DiaryTagActivity.this, DiaryWhereActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTagActivity.this);
+                DiaryTagActivity.this.startActivity(intent,options.toBundle());
+            }
+        });
         // 前往下一頁 休閒娛樂
         final Button btn_play = findViewById(R.id.btn_play);
         btn_play.setOnClickListener(new View.OnClickListener() {

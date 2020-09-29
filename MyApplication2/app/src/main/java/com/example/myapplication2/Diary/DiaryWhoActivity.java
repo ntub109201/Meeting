@@ -37,6 +37,8 @@ public class DiaryWhoActivity extends AppCompatActivity {
             txtWho_title.setText("有誰和你一起去買呢?");
         }else if(DiaryValue.txtTag.equals("休閒娛樂")){
             txtWho_title.setText("什麼時候做這個事呢?");
+        }else if(DiaryValue.txtTag.equals("戀愛")){
+            txtWho_title.setText("有邀請誰與你們同行呢?");
         }
 
         final ProgressBar progressBarWho = findViewById(R.id.progressBarWho);
@@ -46,6 +48,8 @@ public class DiaryWhoActivity extends AppCompatActivity {
             progressBarWho.setProgress(40);
         }else if(DiaryValue.txtTag.equals("休閒娛樂")){
             progressBarWho.setProgress(80);
+        }else if(DiaryValue.txtTag.equals("戀愛")){
+            progressBarWho.setProgress(65);
         }
 
         // 反回上一頁
@@ -63,6 +67,10 @@ public class DiaryWhoActivity extends AppCompatActivity {
                     DiaryWhoActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("休閒娛樂")){
                     Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhereActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    DiaryWhoActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhyActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
                     DiaryWhoActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -108,6 +116,22 @@ public class DiaryWhoActivity extends AppCompatActivity {
                     startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("休閒娛樂")){
                     DiaryValue.txtWho = "";
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhoActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhoActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    DiaryValue.txtWhen = "";
+                    DiaryValue.txtWho = "";
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhoActivity.this,DiaryPreviewActivity.class);
                     Bundle tagData = new Bundle();
@@ -147,6 +171,11 @@ public class DiaryWhoActivity extends AppCompatActivity {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    DiaryValue.txtWho = "";
+                    Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    DiaryWhoActivity.this.startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -159,35 +188,71 @@ public class DiaryWhoActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position){
             Fragment fragment = null;
-            switch (position){
-                case 0:
-                    fragment = new DiaryWhoFirstFragment();
-                    break;
-                case 1:
-                    fragment = new DiaryWhoSecondFragment();
-                    break;
-                case 2:
-                    fragment = new DiaryWhoThirdFragment();
-                    break;
+            if(DiaryValue.txtTag.equals("戀愛")){
+                switch (position){
+                    case 0:
+                        fragment = new DiaryWhoFirstFragment();
+                        break;
+                    case 1:
+                        fragment = new DiaryWhoSecondFragment();
+                        break;
+                }
+            }else {
+                switch (position){
+                    case 0:
+                        fragment = new DiaryWhoFirstFragment();
+                        break;
+                    case 1:
+                        fragment = new DiaryWhoSecondFragment();
+                        break;
+                    case 2:
+                        fragment = new DiaryWhoThirdFragment();
+                        break;
+                }
             }
+
             return fragment;
         }
         @Override
         public int getCount(){
-            return 3;
+            int a = 0;
+            if(DiaryValue.txtTag.equals("美食")){
+                a = 3;
+            }else if(DiaryValue.txtTag.equals("購物")){
+                a = 3;
+            }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                a = 3;
+            }else if(DiaryValue.txtTag.equals("戀愛")){
+                a = 2;
+            }
+            return a;
         }
         @Override
         public CharSequence getPageTitle(int position){
-            switch (position) {
-                case 0:
-                    return "";
-                case 1:
-                    return " ";
-                case 2:
-                    return "   ";
-                default:
-                    return null;
+
+            String a = "";
+            if(DiaryValue.txtTag.equals("戀愛")){
+                switch (position) {
+                    case 0:
+                        a = "";
+                    case 1:
+                        a = " ";
+                    default:
+                        a = null;
+                }
+            }else {
+                switch (position) {
+                    case 0:
+                        a = "";
+                    case 1:
+                        a = " ";
+                    case 2:
+                        a = "   ";
+                    default:
+                        a = null;
+                }
             }
+            return a;
         }
 
     }

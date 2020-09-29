@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.myapplication2.Diary.DiaryPreviewActivity;
+import com.example.myapplication2.Diary.DiaryWhenActivity;
 import com.example.myapplication2.Diary.DiaryWhyActivity;
 import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.R;
@@ -52,6 +53,11 @@ public class DiaryWhoSecondFragment extends Fragment {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoSecondFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    DiaryValue.txtWho = "寵物";
+                    Intent intent = new Intent(DiaryWhoSecondFragment.super.getActivity(), DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoSecondFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
 
             }
@@ -84,10 +90,20 @@ public class DiaryWhoSecondFragment extends Fragment {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoSecondFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    DiaryValue.txtWho = "兩個人單獨";
+                    Intent intent = new Intent(DiaryWhoSecondFragment.super.getActivity(), DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoSecondFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
 
             }
         });
+
+        if(DiaryValue.txtTag.equals("戀愛")){
+            btn_lover.setBackgroundResource(R.mipmap.btn_pet_foreground);
+            btn_self.setBackgroundResource(R.mipmap.btn_alone_foreground);
+        }
 
         return root;
     }

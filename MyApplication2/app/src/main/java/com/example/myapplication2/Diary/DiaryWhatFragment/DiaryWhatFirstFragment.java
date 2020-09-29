@@ -53,6 +53,18 @@ public class DiaryWhatFirstFragment extends Fragment {
                     Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    if(DiaryValue.txtMood.equals("心情5")){
+                        DiaryValue.txtWhat = "鬥嘴";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }else {
+                        DiaryValue.txtWhat = "約會";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }
                 }
             }
         });
@@ -81,6 +93,18 @@ public class DiaryWhatFirstFragment extends Fragment {
                     Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    if(DiaryValue.txtMood.equals("心情5")){
+                        DiaryValue.txtWhat = "分手";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }else {
+                        DiaryValue.txtWhat = "吃飯";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }
                 }
             }
         });
@@ -109,6 +133,18 @@ public class DiaryWhatFirstFragment extends Fragment {
                     Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    if(DiaryValue.txtMood.equals("心情5")){
+                        DiaryValue.txtWhat = "冷戰";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }else {
+                        DiaryValue.txtWhat = "看電影";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }
                 }
             }
         });
@@ -137,6 +173,18 @@ public class DiaryWhatFirstFragment extends Fragment {
                     Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    if(DiaryValue.txtMood.equals("心情5")){
+                        DiaryValue.txtWhat = "抱怨";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }else {
+                        DiaryValue.txtWhat = "逛街";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }
                 }
             }
         });
@@ -160,6 +208,18 @@ public class DiaryWhatFirstFragment extends Fragment {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    if(DiaryValue.txtMood.equals("心情5")){
+                        DiaryValue.txtWhat = "打架";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }else {
+                        DiaryValue.txtWhat = "唱歌";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }
                 }
             }
         });
@@ -183,6 +243,18 @@ public class DiaryWhatFirstFragment extends Fragment {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("戀愛")){
+                    if(DiaryValue.txtMood.equals("心情5")){
+                        DiaryValue.txtWhat = "吵架";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }else {
+                        DiaryValue.txtWhat = "運動";
+                        Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                        startActivity(intent,options.toBundle());
+                    }
                 }
             }
         });
@@ -240,6 +312,57 @@ public class DiaryWhatFirstFragment extends Fragment {
             btn_random.setEnabled(false);
             btn_ider.setVisibility(View.INVISIBLE);
             btn_ider.setEnabled(false);
+        }else if(DiaryValue.txtTag.equals("戀愛")){
+            if(DiaryValue.txtMood.equals("心情5")){
+                btn_taiwan.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable taiwan = getResources().getDrawable(R.mipmap.ic_arguelover_foreground);
+                btn_taiwan.setCompoundDrawablesWithIntrinsicBounds(null,taiwan,null,null);
+
+                btn_kong.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable kong = getResources().getDrawable(R.mipmap.ic_breakup_foreground);
+                btn_kong.setCompoundDrawablesWithIntrinsicBounds(null,kong,null,null);
+
+                btn_japan.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable japan = getResources().getDrawable(R.mipmap.ic_coldwar_foreground);
+                btn_japan.setCompoundDrawablesWithIntrinsicBounds(null,japan,null,null);
+
+                btn_korea.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable korea = getResources().getDrawable(R.mipmap.ic_complain_foreground);
+                btn_korea.setCompoundDrawablesWithIntrinsicBounds(null,korea,null,null);
+
+                btn_random.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable random = getResources().getDrawable(R.mipmap.ic_fighting_foreground);
+                btn_random.setCompoundDrawablesWithIntrinsicBounds(null,random,null,null);
+
+                btn_ider.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable ider = getResources().getDrawable(R.mipmap.ic_quarrellover_foreground);
+                btn_ider.setCompoundDrawablesWithIntrinsicBounds(null,ider,null,null);
+            }else {
+                btn_taiwan.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable taiwan = getResources().getDrawable(R.mipmap.ic_what_date_foreground);
+                btn_taiwan.setCompoundDrawablesWithIntrinsicBounds(null,taiwan,null,null);
+
+                btn_kong.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable kong = getResources().getDrawable(R.mipmap.ic_dinnerlover_foreground);
+                btn_kong.setCompoundDrawablesWithIntrinsicBounds(null,kong,null,null);
+
+                btn_japan.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable japan = getResources().getDrawable(R.mipmap.ic_movielover_foreground);
+                btn_japan.setCompoundDrawablesWithIntrinsicBounds(null,japan,null,null);
+
+                btn_korea.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable korea = getResources().getDrawable(R.mipmap.ic_shoplover_foreground);
+                btn_korea.setCompoundDrawablesWithIntrinsicBounds(null,korea,null,null);
+
+                btn_random.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable random = getResources().getDrawable(R.mipmap.ic_singlover_foreground);
+                btn_random.setCompoundDrawablesWithIntrinsicBounds(null,random,null,null);
+
+                btn_ider.setBackgroundResource(R.drawable.btn_selectfood);
+                Drawable ider = getResources().getDrawable(R.mipmap.ic_workoutlover_foreground);
+                btn_ider.setCompoundDrawablesWithIntrinsicBounds(null,ider,null,null);
+            }
+
         }
 
         return root;
