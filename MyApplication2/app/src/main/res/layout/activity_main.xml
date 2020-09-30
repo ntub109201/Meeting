@@ -22,64 +22,6 @@
         app:navGraph="@navigation/mobile_navigation" />
 
 
-    <Button
-        android:id="@+id/goToDiarybutton"
-        style="@style/btn_diarybtn"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:enabled="false"
-        android:text="@string/title_diary"
-        android:textColor="#FFFFFF"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
-
-    <Button
-        android:id="@+id/goToOCRbutton"
-        style="@style/btn_diarybtn"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:enabled="false"
-        android:text="照相"
-        android:textColor="#FFFFFF"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.78"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
-
-    <Button
-        android:id="@+id/goToHandwritebutton"
-        style="@style/btn_diarybtn"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:enabled="false"
-        android:text="@string/title_handwritediary"
-        android:textColor="#FFFFFF"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.226"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
-
-    <Button
-        android:id="@+id/btnAnim"
-        style="@style/btn_primary"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:background="@drawable/ic_add_circle_black_24dp"
-        app:layout_constraintBottom_toTopOf="@+id/nav_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"

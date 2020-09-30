@@ -27,12 +27,11 @@ import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.ModifyPersonalActivity;
 import com.example.myapplication2.PersonalActivity;
 import com.example.myapplication2.R;
+import com.example.myapplication2.ui.home.HomeFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class MaybelikeFragment extends Fragment {
 
-    private TabLayout mTabs;
-    private ViewPager mViewPager;
     private ImageButton imBtnPersonal;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,15 +39,9 @@ public class MaybelikeFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_maybelike, container, false);
 
-        if(MainActivity.changeBtn == true){
-            MainActivity.changeBtn = false;
+        if(HomeFragment.changeBtn == true){
+            HomeFragment.changeBtn = false;
         }
-        mTabs = root.findViewById(R.id.mTabs);
-        mTabs.addTab(mTabs.newTab().setText("文章"));
-        mTabs.addTab(mTabs.newTab().setText("地點"));
-        mViewPager = root.findViewById(R.id.mViewPager);
-        mViewPager.setAdapter(new MyPagerAdapter());
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabs));
 
         imBtnPersonal = root.findViewById(R.id.imBtnPersonal);
         imBtnPersonal.setOnClickListener(new View.OnClickListener() {
@@ -60,43 +53,6 @@ public class MaybelikeFragment extends Fragment {
             }
         });
 
-
         return root;
-    }
-    private class MyPagerAdapter extends PagerAdapter {
-        private int pageCount = 2;
-        @Override
-        public int getCount() {
-            return pageCount;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object obj) {
-            return obj == view;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return "MyPage " + (position + 1);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            View view = getLayoutInflater().inflate(R.layout.maybelike_item, container, false);
-            container.addView(view);
-            ImageView imageView = view.findViewById(R.id.imgMayBeLike);
-            if(position == 0){
-                imageView.setImageResource(R.drawable.maybelike_fake1);
-            }else {
-                imageView.setImageResource(R.drawable.maybelike_fake2);
-            }
-
-            return view;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
     }
 }

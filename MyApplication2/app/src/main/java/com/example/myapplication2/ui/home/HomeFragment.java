@@ -1,9 +1,12 @@
 package com.example.myapplication2.ui.home;
 
+import android.Manifest;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,10 +32,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.myapplication2.Diary.DiaryActivity;
 import com.example.myapplication2.DiaryValue;
+import com.example.myapplication2.HandwriteActivity;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.Login.LoginActivity;
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.ModifyPersonalActivity;
+import com.example.myapplication2.OCRActivity;
 import com.example.myapplication2.PersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
@@ -69,6 +75,11 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressBarHome;
     private SwipeRefreshLayout RefreshLayoutHome;
     private ImageButton imBtnPersonal;
+    private Button btnAnim;
+    private ConstraintLayout mLayout;
+    private Button goToHandwritebutton,goToDiarybutton,goToOCRbutton;
+    public static boolean changeBtn = false;
+    private static boolean camera = false;
 
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
@@ -85,9 +96,52 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        if(MainActivity.changeBtn == true){
-            MainActivity.changeBtn = false;
+        if(changeBtn == true){
+            changeBtn = false;
         }
+
+        btnAnim = root.findViewById(R.id.btnAnim);
+        btnAnim.setOnClickListener(btnChangeColorOnClick);
+        mLayout = root.findViewById(R.id.testConstraint);
+        // 前往引導日記
+        goToDiarybutton = root.findViewById(R.id.goToDiarybutton);
+        goToDiarybutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                changeBtn = false;
+                Intent registerIntent = new Intent(HomeFragment.super.getActivity(), DiaryActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HomeFragment.super.getActivity());
+                HomeFragment.super.getActivity().startActivity(registerIntent,options.toBundle());
+            }
+        });
+
+        // 前往手寫日記
+        goToHandwritebutton = root.findViewById(R.id.goToHandwritebutton);
+        goToHandwritebutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                changeBtn = false;
+                Intent registerIntent = new Intent(HomeFragment.super.getActivity(), HandwriteActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HomeFragment.super.getActivity());
+                HomeFragment.super.getActivity().startActivity(registerIntent,options.toBundle());
+            }
+        });
+
+        // OCR暫時沒有
+        goToOCRbutton = root.findViewById(R.id.goToOCRbutton);
+        goToOCRbutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                getPermissionsCamera();
+                if(camera){
+                    Intent intent = new Intent(HomeFragment.super.getActivity(), OCRActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HomeFragment.super.getActivity());
+                    HomeFragment.super.getActivity().startActivity(intent,options.toBundle());
+                }
+            }
+        });
+
+        getPermissionsCamera();
 
         // adapter
         mRecyclerView = root.findViewById(R.id.HistoryRecyclerview);
@@ -247,6 +301,29 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    public void getPermissionsCamera(){
+        if(ActivityCompat.checkSelfPermission(HomeFragment.super.getActivity(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(HomeFragment.super.getActivity(),
+                    Manifest.permission.CAMERA)) {
+                new AlertDialog.Builder(HomeFragment.super.getActivity())
+                        .setCancelable(false)
+                        .setTitle("提醒您")
+                        .setMessage("需要開啟相機權限才可使用照相功能歐!!")
+                        .setPositiveButton("了解", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ActivityCompat.requestPermissions(HomeFragment.super.getActivity(),new String[]{Manifest.permission.CAMERA},1);
+                            }
+                        })
+                        .show();
+            }else{
+                ActivityCompat.requestPermissions(HomeFragment.super.getActivity(),new String[]{Manifest.permission.CAMERA},1);
+            }
+        }else {
+            camera = true;
+        }
+    }
 
     // 此為全抓
     //----------------------------------------------------------------------------------------------
@@ -851,6 +928,54 @@ public class HomeFragment extends Fragment {
     }
 
 
+    // 變化背景動畫
+    private View.OnClickListener btnChangeColorOnClick = new View.OnClickListener() {
+        public void onClick(View v) {
+            int iBackColorRedVal, iBackColorRedEnd;
+
+            if(!changeBtn){
+                btnAnim.animate().rotation(btnAnim.getRotation()+135).start();
+                mLayout.setVisibility(View.VISIBLE);
+                goToHandwritebutton.setEnabled(true);
+                goToHandwritebutton.setVisibility(View.VISIBLE);
+                goToDiarybutton.setEnabled(true);
+                goToDiarybutton.setVisibility(View.VISIBLE);
+                goToOCRbutton.setEnabled(true);
+                goToOCRbutton.setVisibility(View.VISIBLE);
+                changeBtn = true;
+            }else if(changeBtn){
+                btnAnim.animate().rotation(btnAnim.getRotation()-135).start();
+                goToHandwritebutton.setEnabled(false);
+                goToHandwritebutton.setVisibility(View.INVISIBLE);
+                goToDiarybutton.setEnabled(false);
+                goToDiarybutton.setVisibility(View.INVISIBLE);
+                goToOCRbutton.setEnabled(false);
+                goToOCRbutton.setVisibility(View.INVISIBLE);
+                changeBtn = false;
+            }
+            final int iBackColor =
+                    ((ColorDrawable)(mLayout.getBackground())).getColor();
+            iBackColorRedVal = (iBackColor & 0xFF);
+
+            if (iBackColorRedVal > 127)
+                iBackColorRedEnd = 0;
+            else
+                iBackColorRedEnd = 255;
+            ValueAnimator animScreenBackColor =
+                    ValueAnimator.ofInt(iBackColorRedVal, iBackColorRedEnd);
+            animScreenBackColor.setDuration(500);
+            animScreenBackColor.setInterpolator(new LinearInterpolator());
+            animScreenBackColor.start();
+            animScreenBackColor.addUpdateListener(new ValueAnimator.AnimatorUpdateListener(){
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    int val = (Integer)animation.getAnimatedValue();
+                    mLayout.setBackgroundColor(
+                            iBackColor & 0x33000000 | val << 16 | val << 8 | val );
+                }
+            });
+        }
+    };
 
     //----------------------------------------------------------------------------------------------
 

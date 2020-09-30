@@ -16,7 +16,7 @@
         android:title="@string/title_friend" />
     <item
         android:id="@+id/navigation_maybelike"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@mipmap/ic_btn_placeholder_foreground"
         android:title="@string/title_maybelike" />
 
 </menu>

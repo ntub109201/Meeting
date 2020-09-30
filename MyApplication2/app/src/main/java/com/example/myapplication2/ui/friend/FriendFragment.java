@@ -37,6 +37,7 @@ import com.example.myapplication2.ModifyPersonalActivity;
 import com.example.myapplication2.PersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
+import com.example.myapplication2.ui.home.HomeFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +58,7 @@ public class FriendFragment extends Fragment {
     private MyAdapter myAdapter;
     private SwipeRefreshLayout RefreshLayoutFriend;
     private ImageButton imBtnPersonal;
+    private Button btn_addfriend;
 
     public static int FriendTag;
 
@@ -65,10 +67,18 @@ public class FriendFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_friend, container, false);
 
-        if(MainActivity.changeBtn == true){
-            MainActivity.changeBtn = false;
+        if(HomeFragment.changeBtn == true){
+            HomeFragment.changeBtn = false;
         }
 
+        btn_addfriend = root.findViewById(R.id.btn_addfriend);
+        btn_addfriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendFragment.super.getActivity(),FriendListActivity.class);
+                startActivity(intent);
+            }
+        });
         // adapter
         mRecyclerView = root.findViewById(R.id.RecyclerView_1);
         mRecyclerView.setHasFixedSize(true);

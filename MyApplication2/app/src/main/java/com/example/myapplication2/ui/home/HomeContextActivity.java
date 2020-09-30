@@ -45,10 +45,7 @@ public class HomeContextActivity extends AppCompatActivity {
         imbtnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeContextActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("id",1);
-                startActivity(intent);
+                HomeContextActivity.this.finish();
             }
         });
 
@@ -66,6 +63,17 @@ public class HomeContextActivity extends AppCompatActivity {
             String total = "    "+sqlReturn.LoginContent[HomeFragment.homeTag];
             String mood = sqlReturn.LoginMood[HomeFragment.homeTag];
             String date = sqlReturn.LoginDate[HomeFragment.homeTag];
+            if(mood.equals("晴天")){
+                mood = "心情超棒的";
+            }else if(mood.equals("時晴")){
+                mood = "心情不錯歐";
+            }else if(mood.equals("多雲")){
+                mood = "心情普普呢";
+            }else if(mood.equals("陣雨")){
+                mood = "心情不好啊";
+            }else if(mood.equals("雷雨")){
+                mood = "心情很差呢";
+            }
             txtHistoryDiary.setText(total);
             textTitle.setText(mood);
             textDescription.setText(date);
@@ -114,6 +122,17 @@ public class HomeContextActivity extends AppCompatActivity {
             String total = "    "+ sqlReturn.content1[HomeFragment.homeTag];
             String mood = sqlReturn.mood1[HomeFragment.homeTag];
             String date = sqlReturn.date1[HomeFragment.homeTag];
+            if(mood.equals("晴天")){
+                mood = "心情超棒的";
+            }else if(mood.equals("時晴")){
+                mood = "心情不錯歐";
+            }else if(mood.equals("多雲")){
+                mood = "心情普普呢";
+            }else if(mood.equals("陣雨")){
+                mood = "心情不好啊";
+            }else if(mood.equals("雷雨")){
+                mood = "心情很差呢";
+            }
             txtHistoryDiary.setText(total);
             textTitle.setText(mood);
             textDescription.setText(date);
@@ -162,6 +181,17 @@ public class HomeContextActivity extends AppCompatActivity {
             String total = "    "+ sqlReturn.content2[HomeFragment.homeTag];
             String mood = sqlReturn.mood2[HomeFragment.homeTag];
             String date = sqlReturn.date2[HomeFragment.homeTag];
+            if(mood.equals("心情1")){
+                mood = "心情超棒的";
+            }else if(mood.equals("心情2")){
+                mood = "心情不錯歐";
+            }else if(mood.equals("心情3")){
+                mood = "心情普普呢";
+            }else if(mood.equals("心情4")){
+                mood = "心情不好啊";
+            }else if(mood.equals("心情5")){
+                mood = "心情很差呢";
+            }
             txtHistoryDiary.setText(total);
             textTitle.setText(mood);
             textDescription.setText(date);

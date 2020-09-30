@@ -28,11 +28,7 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ConstraintLayout mLayout;
-    private Button goToDiarybutton, goToOCRbutton, goToHandwritebutton, btnAnim;
-    public static boolean changeBtn = false;
     public static boolean login = false;
-    private static boolean camera = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
-
 
 
 
@@ -62,127 +57,7 @@ public class MainActivity extends AppCompatActivity {
         if(id == 4){
             navController.navigate(R.id.navigation_maybelike);
         }
-
-        // 前往引導日記
-        final Button goToDiary = findViewById(R.id.goToDiarybutton);
-        goToDiary.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                changeBtn = false;
-                Intent registerIntent = new Intent(MainActivity.this, DiaryActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
-                MainActivity.this.startActivity(registerIntent,options.toBundle());
-            }
-        });
-
-        // 前往手寫日記
-        final Button goToHandWrite = findViewById(R.id.goToHandwritebutton);
-        goToHandWrite.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                changeBtn = false;
-                Intent registerIntent = new Intent(MainActivity.this, HandwriteActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
-                MainActivity.this.startActivity(registerIntent,options.toBundle());
-            }
-        });
-
-        // OCR暫時沒有
-        final Button goToOCR = findViewById(R.id.goToOCRbutton);
-        goToOCR.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                getPermissionsCamera();
-                if(camera){
-                    Intent intent = new Intent(MainActivity.this,OCRActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
-                    MainActivity.this.startActivity(intent,options.toBundle());
-                }
-            }
-        });
-
-        getPermissionsCamera();
-        goToDiarybutton = findViewById(R.id.goToDiarybutton);
-        goToOCRbutton = findViewById(R.id.goToOCRbutton);
-        goToHandwritebutton = findViewById(R.id.goToHandwritebutton);
-        btnAnim = findViewById(R.id.btnAnim);
-        mLayout = findViewById(R.id.testConstraint);
-        btnAnim.setOnClickListener(btnChangeColorOnClick);
     }
-
-    public void getPermissionsCamera(){
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED){
-            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
-                    Manifest.permission.CAMERA)) {
-                new AlertDialog.Builder(MainActivity.this)
-                        .setCancelable(false)
-                        .setTitle("提醒您")
-                        .setMessage("需要開啟相機權限才可使用照相功能歐!!")
-                        .setPositiveButton("了解", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CAMERA},1);
-                            }
-                        })
-                        .show();
-            }else{
-                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CAMERA},1);
-            }
-        }else {
-            camera = true;
-        }
-    }
-
-
-    // 變化背景動畫
-    private View.OnClickListener btnChangeColorOnClick = new View.OnClickListener() {
-        public void onClick(View v) {
-            int iBackColorRedVal, iBackColorRedEnd;
-
-            if(!changeBtn){
-                btnAnim.animate().rotation(btnAnim.getRotation()+135).start();
-                mLayout.setVisibility(View.VISIBLE);
-                goToHandwritebutton.setEnabled(true);
-                goToHandwritebutton.setVisibility(View.VISIBLE);
-                goToDiarybutton.setEnabled(true);
-                goToDiarybutton.setVisibility(View.VISIBLE);
-                goToOCRbutton.setEnabled(true);
-                goToOCRbutton.setVisibility(View.VISIBLE);
-                changeBtn = true;
-            }else if(changeBtn){
-                btnAnim.animate().rotation(btnAnim.getRotation()-135).start();
-                goToHandwritebutton.setEnabled(false);
-                goToHandwritebutton.setVisibility(View.INVISIBLE);
-                goToDiarybutton.setEnabled(false);
-                goToDiarybutton.setVisibility(View.INVISIBLE);
-                goToOCRbutton.setEnabled(false);
-                goToOCRbutton.setVisibility(View.INVISIBLE);
-                changeBtn = false;
-            }
-            final int iBackColor =
-                    ((ColorDrawable)(mLayout.getBackground())).getColor();
-            iBackColorRedVal = (iBackColor & 0xFF);
-
-            if (iBackColorRedVal > 127)
-                iBackColorRedEnd = 0;
-            else
-                iBackColorRedEnd = 255;
-            ValueAnimator animScreenBackColor =
-                    ValueAnimator.ofInt(iBackColorRedVal, iBackColorRedEnd);
-            animScreenBackColor.setDuration(500);
-            animScreenBackColor.setInterpolator(new LinearInterpolator());
-            animScreenBackColor.start();
-            animScreenBackColor.addUpdateListener(new ValueAnimator.AnimatorUpdateListener(){
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    int val = (Integer)animation.getAnimatedValue();
-                    mLayout.setBackgroundColor(
-                            iBackColor & 0x33000000 | val << 16 | val << 8 | val );
-                }
-            });
-        }
-    };
 
     // 擋住手機上回上一頁鍵
     public boolean onKeyDown(int keyCode, KeyEvent event) {
