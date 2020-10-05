@@ -239,7 +239,7 @@
         <item name="android:textColor">#ffffff</item>-->
         <item name="android:background">@drawable/btn_selectfood</item>
         <item name="android:paddingTop">0dp</item>
-        <item name="android:drawableTop">@mipmap/ic_france_foreground</item>
+        <item name="android:drawableTop">@mipmap/ic_southeastasia_foreground_foreground</item>
         <!--<item name="android:padding">10dip</item>-->
     </style>
 
@@ -248,7 +248,7 @@
         <item name="android:textColor">#ffffff</item>-->
         <item name="android:background">@drawable/btn_selectfood</item>
         <item name="android:paddingTop">1dp</item>
-        <item name="android:drawableTop">@mipmap/ic_idea_foreground</item>
+        <item name="android:drawableTop">@mipmap/ic_otherfood_foreground</item>
         <!--<item name="android:padding">10dip</item>-->
     </style>
 
@@ -302,8 +302,8 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>-->
         <item name="android:background">@drawable/btn_selectfood</item>
-        <item name="android:paddingTop">0dp</item>
-        <item name="android:drawableTop">@mipmap/ic_usa_foreground</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:drawableTop">@mipmap/ic_thailand_foreground</item>
     </style>
     <style name="btn_thai" parent="@android:style/Widget.Button">
         <!--<item name="android:textSize">20sp</item>

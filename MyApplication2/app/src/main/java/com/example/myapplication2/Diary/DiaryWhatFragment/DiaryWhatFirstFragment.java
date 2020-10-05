@@ -230,7 +230,7 @@ public class DiaryWhatFirstFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(DiaryValue.txtTag.equals("美食")){
-                    DiaryValue.txtWhat = "創意料理";
+                    DiaryValue.txtWhat = "其他料理";
                     Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());

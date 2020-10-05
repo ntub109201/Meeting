@@ -50,7 +50,7 @@ public class DiaryWhatSecondFragment extends Fragment {
         btnFrance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWhat = "法式料理";
+                DiaryValue.txtWhat = "東南亞料理";
                 Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhyActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
                 startActivity(intent,options.toBundle());
@@ -69,12 +69,12 @@ public class DiaryWhatSecondFragment extends Fragment {
             }
         });
 
-        // 前往下一頁 usa
+        // 前往下一頁 泰國
         final Button btnUsa = root.findViewById(R.id.btn_usa);
         btnUsa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWhat = "美式料理";
+                DiaryValue.txtWhat = "泰式料理";
                 Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhyActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
                 startActivity(intent,options.toBundle());

@@ -83,20 +83,20 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("2")){
                 ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
-            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("3")){
-                ContextImageView.setImageResource(R.mipmap.ic_usa_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("4")){
                 ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("5")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("6")){
                 ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("7")){
-                ContextImageView.setImageResource(R.mipmap.ic_france_foreground);
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("8")){
                 ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("9")){
                 ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("10")){
-                ContextImageView.setImageResource(R.mipmap.ic_idea_foreground);
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("11")){
                 ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("12")){
@@ -117,6 +117,150 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("50")){
                 ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("72")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("73")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("74")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("75")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("76")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("77")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("99")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("100")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("101")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("102")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("103")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("104")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("126")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("127")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("128")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("129")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("130")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("131")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("153")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("154")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("155")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("156")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("157")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("158")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("182")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("183")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("184")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("185")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("186")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("187")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("188")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("189")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("190")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("191")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("192")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("193")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("224")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("225")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("226")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("227")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("228")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("229")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("230")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("231")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("232")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("233")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("234")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("235")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("266")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("267")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("268")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("269")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("270")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("271")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("272")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("273")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("274")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("275")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("276")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("277")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("308")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("309")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("310")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("311")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("312")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("313")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("314")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("315")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("316")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("317")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("318")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("319")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
             }
         }else if(Getdata == 2){
             String total = "    "+ sqlReturn.content1[HomeFragment.homeTag];
@@ -142,20 +286,20 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("2")){
                 ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
-            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("3")){
-                ContextImageView.setImageResource(R.mipmap.ic_usa_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("4")){
                 ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("5")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("6")){
                 ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("7")){
-                ContextImageView.setImageResource(R.mipmap.ic_france_foreground);
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("8")){
                 ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("9")){
                 ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("10")){
-                ContextImageView.setImageResource(R.mipmap.ic_idea_foreground);
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("11")){
                 ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("12")){
@@ -176,6 +320,150 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("50")){
                 ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("72")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("73")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("74")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("75")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("76")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("77")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("99")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("100")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("101")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("102")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("103")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("104")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("126")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("127")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("128")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("129")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("130")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("131")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("153")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("154")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("155")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("156")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("157")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("158")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("182")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("183")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("184")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("185")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("186")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("187")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("188")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("189")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("190")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("191")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("192")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("193")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("224")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("225")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("226")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("227")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("228")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("229")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("230")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("231")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("232")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("233")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("234")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("235")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("266")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("267")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("268")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("269")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("270")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("271")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("272")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("273")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("274")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("275")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("276")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("277")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("308")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("309")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("310")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("311")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("312")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("313")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("314")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("315")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("316")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("317")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("318")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("319")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
             }
         }else if(Getdata == 3){
             String total = "    "+ sqlReturn.content2[HomeFragment.homeTag];
@@ -201,20 +489,20 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("2")){
                 ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
-            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("3")){
-                ContextImageView.setImageResource(R.mipmap.ic_usa_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("4")){
                 ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("5")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("6")){
                 ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("7")){
-                ContextImageView.setImageResource(R.mipmap.ic_france_foreground);
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("8")){
                 ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("9")){
                 ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("10")){
-                ContextImageView.setImageResource(R.mipmap.ic_idea_foreground);
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("11")){
                 ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("12")){
@@ -235,6 +523,150 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("50")){
                 ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("72")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("73")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("74")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("75")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("76")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("77")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("99")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("100")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("101")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("102")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("103")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("104")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("126")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("127")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("128")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("129")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("130")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("131")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("153")){
+                ContextImageView.setImageResource(R.mipmap.ic_daily_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("154")){
+                ContextImageView.setImageResource(R.mipmap.ic_buy_food_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("155")){
+                ContextImageView.setImageResource(R.mipmap.ic_3c_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("156")){
+                ContextImageView.setImageResource(R.mipmap.ic_makeup_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("157")){
+                ContextImageView.setImageResource(R.mipmap.ic_car_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("158")){
+                ContextImageView.setImageResource(R.mipmap.ic_clothes_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("182")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("183")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("184")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("185")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("186")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("187")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("188")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("189")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("190")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("191")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("192")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("193")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("224")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("225")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("226")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("227")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("228")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("229")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("230")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("231")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("232")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("233")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("234")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("235")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("266")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("267")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("268")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("269")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("270")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("271")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("272")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("273")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("274")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("275")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("276")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("277")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("308")){
+                ContextImageView.setImageResource(R.mipmap.ic_japan_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("309")){
+                ContextImageView.setImageResource(R.mipmap.ic_korea_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("310")){
+                ContextImageView.setImageResource(R.mipmap.ic_taiwan_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("311")){
+                ContextImageView.setImageResource(R.mipmap.ic_thailand_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("312")){
+                ContextImageView.setImageResource(R.mipmap.ic_italy_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("313")){
+                ContextImageView.setImageResource(R.mipmap.ic_southeastasia_foreground_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("314")){
+                ContextImageView.setImageResource(R.mipmap.ic_china_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("315")){
+                ContextImageView.setImageResource(R.mipmap.ic_hongkong_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("316")){
+                ContextImageView.setImageResource(R.mipmap.ic_otherfood_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("317")){
+                ContextImageView.setImageResource(R.mipmap.ic_random_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("318")){
+                ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("319")){
+                ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
             }
         }else if(Getdata == 4){
             String total = "    "+ sqlReturn.content3[HomeFragment.homeTag];

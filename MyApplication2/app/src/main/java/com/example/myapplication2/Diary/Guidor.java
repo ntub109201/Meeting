@@ -3,14 +3,24 @@ package com.example.myapplication2.Diary;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Queue;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 
 public class Guidor {
@@ -21,7 +31,7 @@ public class Guidor {
             visual = new JSONArray(), smell = new JSONArray(), tactile = new JSONArray(), hearing = new JSONArray();
     private ArrayList<String> howSeq = new ArrayList<>();
     private String mood_option, tag_option, what_option, who_option, when_option, why_option, where_option, diary, previous_patternNo;
-    private boolean prologue;
+    private boolean prologue, error=false;
     // curProp : what、when、who ... etc
     // curDiaryContentNo : 1、2、3 ... etc，即DB裡的Sentence-Pattern的編號
     //private String curProp = "", curDiaryContentNo = "";
@@ -146,7 +156,10 @@ public class Guidor {
             diaryContentNoSeq.remove(diaryContentNoSeq.size()-1);
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public String getDiary(){
+        if (error)
+            return "the fucking error";
         if (this.diary.equals("") && prologue)
             addPrologue();
         if (propSeq.size() == diaryContentNoSeq.size())
@@ -166,10 +179,13 @@ public class Guidor {
     private void recreateDiary(){
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void createDiary(){
         ArrayList<String> addDiaryContentNoSeq = new ArrayList<>();
         while(propSeq.size() > diaryContentNoSeq.size()){
             String index = getPatternIndex();
+            if (error)
+                return;
             previous_patternNo = index;
             diaryContentNoSeq.add(index);
             addDiaryContentNoSeq.add(index);
@@ -371,30 +387,46 @@ public class Guidor {
         assert cursor != null;
         cursor.close();
     }
+    private String getOption(String prop){
+        switch (prop){
+            case "what":
+                return what_option;
+            case "why":
+                return why_option;
+            case "when":
+                return when_option;
+            case "who":
+                return who_option;
+            case "where":
+                return where_option;
+        }
+        return null;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private String getPatternIndex(){
         String ret = "", option = "", index = "-1";
         ArrayList<String> indexes = new ArrayList<>();
         SQLiteDatabase db = DBHelper.getWritableDatabase();
         Cursor cursor = null;
         String prop = propSeq.get(diaryContentNoSeq.size());
-
-        switch (prop){
-            case "what":
-                option = what_option;
-                break;
-            case "why":
-                option = why_option;
-                break;
-            case "when":
-                option = when_option;
-                break;
-            case "who":
-                option = who_option;
-                break;
-            case "where":
-                option = where_option;
-                break;
-        }
+        option = getOption(prop);
+//        switch (prop){
+//            case "what":
+//                option = what_option;
+//                break;
+//            case "why":
+//                option = why_option;
+//                break;
+//            case "when":
+//                option = when_option;
+//                break;
+//            case "who":
+//                option = who_option;
+//                break;
+//            case "where":
+//                option = where_option;
+//                break;
+//        }
         if (prop.equals("how")){
             // 5 sense
             for (int i=0; i<how_option.length(); i++) {
@@ -507,6 +539,7 @@ public class Guidor {
 
         }else {
             int randomIndex;
+            boolean fixed = false;
             // get pattern index
             cursor = db.rawQuery("SELECT sentencePatternNo\n" +
                     "FROM `pattern_index`\n" +
@@ -563,31 +596,6 @@ public class Guidor {
                     selectedIndexes.deleteCharAt(selectedIndexes.length()-2);
                     indexes.clear();
 
-//                    cursor = db.rawQuery("SELECT DISTINCT sentencePatternNo\n" +
-//                            "FROM pattern_link\n" +
-//                            "WHERE nextPattern in (\n" +
-//                            "\tSELECT nextPattern\n" +
-//                            "\tFROM pattern_link\n" +
-//                            "\tWHERE sentencePatternNo in (\n" +
-//                            "\t\tSELECT sentencePatternNo\n" +
-//                            "\t\tFROM sentence_pattern\n" +
-//                            "\t\tWHERE questionClassNo in (\n" +
-//                            "\t\t\tSELECT questionClassNo\n" +
-//                            "\t\t\tFROM questionclass\n" +
-//                            "\t\t\tWHERE questionNo = (\n" +
-//                            "\t\t\t\tSELECT questionNo\n" +
-//                            "\t\t\t\tFROM question\n" +
-//                            "\t\t\t\tWHERE mood = '" + mood_option + "' AND tag = '" + tag_option + "'\n" +
-//                            "\t\t\t)\n" +
-//                            "\t\t\tAND questionclass NOT IN (\n" +
-//                            "\t\t\t\t" + existProp.toString() + "\n" +
-//                            "\t\t\t)\n" +
-//                            "\t\t)\n" +
-//                            "\t)\n" +
-//                            ")\n" +
-//                            "AND sentencePatternNo IN (\n" +
-//                            "\t" + selectedIndexes.toString() + "\n" +
-//                            ")\n",null);
                     cursor = db.rawQuery("SELECT nextPattern\n" +
                             "    FROM pattern_link\n" +
                             "    WHERE nextPattern in (\n" +
@@ -597,31 +605,6 @@ public class Guidor {
                             "    \t" + previous_patternNo + "\n" +
                             "    )", null);
                     if (debug)
-//                        Log.d("NiCe", "SELECT DISTINCT sentencePatternNo\n" +
-//                            "FROM pattern_link\n" +
-//                            "WHERE nextPattern in (\n" +
-//                            "\tSELECT nextPattern\n" +
-//                            "\tFROM pattern_link\n" +
-//                            "\tWHERE sentencePatternNo in (\n" +
-//                            "\t\tSELECT sentencePatternNo\n" +
-//                            "\t\tFROM sentence_pattern\n" +
-//                            "\t\tWHERE questionClassNo in (\n" +
-//                            "\t\t\tSELECT questionClassNo\n" +
-//                            "\t\t\tFROM questionclass\n" +
-//                            "\t\t\tWHERE questionNo = (\n" +
-//                            "\t\t\t\tSELECT questionNo\n" +
-//                            "\t\t\t\tFROM question\n" +
-//                            "\t\t\t\tWHERE mood = '" + mood_option + "' AND tag = '" + tag_option + "'\n" +
-//                            "\t\t\t)\n" +
-//                            "\t\t\tAND questionclass NOT IN (\n" +
-//                            "\t\t\t\t" + existProp.toString() + "\n" +
-//                            "\t\t\t)\n" +
-//                            "\t\t)\n" +
-//                            "\t)\n" +
-//                            ")\n" +
-//                            "AND sentencePatternNo IN (\n" +
-//                            "\t" + selectedIndexes.toString() + "\n" +
-//                            ")\n");
                         Log.d("NiCe", "SELECT nextPattern\n" +
                                 "    FROM pattern_link\n" +
                                 "    WHERE nextPattern in (\n" +
@@ -630,12 +613,25 @@ public class Guidor {
                                 "    AND sentencePatternNo IN (\n" +
                                 "    \t" + previous_patternNo + "\n" +
                                 "    )");
-                    cursor.moveToFirst();
-                    do{
-                        indexes.add(cursor.getString(0));
-                        if (debug)
-                            Log.d("indexes.add", cursor.getString(0));
-                    }while(cursor.moveToNext());
+
+                    if (cursor.getCount() == 0){
+                        String callback_value = recursiveFixPatternSeq(diaryContentNoSeq.size()-1, selectedIndexes.toString(), selectedIndexes.toString(), null);
+                        switch (callback_value){
+                            case "-1":
+                            case "-2":
+                            case "-3":
+                            case "-4":
+                                error = true;
+                        }
+                        return callback_value;
+                    }else{
+                        cursor.moveToFirst();
+                        do{
+                            indexes.add(cursor.getString(0));
+                            if (debug)
+                                Log.d("indexes.add", cursor.getString(0));
+                        }while(cursor.moveToNext());
+                    }
                 }
             }
             randomIndex = (int)(Math.random()*indexes.size());
@@ -649,6 +645,231 @@ public class Guidor {
         assert cursor != null;
         cursor.close();
         return ret;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private String fixPatternSeq(int start_position, String target_patternNos) {
+        SQLiteDatabase db = DBHelper.getWritableDatabase();
+        Cursor cursor;
+        String callback_value, return_value;
+        String index = null;
+
+
+        callback_value = recursiveFixPatternSeq(start_position, target_patternNos, target_patternNos, null);
+
+        switch (callback_value){
+            case "-1":
+            case "-2":
+            case "-3":
+            case "-4":
+                return callback_value;
+            default:
+                return callback_value;
+        }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private String recursiveFixPatternSeq(int position, String target_patternNos, String next_patternNos, Map<Integer, ArrayList<String>> nodeSet){
+        if (nodeSet == null){
+            nodeSet = new HashMap<>();
+        }
+        int callback_value;
+        SQLiteDatabase db = DBHelper.getWritableDatabase();
+        ArrayList<String> thisSentencePatternNo_list = new ArrayList<>();
+        StringBuilder sb_thisSentencePatternNo_list_tmp = new StringBuilder();
+        StringBuilder sb_thisSentencePatternNo_list = new StringBuilder();
+        Cursor cursor;
+        String prop = propSeq.get(position);
+        String option = getOption(propSeq.get(position));
+
+        // select sentencePatternNos as nodes at this position
+        cursor = db.rawQuery("SELECT sentencePatternNo\n" +
+                "FROM `pattern_index`\n" +
+                "WHERE optionNo = (\n" +
+                "\tSELECT optionNo\n" +
+                "\tFROM `option`\n" +
+                "\tWHERE questionClassNo = (\n" +
+                "\t\tSELECT questionClassNo\n" +
+                "\t\tFROM questionclass\n" +
+                "\t\tWHERE questionNo = (\n" +
+                "\t\t\tSELECT questionNo\n" +
+                "\t\t\tFROM question\n" +
+                "\t\t\tWHERE mood = '" + mood_option + "' AND tag = '" + tag_option + "'\n" +
+                "\t\t)\n" +
+                "\t\tAND questionClass = '" + prop + "'\n" +
+                "\t)\n" +
+                "\tAND optionClass = '" + option + "'\n" +
+                ")", null);
+        if (cursor.getCount() == 0) return "-1";
+        cursor.moveToFirst();
+        // create a list contain all pattern in this prop_option
+        do {
+            thisSentencePatternNo_list.add(cursor.getString(0));
+        }while(cursor.moveToNext());
+            // make nodes result easily SELECT
+        for (String s : thisSentencePatternNo_list) sb_thisSentencePatternNo_list_tmp.append("'").append(s).append("'").append(", ");
+        sb_thisSentencePatternNo_list_tmp.deleteCharAt(sb_thisSentencePatternNo_list_tmp.length()-2);
+        thisSentencePatternNo_list.clear();
+
+        // filter node(position) that can connect to node(position-1)
+        if (position >= 1){
+            cursor = db.rawQuery("SELECT DISTINCT nextPattern\n" +
+                    "    FROM pattern_link\n" +
+                    "    WHERE nextPattern in (\n" +
+                    "    \t" + sb_thisSentencePatternNo_list_tmp.toString() + " \n" +
+                    "    )\n" +
+                    "    AND sentencePatternNo IN (\n" +
+                    "    \t" + diaryContentNoSeq.get(position-1) + "\n" +
+                    "    )", null);
+            // important annotation--> this is impossible
+            if (cursor.getCount() == 0) return "-2";
+        }
+
+        cursor.moveToFirst();
+        do {
+            thisSentencePatternNo_list.add(cursor.getString(0));
+            if (debug)
+                Log.d("fix_indexes.this.add", cursor.getString(0));
+        }while(cursor.moveToNext());
+        // make nodes result easily SELECT
+        for (String s : thisSentencePatternNo_list) sb_thisSentencePatternNo_list.append("'").append(s).append("'").append(", ");
+        sb_thisSentencePatternNo_list.deleteCharAt(sb_thisSentencePatternNo_list.length()-2);
+
+        //select nodes to nextPatternNos
+        cursor = db.rawQuery("SELECT DISTINCT sentencePatternNo\n" +
+                "    FROM pattern_link\n" +
+                "    WHERE nextPattern in (\n" +
+                "    \t" + next_patternNos + " \n" +
+                "    )\n" +
+                "    AND sentencePatternNo IN (\n" +
+                "    \t" + sb_thisSentencePatternNo_list.toString() + "\n" +
+                "    )", null);
+        if (cursor.getCount() > 0){
+            ArrayList<String> tmp_list = new ArrayList<>();
+            cursor.moveToFirst();
+            do{
+                tmp_list.add(cursor.getString(0));
+            }while(cursor.moveToNext());
+            nodeSet.put(position, tmp_list);
+
+            // sort the positions
+            ArrayList<Integer> sort_position = new ArrayList<>(nodeSet.keySet());
+            Map<Integer, ArrayList<String>> linkable_nodeSet = new HashMap<>();
+            Collections.sort(sort_position);
+
+            //make sure with the node(s) can connect to end node
+            boolean node_connected=true;
+            String nextPatternNos = null, thisPatternNos;
+            for (int i=0; i<=sort_position.size(); i++){
+                ArrayList<String> patternNos_list = new ArrayList<>();
+                ArrayList<String> nextPatternNos_list = new ArrayList<>();
+                thisPatternNos = nextPatternNos;
+                StringBuilder sb = new StringBuilder();
+
+                if (i == sort_position.size()){
+                    // only end node
+                    nextPatternNos = target_patternNos;
+                }else{
+                    // except end node
+                    for (String node : nodeSet.get(sort_position.get(i)))
+                        sb.append("'").append(node).append("'").append(", ");
+                    sb.deleteCharAt(sb.length()-2);
+                    nextPatternNos = sb.toString();
+                }
+
+                if (i==0)
+                    continue;
+                // select accessible route
+                cursor = db.rawQuery("SELECT DISTINCT sentencePatternNo, nextPattern\n" +
+                        "    FROM pattern_link\n" +
+                        "    WHERE nextPattern in (\n" +
+                        "    \t" + nextPatternNos + " \n" +
+                        "    )\n" +
+                        "    AND sentencePatternNo IN (\n" +
+                        "    \t" + thisPatternNos + "\n" +
+                        "    )", null);
+                Log.d("NiCe", "SELECT sentencePatternNo\n" +
+                        "    FROM pattern_link\n" +
+                        "    WHERE nextPattern in (\n" +
+                        "    \t" + nextPatternNos + " \n" +
+                        "    )\n" +
+                        "    AND sentencePatternNo IN (\n" +
+                        "    \t" + thisPatternNos + "\n" +
+                        "    )");
+                if (cursor.getCount() >= 0){
+                    cursor.moveToFirst();
+                    sb = new StringBuilder();
+                    do {
+                        patternNos_list.add(cursor.getString(0));
+                        nextPatternNos_list.add(cursor.getString(1));
+                        if (debug)
+                            Log.d("fix_indexes.i"+(i-1)+".add", cursor.getString(0));
+                    }while(cursor.moveToNext());
+                    for (String s : patternNos_list)
+                        sb.append("'").append(s).append("'").append(",");
+                    sb.deleteCharAt(sb.length()-1);
+
+                    //linkable_nodeSet.put(i, new ArrayList<>());
+//                    if (patternNos_list.clone() instanceof ArrayList<?>){
+//                        ArrayList<?> tmp_arrayList = (ArrayList<?>)patternNos_list.clone();
+//                        Class valueClass = tmp_arrayList.stream().findFirst().map(Object::getClass).orElse(null);
+//                        if (String.class.equals(valueClass)) {
+//                            for (Object s : tmp_arrayList){
+//                                String value = (String) s;
+//                                linkable_nodeSet.get(i).add(value);
+//                            }
+//                        }
+//                    }
+//                    linkable_nodeSet.put(i-1, sb.toString());
+//                    Log.d("NiCe", "recursiveFixPatternSeq: add: "+linkable_nodeSet.get(i));
+                    linkable_nodeSet.put(i-1, patternNos_list);
+                    if (i == sort_position.size()){
+                        linkable_nodeSet.put(i, nextPatternNos_list);
+                    }
+                    nextPatternNos = sb.toString();
+                }else{
+                    node_connected = false;
+                    break;
+                }
+            }
+            // if success:
+            if (node_connected){
+                for (Integer i : linkable_nodeSet.keySet()){
+                    for (String s : linkable_nodeSet.get(i)){
+                        Log.d("linkable_node_"+i, ""+s);
+                    }
+                }
+                // pick one route to the end node and apply the route
+                ArrayList<Integer> route = new ArrayList<>();
+                String v=null;
+                int randomIndex;
+                for (int z=0; z<=sort_position.size(); z++){
+                    Log.d("NiCe", ""+z);
+//                    Log.d("NiCe", "recursiveFixPatternSeq: "+linkable_nodeSet.get(z));
+//                    String[] arr = linkable_nodeSet.get(z).split(",");
+                    randomIndex = (int)(Math.random()*linkable_nodeSet.get(z).size());
+                    v = linkable_nodeSet.get(z).get(randomIndex);
+                    if (z!=sort_position.size() && !v.equals(diaryContentNoSeq.get(sort_position.get(z)))){
+                        Log.d("NiCe", "before: "+sort_position.get(z)+"-"+diaryContentNoSeq.get(sort_position.get(z)));
+                        diaryContentNoSeq.remove(diaryContentNoSeq.get(sort_position.get(z)));
+                        diaryContentNoSeq.add(sort_position.get(z), v);
+                        Log.d("NiCe", "modified: "+sort_position.get(z)+"-"+diaryContentNoSeq.get(sort_position.get(z)));
+                    }
+                }
+                Log.d("NiCe", "final pick: "+v);
+                return v;
+            }else{
+                if (position == 0){
+                    return "-4";
+                }
+                nodeSet.put(position, thisSentencePatternNo_list);
+                return recursiveFixPatternSeq(position-1, target_patternNos, sb_thisSentencePatternNo_list.toString(), nodeSet);
+            }
+        }else{
+            if (position == 0){
+                return "-3";
+            }
+            nodeSet.put(position, thisSentencePatternNo_list);
+            return recursiveFixPatternSeq(position-1, target_patternNos, sb_thisSentencePatternNo_list.toString(), nodeSet);
+        }
     }
     private String choosePunctuation(String s){
         switch (s){
