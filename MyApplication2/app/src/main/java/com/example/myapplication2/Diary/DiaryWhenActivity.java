@@ -128,7 +128,7 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     startActivity(intent,options.toBundle());
-                }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                }else if(DiaryValue.txtTag.equals("戀愛")){
                     DiaryValue.txtWhen = "";
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhenActivity.this,DiaryPreviewActivity.class);

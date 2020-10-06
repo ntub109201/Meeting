@@ -132,31 +132,15 @@
         app:layout_constraintVertical_bias="0.002"
         app:srcCompat="@mipmap/ic_logo_foreground" />
 
-    <ImageButton
-        android:id="@+id/imbtnGoogle"
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="90dp"
-        android:background="@drawable/ic_icons8_google"
-        android:backgroundTint="@color/cardview_shadow_start_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888"
-        app:srcCompat="@drawable/ic_icons8_google" />
-
-    <ImageButton
-        android:id="@+id/imbtnFacebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="90dp"
-        android:background="@drawable/ic_icons8_facebook"
-        android:backgroundTint="@color/cardview_shadow_start_color"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888"
-        app:srcCompat="@drawable/ic_icons8_facebook" />
+        app:layout_constraintVertical_bias="0.888" />
 
     <ProgressBar
         android:id="@+id/progressBar1"

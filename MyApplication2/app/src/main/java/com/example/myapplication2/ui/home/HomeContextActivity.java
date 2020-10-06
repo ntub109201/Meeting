@@ -261,6 +261,136 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
             }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("319")){
                 ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("350")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("351")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("352")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("353")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("354")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("355")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("356")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("380")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("381")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("382")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("383")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("384")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("385")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("386")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("410")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("411")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("412")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("413")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("414")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("415")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("416")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("440")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("441")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("442")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("443")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("444")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("445")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("446")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("470")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("471")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("472")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("473")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("474")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("475")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("476")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("499")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("500")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("501")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("502")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("503")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("504")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("525")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("526")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("527")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("528")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("529")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("530")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("551")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("552")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("553")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("554")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("555")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("556")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("577")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("578")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("579")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("580")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("581")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("582")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("603")){
+                ContextImageView.setImageResource(R.mipmap.ic_quarrellover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("604")){
+                ContextImageView.setImageResource(R.mipmap.ic_coldwar_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("605")){
+                ContextImageView.setImageResource(R.mipmap.ic_fighting_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("606")){
+                ContextImageView.setImageResource(R.mipmap.ic_breakup_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("607")){
+                ContextImageView.setImageResource(R.mipmap.ic_arguelover_foreground);
+            }else if(sqlReturn.LoginOption[HomeFragment.homeTag].equals("608")){
+                ContextImageView.setImageResource(R.mipmap.ic_complain_foreground);
             }
         }else if(Getdata == 2){
             String total = "    "+ sqlReturn.content1[HomeFragment.homeTag];
@@ -464,6 +594,136 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
             }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("319")){
                 ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("350")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("351")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("352")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("353")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("354")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("355")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("356")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("380")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("381")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("382")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("383")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("384")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("385")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("386")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("410")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("411")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("412")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("413")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("414")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("415")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("416")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("440")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("441")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("442")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("443")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("444")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("445")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("446")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("470")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("471")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("472")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("473")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("474")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("475")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("476")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("499")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("500")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("501")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("502")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("503")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("504")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("525")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("526")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("527")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("528")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("529")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("530")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("551")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("552")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("553")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("554")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("555")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("556")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("577")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("578")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("579")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("580")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("581")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("582")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("603")){
+                ContextImageView.setImageResource(R.mipmap.ic_quarrellover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("604")){
+                ContextImageView.setImageResource(R.mipmap.ic_coldwar_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("605")){
+                ContextImageView.setImageResource(R.mipmap.ic_fighting_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("606")){
+                ContextImageView.setImageResource(R.mipmap.ic_breakup_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("607")){
+                ContextImageView.setImageResource(R.mipmap.ic_arguelover_foreground);
+            }else if(sqlReturn.Option1[HomeFragment.homeTag].equals("608")){
+                ContextImageView.setImageResource(R.mipmap.ic_complain_foreground);
             }
         }else if(Getdata == 3){
             String total = "    "+ sqlReturn.content2[HomeFragment.homeTag];
@@ -667,6 +927,136 @@ public class HomeContextActivity extends AppCompatActivity {
                 ContextImageView.setImageResource(R.mipmap.ic_drinks_foreground);
             }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("319")){
                 ContextImageView.setImageResource(R.mipmap.ic_alcohol_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("350")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("351")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("352")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("353")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("354")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("355")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("356")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("380")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("381")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("382")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("383")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("384")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("385")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("386")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("410")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("411")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("412")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("413")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("414")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("415")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("416")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("440")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("441")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("442")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("443")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("444")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("445")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("446")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("470")){
+                ContextImageView.setImageResource(R.mipmap.ic_movie_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("471")){
+                ContextImageView.setImageResource(R.mipmap.ic_workout_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("472")){
+                ContextImageView.setImageResource(R.mipmap.ic_listen_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("473")){
+                ContextImageView.setImageResource(R.mipmap.ic_sing_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("474")){
+                ContextImageView.setImageResource(R.mipmap.ic_watchdrama_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("475")){
+                ContextImageView.setImageResource(R.mipmap.ic_broadgame_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("476")){
+                ContextImageView.setImageResource(R.mipmap.ic_videogame_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("499")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("500")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("501")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("502")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("503")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("504")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("525")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("526")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("527")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("528")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("529")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("530")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("551")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("552")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("553")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("554")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("555")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("556")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("577")){
+                ContextImageView.setImageResource(R.mipmap.ic_what_date_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("578")){
+                ContextImageView.setImageResource(R.mipmap.ic_movielover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("579")){
+                ContextImageView.setImageResource(R.mipmap.ic_dinnerlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("580")){
+                ContextImageView.setImageResource(R.mipmap.ic_workoutlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("581")){
+                ContextImageView.setImageResource(R.mipmap.ic_singlover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("582")){
+                ContextImageView.setImageResource(R.mipmap.ic_shoplover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("603")){
+                ContextImageView.setImageResource(R.mipmap.ic_quarrellover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("604")){
+                ContextImageView.setImageResource(R.mipmap.ic_coldwar_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("605")){
+                ContextImageView.setImageResource(R.mipmap.ic_fighting_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("606")){
+                ContextImageView.setImageResource(R.mipmap.ic_breakup_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("607")){
+                ContextImageView.setImageResource(R.mipmap.ic_arguelover_foreground);
+            }else if(sqlReturn.Option2[HomeFragment.homeTag].equals("608")){
+                ContextImageView.setImageResource(R.mipmap.ic_complain_foreground);
             }
         }else if(Getdata == 4){
             String total = "    "+ sqlReturn.content3[HomeFragment.homeTag];
