@@ -55,17 +55,17 @@ public class DiaryTagActivity extends AppCompatActivity {
                 DiaryTagActivity.this.startActivity(intent,options.toBundle());
             }
         });
-//        // 前往下一頁 travel
-//        final Button btn_travel = findViewById(R.id.btn_travel);
-//        btn_travel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                txtTag ="因為我今天去了";
-//                Intent intent = new Intent(DiaryTagActivity.this, DiaryWhatActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                DiaryTagActivity.this.startActivity(intent);
-//            }
-//        });
+        // 前往下一頁 travel
+        final Button btn_travel = findViewById(R.id.btn_travel);
+        btn_travel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtTag ="旅遊";
+                Intent intent = new Intent(DiaryTagActivity.this, DiaryWhoActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTagActivity.this);
+                DiaryTagActivity.this.startActivity(intent,options.toBundle());
+            }
+        });
         // 前往下一頁 emotion
         final Button btn_emotion = findViewById(R.id.btn_emotion);
         btn_emotion.setOnClickListener(new View.OnClickListener() {

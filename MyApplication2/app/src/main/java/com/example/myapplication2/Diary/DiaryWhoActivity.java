@@ -31,15 +31,11 @@ public class DiaryWhoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diary_who);
 
         final TextView txtWho_title = findViewById(R.id.txtWho_title);
-        if(DiaryValue.txtTag.equals("美食")){
 
-        }else if(DiaryValue.txtTag.equals("購物")){
-            txtWho_title.setText("有誰和你一起去買呢?");
-        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
-            txtWho_title.setText("什麼時候做這個事呢?");
-        }else if(DiaryValue.txtTag.equals("戀愛")){
-            txtWho_title.setText("有邀請誰與你們同行呢?");
-        }
+        int randomNum = (int)(Math.random()* 3 + 1);
+        Diary_dictionary dict = new Diary_dictionary();
+        String total = DiaryValue.txtMood+"_"+DiaryValue.txtTag+"_Who_"+String.valueOf(randomNum);
+        txtWho_title.setText(dict.dict.get(total));
 
         final ProgressBar progressBarWho = findViewById(R.id.progressBarWho);
         if(DiaryValue.txtTag.equals("美食")){
@@ -49,7 +45,9 @@ public class DiaryWhoActivity extends AppCompatActivity {
         }else if(DiaryValue.txtTag.equals("休閒娛樂")){
             progressBarWho.setProgress(80);
         }else if(DiaryValue.txtTag.equals("戀愛")){
-            progressBarWho.setProgress(65);
+            progressBarWho.setProgress(60);
+        }else if(DiaryValue.txtTag.equals("旅遊")){
+            progressBarWho.setProgress(20);
         }
 
         // 反回上一頁
@@ -71,6 +69,10 @@ public class DiaryWhoActivity extends AppCompatActivity {
                     DiaryWhoActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("戀愛")){
                     Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    DiaryWhoActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    Intent intent = new Intent(DiaryWhoActivity.this, DiaryTagActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
                     DiaryWhoActivity.this.startActivity(intent,options.toBundle());
                 }
@@ -139,6 +141,22 @@ public class DiaryWhoActivity extends AppCompatActivity {
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWhat = "";
+                    DiaryValue.txtWhy = "";
+                    DiaryValue.txtWhere = "";
+                    DiaryValue.txtWho = "";
+                    DiaryValue.txtWhen = "";
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhoActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhoActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -176,6 +194,11 @@ public class DiaryWhoActivity extends AppCompatActivity {
                     Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
                     DiaryWhoActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWho = "";
+                    Intent intent = new Intent(DiaryWhoActivity.this, DiaryWhatActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoActivity.this);
+                    DiaryWhoActivity.this.startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -189,6 +212,15 @@ public class DiaryWhoActivity extends AppCompatActivity {
         public Fragment getItem(int position){
             Fragment fragment = null;
             if(DiaryValue.txtTag.equals("戀愛")){
+                switch (position){
+                    case 0:
+                        fragment = new DiaryWhoFirstFragment();
+                        break;
+                    case 1:
+                        fragment = new DiaryWhoSecondFragment();
+                        break;
+                }
+            }else if(DiaryValue.txtTag.equals("旅遊")){
                 switch (position){
                     case 0:
                         fragment = new DiaryWhoFirstFragment();
@@ -224,6 +256,8 @@ public class DiaryWhoActivity extends AppCompatActivity {
                 a = 3;
             }else if(DiaryValue.txtTag.equals("戀愛")){
                 a = 2;
+            }else if(DiaryValue.txtTag.equals("旅遊")){
+                a = 2;
             }
             return a;
         }
@@ -232,6 +266,15 @@ public class DiaryWhoActivity extends AppCompatActivity {
 
             String a = "";
             if(DiaryValue.txtTag.equals("戀愛")){
+                switch (position) {
+                    case 0:
+                        a = "";
+                    case 1:
+                        a = " ";
+                    default:
+                        a = null;
+                }
+            }else if(DiaryValue.txtTag.equals("旅遊")){
                 switch (position) {
                     case 0:
                         a = "";

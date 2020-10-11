@@ -84,7 +84,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
             }
         });
 
-        //initialize();
+        initialize();
         PieChart pieChart= root.findViewById(R.id.pie_chart);
         ArrayList<PieEntry> visitors = new ArrayList<>();
         visitors.add(new PieEntry(508,"美食"));
@@ -114,28 +114,17 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
 
         //date
         selectedText = root.findViewById(R.id.selected_date);
-//        final Button show_dialog = root.findViewById(R.id.show_dialog);
-//        show_dialog.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                picker.show(DashboardFragment.super.getActivity().getSupportFragmentManager(), picker.toString());
-//            }
-//        });
+        final Button show_dialog = root.findViewById(R.id.show_dialog);
+        show_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picker.show(DashboardFragment.super.getActivity().getSupportFragmentManager(), picker.toString());
+            }
+        });
 
         return root;
     }
 
-    private void showDatePickerDialog(){
-//        DatePickerDialog datePickerDialog = new DatePickerDialog(
-//                this,
-//                this,
-//                Calendar.getInstance().get(Calendar.YEAR),
-//                Calendar.getInstance().get(Calendar.MONTH),
-//                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-//        );
-//        datePickerDialog.show();
-        materialDatePicker.show(DashboardFragment.super.getActivity().getSupportFragmentManager(), "NiCe");
-    }
     private void initialize(){
         today = MaterialDatePicker.todayInUtcMilliseconds();
         // CalenderConstraintBuilder
@@ -170,7 +159,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
             builder.setCalendarConstraints(constraintsBuilder.build());
             picker = builder.build();
             addSnackBarListeners(picker);
-            picker.show(DashboardFragment.super.getActivity().getSupportFragmentManager(), picker.toString());
+            //picker.show(DashboardFragment.super.getActivity().getSupportFragmentManager(), picker.toString());
         } catch (IllegalArgumentException e) {
             Toast.makeText(super.getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }

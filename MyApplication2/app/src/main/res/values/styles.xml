@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.Bridge">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,6 +11,9 @@
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowEnterTransition">@transition/explode_anim</item>
         <item name="android:windowExitTransition">@transition/explode_anim</item>
+        <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
     </style>
 
 
@@ -539,7 +542,7 @@
         <!--<item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>-->
-        <item name="android:background">@drawable/friend_primary</item>
+        <item name="android:background">@drawable/btn_backprofileset</item>
         <item name="android:paddingRight">-30dp</item>
         <item name="android:drawableRight">@mipmap/ic_setback_foreground</item>
     </style>
@@ -547,7 +550,7 @@
         <!--<item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>-->
-        <item name="android:background">@drawable/friend_primary</item>
+        <item name="android:background">@drawable/btn_backprofileset</item>
         <item name="android:drawablePadding">0dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:drawableLeft">@mipmap/ic_chpassword_foreground</item>
@@ -556,7 +559,7 @@
         <!--<item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>-->
-        <item name="android:background">@drawable/friend_primary</item>
+        <item name="android:background">@drawable/btn_backprofileset</item>
         <item name="android:drawablePadding">0dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:drawableLeft">@mipmap/ic_chpersoninfo_foreground</item>
@@ -565,7 +568,7 @@
         <!--<item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>-->
-        <item name="android:background">@drawable/friend_primary</item>
+        <item name="android:background">@drawable/btn_backprofileset</item>
         <item name="android:drawablePadding">0dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:drawableLeft">@mipmap/ic_info_foreground</item>
@@ -574,7 +577,7 @@
         <!--<item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>-->
-        <item name="android:background">@drawable/friend_primary</item>
+        <item name="android:background">@drawable/btn_backprofileset</item>
         <item name="android:drawablePadding">0dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:drawableLeft">@mipmap/ic_logout_foreground</item>

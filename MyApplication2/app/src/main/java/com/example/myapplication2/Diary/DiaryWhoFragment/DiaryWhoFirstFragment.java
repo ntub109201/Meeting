@@ -2,6 +2,8 @@ package com.example.myapplication2.Diary.DiaryWhoFragment;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.myapplication2.Diary.DiaryPreviewActivity;
+import com.example.myapplication2.Diary.DiaryWhatActivity;
 import com.example.myapplication2.Diary.DiaryWhenActivity;
 import com.example.myapplication2.Diary.DiaryWhyActivity;
 import com.example.myapplication2.DiaryValue;
@@ -58,6 +61,11 @@ public class DiaryWhoFirstFragment extends Fragment {
                     Intent intent = new Intent(DiaryWhoFirstFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWho = "自由行";
+                    Intent intent = new Intent(DiaryWhoFirstFragment.super.getActivity(), DiaryWhatActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -94,9 +102,27 @@ public class DiaryWhoFirstFragment extends Fragment {
                     Intent intent = new Intent(DiaryWhoFirstFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWho = "家族旅遊";
+                    Intent intent = new Intent(DiaryWhoFirstFragment.super.getActivity(), DiaryWhatActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
+
+        if(DiaryValue.txtTag.equals("旅遊")){
+            //btn_friend.setBackgroundResource(R.drawable.btn_selectfood);
+            btn_friend.setBackgroundResource(R.drawable.button_shape);
+            btn_friend.setBackgroundColor(Color.parseColor("#C2D2DA"));
+            btn_friend.setText("自由行");
+            btn_friend.setTextColor(Color.parseColor("#FFFFFF"));
+
+            btn_family.setBackgroundResource(R.drawable.button_shape);
+            btn_family.setBackgroundColor(Color.parseColor("#C2D2DA"));
+            btn_family.setText("家族旅遊");
+            btn_family.setTextColor(Color.parseColor("#FFFFFF"));
+        }
 
         return root;
     }

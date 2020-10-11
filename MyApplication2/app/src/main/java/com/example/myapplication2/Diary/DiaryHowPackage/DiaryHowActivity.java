@@ -27,6 +27,12 @@ public class DiaryHowActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_how);
 
+
+        final TextView textView_How = findViewById(R.id.textView_How);
+        int randomNum = (int)(Math.random()* 3 + 1);
+        How_dictionary dict = new How_dictionary();
+        String total = DiaryValue.txtMood+"_"+DiaryValue.txtTag+"_How_"+String.valueOf(randomNum);
+        textView_How.setText(dict.dict.get(total));
         // 反回上一頁
         final ImageButton imbtnReturnFrontPage5 = findViewById(R.id.imbtnReturnFrontPage5);
         imbtnReturnFrontPage5.setOnClickListener(new View.OnClickListener() {

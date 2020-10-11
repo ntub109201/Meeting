@@ -29,15 +29,10 @@ public class DiaryWhyActivity extends AppCompatActivity{
         setContentView(R.layout.activity_diarywhy);
 
         final TextView txtWhy_title = findViewById(R.id.txtWhy_title);
-        if(DiaryValue.txtTag.equals("美食")){
-
-        }else if(DiaryValue.txtTag.equals("購物")){
-            txtWhy_title.setText("為甚麼想買這個呢?");
-        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
-            txtWhy_title.setText("為什麼會想做這個活動？");
-        }else if(DiaryValue.txtTag.equals("戀愛")){
-            txtWhy_title.setText("為甚麼會想做這件事?");
-        }
+        int randomNum = (int)(Math.random()* 3 + 1);
+        Diary_dictionary dict = new Diary_dictionary();
+        String total = DiaryValue.txtMood+"_"+DiaryValue.txtTag+"_Why_"+String.valueOf(randomNum);
+        txtWhy_title.setText(dict.dict.get(total));
 
         final ProgressBar progressBarWhy = findViewById(R.id.progressBarWhy);
         if(DiaryValue.txtTag.equals("美食")){

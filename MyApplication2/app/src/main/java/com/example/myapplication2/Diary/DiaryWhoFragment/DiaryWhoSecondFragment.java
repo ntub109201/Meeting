@@ -2,6 +2,7 @@ package com.example.myapplication2.Diary.DiaryWhoFragment;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.myapplication2.Diary.DiaryPreviewActivity;
+import com.example.myapplication2.Diary.DiaryWhatActivity;
 import com.example.myapplication2.Diary.DiaryWhenActivity;
 import com.example.myapplication2.Diary.DiaryWhyActivity;
 import com.example.myapplication2.DiaryValue;
@@ -58,6 +60,11 @@ public class DiaryWhoSecondFragment extends Fragment {
                     Intent intent = new Intent(DiaryWhoSecondFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoSecondFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWho = "另一半";
+                    Intent intent = new Intent(DiaryWhoSecondFragment.super.getActivity(), DiaryWhatActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoSecondFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
 
             }
@@ -95,6 +102,11 @@ public class DiaryWhoSecondFragment extends Fragment {
                     Intent intent = new Intent(DiaryWhoSecondFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoSecondFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWho = "朋友";
+                    Intent intent = new Intent(DiaryWhoSecondFragment.super.getActivity(), DiaryWhatActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoSecondFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
 
             }
@@ -103,6 +115,8 @@ public class DiaryWhoSecondFragment extends Fragment {
         if(DiaryValue.txtTag.equals("戀愛")){
             btn_lover.setBackgroundResource(R.mipmap.btn_pet_foreground);
             btn_self.setBackgroundResource(R.mipmap.btn_alone_foreground);
+        }else if(DiaryValue.txtTag.equals("旅遊")){
+            btn_self.setBackgroundResource(R.mipmap.btn_friend_foreground);
         }
 
         return root;

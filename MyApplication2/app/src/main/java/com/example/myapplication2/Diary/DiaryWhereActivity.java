@@ -40,15 +40,10 @@ public class DiaryWhereActivity extends AppCompatActivity {
 
 
         final TextView txtWhere_title = findViewById(R.id.txtWhere_title);
-        if(DiaryValue.txtTag.equals("美食")){
-
-        }else if(DiaryValue.txtTag.equals("購物")){
-            txtWhere_title.setText("這是在哪裡買的呢?");
-        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
-            txtWhere_title.setText("在哪裡做這件事呢？");
-        }else if(DiaryValue.txtTag.equals("戀愛")){
-            txtWhere_title.setText("去哪裡做這件事呢？");
-        }
+        int randomNum = (int)(Math.random()* 3 + 1);
+        Diary_dictionary dict = new Diary_dictionary();
+        String total = DiaryValue.txtMood+"_"+DiaryValue.txtTag+"_Where_"+String.valueOf(randomNum);
+        txtWhere_title.setText(dict.dict.get(total));
 
         final ProgressBar progressBarWhere = findViewById(R.id.progressBarWhere);
         if(DiaryValue.txtTag.equals("美食")){

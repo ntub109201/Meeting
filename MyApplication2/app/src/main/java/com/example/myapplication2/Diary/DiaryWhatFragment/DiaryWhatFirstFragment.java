@@ -65,6 +65,11 @@ public class DiaryWhatFirstFragment extends Fragment {
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                         startActivity(intent,options.toBundle());
                     }
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWhat = "藝術之旅";
+                    Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -105,6 +110,11 @@ public class DiaryWhatFirstFragment extends Fragment {
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                         startActivity(intent,options.toBundle());
                     }
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWhat = "自由行";
+                    Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -145,6 +155,11 @@ public class DiaryWhatFirstFragment extends Fragment {
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                         startActivity(intent,options.toBundle());
                     }
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWhat = "公司活動";
+                    Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -185,6 +200,11 @@ public class DiaryWhatFirstFragment extends Fragment {
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
                         startActivity(intent,options.toBundle());
                     }
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWhat = "文化之旅";
+                    Intent intent = new Intent(DiaryWhatFirstFragment.super.getActivity(), DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatFirstFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -363,6 +383,32 @@ public class DiaryWhatFirstFragment extends Fragment {
                 btn_ider.setCompoundDrawablesWithIntrinsicBounds(null,ider,null,null);
             }
 
+        }else if(DiaryValue.txtTag.equals("旅遊")){
+
+            btn_taiwan.setBackgroundResource(R.drawable.btn_selectfood);
+            Drawable taiwan = getResources().getDrawable(R.mipmap.ic_btn_art_foreground);
+            btn_taiwan.setCompoundDrawablesWithIntrinsicBounds(null,taiwan,null,null);
+            btn_taiwan.setY(150);
+
+            btn_kong.setBackgroundResource(R.drawable.btn_selectfood);
+            Drawable kong = getResources().getDrawable(R.mipmap.ic_btn_backpacker_foreground);
+            btn_kong.setCompoundDrawablesWithIntrinsicBounds(null,kong,null,null);
+            btn_kong.setY(150);
+
+            btn_japan.setBackgroundResource(R.drawable.btn_selectfood);
+            Drawable japan = getResources().getDrawable(R.mipmap.ic_btn_company_foreground);
+            btn_japan.setCompoundDrawablesWithIntrinsicBounds(null,japan,null,null);
+            btn_japan.setY(300);
+
+            btn_korea.setBackgroundResource(R.drawable.btn_selectfood);
+            Drawable korea = getResources().getDrawable(R.mipmap.ic_btn_culture_foreground);
+            btn_korea.setCompoundDrawablesWithIntrinsicBounds(null,korea,null,null);
+            btn_korea.setY(300);
+
+            btn_random.setVisibility(View.INVISIBLE);
+            btn_random.setEnabled(false);
+            btn_ider.setVisibility(View.INVISIBLE);
+            btn_ider.setEnabled(false);
         }
 
         return root;

@@ -34,15 +34,10 @@ public class DiaryWhenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diary_when);
 
         final TextView txtWhen_title = findViewById(R.id.txtWhen_title);
-        if(DiaryValue.txtTag.equals("美食")){
-
-        }else if(DiaryValue.txtTag.equals("購物")){
-            txtWhen_title.setText("什麼時間去買的呢?");
-        }else if(DiaryValue.txtTag.equals("休閒娛樂")){
-            txtWhen_title.setText("什麼時候做這個事呢?");
-        }else if(DiaryValue.txtTag.equals("戀愛")){
-            txtWhen_title.setText("大概什麼時候呢?");
-        }
+        int randomNum = (int)(Math.random()* 3 + 1);
+        Diary_dictionary dict = new Diary_dictionary();
+        String total = DiaryValue.txtMood+"_"+DiaryValue.txtTag+"_When_"+String.valueOf(randomNum);
+        txtWhen_title.setText(dict.dict.get(total));
 
         final ProgressBar progressBarWhen = findViewById(R.id.progressBarWhen);
         if(DiaryValue.txtTag.equals("美食")){

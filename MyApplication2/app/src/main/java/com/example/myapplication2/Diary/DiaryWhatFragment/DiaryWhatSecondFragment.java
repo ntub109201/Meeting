@@ -41,6 +41,11 @@ public class DiaryWhatSecondFragment extends Fragment {
                     Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWhat = "生態之旅";
+                    Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -96,6 +101,11 @@ public class DiaryWhatSecondFragment extends Fragment {
                     Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWhat = "海島之旅";
+                    Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -113,6 +123,11 @@ public class DiaryWhatSecondFragment extends Fragment {
                 }else if(DiaryValue.txtTag.equals("休閒娛樂")){
                     DiaryValue.txtWhat = "打電動";
                     Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWhat = "體育活動";
+                    Intent intent = new Intent(DiaryWhatSecondFragment.super.getActivity(), DiaryWhyActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhatSecondFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
                 }
@@ -136,6 +151,30 @@ public class DiaryWhatSecondFragment extends Fragment {
 
             btnDrinks.setBackgroundResource(R.drawable.btn_selectfood);
             Drawable Drinks = getResources().getDrawable(R.mipmap.ic_videogame_foreground);
+            btnDrinks.setCompoundDrawablesWithIntrinsicBounds(null,Drinks,null,null);
+            btnDrinks.setY(-70);
+
+            btnUsa.setVisibility(View.INVISIBLE);
+            btnUsa.setEnabled(false);
+            btnChina.setVisibility(View.INVISIBLE);
+            btnChina.setEnabled(false);
+            btnFrance.setVisibility(View.INVISIBLE);
+            btnFrance.setEnabled(false);
+        }else if(DiaryValue.txtTag.equals("旅遊")){
+
+            btnItaly.setBackgroundResource(R.drawable.btn_selectfood);
+            Drawable Italy = getResources().getDrawable(R.mipmap.ic_btn_ecology_foreground);
+            btnItaly.setCompoundDrawablesWithIntrinsicBounds(null,Italy,null,null);
+            btnItaly.setY(-200);
+            btnItaly.setX(-220);
+
+            btnAlcohol.setBackgroundResource(R.drawable.btn_selectfood);
+            Drawable Alcohol = getResources().getDrawable(R.mipmap.ic_btn_island_foreground);
+            btnAlcohol.setCompoundDrawablesWithIntrinsicBounds(null,Alcohol,null,null);
+            btnAlcohol.setY(-70);
+
+            btnDrinks.setBackgroundResource(R.drawable.btn_selectfood);
+            Drawable Drinks = getResources().getDrawable(R.mipmap.ic_btn_sports_foreground);
             btnDrinks.setCompoundDrawablesWithIntrinsicBounds(null,Drinks,null,null);
             btnDrinks.setY(-70);
 
