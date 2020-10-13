@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/guibackcolor"
-    tools:context=".Diary.DiaryWhyActivity">
-
+    tools:context=".Diary.DiaryTravelWhenActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout14"
@@ -32,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/btn_preview_why"
+            android:id="@+id/btn_preview_when_travel"
             style="@style/btn_preview"
             android:layout_width="54dp"
             android:layout_height="37dp"
@@ -46,7 +45,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/imbtnReturnFrontPage3"
+            android:id="@+id/imbtnReturnFrontPage_travel"
             android:layout_width="65dp"
             android:layout_height="61dp"
             android:background="@color/yellow"
@@ -55,8 +54,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,103 +67,77 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.8">
 
-        <Button
-            android:id="@+id/btn_nowhy"
-            style="@style/btn_nowhy"
-            android:layout_width="140dp"
-            android:layout_height="135dp"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.172"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.016" />
-
-        <Button
-            android:id="@+id/btn_yummy"
-            style="@style/btn_yummy"
-            android:layout_width="128dp"
-            android:layout_height="127dp"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.068"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.955" />
-
-        <Button
-            android:id="@+id/btn_try"
-            style="@style/btn_try"
-            android:layout_width="123dp"
-            android:layout_height="125dp"
-            android:gravity="center"
+        <ImageView
+            android:id="@+id/ImgDate"
+            style="@style/btn_primary2"
+            android:layout_width="115dp"
+            android:layout_height="111dp"
+            android:background="@mipmap/ic_date_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.687" />
+            app:layout_constraintVertical_bias="0.179" />
 
-        <Button
-            android:id="@+id/btn_hungry"
-            style="@style/btn_hungry"
-            android:layout_width="129dp"
-            android:layout_height="131dp"
-            android:gravity="center"
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="開始日期"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.822"
+            app:layout_constraintHorizontal_bias="0.157"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.044" />
+            app:layout_constraintVertical_bias="0.475" />
 
-        <Button
-            android:id="@+id/btn_party"
-            style="@style/btn_party"
-            android:layout_width="135dp"
-            android:layout_height="125dp"
-            android:gravity="center"
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="結束日期"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.071"
+            app:layout_constraintHorizontal_bias="0.157"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.419" />
+            app:layout_constraintVertical_bias="0.628" />
 
         <Button
-            android:id="@+id/btn_tired"
-            style="@style/btn_tired"
-            android:layout_width="132dp"
-            android:layout_height="135dp"
-            android:gravity="center"
+            android:id="@+id/btn_startDate"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="time"
+            android:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.931"
+            app:layout_constraintHorizontal_bias="0.756"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.954" />
+            app:layout_constraintVertical_bias="0.468" />
 
         <Button
-            android:id="@+id/btn_celebrate"
-            style="@style/btn_celebrate"
-            android:layout_width="122dp"
-            android:layout_height="118dp"
-            android:gravity="center"
+            android:id="@+id/btn_endDate"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="time"
+            android:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.932"
+            app:layout_constraintHorizontal_bias="0.756"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.43" />
+            app:layout_constraintVertical_bias="0.644" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/txtWhy_title"
+        android:id="@+id/txtWhen_title_travel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="為什麼會想吃這個美食？"
         android:textColor="#8C5A5A"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -176,14 +147,14 @@
         app:layout_constraintVertical_bias="0.15" />
 
     <ProgressBar
-        android:id="@+id/progressBarWhy"
+        android:id="@+id/progressBarWhen_travel"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="390dp"
         android:layout_height="24dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:max="100"
-        android:progress="35"
+        android:progress="75"
         android:progressDrawable="@drawable/progressbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

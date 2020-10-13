@@ -77,6 +77,10 @@ public class DiaryWhenActivity extends AppCompatActivity {
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
                     DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhyActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    DiaryWhenActivity.this.startActivity(intent,options.toBundle());
                 }
             }
         });

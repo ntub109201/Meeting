@@ -43,6 +43,8 @@ public class DiaryWhyActivity extends AppCompatActivity{
             progressBarWhy.setProgress(20);
         }else if(DiaryValue.txtTag.equals("戀愛")){
             progressBarWhy.setProgress(50);
+        }else if(DiaryValue.txtTag.equals("旅遊")){
+            progressBarWhy.setProgress(50);
         }
 
 
@@ -64,6 +66,10 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     DiaryWhyActivity.this.startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("戀愛")){
+                    Intent intent = new Intent(DiaryWhyActivity.this, DiaryWhatActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                    DiaryWhyActivity.this.startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
                     Intent intent = new Intent(DiaryWhyActivity.this, DiaryWhatActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     DiaryWhyActivity.this.startActivity(intent,options.toBundle());
@@ -92,6 +98,12 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     DiaryValue.txtWhy = "沒為什麼";
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhyActivity.this,DiaryWhatActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                    startActivity(intent,options.toBundle());
+                } else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWhy = "挑戰刺激";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 }
@@ -134,6 +146,12 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     intent.setClass(DiaryWhyActivity.this,DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if (DiaryValue.txtTag.equals("旅遊")) {
+                    DiaryValue.txtWhy = "節慶";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -152,6 +170,12 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     DiaryValue.txtWhy = "想逛街";
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                    startActivity(intent,options.toBundle());
+                } else if (DiaryValue.txtTag.equals("旅遊")) {
+                    DiaryValue.txtWhy = "工作出差";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 }
@@ -195,6 +219,12 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     intent.setClass(DiaryWhyActivity.this,DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if (DiaryValue.txtTag.equals("旅遊")) {
+                    DiaryValue.txtWhy = "網路推薦";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -208,6 +238,12 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     DiaryValue.txtWhy = "嚐鮮";
                     Intent intent = new Intent();
                     intent.setClass(DiaryWhyActivity.this,DiaryWhereActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else if (DiaryValue.txtTag.equals("旅遊")) {
+                    DiaryValue.txtWhy = "拜訪親友";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 }
@@ -250,6 +286,12 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     intent.setClass(DiaryWhyActivity.this,DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if (DiaryValue.txtTag.equals("旅遊")) {
+                    DiaryValue.txtWhy = "放鬆身心";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -290,14 +332,17 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     intent.setClass(DiaryWhyActivity.this,DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
+                }else if (DiaryValue.txtTag.equals("旅遊")) {
+                    DiaryValue.txtWhy = "休閒度假";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
 
-        if (DiaryValue.txtTag.equals("美食")) {
-            btn_try.setEnabled(true);
-            btn_try.setVisibility(View.VISIBLE);
-        } else if (DiaryValue.txtTag.equals("購物")) {
+        if (DiaryValue.txtTag.equals("購物")) {
             btn_try.setEnabled(false);
             btn_try.setVisibility(View.INVISIBLE);
         } else if(DiaryValue.txtTag.equals("休閒娛樂")){
@@ -378,6 +423,20 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     intent.putExtras(tagData);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
+                } else if (DiaryValue.txtTag.equals("旅遊")) {
+                    DiaryValue.txtWhy = "";
+                    DiaryValue.txtWhen = "";
+                    DiaryValue.txtWhere = "";
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhyActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryWhyActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -411,6 +470,12 @@ public class DiaryWhyActivity extends AppCompatActivity{
                     intent.setClass(DiaryWhyActivity.this,DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
+                } else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWhy = "";
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
@@ -418,7 +483,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
         // 控制圖案
         if(DiaryValue.txtTag.equals("美食")){
 
-        }else if(DiaryValue.txtTag.equals("購物")){
+        }if(DiaryValue.txtTag.equals("購物")){
             btn_party.setBackgroundResource(R.drawable.btn_tired);
             Drawable party = getResources().getDrawable(R.mipmap.ic_impulsive_foreground);
             btn_party.setCompoundDrawablesWithIntrinsicBounds(null,party,null,null);
@@ -577,6 +642,43 @@ public class DiaryWhyActivity extends AppCompatActivity{
                 btn_tired.setX(-70);
                 btn_tired.setY(-200);
             }
+        }else if(DiaryValue.txtTag.equals("旅遊")){
+
+            btn_nowhy.setBackgroundResource(R.drawable.btn_nowhy);
+            Drawable nowhy = getResources().getDrawable(R.mipmap.ic_btn_challenge_foreground);
+            btn_nowhy.setCompoundDrawablesWithIntrinsicBounds(null,nowhy,null,null);
+            btn_nowhy.setPadding(0,30,0,0);
+
+            btn_party.setBackgroundResource(R.drawable.btn_meeting);
+            Drawable party = getResources().getDrawable(R.mipmap.ic_btn_festival_foreground);
+            btn_party.setCompoundDrawablesWithIntrinsicBounds(null,party,null,null);
+            btn_party.setPadding(0,40,0,0);
+
+            btn_hungry.setBackgroundResource(R.drawable.btn_hungry);
+            Drawable hungry = getResources().getDrawable(R.mipmap.ic_btn_jobs_foreground);
+            btn_hungry.setCompoundDrawablesWithIntrinsicBounds(null,hungry,null,null);
+            btn_hungry.setPadding(0,30,0,0);
+
+            btn_celebrate.setBackgroundResource(R.drawable.btn_celebrate);
+            Drawable celebrate = getResources().getDrawable(R.mipmap.ic_btn_network_foreground);
+            btn_celebrate.setCompoundDrawablesWithIntrinsicBounds(null,celebrate,null,null);
+            btn_celebrate.setPadding(0,35,0,0);
+
+            btn_try.setBackgroundResource(R.drawable.btn_new);
+            Drawable try1 = getResources().getDrawable(R.mipmap.ic_btn_relative_foreground);
+            btn_try.setCompoundDrawablesWithIntrinsicBounds(null,try1,null,null);
+            btn_try.setPadding(0,30,0,0);
+
+            btn_yummy.setBackgroundResource(R.drawable.btn_yummy);
+            Drawable yummy = getResources().getDrawable(R.mipmap.ic_btn_relax_foreground);
+            btn_yummy.setCompoundDrawablesWithIntrinsicBounds(null,yummy,null,null);
+            btn_yummy.setPadding(0,15,0,0);
+
+            btn_tired.setBackgroundResource(R.drawable.btn_tired);
+            Drawable tired = getResources().getDrawable(R.mipmap.ic_btn_vacation_foreground);
+            btn_tired.setCompoundDrawablesWithIntrinsicBounds(null,tired,null,null);
+            btn_tired.setPadding(0,50,0,0);
+
         }
     }
     // 擋住手機上回上一頁鍵

@@ -91,6 +91,11 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                     Intent intent = new Intent(DiaryPreviewActivity.this, DiaryWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                     DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
+                }else if(tag1.equals("DiaryTravelWhenActivity")) {
+                    DiaryValue.Time = "";
+                    Intent intent = new Intent(DiaryPreviewActivity.this, DiaryTravelWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
+                    DiaryPreviewActivity.this.startActivity(intent,options.toBundle());
                 }else if(tag1.equals("DiaryWhoActivity")) {
                     Intent intent = new Intent(DiaryPreviewActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);

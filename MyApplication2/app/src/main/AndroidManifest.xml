@@ -15,7 +15,12 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.dashboard.PieChartActivity"></activity>
+        <activity
+            android:name=".Diary.DiaryTravelWhenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dashboard.PieChartActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Login.SecondActivity02"
             android:screenOrientation="portrait" />
