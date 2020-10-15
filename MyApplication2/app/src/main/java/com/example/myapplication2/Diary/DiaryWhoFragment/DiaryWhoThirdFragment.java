@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.myapplication2.Diary.DiaryPreviewActivity;
+import com.example.myapplication2.Diary.DiaryTravelWhereActivity;
+import com.example.myapplication2.Diary.DiaryWhatActivity;
 import com.example.myapplication2.Diary.DiaryWhyActivity;
 import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.R;
@@ -53,6 +55,11 @@ public class DiaryWhoThirdFragment extends Fragment {
                     Bundle tagData = new Bundle();
                     tagData.putString("1","DiaryWhoActivity");
                     intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoThirdFragment.super.getActivity());
+                    startActivity(intent,options.toBundle());
+                }else if(DiaryValue.txtTag.equals("旅遊")){
+                    DiaryValue.txtWho = "同事";
+                    Intent intent = new Intent(DiaryWhoThirdFragment.super.getActivity(), DiaryWhatActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoThirdFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
                 }
@@ -96,6 +103,10 @@ public class DiaryWhoThirdFragment extends Fragment {
         }else if(DiaryValue.txtTag.equals("休閒娛樂")){
             btn_ambiguous.setBackgroundResource(R.mipmap.btn_student_foreground);
             btn_ambiguous.setPadding(0,30,0,0);
+        }else if(DiaryValue.txtTag.equals("旅遊")){
+            btn_ambiguous.setEnabled(false);
+            btn_ambiguous.setVisibility(View.INVISIBLE);
+            imageView9.setVisibility(View.INVISIBLE);
         }
 
         return root;

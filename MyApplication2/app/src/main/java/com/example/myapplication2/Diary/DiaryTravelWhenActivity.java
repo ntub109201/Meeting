@@ -46,6 +46,25 @@ public class DiaryTravelWhenActivity extends AppCompatActivity {
             }
         });
 
+        // 跳題
+        final TextView btn_skip = findViewById(R.id.btn_skip);
+        btn_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btn_skip.getText().toString().equals("跳題")){
+                    DiaryValue.txtWhen = "";
+                    Intent intent = new Intent(DiaryTravelWhenActivity.this, DiaryTravelWhereActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhenActivity.this);
+                    DiaryTravelWhenActivity.this.startActivity(intent,options.toBundle());
+                }else {
+                    Intent intent = new Intent(DiaryTravelWhenActivity.this, DiaryTravelWhereActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhenActivity.this);
+                    DiaryTravelWhenActivity.this.startActivity(intent,options.toBundle());
+                }
+            }
+        });
+
+
         // 前往preview
         final TextView btn_preview_when_travel = findViewById(R.id.btn_preview_when_travel);
         btn_preview_when_travel.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +98,7 @@ public class DiaryTravelWhenActivity extends AppCompatActivity {
                 datePickerDialog.setCancelable(false);
                 datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
                 datePickerDialog.show();
+                btn_skip.setText("下一題");
             }
         });
 
@@ -95,6 +115,7 @@ public class DiaryTravelWhenActivity extends AppCompatActivity {
                 datePickerDialog.setCancelable(false);
                 datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
                 datePickerDialog.show();
+                btn_skip.setText("下一題");
             }
         });
     }

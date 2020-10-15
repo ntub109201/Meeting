@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.myapplication2.Diary.DiaryPreviewActivity;
+import com.example.myapplication2.Diary.DiaryTravelWhereActivity;
 import com.example.myapplication2.Diary.DiaryWhatActivity;
 import com.example.myapplication2.Diary.DiaryWhenActivity;
 import com.example.myapplication2.Diary.DiaryWhyActivity;
@@ -62,7 +63,7 @@ public class DiaryWhoFirstFragment extends Fragment {
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("旅遊")){
-                    DiaryValue.txtWho = "自由行";
+                    DiaryValue.txtWho = "家人";
                     Intent intent = new Intent(DiaryWhoFirstFragment.super.getActivity(), DiaryWhatActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
@@ -103,7 +104,7 @@ public class DiaryWhoFirstFragment extends Fragment {
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
                 }else if(DiaryValue.txtTag.equals("旅遊")){
-                    DiaryValue.txtWho = "家族旅遊";
+                    DiaryValue.txtWho = "朋友";
                     Intent intent = new Intent(DiaryWhoFirstFragment.super.getActivity(), DiaryWhatActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhoFirstFragment.super.getActivity());
                     startActivity(intent,options.toBundle());
@@ -111,18 +112,6 @@ public class DiaryWhoFirstFragment extends Fragment {
             }
         });
 
-        if(DiaryValue.txtTag.equals("旅遊")){
-            //btn_friend.setBackgroundResource(R.drawable.btn_selectfood);
-            btn_friend.setBackgroundResource(R.drawable.button_shape);
-            btn_friend.setBackgroundColor(Color.parseColor("#C2D2DA"));
-            btn_friend.setText("自由行");
-            btn_friend.setTextColor(Color.parseColor("#FFFFFF"));
-
-            btn_family.setBackgroundResource(R.drawable.button_shape);
-            btn_family.setBackgroundColor(Color.parseColor("#C2D2DA"));
-            btn_family.setText("家族旅遊");
-            btn_family.setTextColor(Color.parseColor("#FFFFFF"));
-        }
 
         return root;
     }

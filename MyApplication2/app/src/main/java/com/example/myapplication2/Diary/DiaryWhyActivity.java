@@ -103,7 +103,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
                 } else if(DiaryValue.txtTag.equals("旅遊")){
                     DiaryValue.txtWhy = "挑戰刺激";
                     Intent intent = new Intent();
-                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    intent.setClass(DiaryWhyActivity.this,DiaryTravelWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 }
@@ -149,7 +149,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
                 }else if (DiaryValue.txtTag.equals("旅遊")) {
                     DiaryValue.txtWhy = "節慶";
                     Intent intent = new Intent();
-                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    intent.setClass(DiaryWhyActivity.this,DiaryTravelWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 }
@@ -175,7 +175,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
                 } else if (DiaryValue.txtTag.equals("旅遊")) {
                     DiaryValue.txtWhy = "工作出差";
                     Intent intent = new Intent();
-                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    intent.setClass(DiaryWhyActivity.this,DiaryTravelWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 }
@@ -222,7 +222,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
                 }else if (DiaryValue.txtTag.equals("旅遊")) {
                     DiaryValue.txtWhy = "網路推薦";
                     Intent intent = new Intent();
-                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    intent.setClass(DiaryWhyActivity.this,DiaryTravelWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 }
@@ -243,7 +243,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
                 }else if (DiaryValue.txtTag.equals("旅遊")) {
                     DiaryValue.txtWhy = "拜訪親友";
                     Intent intent = new Intent();
-                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    intent.setClass(DiaryWhyActivity.this,DiaryTravelWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 }
@@ -289,7 +289,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
                 }else if (DiaryValue.txtTag.equals("旅遊")) {
                     DiaryValue.txtWhy = "放鬆身心";
                     Intent intent = new Intent();
-                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    intent.setClass(DiaryWhyActivity.this,DiaryTravelWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 }
@@ -335,7 +335,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
                 }else if (DiaryValue.txtTag.equals("旅遊")) {
                     DiaryValue.txtWhy = "休閒度假";
                     Intent intent = new Intent();
-                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    intent.setClass(DiaryWhyActivity.this,DiaryTravelWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 }
@@ -473,7 +473,7 @@ public class DiaryWhyActivity extends AppCompatActivity{
                 } else if(DiaryValue.txtTag.equals("旅遊")){
                     DiaryValue.txtWhy = "";
                     Intent intent = new Intent();
-                    intent.setClass(DiaryWhyActivity.this,DiaryWhenActivity.class);
+                    intent.setClass(DiaryWhyActivity.this,DiaryTravelWhenActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhyActivity.this);
                     startActivity(intent,options.toBundle());
                 }

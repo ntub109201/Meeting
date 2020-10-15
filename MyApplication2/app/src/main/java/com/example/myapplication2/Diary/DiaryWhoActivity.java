@@ -220,15 +220,6 @@ public class DiaryWhoActivity extends AppCompatActivity {
                         fragment = new DiaryWhoSecondFragment();
                         break;
                 }
-            }else if(DiaryValue.txtTag.equals("旅遊")){
-                switch (position){
-                    case 0:
-                        fragment = new DiaryWhoFirstFragment();
-                        break;
-                    case 1:
-                        fragment = new DiaryWhoSecondFragment();
-                        break;
-                }
             }else {
                 switch (position){
                     case 0:
@@ -257,7 +248,7 @@ public class DiaryWhoActivity extends AppCompatActivity {
             }else if(DiaryValue.txtTag.equals("戀愛")){
                 a = 2;
             }else if(DiaryValue.txtTag.equals("旅遊")){
-                a = 2;
+                a = 3;
             }
             return a;
         }
@@ -266,15 +257,6 @@ public class DiaryWhoActivity extends AppCompatActivity {
 
             String a = "";
             if(DiaryValue.txtTag.equals("戀愛")){
-                switch (position) {
-                    case 0:
-                        a = "";
-                    case 1:
-                        a = " ";
-                    default:
-                        a = null;
-                }
-            }else if(DiaryValue.txtTag.equals("旅遊")){
                 switch (position) {
                     case 0:
                         a = "";
