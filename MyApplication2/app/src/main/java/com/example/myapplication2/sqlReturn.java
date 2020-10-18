@@ -53,6 +53,7 @@ public class sqlReturn{
     public static String textViewContextFriendList = null;
     public static int SearchCountFriendList;
     public static String[] friendListName;
+    public static String[] friendListNum;
     // 註冊成功
     public static Boolean RegisterFirstLogin = true;
     public static String RegisterEmail = "nx01daniel@gmail.com";
@@ -70,4 +71,8 @@ public class sqlReturn{
     public static String FriendYesNo;
     public static String[] SearchFriendUserId;
     public static String[] SearchFriendName;
+    // 加入好友
+    public static String textAdd_friend;
+    public static int add_friendNum;
+    public static String[] add_friendName;
 }

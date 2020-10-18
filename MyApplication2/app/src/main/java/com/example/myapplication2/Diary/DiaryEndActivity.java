@@ -16,6 +16,8 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -50,6 +52,10 @@ public class DiaryEndActivity extends AppCompatActivity {
     private String DiaryContext;
     private ImageButton btn_DiaryEnd;
     private String currentDate;
+    private Animation mOpen,mClose;
+    private Button btn_sharebestfriend,btn_sharefriend,btn_sharediary;
+    private boolean btnChange;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,35 @@ public class DiaryEndActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diary_end);
 
         final String LastView = getIntent().getStringExtra("1");
+
+        mOpen = AnimationUtils.loadAnimation(DiaryEndActivity.this,R.anim.button_open);
+        mClose = AnimationUtils.loadAnimation(DiaryEndActivity.this,R.anim.button_close);
+        btnChange = false;
+        btn_sharebestfriend = findViewById(R.id.btn_sharebestfriend);
+        btn_sharefriend = findViewById(R.id.btn_sharefriend);
+        btn_sharediary = findViewById(R.id.btn_sharediary);
+        btn_sharediary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btnChange){
+                    btn_sharebestfriend.setAnimation(mClose);
+                    btn_sharefriend.setAnimation(mClose);
+                    btn_sharebestfriend.setVisibility(View.INVISIBLE);
+                    btn_sharebestfriend.setEnabled(false);
+                    btn_sharefriend.setVisibility(View.INVISIBLE);
+                    btn_sharefriend.setEnabled(false);
+                    btnChange = false;
+                }else {
+                    btn_sharebestfriend.setAnimation(mOpen);
+                    btn_sharefriend.setAnimation(mOpen);
+                    btn_sharebestfriend.setVisibility(View.VISIBLE);
+                    btn_sharebestfriend.setEnabled(true);
+                    btn_sharefriend.setVisibility(View.VISIBLE);
+                    btn_sharefriend.setEnabled(true);
+                    btnChange = true;
+                }
+            }
+        });
 
         //接收日記
         editText3 = findViewById(R.id.editText3);

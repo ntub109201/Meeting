@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -41,6 +43,7 @@ import com.example.myapplication2.OCRActivity;
 import com.example.myapplication2.PersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,12 +79,12 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressBarHome;
     private SwipeRefreshLayout RefreshLayoutHome;
     private ImageButton imBtnPersonal;
-    private Button btnAnim;
+    //private Button btnAnim;
+    private FloatingActionButton btnAnim;
     private ConstraintLayout mLayout;
     private Button goToHandwritebutton,goToDiarybutton,goToOCRbutton;
     public static boolean changeBtn = false;
     private static boolean camera = false;
-
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -103,6 +106,7 @@ public class HomeFragment extends Fragment {
 
         btnAnim = root.findViewById(R.id.btnAnim);
         btnAnim.setOnClickListener(btnChangeColorOnClick);
+
         mLayout = root.findViewById(R.id.testConstraint);
         // 前往引導日記
         goToDiarybutton = root.findViewById(R.id.goToDiarybutton);

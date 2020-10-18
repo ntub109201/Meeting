@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -109,10 +110,17 @@ public class FriendListActivity extends AppCompatActivity {
 
     private void doData1(){
         data1 = new LinkedList<>();
-
-        for(int i = 0; i < data1_list; i++){
-            HashMap<String,String> row = new HashMap<>();
-            data1.add(row);
+        if(sqlReturn.add_friendNum != 0){
+            data1_list = sqlReturn.add_friendNum;
+            for(int i = 0; i < data1_list; i++){
+                HashMap<String,String> row = new HashMap<>();
+                data1.add(row);
+            }
+        }else {
+            for(int i = 0; i < data1_list; i++){
+                HashMap<String,String> row = new HashMap<>();
+                data1.add(row);
+            }
         }
     }
 
@@ -142,7 +150,40 @@ public class FriendListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull MyAdapter1.MyViewHolder holder, int position) {
-
+            holder.btn_confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(FriendListActivity.this)
+                            .setTitle("提醒")
+                            .setMessage("您確定要加入他為好友嗎?")
+                            .setPositiveButton("確定加入",new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    data1_list -=1;
+                                    Intent intent = new Intent(FriendListActivity.this,FriendListActivity.class);
+                                    startActivity(intent);
+                                    FriendListActivity.this.finish();
+                                }
+                            }).setNegativeButton("取消",null).create().show();
+                }
+            });
+            holder.btn_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(FriendListActivity.this)
+                            .setTitle("提醒")
+                            .setMessage("您確定要拒絕他嗎?")
+                            .setPositiveButton("確定拒絕",new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    data1_list -=1;
+                                    Intent intent = new Intent(FriendListActivity.this,FriendListActivity.class);
+                                    startActivity(intent);
+                                    FriendListActivity.this.finish();
+                                }
+                            }).setNegativeButton("取消",null).create().show();
+                }
+            });
         }
 
         @Override

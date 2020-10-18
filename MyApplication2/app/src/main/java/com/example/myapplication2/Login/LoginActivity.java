@@ -13,10 +13,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication2.AnythingTestActivity;
 import com.example.myapplication2.Diary.DiaryActivity;
 import com.example.myapplication2.DiaryValue;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
@@ -72,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, DiaryActivity.class);
+                Intent intent = new Intent(LoginActivity.this, AnythingTestActivity.class);
                 startActivity(intent);
             }
         });
@@ -199,6 +201,7 @@ public class LoginActivity extends AppCompatActivity {
                 history();
                 searchFriend();
                 personalData();
+                addFriend();
                 sqlReturn.RegisterEmail = edUserEmail.getText().toString();
                 sqlReturn.RegisterPassword = edPasswd.getText().toString();
             }else {
@@ -357,6 +360,50 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // 取個人資料
+    public void addFriend(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "friendConfirm");
+        map.put("uid", uid);
+        new addFriend(this).execute((HashMap)map);
+    }
+    private class addFriend extends HttpURLConnection_AsyncTask {
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        addFriend(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                if(status){
+                    sqlReturn.textAdd_friend = jsonObject.getString("results");
+                    sqlReturn.add_friendNum = jsonObject.getInt("rowcount");
+                    jsonArray = new JSONArray(sqlReturn.textAdd_friend);
+                    sqlReturn.add_friendName = new String[sqlReturn.add_friendNum];
+                    for (int i = 0; i<sqlReturn.add_friendNum; i++){
+                        JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                        sqlReturn.add_friendName[i] = obj.getString("friendName01");
+                    }
+                }else {
+                    Toast.makeText(activity, "失敗", Toast.LENGTH_LONG).show();
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // 取加入好友
     public void personalData(){
         String uid = sqlReturn.GetUserID;
         Map<String,String> map = new HashMap<>();

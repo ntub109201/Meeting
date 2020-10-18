@@ -9,6 +9,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -33,14 +35,20 @@ public class HomeContextActivity extends AppCompatActivity {
 
     private TextView txtHistoryDiary,textTitle,textDescription;
     private ImageView ContextImageView;
-    private Button btnDelete,btnSave;
+    private Button btnDelete,btnSave,btn_share,btn_share_best_friend,btn_share_friend;
     private int Getdata;
     private ProgressBar proBarHomeContext;
+    private boolean changeBtn;
+    private Animation mOpen,mClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_context);
+
+        mOpen = AnimationUtils.loadAnimation(HomeContextActivity.this,R.anim.button_open);
+        mClose = AnimationUtils.loadAnimation(HomeContextActivity.this,R.anim.button_close);
+
         final ImageButton imbtnBackHome = findViewById(R.id.imbtnBackHome);
         imbtnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,13 +140,13 @@ public class HomeContextActivity extends AppCompatActivity {
                 new AlertDialog.Builder(HomeContextActivity.this)
                         .setTitle("提醒")
                         .setMessage("請確認要儲存本篇日記!!")
-                        .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                        .setPositiveButton("確認儲存",new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 proBarHomeContext.setVisibility(View.VISIBLE);
                                 EditDiary();
                             }
-                        }).setNegativeButton("cancel",null).create().show();
+                        }).setNegativeButton("取消",null).create().show();
             }
         });
         btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -147,13 +155,40 @@ public class HomeContextActivity extends AppCompatActivity {
                 new AlertDialog.Builder(HomeContextActivity.this)
                         .setTitle("警告")
                         .setMessage("您即將要刪除本篇日記!!")
-                        .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                        .setPositiveButton("確認刪除",new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 proBarHomeContext.setVisibility(View.VISIBLE);
                                 DeleteDiary();
                             }
-                        }).setNegativeButton("cancel",null).create().show();
+                        }).setNegativeButton("取消",null).create().show();
+            }
+        });
+
+        changeBtn = false;
+        btn_share = findViewById(R.id.btn_share);
+        btn_share_friend = findViewById(R.id.btn_share_friend);
+        btn_share_best_friend = findViewById(R.id.btn_share_best_friend);
+        btn_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(changeBtn){
+                    btn_share_friend.setAnimation(mClose);
+                    btn_share_best_friend.setAnimation(mClose);
+                    btn_share_friend.setVisibility(View.INVISIBLE);
+                    btn_share_best_friend.setVisibility(View.INVISIBLE);
+                    btn_share_friend.setEnabled(false);
+                    btn_share_best_friend.setEnabled(false);
+                    changeBtn = false;
+                }else {
+                    btn_share_friend.setAnimation(mOpen);
+                    btn_share_best_friend.setAnimation(mOpen);
+                    btn_share_friend.setVisibility(View.VISIBLE);
+                    btn_share_best_friend.setVisibility(View.VISIBLE);
+                    btn_share_friend.setEnabled(true);
+                    btn_share_best_friend.setEnabled(true);
+                    changeBtn = true;
+                }
             }
         });
 

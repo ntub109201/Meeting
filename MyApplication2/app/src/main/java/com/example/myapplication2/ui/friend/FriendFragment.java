@@ -6,6 +6,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,8 @@ public class FriendFragment extends Fragment {
     private SwipeRefreshLayout RefreshLayoutFriend;
     private ImageButton imBtnPersonal;
     private Button btn_addfriend;
+    private ConstraintLayout no_friend_layout;
+    private ImageView no_friend_picture1,no_friend_picture2;
 
     public static int FriendTag;
 
@@ -120,6 +123,9 @@ public class FriendFragment extends Fragment {
             }
         });
 
+        no_friend_layout = root.findViewById(R.id.no_friend_layout);
+        no_friend_picture1 = root.findViewById(R.id.no_friend_picture1);
+        no_friend_picture2 = root.findViewById(R.id.no_friend_picture2);
 
         return root;
     }
@@ -243,7 +249,7 @@ public class FriendFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (sqlReturn.textViewContextFriend!=null){
+            if (sqlReturn.SearchCountFriend!=0){
                 doData();
                 // 這裡是 adapter
                 mRecyclerView.setHasFixedSize(true);
@@ -252,6 +258,13 @@ public class FriendFragment extends Fragment {
                 myAdapter = new MyAdapter();
                 mRecyclerView.setAdapter(myAdapter);
                 RefreshLayoutFriend.setRefreshing(false);
+                no_friend_layout.setVisibility(View.INVISIBLE);
+                no_friend_layout.setEnabled(false);
+                no_friend_picture1.setVisibility(View.INVISIBLE);
+                no_friend_picture1.setEnabled(false);
+                no_friend_picture2.setVisibility(View.INVISIBLE);
+                no_friend_picture2.setEnabled(false);
+
             }
         }
 
@@ -286,9 +299,11 @@ public class FriendFragment extends Fragment {
                 sqlReturn.SearchCountFriendList = jsonObject.getInt("rowcount");
                 sqlReturn.textViewContextFriendList = jsonObject.getString("results");
                 jsonArray = new JSONArray(sqlReturn.textViewContextFriendList);
+                sqlReturn.friendListNum = new String[sqlReturn.SearchCountFriendList];
                 sqlReturn.friendListName = new String[sqlReturn.SearchCountFriendList];
                 for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    sqlReturn.friendListNum[i] = obj.getString("friendNum");
                     sqlReturn.friendListName[i] = obj.getString("friendName01");
                 }
             } catch (JSONException e) {

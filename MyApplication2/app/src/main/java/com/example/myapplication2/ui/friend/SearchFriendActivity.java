@@ -88,7 +88,7 @@ public class SearchFriendActivity extends AppCompatActivity {
 
     public void searchFriend(){
         Map<String,String> map = new HashMap<>();
-        map.put("command", "strangerSearch");
+        map.put("command", "strangerSearch00");
         map.put("searchStranger", editText.getText().toString());
         map.put("uid", sqlReturn.GetUserID);
         new searchFriend(this).execute((HashMap)map);
@@ -114,23 +114,15 @@ public class SearchFriendActivity extends AppCompatActivity {
                 jsonObject = new JSONObject(result);
                 status = jsonObject.getBoolean("status");
                 sqlReturn.Message = jsonObject.getString("message");
-                if(sqlReturn.Message.equals("已經是好友")){
-                    new AlertDialog.Builder(SearchFriendActivity.this)
-                            .setTitle("提醒")
-                            .setMessage(editText.getText().toString()+"已經是您的好友")
-                            .setPositiveButton("OK", null)
-                            .show();
-                    status = false;
-                }else if(sqlReturn.Message.equals("找不到此人")){
+                if(sqlReturn.Message.equals("找不到此人")){
                     new AlertDialog.Builder(SearchFriendActivity.this)
                             .setTitle("提醒")
                             .setMessage("查無"+editText.getText().toString()+"這個人!!")
                             .setPositiveButton("OK", null)
                             .show();
                     status = false;
-                }else if(sqlReturn.Message.equals("可以加好友")){
+                }else{
                     sqlReturn.SearchFriend = jsonObject.getInt("rowcount");
-                    sqlReturn.FriendYesNo = jsonObject.getString("FriendYesNo");
                     sqlReturn.textViewSearchFriend = jsonObject.getString("results");
                     jsonArray = new JSONArray(sqlReturn.textViewSearchFriend);
                     sqlReturn.SearchFriendUserId = new String[sqlReturn.SearchFriend];

@@ -850,4 +850,21 @@
         <item name="android:drawableRight">@mipmap/ic_nodatasocialicon2_foreground</item>
         <!--<item name="android:padding">10dip</item>-->
     </style>
+
+    <style name="btn_sharefriend1" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_sharediary1</item>
+        <!--<item name="android:padding">10dip</item>-->
+
+    </style>
+    <style name="btn_sharefriend" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_sharediaryend</item>
+        <!--<item name="android:padding">10dip</item>-->
+
+    </style>
 </resources>

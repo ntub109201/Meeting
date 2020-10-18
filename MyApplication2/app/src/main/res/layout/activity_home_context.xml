@@ -32,14 +32,26 @@
             android:id="@+id/textDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:text="2020-09-10"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.402"
+            app:layout_constraintHorizontal_bias="0.329"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.542" />
+
+        <Button
+            android:id="@+id/btn_share"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@mipmap/ic_sharehistorydiary_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.673"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/btnSave"
@@ -48,7 +60,7 @@
             android:background="@mipmap/ic_histortdiarysave_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintHorizontal_bias="0.84"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
@@ -66,18 +78,60 @@
             app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/imageView10"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout22"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@mipmap/ic_background_foreground" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout22">
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/ic_background_foreground" />
+
+        <Button
+            android:id="@+id/btn_share_best_friend"
+            style="@style/btn_sharefriend1"
+            android:layout_width="63dp"
+            android:layout_height="64dp"
+            android:text="摯友"
+            android:textColor="#6F6B68"
+            android:textSize="16dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.824"
+            app:layout_constraintStart_toStartOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.117" />
+
+        <Button
+            android:id="@+id/btn_share_friend"
+            style="@style/btn_sharefriend1"
+            android:layout_width="63dp"
+            android:layout_height="64dp"
+            android:text="所有
+            好友"
+            android:textColor="#6F6B68"
+            android:textSize="16dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.545"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.117" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
