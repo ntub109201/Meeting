@@ -9,6 +9,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -20,8 +21,8 @@ import com.example.myapplication2.R;
 
 public class DiaryHowEyeActivity extends AppCompatActivity {
 
-    private Button btn_normal,btn_phase,btn_strange,btn_delicate,btn_special;
-    private boolean normalClick, phaseClick, strangeClick, delicateClick, specialClick;
+    private Button btn_normal,btn_phase,btn_strange,btn_delicate,btn_special,btn_vast;
+    private boolean normalClick, phaseClick, strangeClick, delicateClick, specialClick, vastClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,31 +54,61 @@ public class DiaryHowEyeActivity extends AppCompatActivity {
                             .setPositiveButton("OK", null)
                             .show();
                 }else {
-                    DiaryValue.txtHow_choose[DiaryValue.howCount] = "視覺";
-                    DiaryValue.howCount += 1;
-                    for(int j = 0; j < DiaryValue.Eye_Count; j++){
-                        if(normalClick){
-                            DiaryValue.txtHow_food_Eye[j] = "樸素";
-                            j++;
+                    if(DiaryValue.txtTag.equals("美食")){
+                        DiaryValue.txtHow_choose[DiaryValue.howCount] = "視覺";
+                        DiaryValue.howCount += 1;
+                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                            if(normalClick){
+                                DiaryValue.txtHow_food_Eye[j] = "樸素";
+                                j++;
+                            }
+                            if(phaseClick){
+                                DiaryValue.txtHow_food_Eye[j] = "有層次感";
+                                j++;
+                            }
+                            if(strangeClick){
+                                DiaryValue.txtHow_food_Eye[j] = "怪異";
+                                j++;
+                            }
+                            if(delicateClick){
+                                DiaryValue.txtHow_food_Eye[j] = "精緻";
+                                j++;
+                            }
+                            if(specialClick){
+                                DiaryValue.txtHow_food_Eye[j] = "特別";
+                                j++;
+                            }
                         }
-                        if(phaseClick){
-                            DiaryValue.txtHow_food_Eye[j] = "有層次感";
-                            j++;
-                        }
-                        if(strangeClick){
-                            DiaryValue.txtHow_food_Eye[j] = "怪異";
-                            j++;
-                        }
-                        if(delicateClick){
-                            DiaryValue.txtHow_food_Eye[j] = "精緻";
-                            j++;
-                        }
-                        if(specialClick){
-                            DiaryValue.txtHow_food_Eye[j] = "特別";
-                            j++;
+                    }else {
+                        DiaryValue.txtHow_choose[DiaryValue.howCount] = "視覺";
+                        DiaryValue.howCount += 1;
+                        for(int j = 0; j < DiaryValue.Eye_Count; j++){
+                            if(normalClick){
+                                DiaryValue.txtHow_food_Eye[j] = "繽紛";
+                                j++;
+                            }
+                            if(phaseClick){
+                                DiaryValue.txtHow_food_Eye[j] = "擁擠";
+                                j++;
+                            }
+                            if(strangeClick){
+                                DiaryValue.txtHow_food_Eye[j] = "療癒";
+                                j++;
+                            }
+                            if(delicateClick){
+                                DiaryValue.txtHow_food_Eye[j] = "狹隘";
+                                j++;
+                            }
+                            if(specialClick){
+                                DiaryValue.txtHow_food_Eye[j] = "震撼";
+                                j++;
+                            }
+                            if(vastClick){
+                                DiaryValue.txtHow_food_Eye[j] = "遼闊";
+                                j++;
+                            }
                         }
                     }
-
                     Intent intent = new Intent(DiaryHowEyeActivity.this, DiaryHowActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowEyeActivity.this);
                     DiaryHowEyeActivity.this.startActivity(intent,options.toBundle());
@@ -163,6 +194,58 @@ public class DiaryHowEyeActivity extends AppCompatActivity {
             }
         });
 
+        btn_vast = findViewById(R.id.btn_vast);
+        btn_vast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(vastClick){
+                    vastClick = false;
+                    DiaryValue.Eye_Count -=1;
+                    btn_special.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                }else if(!vastClick){
+                    vastClick = true;
+                    DiaryValue.Eye_Count +=1;
+                    btn_special.setBackgroundTintList(getColorStateList(R.color.how_color2));
+                }
+            }
+        });
+
+        if(DiaryValue.txtTag.equals("旅遊")){
+
+            btn_vast.setVisibility(View.VISIBLE);
+            btn_vast.setEnabled(true);
+            btn_vast.setBackgroundResource(R.drawable.btn_normal);
+            Drawable vast = getResources().getDrawable(R.mipmap.ic_btn_vast_foreground);
+            btn_vast.setCompoundDrawablesWithIntrinsicBounds(null,vast,null,null);
+            btn_vast.setY(-60);
+            btn_vast.setX(-20);
+
+            btn_normal.setBackgroundResource(R.drawable.btn_normal);
+            Drawable normal = getResources().getDrawable(R.mipmap.ic_btn_colorful_foreground);
+            btn_normal.setCompoundDrawablesWithIntrinsicBounds(null,normal,null,null);
+            btn_special.setX(-70);
+
+            btn_phase.setBackgroundResource(R.drawable.btn_normal);
+            Drawable phase = getResources().getDrawable(R.mipmap.ic_btn_crowded_foreground);
+            btn_phase.setCompoundDrawablesWithIntrinsicBounds(null,phase,null,null);
+            btn_phase.setY(-90);
+            btn_normal.setX(-60);
+
+            btn_strange.setBackgroundResource(R.drawable.btn_normal);
+            Drawable strange = getResources().getDrawable(R.mipmap.ic_btn_healing_foreground);
+            btn_strange.setCompoundDrawablesWithIntrinsicBounds(null,strange,null,null);
+
+            btn_delicate.setBackgroundResource(R.drawable.btn_normal);
+            Drawable delicate = getResources().getDrawable(R.mipmap.ic_btn_narrow_foreground);
+            btn_delicate.setCompoundDrawablesWithIntrinsicBounds(null,delicate,null,null);
+            btn_delicate.setY(-120);
+
+            btn_special.setBackgroundResource(R.drawable.btn_normal);
+            Drawable special = getResources().getDrawable(R.mipmap.ic_btn_shock_foreground);
+            btn_special.setCompoundDrawablesWithIntrinsicBounds(null,special,null,null);
+            btn_special.setX(-100);
+
+        }
 
     }
 }

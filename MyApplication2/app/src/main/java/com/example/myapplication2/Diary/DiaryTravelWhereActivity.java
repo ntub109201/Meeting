@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.myapplication2.Diary.DiaryHowPackage.DiaryHowActivity;
 import com.example.myapplication2.Diary.DiaryTravelWhereFragment.DiaryTravelFirstFragment;
 import com.example.myapplication2.Diary.DiaryTravelWhereFragment.DiaryTravelSecondFragment;
 import com.example.myapplication2.DiaryValue;
@@ -41,6 +42,34 @@ public class DiaryTravelWhereActivity extends AppCompatActivity {
                 Intent intent = new Intent(DiaryTravelWhereActivity.this, DiaryTravelWhenActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhereActivity.this);
                 DiaryTravelWhereActivity.this.startActivity(intent, options.toBundle());
+            }
+        });
+
+        final TextView btn_preview = findViewById(R.id.btn_preview);
+        btn_preview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhere = "";
+                for(int i = 0; i< 5; i++){
+                    DiaryValue.txtHow_choose[i] = "";
+                }
+                Intent intent = new Intent();
+                intent.setClass(DiaryTravelWhereActivity.this,DiaryPreviewActivity.class);
+                Bundle tagData = new Bundle();
+                tagData.putString("1","DiaryTravelWhereActivity");
+                intent.putExtras(tagData);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhereActivity.this);
+                startActivity(intent,options.toBundle());
+            }
+        });
+        final TextView btn_skip = findViewById(R.id.btn_skip);
+        btn_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiaryValue.txtWhere = "";
+                Intent intent = new Intent(DiaryTravelWhereActivity.this, DiaryHowActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhereActivity.this);
+                DiaryTravelWhereActivity.this.startActivity(intent,options.toBundle());
             }
         });
 

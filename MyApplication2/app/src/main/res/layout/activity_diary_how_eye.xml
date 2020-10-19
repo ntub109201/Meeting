@@ -84,8 +84,8 @@
         <Button
             android:id="@+id/btn_normal"
             style="@style/btn_normal"
-            android:layout_width="115dp"
-            android:layout_height="115dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.277"
@@ -109,8 +109,8 @@
         <Button
             android:id="@+id/btn_special"
             style="@style/btn_special"
-            android:layout_width="115dp"
-            android:layout_height="115dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -122,8 +122,8 @@
         <Button
             android:id="@+id/btn_delicate"
             style="@style/btn_delicate"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,10 +133,25 @@
             app:layout_constraintVertical_bias="0.676" />
 
         <Button
+            android:id="@+id/btn_vast"
+            style="@style/btn_delicate"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.872"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.989" />
+
+        <Button
             android:id="@+id/btn_strange"
             style="@style/btn_strange"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

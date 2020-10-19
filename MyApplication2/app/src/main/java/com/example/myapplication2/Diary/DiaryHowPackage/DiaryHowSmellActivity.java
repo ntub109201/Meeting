@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -49,31 +51,53 @@ public class DiaryHowSmellActivity extends AppCompatActivity {
                             .setPositiveButton("OK", null)
                             .show();
                 }else {
-                    DiaryValue.txtHow_choose[DiaryValue.howCount] = "嗅覺";
-                    DiaryValue.howCount += 1;
-                    for(int j = 0; j < DiaryValue.Smell_Count; j++){
-                        if(spiceClick){
-                            DiaryValue.txtHow_food_Smell[j] = "香";
-                            j++;
+                    if(DiaryValue.txtTag.equals("美食")){
+                        DiaryValue.txtHow_choose[DiaryValue.howCount] = "嗅覺";
+                        DiaryValue.howCount += 1;
+                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                            if(spiceClick){
+                                DiaryValue.txtHow_food_Smell[j] = "香";
+                                j++;
+                            }
+                            if(stinkClick){
+                                DiaryValue.txtHow_food_Smell[j] = "臭";
+                                j++;
+                            }
+                            if(thickClick){
+                                DiaryValue.txtHow_food_Smell[j] = "濃厚";
+                                j++;
+                            }
+                            if(light_incenseClick){
+                                DiaryValue.txtHow_food_Smell[j] = "淡香";
+                                j++;
+                            }
+                            if(PungentClick){
+                                DiaryValue.txtHow_food_Smell[j] = "刺鼻";
+                                j++;
+                            }
                         }
-                        if(stinkClick){
-                            DiaryValue.txtHow_food_Smell[j] = "臭";
-                            j++;
-                        }
-                        if(thickClick){
-                            DiaryValue.txtHow_food_Smell[j] = "濃厚";
-                            j++;
-                        }
-                        if(light_incenseClick){
-                            DiaryValue.txtHow_food_Smell[j] = "淡香";
-                            j++;
-                        }
-                        if(PungentClick){
-                            DiaryValue.txtHow_food_Smell[j] = "刺鼻";
-                            j++;
+                    }else {
+                        DiaryValue.txtHow_choose[DiaryValue.howCount] = "嗅覺";
+                        DiaryValue.howCount += 1;
+                        for(int j = 0; j < DiaryValue.Smell_Count; j++){
+                            if(spiceClick){
+                                DiaryValue.txtHow_food_Smell[j] = "芬多精";
+                                j++;
+                            }
+                            if(stinkClick){
+                                DiaryValue.txtHow_food_Smell[j] = "芬芳";
+                                j++;
+                            }
+                            if(thickClick){
+                                DiaryValue.txtHow_food_Smell[j] = "清新";
+                                j++;
+                            }
+                            if(light_incenseClick){
+                                DiaryValue.txtHow_food_Smell[j] = "污染";
+                                j++;
+                            }
                         }
                     }
-
                     Intent intent = new Intent(DiaryHowSmellActivity.this, DiaryHowActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowSmellActivity.this);
                     DiaryHowSmellActivity.this.startActivity(intent,options.toBundle());
@@ -156,5 +180,34 @@ public class DiaryHowSmellActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (DiaryValue.txtTag.equals("旅遊")){
+            btn_Pungent.setVisibility(View.INVISIBLE);
+            btn_Pungent.setEnabled(false);
+
+            btn_spice.setX(-50);
+            btn_spice.setBackgroundResource(R.drawable.btn_diarybtn);
+            btn_spice.setBackgroundTintList(getColorStateList(R.color.how_color1));
+            Drawable spice = getResources().getDrawable(R.mipmap.ic_btn_fendozin_foreground);
+            btn_spice.setCompoundDrawablesWithIntrinsicBounds(null,spice,null,null);
+
+            btn_stink.setBackgroundResource(R.drawable.btn_diarybtn);
+            btn_stink.setBackgroundTintList(getColorStateList(R.color.how_color1));
+            Drawable stink = getResources().getDrawable(R.mipmap.ic_btn_fragrance_foreground);
+            btn_stink.setCompoundDrawablesWithIntrinsicBounds(null,stink,null,null);
+
+            btn_thick.setY(100);
+            btn_thick.setX(50);
+            btn_thick.setBackgroundResource(R.drawable.btn_diarybtn);
+            btn_thick.setBackgroundTintList(getColorStateList(R.color.how_color1));
+            Drawable thick = getResources().getDrawable(R.mipmap.ic_btn_pollution_foreground);
+            btn_thick.setCompoundDrawablesWithIntrinsicBounds(null,thick,null,null);
+
+            btn_light_incense.setY(30);
+            btn_light_incense.setBackgroundResource(R.drawable.btn_diarybtn);
+            btn_light_incense.setBackgroundTintList(getColorStateList(R.color.how_color1));
+            Drawable light_incense = getResources().getDrawable(R.mipmap.ic_btn_refreshing_foreground);
+            btn_light_incense.setCompoundDrawablesWithIntrinsicBounds(null,light_incense,null,null);
+        }
     }
 }

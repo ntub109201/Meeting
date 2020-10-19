@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.myapplication2.Diary.DiaryPreviewActivity;
+import com.example.myapplication2.Diary.DiaryTravelWhereActivity;
 import com.example.myapplication2.Diary.DiaryWhenActivity;
 import com.example.myapplication2.Diary.DiaryWhereActivity;
 import com.example.myapplication2.DiaryValue;
@@ -38,6 +39,7 @@ public class DiaryHowActivity extends AppCompatActivity {
         imbtnReturnFrontPage5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 for(int i = 0; i< 5; i++){
                     DiaryValue.txtHow_choose[i] = "";
                 }
@@ -45,9 +47,15 @@ public class DiaryHowActivity extends AppCompatActivity {
                 DiaryValue.Eye_Count = 0;
                 DiaryValue.Mouth_Count = 0;
                 DiaryValue.Smell_Count = 0;
-                Intent intent = new Intent(DiaryHowActivity.this, DiaryWhereActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
-                DiaryHowActivity.this.startActivity(intent,options.toBundle());
+                if(DiaryValue.txtTag.equals("美食")){
+                    Intent intent = new Intent(DiaryHowActivity.this, DiaryWhereActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                    DiaryHowActivity.this.startActivity(intent,options.toBundle());
+                }else {
+                    Intent intent = new Intent(DiaryHowActivity.this, DiaryTravelWhereActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                    DiaryHowActivity.this.startActivity(intent,options.toBundle());
+                }
             }
         });
 
@@ -111,18 +119,31 @@ public class DiaryHowActivity extends AppCompatActivity {
         mPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryValue.txtWhen = "";
-                DiaryValue.txtWho = "";
-                for(int i = 0; i< 5; i++){
-                    DiaryValue.txtHow_choose[i] = "";
+                if(DiaryValue.txtTag.equals("美食")){
+                    DiaryValue.txtWhen = "";
+                    DiaryValue.txtWho = "";
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryHowActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryHowActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else{
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryHowActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryHowActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
-                Intent intent = new Intent();
-                intent.setClass(DiaryHowActivity.this,DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1","DiaryHowActivity");
-                intent.putExtras(tagData);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
-                startActivity(intent,options.toBundle());
             }
         });
 
@@ -131,24 +152,53 @@ public class DiaryHowActivity extends AppCompatActivity {
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(btn_skip.getText().toString().equals("跳題")){
-                    for(int i = 0; i< 5; i++){
-                        DiaryValue.txtHow_choose[i] = "";
+                if(DiaryValue.txtTag.equals("美食")){
+                    if(btn_skip.getText().toString().equals("跳題")){
+                        for(int i = 0; i< 5; i++){
+                            DiaryValue.txtHow_choose[i] = "";
+                        }
+                        Intent intent = new Intent();
+                        intent.setClass(DiaryHowActivity.this, DiaryWhenActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                        startActivity(intent,options.toBundle());
+                    }else {
+                        Intent intent = new Intent();
+                        intent.setClass(DiaryHowActivity.this, DiaryWhenActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                        startActivity(intent,options.toBundle());
                     }
-                    Intent intent = new Intent();
-                    intent.setClass(DiaryHowActivity.this, DiaryWhenActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
-                    startActivity(intent,options.toBundle());
                 }else {
-                    Intent intent = new Intent();
-                    intent.setClass(DiaryHowActivity.this, DiaryWhenActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
-                    startActivity(intent,options.toBundle());
+                    if(btn_skip.getText().toString().equals("跳題")){
+                        for(int i = 0; i< 5; i++){
+                            DiaryValue.txtHow_choose[i] = "";
+                        }
+                        Intent intent = new Intent();
+                        intent.setClass(DiaryHowActivity.this,DiaryPreviewActivity.class);
+                        Bundle tagData = new Bundle();
+                        tagData.putString("1","DiaryHowActivity");
+                        intent.putExtras(tagData);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                        startActivity(intent,options.toBundle());
+                    }else {
+                        Intent intent = new Intent();
+                        intent.setClass(DiaryHowActivity.this,DiaryPreviewActivity.class);
+                        Bundle tagData = new Bundle();
+                        tagData.putString("1","DiaryHowActivity");
+                        intent.putExtras(tagData);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                        startActivity(intent,options.toBundle());
+                    }
                 }
             }
         });
         if(DiaryValue.howCount!=0){
             btn_skip.setText("下一題");
+        }
+
+        if(DiaryValue.txtTag.equals("旅遊")){
+            btn_mouth.setEnabled(false);
+            btn_mouth.setVisibility(View.INVISIBLE);
+            btn_nose.setY(100);
         }
 
     }

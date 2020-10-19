@@ -452,7 +452,7 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>-->
         <item name="android:background">@drawable/btn_normal</item>
-        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingTop">15dp</item>
         <item name="android:drawableTop">@mipmap/ic_normal_foreground</item>
     </style>
     <style name="btn_phase" parent="@android:style/Widget.Button">
@@ -460,7 +460,7 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>-->
         <item name="android:background">@drawable/btn_phase</item>
-        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingTop">15dp</item>
         <item name="android:drawableTop">@mipmap/ic_phase_foreground</item>
     </style>
     <style name="btn_strange" parent="@android:style/Widget.Button">
@@ -468,7 +468,7 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>-->
         <item name="android:background">@drawable/btn_strange</item>
-        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingTop">15dp</item>
         <item name="android:drawableTop">@mipmap/ic_strange_foreground</item>
     </style>
     <style name="btn_delicate" parent="@android:style/Widget.Button">
@@ -476,7 +476,7 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>-->
         <item name="android:background">@drawable/btn_delicate</item>
-        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingTop">15dp</item>
         <item name="android:drawableTop">@mipmap/ic_delicate_foreground</item>
     </style>
     <style name="btn_special" parent="@android:style/Widget.Button">
@@ -484,7 +484,7 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>-->
         <item name="android:background">@drawable/btn_special</item>
-        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingTop">15dp</item>
         <item name="android:drawableTop">@mipmap/ic_special_foreground</item>
     </style>
     <style name="btn_habitfood" parent="@android:style/Widget.Button">
