@@ -17,20 +17,7 @@ public class AnythingTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anything_test);
 
-        floatingActionButton = findViewById(R.id.floatingActionButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (abc){
-                    floatingActionButton.animate().rotation(floatingActionButton.getRotation()+135).start();
-                    abc = false;
-                }else {
-                    floatingActionButton.animate().rotation(floatingActionButton.getRotation()-135).start();
-                    abc = true;
-                }
 
-            }
-        });
 
     }
 }

@@ -87,10 +87,11 @@ public class SearchFriendActivity extends AppCompatActivity {
     }
 
     public void searchFriend(){
+        String uid = sqlReturn.GetUserID;
         Map<String,String> map = new HashMap<>();
-        map.put("command", "strangerSearch00");
+        map.put("command", "strangerSearch");
         map.put("searchStranger", editText.getText().toString());
-        map.put("uid", sqlReturn.GetUserID);
+        map.put("uid", uid);
         new searchFriend(this).execute((HashMap)map);
     }
 

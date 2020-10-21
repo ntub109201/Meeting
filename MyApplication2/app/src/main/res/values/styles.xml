@@ -692,11 +692,8 @@
     <style name="btn_setuserphoto" parent="@android:style/Widget.Button">
         <!--<item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>-->
-        <item name="android:drawablePadding">40dp</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingRight">-40dp</item>
-        <item name="android:background">@drawable/btn_setuserphoto</item>
-        <item name="android:drawableRight">@mipmap/ic_camera_foreground</item>
+        <item name="android:background">@drawable/btn_backprofileset</item>
+        <item name="android:drawableRight">@mipmap/btn_camera_foreground</item>
     </style>
     <style name="btn_backsignup" parent="@android:style/Widget.Button">
         <!--<item name="android:textSize">20sp</item>
@@ -866,5 +863,12 @@
         <item name="android:background">@drawable/btn_sharediaryend</item>
         <!--<item name="android:padding">10dip</item>-->
 
+    </style>
+
+
+    <style name="btn_bg_img" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_bg_img</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:drawableTop">@mipmap/btn_bg_img_round</item>
     </style>
 </resources>

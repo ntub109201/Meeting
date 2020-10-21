@@ -2,6 +2,7 @@ package com.example.myapplication2.Diary;
 // version 2020/09/22
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.util.Log;
@@ -226,15 +227,25 @@ public class Guidor {
                                 "FROM pattern_link\n" +
                                 "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "", null);
                         cursor.moveToFirst();
-                        if (debug)
-                            Log.d("NiCe", "SELECT punctuationMark\n" +
-                                "FROM pattern_link\n" +
-                                "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "");
-                        do{
-                            punctuations.add(cursor.getString(0));
-                        }while(cursor.moveToNext());
-                        punctuation = choosePunctuation(punctuations.get((int)(Math.random()*punctuations.size())));
-                        sb.append(punctuation);
+//                        if (debug)
+//                            Log.d("NiCe", "SELECT punctuationMark\n" +
+//                                "FROM pattern_link\n" +
+//                                "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "");
+//                        do{
+//                            punctuations.add(cursor.getString(0));
+//                        }while(cursor.moveToNext());
+//                        punctuation = choosePunctuation(punctuations.get((int)(Math.random()*punctuations.size())));
+//                        sb.append(punctuation);
+                        try{
+                            do{
+                                punctuations.add(cursor.getString(0));
+                            }while(cursor.moveToNext());
+                            punctuation = choosePunctuation(punctuations.get((int)(Math.random()*punctuations.size())));
+                            sb.append(punctuation);
+                        }catch(CursorIndexOutOfBoundsException e){
+                            sb.append("，");
+                        }
+
                     }
                     // get pattern
                     index = how_pattern[k];

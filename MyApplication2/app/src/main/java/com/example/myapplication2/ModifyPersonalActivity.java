@@ -1,10 +1,12 @@
 package com.example.myapplication2;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,11 +32,10 @@ import java.util.Map;
 
 public class ModifyPersonalActivity extends AppCompatActivity {
 
-    private ImageButton imBackPersonal;
-    private Button btnBirthday, btnSave;
-    private EditText edtBirthday, edtEmail, edtName;
+    private Button imBackPersonal;
+    private Button btnSave;
+    private EditText edtName;
     private Spinner spinJob, spinTag;
-    private String birthday ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +100,7 @@ public class ModifyPersonalActivity extends AppCompatActivity {
                 break;
         }
 
-        edtEmail = findViewById(R.id.edtEmail);
-        edtEmail.setText(sqlReturn.RegisterEmail);
+
         edtName = findViewById(R.id.edtName);
         edtName.setText(sqlReturn.PersonalName);
 
@@ -120,35 +120,21 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendPersonalData();
-            }
-        });
-
-        btnBirthday = findViewById(R.id.btnBirthday);
-        edtBirthday = findViewById(R.id.edtBirthday);
-        edtBirthday.setText(sqlReturn.PersonalBirthday);
-        btnBirthday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ModifyPersonalActivity.this,datePickerDlgOnDateSet,now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.setTitle("選擇日期");
-                datePickerDialog.setMessage("請選擇您的生日日期");
-                datePickerDialog.setIcon(android.R.drawable.ic_dialog_info);
-                datePickerDialog.setCancelable(false);
-                datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
-                datePickerDialog.show();
+                new AlertDialog.Builder(ModifyPersonalActivity.this)
+                        .setCancelable(false)
+                        .setTitle("提醒您")
+                        .setMessage("確定修改個人資料?")
+                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                sendPersonalData();
+                            }
+                        }).setNegativeButton("取消",null).create()
+                        .show();
             }
         });
 
     }
-    private DatePickerDialog.OnDateSetListener datePickerDlgOnDateSet = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            edtBirthday.setText(String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth));
-            birthday = year+"-"+(month+1)+"-"+dayOfMonth;
-        }
-    };
 
 
     public void sendPersonalData(){
@@ -156,12 +142,11 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         String job = spinJob.getSelectedItem().toString();
         String hobby = spinTag.getSelectedItem().toString();
         String userName = edtName.getText().toString();
-        String email = edtEmail.getText().toString();
         String userPass = sqlReturn.RegisterPassword;
+        String email = sqlReturn.RegisterEmail;
         Map<String,String> map = new HashMap<>();
         map.put("command", "newPersonInfo");
         map.put("uid", uid);
-        map.put("birthday", birthday);
         map.put("job", job);
         map.put("hobby", hobby);
         map.put("userName",userName);
@@ -188,11 +173,9 @@ public class ModifyPersonalActivity extends AppCompatActivity {
                 status = jsonObject.getBoolean("status");
                 if(status){
                     Toast.makeText(activity, "修改成功", Toast.LENGTH_LONG).show();
-                    sqlReturn.PersonalBirthday = edtBirthday.getText().toString();
                     sqlReturn.PersonalJob = spinJob.getSelectedItem().toString();
                     sqlReturn.PersonalHobby = spinTag.getSelectedItem().toString();
                     sqlReturn.PersonalName = edtName.getText().toString();
-                    sqlReturn.RegisterEmail = edtEmail.getText().toString();
                     Intent intent = new Intent(ModifyPersonalActivity.this,PersonalActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     final int pageId = getIntent().getIntExtra("pageId",0);
