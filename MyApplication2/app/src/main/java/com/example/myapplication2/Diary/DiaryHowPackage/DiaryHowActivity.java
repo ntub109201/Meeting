@@ -23,6 +23,8 @@ public class DiaryHowActivity extends AppCompatActivity {
 
     private Button btn_eye, btn_mouth, btn_nose;
     private TextView mPreview, btn_skip;
+    private ImageButton imBtnNextHow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,47 +155,62 @@ public class DiaryHowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(DiaryValue.txtTag.equals("美食")){
-                    if(btn_skip.getText().toString().equals("跳題")){
-                        for(int i = 0; i< 5; i++){
-                            DiaryValue.txtHow_choose[i] = "";
-                        }
-                        Intent intent = new Intent();
-                        intent.setClass(DiaryHowActivity.this, DiaryWhenActivity.class);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
-                        startActivity(intent,options.toBundle());
-                    }else {
-                        Intent intent = new Intent();
-                        intent.setClass(DiaryHowActivity.this, DiaryWhenActivity.class);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
-                        startActivity(intent,options.toBundle());
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
                     }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryHowActivity.this, DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                    startActivity(intent,options.toBundle());
                 }else {
-                    if(btn_skip.getText().toString().equals("跳題")){
-                        for(int i = 0; i< 5; i++){
-                            DiaryValue.txtHow_choose[i] = "";
-                        }
-                        Intent intent = new Intent();
-                        intent.setClass(DiaryHowActivity.this,DiaryPreviewActivity.class);
-                        Bundle tagData = new Bundle();
-                        tagData.putString("1","DiaryHowActivity");
-                        intent.putExtras(tagData);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
-                        startActivity(intent,options.toBundle());
-                    }else {
-                        Intent intent = new Intent();
-                        intent.setClass(DiaryHowActivity.this,DiaryPreviewActivity.class);
-                        Bundle tagData = new Bundle();
-                        tagData.putString("1","DiaryHowActivity");
-                        intent.putExtras(tagData);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
-                        startActivity(intent,options.toBundle());
+                    for(int i = 0; i< 5; i++){
+                        DiaryValue.txtHow_choose[i] = "";
                     }
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryHowActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryHowActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                    startActivity(intent,options.toBundle());
                 }
             }
         });
+
+        imBtnNextHow = findViewById(R.id.imBtnNextHow);
         if(DiaryValue.howCount!=0){
             btn_skip.setText("下一題");
+            btn_skip.setVisibility(View.INVISIBLE);
+            btn_skip.setEnabled(false);
+            imBtnNextHow.setVisibility(View.VISIBLE);
+            imBtnNextHow.setEnabled(true);
+        }else{
+            btn_skip.setText("跳題");
+            btn_skip.setVisibility(View.VISIBLE);
+            btn_skip.setEnabled(true);
+            imBtnNextHow.setVisibility(View.INVISIBLE);
+            imBtnNextHow.setEnabled(false);
         }
+
+        imBtnNextHow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(DiaryValue.txtTag.equals("美食")){
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryHowActivity.this, DiaryWhenActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else {
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryHowActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryHowActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                    startActivity(intent,options.toBundle());
+                }
+            }
+        });
 
         if(DiaryValue.txtTag.equals("旅遊")){
             btn_mouth.setEnabled(false);

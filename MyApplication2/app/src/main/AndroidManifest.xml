@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="com.android.hardware.camera2.full" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,9 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AnythingTestActivity"></activity>
+        <activity
+            android:name=".AnythingTestActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".Diary.DiaryTravelWhereActivity" />
         <activity
             android:name=".Diary.DiaryTravelWhenActivity"

@@ -1,8 +1,11 @@
 package com.example.myapplication2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.Manifest;
@@ -21,7 +24,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -31,32 +36,61 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Map;
 
 public class OCRActivity extends AppCompatActivity {
 
-    private ImageView imgPhoto;
     private boolean paper_sunnyClick = false, paper_mcClick = false, paper_cloudyClick = false, paper_thunderClick = false, paper_rainClick = false;
     private boolean paper_tripClick = false, paper_shoppingClick = false, paper_loveClick = false, paper_foodClick = false, paper_casualClick = false;
     private String mood;
     private String tag;
     private int countMood = 0, countTag = 0;
     private ProgressBar progressBar;
+    private Button btn_addphoto;
+
+    private RecyclerView recyclerview;
+    private RecyclerView.Adapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
+    private LinkedList<HashMap<String,String>> data1;
+    private OCRActivity.MyAdapter myAdapter;
+    private int count;
+    private Bitmap mbmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_o_c_r);
-        imgPhoto = findViewById(R.id.imgPhoto);
+
         Intent photo_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(photo_intent, 0);
+        startActivityForResult(photo_intent, 1);
 
         progressBar = findViewById(R.id.progressBar);
+
+        btn_addphoto = findViewById(R.id.btn_addphoto);
+        btn_addphoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+        recyclerview = findViewById(R.id.recyclerview);
+        recyclerview.setHasFixedSize(false);
+        mLayoutManager = new LinearLayoutManager(OCRActivity.this);
+        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerview.setLayoutManager(mLayoutManager);
+        myAdapter = new MyAdapter();
+        recyclerview.setAdapter(myAdapter);
+        doData();
+
 
         final Button btn_back_paper = findViewById(R.id.btn_back_paper);
         btn_back_paper.setOnClickListener(new View.OnClickListener() {
@@ -437,9 +471,52 @@ public class OCRActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
-            Bitmap mbmp = (Bitmap) data.getExtras().get("data");
-            imgPhoto.setImageBitmap(mbmp);
+        if (requestCode == 1) {
+            count +=1;
+            mbmp = (Bitmap) data.getExtras().get("data");
+            doData();
+        }
+    }
+
+    private void doData(){
+        data1 = new LinkedList<>();
+        for(int i = 0; i < count; i++){
+            HashMap<String,String> row = new HashMap<>();
+            data1.add(row);
+        }
+    }
+
+    private class  MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+
+        class MyViewHolder extends RecyclerView.ViewHolder{
+            public View itemView;
+            public ImageView imgPhoto;
+            public MyViewHolder(View view){
+                super(view);
+                itemView = view;
+                imgPhoto = itemView.findViewById(R.id.imgPhoto);
+
+            }
+        }
+
+        @NonNull
+        @Override
+        public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.photo_item,parent,false);
+            MyViewHolder vh = new MyViewHolder(itemView);
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
+            holder.imgPhoto.setImageBitmap(mbmp);
+        }
+
+        @Override
+        public int getItemCount() {
+            return data1.size();
         }
     }
 

@@ -54,6 +54,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+        <ImageButton
+            android:id="@+id/imBtnNextHow"
+            android:layout_width="65dp"
+            android:layout_height="61dp"
+            android:background="@color/yellow"
+            android:backgroundTint="@color/yellow"
+            android:rotation="180"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
