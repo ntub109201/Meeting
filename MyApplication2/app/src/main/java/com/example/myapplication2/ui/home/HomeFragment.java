@@ -7,7 +7,9 @@ import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -85,6 +87,8 @@ public class HomeFragment extends Fragment {
     private Button goToHandwritebutton,goToDiarybutton,goToOCRbutton;
     public static boolean changeBtn = false;
     private static boolean camera = false;
+    private TextView DateTime,txtTodayTag;
+    private ImageView imgTodayWhat;
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -298,10 +302,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // 時間
-        String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        final TextView DateTime = root.findViewById(R.id.DateTime);
-        DateTime.setText(currentDate);
+        txtTodayTag = root.findViewById(R.id.txtTodayTag);
+        imgTodayWhat = root.findViewById(R.id.imgTodayWhat);
+        DateTime = root.findViewById(R.id.DateTime);
 
         return root;
     }
@@ -400,8 +403,25 @@ public class HomeFragment extends Fragment {
                 myAdapter = new MyAdapter();
                 mRecyclerView.setAdapter(myAdapter);
                 RefreshLayoutHome.setRefreshing(false);
-            }else {
 
+                String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                if(currentDate.equals(sqlReturn.LoginDate[0])){
+                    DateTime.setText(sqlReturn.LoginDate[0]);
+                    DateTime.setTextSize(18);
+                    txtTodayTag.setText(sqlReturn.LoginTagName[0]);
+                    txtTodayTag.setTextSize(24);
+                    dictionary dict = new dictionary();
+                    imgTodayWhat.setImageResource(dict.dict.get(sqlReturn.LoginOption[0]));
+                    imgTodayWhat.setBackgroundResource(R.drawable.img_home_circle);
+                    btnWriteTodayDiary.setEnabled(false);
+                }else{
+                    DateTime.setTextSize(24);
+                    DateTime.setText("今天尚未");
+                    txtTodayTag.setTextSize(24);
+                    txtTodayTag.setText("建立日記");
+                    btnWriteTodayDiary.setEnabled(true);
+                    imgTodayWhat.setBackgroundResource(R.drawable.request);
+                }
             }
         }
 

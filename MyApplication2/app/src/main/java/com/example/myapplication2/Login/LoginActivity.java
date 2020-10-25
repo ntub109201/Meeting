@@ -140,11 +140,13 @@ public class LoginActivity extends AppCompatActivity {
             // 取得使用者的資料，取得後再看你想要對這些資料做什麼用途
             Log.d("111","handleSignInResult getName:"+account.getDisplayName());
             Log.d("2222","handleSignInResult getEmail:"+account.getEmail());
+            sqlReturn.GetUserID = account.getId();
+            sqlReturn.PersonalName = account.getDisplayName();
+
             Intent intent=new Intent(LoginActivity.this,SecondActivity02.class);
             startActivity(intent);
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+
             Log.w("3333", "signInResult:failed code=" + e.getStatusCode());
 
         }
@@ -440,6 +442,45 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }catch (JSONException e){
                 e.printStackTrace();
+            }
+        }
+    }
+
+    // Google登入
+    public void googleLogin(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "getInfo");
+        map.put("uid", uid);
+        new googleLogin(this).execute((HashMap)map);
+    }
+
+    private class googleLogin extends HttpURLConnection_AsyncTask{
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        googleLogin(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+
+            if(status == true){
+                Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                startActivity(intent,options.toBundle());
             }
         }
     }

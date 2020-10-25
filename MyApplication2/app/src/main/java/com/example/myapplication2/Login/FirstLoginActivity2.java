@@ -21,6 +21,8 @@ public class FirstLoginActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_login2);
 
+
+        sqlReturn.firstUse = true;
         final ImageButton imageButton1 = findViewById(R.id.imageButton1);
         imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -136,12 +137,23 @@ public class DiaryEndActivity extends AppCompatActivity {
         btn_DiaryEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editText3.getText().toString().equals(DiaryContext)){
-                    DiaryInsert();
-                }else{
-                    DiaryContext = editText3.getText().toString();
-                    DiaryInsert();
-                }
+
+                new AlertDialog.Builder(DiaryEndActivity.this)
+                        .setCancelable(false)
+                        .setTitle("提醒您")
+                        .setMessage("確定完成日記?")
+                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if(editText3.getText().toString().equals(DiaryContext)){
+                                    DiaryInsert();
+                                }else{
+                                    DiaryContext = editText3.getText().toString();
+                                    DiaryInsert();
+                                }
+                            }
+                        }).setNegativeButton("取消",null).create()
+                        .show();
             }
         });
 

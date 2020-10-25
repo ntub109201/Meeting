@@ -116,6 +116,12 @@ public class ModifyPersonalActivity extends AppCompatActivity {
             }
         });
 
+        if(sqlReturn.firstUse == true){
+            sendPersonalData();
+            sqlReturn.firstUse = false;
+        }
+
+
         btnSave = findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
