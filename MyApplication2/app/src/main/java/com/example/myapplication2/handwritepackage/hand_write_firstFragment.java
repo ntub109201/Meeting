@@ -50,7 +50,7 @@ public class hand_write_firstFragment extends Fragment {
 
     private void doData(){
         data1 = new LinkedList<>();
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 5; i++){
             HashMap<String,String> row = new HashMap<>();
             data1.add(row);
         }

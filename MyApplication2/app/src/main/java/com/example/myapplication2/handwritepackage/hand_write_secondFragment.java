@@ -249,4 +249,60 @@ public class hand_write_secondFragment extends Fragment {
 
         return root;
     }
+
+    //    public void DiaryInsert(){
+//        String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+//        handWriteContext = txtHandWrite.getText().toString();
+//        Map<String,String> map = new HashMap<>();
+//        map.put("command", "newDiaryHandWrite");
+//        map.put("uid", sqlReturn.GetUserID);
+//        map.put("diaryContent",handWriteContext);
+//        map.put("diaryTag","手寫日記");
+//        map.put("diaryDate",currentDate);
+//        map.put("diaryMood","手寫日記心情");
+//        map.put("diaryOptionClass","手寫日記選項");
+//        new DiaryInsert(this).execute((HashMap)map);
+//    }
+//
+//    private class DiaryInsert extends HttpURLConnection_AsyncTask {
+//
+//        // 建立弱連結
+//        WeakReference<Activity> activityReference;
+//        DiaryInsert(Activity context){
+//            activityReference = new WeakReference<>(context);
+//        }
+//        @Override
+//        protected void onPostExecute(String result) {
+//            JSONObject jsonObject = null;
+//            boolean status = false;
+//            // 取得弱連結的Context
+//            Activity activity = activityReference.get();
+//            if (activity == null || activity.isFinishing()) return;
+//
+//            try {
+//                jsonObject = new JSONObject(result);
+//                status = jsonObject.getBoolean("status");
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            if (status){
+//                Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
+//                Intent intent = new Intent(HandwriteActivity.this, MainActivity.class);
+//                intent.putExtra("id",1);
+//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HandwriteActivity.this);
+//                startActivity(intent,options.toBundle());
+//                txtHandWrite.setText("");
+//                progressBarHandWrite.setVisibility(View.INVISIBLE);
+//            }else {
+//                new AlertDialog.Builder(activity)
+//                        .setTitle("伺服器擁擠中")
+//                        .setMessage("請重複點選結束按鈕!!")
+//                        .setPositiveButton("OK", null)
+//                        .show();
+//                progressBarHandWrite.setVisibility(View.INVISIBLE);
+//            }
+//
+//        }
+//    }
+
 }

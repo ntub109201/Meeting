@@ -35,6 +35,8 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
@@ -62,6 +64,7 @@ public class OCRActivity extends AppCompatActivity {
     private OCRActivity.MyAdapter myAdapter;
     private int count;
     private Bitmap mbmp;
+    private int picPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,9 @@ public class OCRActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         btn_addphoto = findViewById(R.id.btn_addphoto);
+
+        recyclerview = findViewById(R.id.recyclerview);
+
         btn_addphoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +88,7 @@ public class OCRActivity extends AppCompatActivity {
             }
         });
 
-        recyclerview = findViewById(R.id.recyclerview);
+
         recyclerview.setHasFixedSize(false);
         mLayoutManager = new LinearLayoutManager(OCRActivity.this);
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -474,7 +480,13 @@ public class OCRActivity extends AppCompatActivity {
         if (requestCode == 1) {
             count +=1;
             mbmp = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            mbmp.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+
+            byte[] bytes = byteArrayOutputStream.toByteArray();
+            mbmp = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
             doData();
+            recyclerview.scrollToPosition(picPosition);
         }
     }
 
@@ -512,6 +524,7 @@ public class OCRActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
             holder.imgPhoto.setImageBitmap(mbmp);
+            picPosition = picPosition+1;
         }
 
         @Override
