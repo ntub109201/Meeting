@@ -136,19 +136,17 @@ public class LoginActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
-            // 取得使用者的資料，取得後再看你想要對這些資料做什麼用途
+            Log.d("121","handleSignInResult getUid:"+account.getId());
             Log.d("111","handleSignInResult getName:"+account.getDisplayName());
             Log.d("2222","handleSignInResult getEmail:"+account.getEmail());
             sqlReturn.GetUserID = account.getId();
             sqlReturn.PersonalName = account.getDisplayName();
-
-            Intent intent=new Intent(LoginActivity.this,SecondActivity02.class);
+            sqlReturn.RegisterEmail = account.getEmail();
+            Intent intent = new Intent(LoginActivity.this,SecondActivity02.class);
             startActivity(intent);
+//            googleLogin();
         } catch (ApiException e) {
-
             Log.w("3333", "signInResult:failed code=" + e.getStatusCode());
-
         }
     }
 //google登入結束
@@ -449,9 +447,13 @@ public class LoginActivity extends AppCompatActivity {
     // Google登入
     public void googleLogin(){
         String uid = sqlReturn.GetUserID;
+        String userName = sqlReturn.PersonalName;
+        String mail = sqlReturn.RegisterEmail;
         Map<String,String> map = new HashMap<>();
-        map.put("command", "getInfo");
-        map.put("uid", uid);
+        map.put("command", "googleLogin");
+        map.put("googleID", uid);
+        map.put("userName", userName);
+        map.put("mail", mail);
         new googleLogin(this).execute((HashMap)map);
     }
 
@@ -481,6 +483,9 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
                 startActivity(intent,options.toBundle());
+            }else{
+                mGoogleSignInClient.signOut();
+                Log.d("222","error");
             }
         }
     }

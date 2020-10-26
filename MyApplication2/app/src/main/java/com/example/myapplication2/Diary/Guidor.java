@@ -1,5 +1,5 @@
 package com.example.myapplication2.Diary;
-// version 2020/09/22
+// version 2020/10/25
 import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
@@ -76,38 +76,45 @@ public class Guidor {
         }
         return true;
     }
-    public void setMood(String mood){
+    public Guidor setMood(String mood){
         this.mood_option = mood;
+        return this;
     }
-    public void setTag(String tag){
+    public Guidor setTag(String tag){
         this.tag_option = tag;
+        return this;
     }
-    public void setWhat(String what){
+    public Guidor setWhat(String what){
         if (propSeq.indexOf("what") == -1)
             propSeq.add("what");
         this.what_option = what;
+        return this;
     }
-    public void setWho(String who){
+    public Guidor setWho(String who){
         if (propSeq.indexOf("who") == -1)
             propSeq.add("who");
         this.who_option = who;
+        return this;
     }
-    public void setWhen(String when){
+    public Guidor setWhen(String when){
         if (propSeq.indexOf("when") == -1)
             propSeq.add("when");
         this.when_option = when;
+        return this;
     }
-    public void setWhy(String why){
+    public Guidor setWhy(String why){
         if (propSeq.indexOf("why") == -1)
             propSeq.add("why");
         this.why_option = why;
+        return this;
     }
-    public void setWhere(String where){
+    public Guidor setWhere(String where){
         if (propSeq.indexOf("where") == -1)
             propSeq.add("where");
         this.where_option = where;
+        return this;
     }
-    public void setHow(String sense, String how){
+    public Guidor setHow(String sense, String how){
         if (propSeq.indexOf("how") == -1)
             propSeq.add("how");
         try{
@@ -142,6 +149,7 @@ public class Guidor {
             e.printStackTrace();
         }
         //this.how_option = how;
+        return this;
     }
     public void setDiary(String diary){
         this.diary = diary;
@@ -223,28 +231,32 @@ public class Guidor {
                             Log.d("diaryContentNoSeq", diaryContentNoSeq.get(i-1));
                         if (debug)
                             Log.d("sentencePatternNo", sentencePatternNo);
-                        cursor = db.rawQuery("SELECT punctuationMark\n" +
-                                "FROM pattern_link\n" +
-                                "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "", null);
-                        cursor.moveToFirst();
-//                        if (debug)
-//                            Log.d("NiCe", "SELECT punctuationMark\n" +
-//                                "FROM pattern_link\n" +
-//                                "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "");
-//                        do{
-//                            punctuations.add(cursor.getString(0));
-//                        }while(cursor.moveToNext());
-//                        punctuation = choosePunctuation(punctuations.get((int)(Math.random()*punctuations.size())));
-//                        sb.append(punctuation);
-                        try{
+                        if(tag_option.equals("旅遊")){
+                            sb.append("，");
+                        }else{
+                            cursor = db.rawQuery("SELECT punctuationMark\n" +
+                                    "FROM pattern_link\n" +
+                                    "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "", null);
+                            cursor.moveToFirst();
+                            if (debug)
+                                Log.d("NiCe", "SELECT punctuationMark\n" +
+                                        "FROM pattern_link\n" +
+                                        "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "");
                             do{
                                 punctuations.add(cursor.getString(0));
                             }while(cursor.moveToNext());
                             punctuation = choosePunctuation(punctuations.get((int)(Math.random()*punctuations.size())));
                             sb.append(punctuation);
-                        }catch(CursorIndexOutOfBoundsException e){
-                            sb.append("，");
                         }
+//                        try{
+//                            do{
+//                                punctuations.add(cursor.getString(0));
+//                            }while(cursor.moveToNext());
+//                            punctuation = choosePunctuation(punctuations.get((int)(Math.random()*punctuations.size())));
+//                            sb.append(punctuation);
+//                        }catch(CursorIndexOutOfBoundsException e){
+//                            sb.append("，");
+//                        }
 
                     }
                     // get pattern
@@ -327,24 +339,7 @@ public class Guidor {
 
                     }
                 }
-            }else if (propSeq.get(i).equals("when") && tag_option.equals("旅遊")){
-                // append punctuation
-                if (i != 0){
-
-                }
-                // get pattern
-                cursor = db.rawQuery("SELECT pattern\n" +
-                        "FROM sentence_pattern\n" +
-                        "WHERE sentencePatternNo = '" + index + "'", null);
-                cursor.moveToFirst();
-                if (debug)
-                    Log.d("NiCe", "SELECT pattern\n" +
-                            "FROM sentence_pattern\n" +
-                            "WHERE sentencePatternNo = '" + index + "'");
-                pattern = cursor.getString(0);
-
-            }
-            else{
+            }else{
                 index = diaryContentNoSeq.get(i);
                 // append punctuation
                 if (i != 0){
@@ -438,6 +433,7 @@ public class Guidor {
 //                option = where_option;
 //                break;
 //        }
+        boolean first=true;
         if (prop.equals("how")){
             // 5 sense
             for (int i=0; i<how_option.length(); i++) {
@@ -533,20 +529,79 @@ public class Guidor {
                 do {
                     indexes.add(cursor.getString(0));
                 }while(cursor.moveToNext());
-                int randomIndex = (int)(Math.random()*indexes.size());
-                index = indexes.get(randomIndex);
 
+                if(diaryContentNoSeq.size()>=1 && first && !tag_option.equals("旅遊")){
+                    first=false;
+                    StringBuilder selectedIndexes = new StringBuilder();
+                    for (int j=0; j<indexes.size(); j++){
+                        selectedIndexes.append("'").append(indexes.get(j)).append("'").append(", ");
+                    }
+                    selectedIndexes.deleteCharAt(selectedIndexes.length()-2);
+                    indexes.clear();
+
+                    cursor = db.rawQuery("SELECT nextPattern\n" +
+                            "    FROM pattern_link\n" +
+                            "    WHERE nextPattern in (\n" +
+                            "    \t" + selectedIndexes.toString() + " \n" +
+                            "    )\n" +
+                            "    AND sentencePatternNo IN (\n" +
+                            "    \t" + previous_patternNo + "\n" +
+                            "    )", null);
+                    Log.d("NiCe", "SELECT nextPattern\n" +
+                            "    FROM pattern_link\n" +
+                            "    WHERE nextPattern in (\n" +
+                            "    \t" + selectedIndexes.toString() + " \n" +
+                            "    )\n" +
+                            "    AND sentencePatternNo IN (\n" +
+                            "    \t" + previous_patternNo + "\n" +
+                            "    )");
+                    if (cursor.getCount() == 0){
+                        String callback_value = recursiveFixPatternSeq(diaryContentNoSeq.size()-1, selectedIndexes.toString(), selectedIndexes.toString(), null);
+                        switch (callback_value){
+                            case "-1":
+                            case "-2":
+                            case "-3":
+                            case "-4":
+                                error = true;
+                                return callback_value;
+                        }
+                        ret += callback_value;
+                        if (i != how_option.length()-1)
+                            ret += "_";
+                        indexes.clear();
+                    }else{
+                        cursor.moveToFirst();
+                        do{
+                            indexes.add(cursor.getString(0));
+                            if (debug)
+                                Log.d("indexes.add", cursor.getString(0));
+                        }while(cursor.moveToNext());
+
+                        int randomIndex = (int)(Math.random()*indexes.size());
+                        index = indexes.get(randomIndex);
 //                cursor = db.rawQuery("SELECT pattern\n" +
 //                        "FROM sentence_pattern\n" +
 //                        "WHERE sentencePatternNo = '" + index + "'", null);
 //                cursor.moveToFirst();
-                ret += index;
-                if (i != how_option.length()-1)
-                    ret += "_";
-                indexes.clear();
-            }
+                        ret += index;
+                        if (i != how_option.length()-1)
+                            ret += "_";
+                        indexes.clear();
+                    }
+                }else{
+                    int randomIndex = (int)(Math.random()*indexes.size());
+                    index = indexes.get(randomIndex);
+//                cursor = db.rawQuery("SELECT pattern\n" +
+//                        "FROM sentence_pattern\n" +
+//                        "WHERE sentencePatternNo = '" + index + "'", null);
+//                cursor.moveToFirst();
+                    ret += index;
+                    if (i != how_option.length()-1)
+                        ret += "_";
+                    indexes.clear();
+                }
 
-        }else if (prop.equals("when") && tag_option.equals("旅遊")){
+            }
 
         }else {
             int randomIndex;
@@ -805,7 +860,7 @@ public class Guidor {
                         "    AND sentencePatternNo IN (\n" +
                         "    \t" + thisPatternNos + "\n" +
                         "    )");
-                if (cursor.getCount() >= 0){
+                if (cursor.getCount() > 0){
                     cursor.moveToFirst();
                     sb = new StringBuilder();
                     do {

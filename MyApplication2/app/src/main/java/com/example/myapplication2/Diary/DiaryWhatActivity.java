@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,7 +26,8 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.Random;
 
 public class DiaryWhatActivity extends AppCompatActivity{
-    
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +53,6 @@ public class DiaryWhatActivity extends AppCompatActivity{
         }else if(DiaryValue.txtTag.equals("旅遊")){
             progressBarWhat.setProgress(35);
         }
-
-
 
         // 反回上一頁
         final ImageButton imbtnReturnFrontPage1 = findViewById(R.id.imbtnReturnFrontPage1);
@@ -214,6 +214,9 @@ public class DiaryWhatActivity extends AppCompatActivity{
             }
         });
 
+
+
+
     }
 
     public class InnerPagerAdapter extends FragmentPagerAdapter {
@@ -265,6 +268,8 @@ public class DiaryWhatActivity extends AppCompatActivity{
                         break;
                 }
             }
+
+
 
             return fragment;
         }
@@ -337,6 +342,7 @@ public class DiaryWhatActivity extends AppCompatActivity{
         }
 
     }
+
 
 
     // 擋住手機上回上一頁鍵

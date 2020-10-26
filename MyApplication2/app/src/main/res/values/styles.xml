@@ -871,4 +871,14 @@
         <item name="android:paddingTop">14dp</item>
         <item name="android:drawableTop">@mipmap/btn_bg_img_round</item>
     </style>
+
+    <style name="btn_handwriteaddpic" parent="@android:style/Widget.Button">
+        <!--<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>-->
+        <item name="android:background">@drawable/btn_handwritepic</item>
+        <item name="android:paddingRight">-22dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:drawableRight">@mipmap/ic_handwriteaddpic_foreground</item>
+    </style>
 </resources>
