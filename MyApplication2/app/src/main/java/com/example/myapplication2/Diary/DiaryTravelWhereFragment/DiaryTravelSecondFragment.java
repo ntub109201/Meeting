@@ -71,36 +71,32 @@ public class DiaryTravelSecondFragment extends Fragment {
                     public void onClick(View view) {
                         position = getAdapterPosition();
                         if (position == 0) {
-                            DiaryValue.txtWhere = "亞洲";
-                            Intent intent = new Intent(DiaryTravelSecondFragment.super.getActivity(), DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelSecondFragment.super.getActivity());
-                            startActivity(intent, options.toBundle());
+                            DiaryValue.txtWhere = "國外/亞洲";
                         } else if (position == 1) {
-                            DiaryValue.txtWhere = "歐洲";
-                            Intent intent = new Intent(DiaryTravelSecondFragment.super.getActivity(), DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelSecondFragment.super.getActivity());
-                            startActivity(intent, options.toBundle());
+                            DiaryValue.txtWhere = "國外/歐洲";
                         } else if (position == 2) {
-                            DiaryValue.txtWhere = "非洲";
-                            Intent intent = new Intent(DiaryTravelSecondFragment.super.getActivity(), DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelSecondFragment.super.getActivity());
-                            startActivity(intent, options.toBundle());
+                            DiaryValue.txtWhere = "國外/非洲";
                         } else if (position == 3) {
-                            DiaryValue.txtWhere = "北美洲";
-                            Intent intent = new Intent(DiaryTravelSecondFragment.super.getActivity(), DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelSecondFragment.super.getActivity());
-                            startActivity(intent, options.toBundle());
+                            DiaryValue.txtWhere = "國外/北美洲";
                         } else if (position == 4) {
-                            DiaryValue.txtWhere = "南美洲";
-                            Intent intent = new Intent(DiaryTravelSecondFragment.super.getActivity(), DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelSecondFragment.super.getActivity());
-                            startActivity(intent, options.toBundle());
+                            DiaryValue.txtWhere = "國外/南美洲";
                         }else if (position == 5) {
-                            DiaryValue.txtWhere = "南極洲";
+                            DiaryValue.txtWhere = "國外/南極洲";
+                        }
+                        if(DiaryValue.txtWhat.equals("")){
+                            Intent intent = new Intent();
+                            intent.setClass(DiaryTravelSecondFragment.super.getActivity(),DiaryPreviewActivity.class);
+                            Bundle tagData = new Bundle();
+                            tagData.putString("1","DiaryTravelWhereActivity");
+                            intent.putExtras(tagData);
+                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelSecondFragment.super.getActivity());
+                            startActivity(intent,options.toBundle());
+                        }else {
                             Intent intent = new Intent(DiaryTravelSecondFragment.super.getActivity(), DiaryHowActivity.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelSecondFragment.super.getActivity());
                             startActivity(intent, options.toBundle());
                         }
+
                     }
                 });
             }

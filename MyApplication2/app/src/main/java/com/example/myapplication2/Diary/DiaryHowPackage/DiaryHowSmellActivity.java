@@ -81,7 +81,7 @@ public class DiaryHowSmellActivity extends AppCompatActivity {
                         DiaryValue.howCount += 1;
                         for(int j = 0; j < DiaryValue.Smell_Count; j++){
                             if(spiceClick){
-                                DiaryValue.txtHow_food_Smell[j] = "芬多精";
+                                DiaryValue.txtHow_food_Smell[j] = "芬多精（享受）";
                                 j++;
                             }
                             if(stinkClick){

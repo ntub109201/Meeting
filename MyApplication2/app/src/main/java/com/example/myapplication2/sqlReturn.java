@@ -1,5 +1,9 @@
 package com.example.myapplication2;
 
+import android.net.Uri;
+
+import java.util.ArrayList;
+
 public class sqlReturn{
     public static int model;
     public static String GetUserID;
@@ -76,4 +80,6 @@ public class sqlReturn{
     public static String textAdd_friend;
     public static int add_friendNum;
     public static String[] add_friendName;
+
+    public static ArrayList<Uri> arrayList;
 }

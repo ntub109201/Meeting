@@ -146,6 +146,8 @@ public class DiaryWhenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhen = "";
+                DiaryValue.Time = "";
+                DiaryValue.EndTime = "";
                 if(DiaryValue.txtTag.equals("美食")){
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);

@@ -22,12 +22,30 @@ public class DiaryTravelWhenActivity extends AppCompatActivity {
 
 
     private Button btn_startDate,btn_endDate;
+    private ImageButton imBtnNext;
     private int pick = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_travel_when);
+
+
+        imBtnNext = findViewById(R.id.imBtnNext);
+        imBtnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(pick == 2){
+                    DiaryValue.txtWhen = "多天";
+                }else if(pick == 1){
+                    DiaryValue.txtWhen = "一天";
+                }
+                Intent intent = new Intent(DiaryTravelWhenActivity.this, DiaryTravelWhereActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhenActivity.this);
+                DiaryTravelWhenActivity.this.startActivity(intent,options.toBundle());
+            }
+        });
+
 
         final TextView txtWhen_title_travel = findViewById(R.id.txtWhen_title_travel);
         int randomNum = (int)(Math.random()* 3 + 1);
@@ -53,10 +71,8 @@ public class DiaryTravelWhenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(btn_skip.getText().toString().equals("跳題")){
                     DiaryValue.txtWhen = "";
-                    Intent intent = new Intent(DiaryTravelWhenActivity.this, DiaryTravelWhereActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhenActivity.this);
-                    DiaryTravelWhenActivity.this.startActivity(intent,options.toBundle());
-                }else {
+                    DiaryValue.Time = "";
+                    DiaryValue.EndTime = "";
                     Intent intent = new Intent(DiaryTravelWhenActivity.this, DiaryTravelWhereActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhenActivity.this);
                     DiaryTravelWhenActivity.this.startActivity(intent,options.toBundle());
@@ -99,6 +115,8 @@ public class DiaryTravelWhenActivity extends AppCompatActivity {
                 datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
                 datePickerDialog.show();
                 btn_skip.setText("下一題");
+                btn_skip.setVisibility(View.INVISIBLE);
+                imBtnNext.setVisibility(View.VISIBLE);
             }
         });
 
@@ -116,6 +134,8 @@ public class DiaryTravelWhenActivity extends AppCompatActivity {
                 datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
                 datePickerDialog.show();
                 btn_skip.setText("下一題");
+                btn_skip.setVisibility(View.INVISIBLE);
+                imBtnNext.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -124,8 +144,10 @@ public class DiaryTravelWhenActivity extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             if(pick == 1){
                 btn_startDate.setText(String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth));
+                DiaryValue.Time = (String.valueOf(year)+"-"+String.valueOf(month+1)+"-"+String.valueOf(dayOfMonth));
             }else if(pick == 2){
                 btn_endDate.setText(String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth));
+                DiaryValue.EndTime = (String.valueOf(year)+"-"+String.valueOf(month+1)+"-"+String.valueOf(dayOfMonth));
             }
         }
     };

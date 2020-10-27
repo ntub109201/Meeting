@@ -72,27 +72,25 @@ public class DiaryTravelFirstFragment extends Fragment {
                     public void onClick(View view) {
                         position = getAdapterPosition();
                         if (position == 0) {
-                            DiaryValue.txtWhere = "北部";
-                            Intent intent = new Intent(DiaryTravelFirstFragment.super.getActivity(), DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelFirstFragment.super.getActivity());
-                            startActivity(intent, options.toBundle());
+                            DiaryValue.txtWhere = "國內/北部";
                         } else if (position == 1) {
-                            DiaryValue.txtWhere = "中部";
-                            Intent intent = new Intent(DiaryTravelFirstFragment.super.getActivity(), DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelFirstFragment.super.getActivity());
-                            startActivity(intent, options.toBundle());
+                            DiaryValue.txtWhere = "國內/中部";
                         } else if (position == 2) {
-                            DiaryValue.txtWhere = "南部";
-                            Intent intent = new Intent(DiaryTravelFirstFragment.super.getActivity(), DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelFirstFragment.super.getActivity());
-                            startActivity(intent, options.toBundle());
+                            DiaryValue.txtWhere = "國內/南部";
                         } else if (position == 3) {
-                            DiaryValue.txtWhere = "東部";
-                            Intent intent = new Intent(DiaryTravelFirstFragment.super.getActivity(), DiaryHowActivity.class);
-                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelFirstFragment.super.getActivity());
-                            startActivity(intent, options.toBundle());
+                            DiaryValue.txtWhere = "國內/東部";
                         } else if (position == 4) {
-                            DiaryValue.txtWhere = "離島";
+                            DiaryValue.txtWhere = "國內/離島";
+                        }
+                        if(DiaryValue.txtWhat.equals("")){
+                            Intent intent = new Intent();
+                            intent.setClass(DiaryTravelFirstFragment.super.getActivity(),DiaryPreviewActivity.class);
+                            Bundle tagData = new Bundle();
+                            tagData.putString("1","DiaryTravelWhereActivity");
+                            intent.putExtras(tagData);
+                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelFirstFragment.super.getActivity());
+                            startActivity(intent,options.toBundle());
+                        }else {
                             Intent intent = new Intent(DiaryTravelFirstFragment.super.getActivity(), DiaryHowActivity.class);
                             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelFirstFragment.super.getActivity());
                             startActivity(intent, options.toBundle());
