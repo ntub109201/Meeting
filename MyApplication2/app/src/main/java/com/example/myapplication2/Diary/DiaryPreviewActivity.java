@@ -60,6 +60,7 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                 DiaryValue.Eye_Count = 0;
                 DiaryValue.Mouth_Count = 0;
                 DiaryValue.Smell_Count = 0;
+                DiaryValue.firstWhat = DiaryValue.txtWhat;
                 Intent intent = new Intent(DiaryPreviewActivity.this, DiaryTagActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
                 startActivity(intent,options.toBundle());
@@ -1901,13 +1902,15 @@ public class DiaryPreviewActivity extends AppCompatActivity{
 
         guidor.clearDiary();
 
-        totalPlus = (a+"\n");
+        totalPlus = (a+"\n\n");
         if(edit == null){
             finalTotal = total+ totalPlus;
             if(DiaryValue.Time.equals("")){
                 Calendar c = Calendar.getInstance();
                 if(DiaryValue.EndTime.equals("")){
                     textView.setText("時間"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH)+"\n"+finalTotal+"\n\n");
+                }else if(DiaryValue.EndTime.equals("123")){
+                    textView.setText(finalTotal+"\n\n");
                 }else {
                     textView.setText("時間"+DiaryValue.EndTime+"\n"+finalTotal+"\n\n");
                 }
@@ -1924,6 +1927,8 @@ public class DiaryPreviewActivity extends AppCompatActivity{
                 Calendar c = Calendar.getInstance();
                 if(DiaryValue.EndTime.equals("")){
                     textView.setText("時間"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH)+"\n"+finalTotal+"\n\n");
+                }else if(DiaryValue.EndTime.equals("123")){
+                    textView.setText(finalTotal+"\n\n");
                 }else {
                     textView.setText("時間"+DiaryValue.EndTime+"\n"+finalTotal+"\n\n");
                 }

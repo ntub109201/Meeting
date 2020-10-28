@@ -5,6 +5,7 @@ public class DiaryValue {
     public static String txtMood;
     public static String txtTag;
     public static String txtWhat;
+    public static String firstWhat = "";
     public static String txtWhy;
     public static String txtWhere;
     public static String txtWhen;

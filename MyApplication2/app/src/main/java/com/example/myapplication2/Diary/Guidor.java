@@ -234,29 +234,29 @@ public class Guidor {
                         if(tag_option.equals("旅遊")){
                             sb.append("，");
                         }else{
-                            cursor = db.rawQuery("SELECT punctuationMark\n" +
-                                    "FROM pattern_link\n" +
-                                    "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "", null);
-                            cursor.moveToFirst();
-                            if (debug)
-                                Log.d("NiCe", "SELECT punctuationMark\n" +
-                                        "FROM pattern_link\n" +
-                                        "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "");
-                            do{
-                                punctuations.add(cursor.getString(0));
-                            }while(cursor.moveToNext());
-                            punctuation = choosePunctuation(punctuations.get((int)(Math.random()*punctuations.size())));
-                            sb.append(punctuation);
-                        }
-//                        try{
+//                            cursor = db.rawQuery("SELECT punctuationMark\n" +
+//                                    "FROM pattern_link\n" +
+//                                    "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "", null);
+//                            cursor.moveToFirst();
+//                            if (debug)
+//                                Log.d("NiCe", "SELECT punctuationMark\n" +
+//                                        "FROM pattern_link\n" +
+//                                        "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "");
 //                            do{
 //                                punctuations.add(cursor.getString(0));
 //                            }while(cursor.moveToNext());
 //                            punctuation = choosePunctuation(punctuations.get((int)(Math.random()*punctuations.size())));
 //                            sb.append(punctuation);
-//                        }catch(CursorIndexOutOfBoundsException e){
-//                            sb.append("，");
-//                        }
+                        }
+                        try{
+                            do{
+                                punctuations.add(cursor.getString(0));
+                            }while(cursor.moveToNext());
+                            punctuation = choosePunctuation(punctuations.get((int)(Math.random()*punctuations.size())));
+                            sb.append(punctuation);
+                        }catch(CursorIndexOutOfBoundsException e){
+                            sb.append("，");
+                        }
 
                     }
                     // get pattern

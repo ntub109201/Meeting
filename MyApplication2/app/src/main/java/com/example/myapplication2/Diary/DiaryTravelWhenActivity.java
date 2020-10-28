@@ -131,7 +131,6 @@ public class DiaryTravelWhenActivity extends AppCompatActivity {
                 datePickerDialog.setMessage("請選擇日期");
                 datePickerDialog.setIcon(android.R.drawable.ic_dialog_info);
                 datePickerDialog.setCancelable(false);
-                datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
                 datePickerDialog.show();
                 btn_skip.setText("下一題");
                 btn_skip.setVisibility(View.INVISIBLE);

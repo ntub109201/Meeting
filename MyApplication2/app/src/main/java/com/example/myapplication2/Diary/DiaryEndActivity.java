@@ -105,6 +105,8 @@ public class DiaryEndActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditDiaryContext = editText3.getText().toString();
+                DiaryValue.Time = "";
+                DiaryValue.EndTime = "123";
                 Intent intent = new Intent();
                 intent.setClass(DiaryEndActivity.this,DiaryPreviewActivity.class);
                 Bundle tagData = new Bundle();
@@ -159,12 +161,14 @@ public class DiaryEndActivity extends AppCompatActivity {
 
     }
 
+    private String diaryOptionClass = "";
     public void DiaryInsert(){
 
-        if(DiaryValue.Time.equals("")){
-            currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        if(DiaryValue.firstWhat.equals("")){
+            diaryOptionClass = DiaryValue.txtWhat;
         }else {
-            currentDate = DiaryValue.EndTime;
+            diaryOptionClass = DiaryValue.firstWhat;
         }
         Map<String,String> map = new HashMap<>();
         map.put("command", "newDiary");
@@ -173,7 +177,7 @@ public class DiaryEndActivity extends AppCompatActivity {
         map.put("diaryTag",DiaryValue.txtTag);
         map.put("diaryDate",currentDate);
         map.put("diaryMood", DiaryValue.txtMood);
-        map.put("diaryOptionClass", DiaryValue.txtWhat);
+        map.put("diaryOptionClass", diaryOptionClass);
         new DiaryInsert(this).execute((HashMap)map);
     }
 

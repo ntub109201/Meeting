@@ -419,7 +419,7 @@ public class HomeFragment extends Fragment {
                     DateTime.setText("今天尚未");
                     txtTodayTag.setTextSize(24);
                     txtTodayTag.setText("建立日記");
-                    btnWriteTodayDiary.setEnabled(true);
+                    btnWriteTodayDiary.setEnabled(false);
                     imgTodayWhat.setBackgroundResource(R.drawable.request);
                 }
             }

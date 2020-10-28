@@ -50,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
     private static ProgressBar pr1;
     private String mail;
     private String pwd;
+    private String uid;
+    private String name;
     private EditText edUserEmail;
     private EditText edPasswd;
     //public static String GetUserID;
@@ -64,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        pr1 = findViewById(R.id.progressBar1);
         edUserEmail = findViewById(R.id.userEmail);
         edUserEmail.setText(sqlReturn.RegisterEmail);
         edPasswd = findViewById(R.id.password);
@@ -139,12 +142,12 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("121","handleSignInResult getUid:"+account.getId());
             Log.d("111","handleSignInResult getName:"+account.getDisplayName());
             Log.d("2222","handleSignInResult getEmail:"+account.getEmail());
-            sqlReturn.GetUserID = account.getId();
-            sqlReturn.PersonalName = account.getDisplayName();
-            sqlReturn.RegisterEmail = account.getEmail();
-            Intent intent = new Intent(LoginActivity.this,SecondActivity02.class);
-            startActivity(intent);
-//            googleLogin();
+            uid = account.getId();
+            name = account.getDisplayName();
+            mail = account.getEmail();
+//            Intent intent = new Intent(LoginActivity.this,SecondActivity02.class);
+//            startActivity(intent);
+            googleLogin();
         } catch (ApiException e) {
             Log.w("3333", "signInResult:failed code=" + e.getStatusCode());
         }
@@ -154,7 +157,6 @@ public class LoginActivity extends AppCompatActivity {
     public void login(){
         edUserEmail = findViewById(R.id.userEmail);
         edPasswd = findViewById(R.id.password);
-        pr1 = findViewById(R.id.progressBar1);
         mail = edUserEmail.getText().toString();
         pwd = edPasswd.getText().toString();
         if(mail.equals("")){
@@ -444,16 +446,16 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+
+    private String message;
     // Google登入
     public void googleLogin(){
-        String uid = sqlReturn.GetUserID;
-        String userName = sqlReturn.PersonalName;
-        String mail = sqlReturn.RegisterEmail;
         Map<String,String> map = new HashMap<>();
         map.put("command", "googleLogin");
         map.put("googleID", uid);
-        map.put("userName", userName);
-        map.put("mail", mail);
+        map.put("userName", "google藍允謙");
+        //map.put("mail", mail);
+        pr1.setVisibility(View.VISIBLE);
         new googleLogin(this).execute((HashMap)map);
     }
 
@@ -474,17 +476,35 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 jsonObject = new JSONObject(result);
                 status = jsonObject.getBoolean("status");
+                message = jsonObject.getString("message");
 
             }catch (JSONException e){
                 e.printStackTrace();
             }
 
             if(status == true){
-                Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                startActivity(intent,options.toBundle());
+                if(message.equals("已有登入資料")){
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else{
+                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                    startActivity(intent,options.toBundle());
+                }
+                sqlReturn.GetUserID = uid;
+                sqlReturn.RegisterEmail = mail;
+                sqlReturn.PersonalName = name;
+                mGoogleSignInClient.signOut();
+                pr1.setVisibility(View.INVISIBLE);
             }else{
                 mGoogleSignInClient.signOut();
+                pr1.setVisibility(View.INVISIBLE);
+                new AlertDialog.Builder(activity)
+                        .setTitle("伺服器擁擠中")
+                        .setMessage("信箱登入失敗")
+                        .setPositiveButton("OK", null)
+                        .show();
                 Log.d("222","error");
             }
         }

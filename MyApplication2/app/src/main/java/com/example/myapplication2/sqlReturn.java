@@ -66,8 +66,8 @@ public class sqlReturn{
     public static String PersonalName;
     public static String PersonalPicture;
     public static String PersonalHobby;
-    public static String PersonalBirthday;
-    public static String PersonalJob;
+    public static String PersonalBirthday = "";
+    public static String PersonalJob = "";
     public static boolean firstUse = false;
     // 此為搜尋好友
     public static String textViewSearchFriend = null;
