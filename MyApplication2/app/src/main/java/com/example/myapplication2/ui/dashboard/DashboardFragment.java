@@ -79,7 +79,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardFragment.super.getActivity(), PersonalActivity.class);
-                intent.putExtra("pageId",2);
+                intent.putExtra("pageId",3);
                 startActivity(intent);
             }
         });

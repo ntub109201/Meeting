@@ -26,6 +26,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     public static boolean login = false;
@@ -37,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard,R.id.navigation_friend,R.id.navigation_maybelike)
+                R.id.navigation_home, R.id.navigation_friend,R.id.navigation_dashboard,R.id.navigation_maybelike)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
@@ -49,13 +56,58 @@ public class MainActivity extends AppCompatActivity {
             navController.navigate(R.id.navigation_home);
         }
         if(id == 2){
-            navController.navigate(R.id.navigation_dashboard);
+            navController.navigate(R.id.navigation_friend);
         }
         if(id == 3){
-            navController.navigate(R.id.navigation_friend);
+            navController.navigate(R.id.navigation_dashboard);
         }
         if(id == 4){
             navController.navigate(R.id.navigation_maybelike);
+        }
+
+        if(sqlReturn.PersonalJob.equals("")||sqlReturn.PersonalHobby.equals("")){
+            personalData();
+        }
+
+    }
+
+    public void personalData(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "getInfo");
+        map.put("uid", uid);
+        new personalData(this).execute((HashMap)map);
+    }
+    private class personalData extends HttpURLConnection_AsyncTask {
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        personalData(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            //JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                if(status){
+                    sqlReturn.PersonalName = jsonObject.getString("userName");
+                    sqlReturn.PersonalHobby = jsonObject.getString("hobby");
+                    sqlReturn.PersonalJob = jsonObject.getString("job");
+                    sqlReturn.PersonalBirthday = jsonObject.getString("birthday");
+                    if(sqlReturn.PersonalBirthday.equals("null")){
+                        sqlReturn.PersonalBirthday = "";
+                    }
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
         }
     }
 

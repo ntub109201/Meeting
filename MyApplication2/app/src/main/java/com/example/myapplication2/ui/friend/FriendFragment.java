@@ -118,7 +118,7 @@ public class FriendFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FriendFragment.super.getActivity(), PersonalActivity.class);
-                intent.putExtra("pageId",3);
+                intent.putExtra("pageId",2);
                 startActivity(intent);
             }
         });

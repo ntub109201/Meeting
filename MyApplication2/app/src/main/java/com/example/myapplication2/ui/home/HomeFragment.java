@@ -413,13 +413,11 @@ public class HomeFragment extends Fragment {
                     dictionary dict = new dictionary();
                     imgTodayWhat.setImageResource(dict.dict.get(sqlReturn.LoginOption[0]));
                     imgTodayWhat.setBackgroundResource(R.drawable.img_home_circle);
-                    btnWriteTodayDiary.setEnabled(false);
                 }else{
                     DateTime.setTextSize(24);
                     DateTime.setText("今天尚未");
                     txtTodayTag.setTextSize(24);
                     txtTodayTag.setText("建立日記");
-                    btnWriteTodayDiary.setEnabled(false);
                     imgTodayWhat.setBackgroundResource(R.drawable.request);
                 }
             }

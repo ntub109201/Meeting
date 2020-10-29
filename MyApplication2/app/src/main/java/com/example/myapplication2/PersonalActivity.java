@@ -30,9 +30,7 @@ public class PersonalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personal);
 
 
-        if(sqlReturn.PersonalJob.equals("")||sqlReturn.PersonalHobby.equals("")){
-            personalData();
-        }
+
         final int pageId = getIntent().getIntExtra("pageId",0);
         final Button btn_setback = findViewById(R.id.btn_setback);
         btn_setback.setOnClickListener(new View.OnClickListener() {
@@ -76,45 +74,7 @@ public class PersonalActivity extends AppCompatActivity {
 
     }
 
-    public void personalData(){
-        String uid = sqlReturn.GetUserID;
-        Map<String,String> map = new HashMap<>();
-        map.put("command", "getInfo");
-        map.put("uid", uid);
-        new personalData(this).execute((HashMap)map);
-    }
-    private class personalData extends HttpURLConnection_AsyncTask {
-        // 建立弱連結
-        WeakReference<Activity> activityReference;
-        personalData(Activity context){
-            activityReference = new WeakReference<>(context);
-        }
-        @Override
-        protected void onPostExecute(String result) {
-            JSONObject jsonObject = null;
-            //JSONArray jsonArray = null;
-            boolean status = false;
-            // 取得弱連結的Context
-            Activity activity = activityReference.get();
-            if (activity == null || activity.isFinishing()) return;
 
-            try {
-                jsonObject = new JSONObject(result);
-                status = jsonObject.getBoolean("status");
-                if(status){
-                    sqlReturn.PersonalName = jsonObject.getString("userName");
-                    sqlReturn.PersonalHobby = jsonObject.getString("hobby");
-                    sqlReturn.PersonalJob = jsonObject.getString("job");
-                    sqlReturn.PersonalBirthday = jsonObject.getString("birthday");
-                    if(sqlReturn.PersonalBirthday.equals("null")){
-                        sqlReturn.PersonalBirthday = "";
-                    }
-                }
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-        }
-    }
 
     // 擋住手機上回上一頁鍵
     public boolean onKeyDown(int keyCode, KeyEvent event) {
