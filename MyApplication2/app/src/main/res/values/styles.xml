@@ -868,7 +868,7 @@
 
     <style name="btn_bg_img" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/btn_bg_img</item>
-        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingTop">0dp</item>
         <item name="android:drawableTop">@mipmap/btn_bg_img_round</item>
     </style>
 
@@ -881,4 +881,6 @@
         <item name="android:paddingTop">3dp</item>
         <item name="android:drawableRight">@mipmap/ic_handwriteaddpic_foreground</item>
     </style>
+
+
 </resources>

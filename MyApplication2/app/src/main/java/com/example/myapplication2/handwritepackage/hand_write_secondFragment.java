@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.myapplication2.HandwriteActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 import com.google.android.material.snackbar.Snackbar;
@@ -41,7 +42,6 @@ public class hand_write_secondFragment extends Fragment {
     private String mood;
     private String tag;
     private int countMood = 0, countTag = 0;
-    private Button btnfinish;
     private ProgressBar progressBarHandWrite;
 
     @Override
@@ -61,15 +61,9 @@ public class hand_write_secondFragment extends Fragment {
         final Button btn_paper_food = root.findViewById(R.id.btn_paper_food);
         final Button btn_paper_casual = root.findViewById(R.id.btn_paper_casual);
 
+
         progressBarHandWrite = root.findViewById(R.id.progressBarHandWrite);
 
-        btnfinish = root.findViewById(R.id.btnfinish);
-        btnfinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadImagesToServer();
-            }
-        });
 
         btn_paper_sunny.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -339,89 +333,6 @@ public class hand_write_secondFragment extends Fragment {
 //        }
 //    }
 
-    public void uploadImagesToServer() {
-        if (InternetConnection.checkConnection(hand_write_secondFragment.super.getActivity())) {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(ApiService.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
 
-            showProgress();
-
-            // create list of file parts (photo, video, ...)
-            List<MultipartBody.Part> parts = new ArrayList<>();
-
-            // create upload service client
-            ApiService service = retrofit.create(ApiService.class);
-
-            if (sqlReturn.arrayList != null) {
-                // create part for file (photo, video, ...)
-                for (int i = 0; i < sqlReturn.arrayList.size(); i++) {
-                    parts.add(prepareFilePart("image"+i, sqlReturn.arrayList.get(i)));
-                }
-            }
-
-            // create a map of data to pass along
-            RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
-            RequestBody size = createPartFromString(""+parts.size());
-
-            // finally, execute the request
-            Call<ResponseBody> call = service.uploadMultiple(description, size, parts);
-
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                    hideProgress();
-                    if(response.isSuccessful()) {
-                        Toast.makeText(hand_write_secondFragment.super.getActivity(),
-                                "Images successfully uploaded!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Snackbar.make(hand_write_secondFragment.super.getActivity().findViewById(android.R.id.content),
-                                R.string.string_some_thing_wrong, Snackbar.LENGTH_LONG).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                    hideProgress();
-                    Snackbar.make(hand_write_secondFragment.super.getActivity().findViewById(android.R.id.content),
-                            "Image upload failed!", Snackbar.LENGTH_LONG).show();
-                }
-            });
-
-        } else {
-            hideProgress();
-            Toast.makeText(hand_write_secondFragment.super.getActivity(),
-                    R.string.string_internet_connection_not_available, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void showProgress() {
-        progressBarHandWrite.setVisibility(View.VISIBLE);
-//        btnChoose.setEnabled(false);
-//        btnUpload.setVisibility(View.GONE);
-    }
-
-    private void hideProgress() {
-        progressBarHandWrite.setVisibility(View.INVISIBLE);
-//        btnChoose.setEnabled(true);
-//        btnUpload.setVisibility(View.VISIBLE);
-    }
-    @NonNull
-    private RequestBody createPartFromString(String descriptionString) {
-        return RequestBody.create(MediaType.parse(FileUtils.MIME_TYPE_TEXT), descriptionString);
-    }
-
-    @NonNull
-    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
-        // use the FileUtils to get the actual file by uri
-        File file = FileUtils.getFile(hand_write_secondFragment.super.getActivity(), fileUri);
-
-        // create RequestBody instance from file
-        RequestBody requestFile = RequestBody.create (MediaType.parse(FileUtils.MIME_TYPE_IMAGE), file);
-
-        // MultipartBody.Part is used to send also the actual file name
-        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
-    }
 
 }

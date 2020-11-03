@@ -1,5 +1,6 @@
 package com.example.myapplication2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -30,22 +31,40 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication2.handwritepackage.ApiService;
 import com.example.myapplication2.handwritepackage.hand_write_firstFragment;
 import com.example.myapplication2.handwritepackage.hand_write_secondFragment;
+import com.github.mikephil.charting.utils.FileUtils;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class HandwriteActivity extends AppCompatActivity {
+
+    private Button btn_handwritecheck,btn_sharehandwritediary;
 
 
     @Override
@@ -72,6 +91,9 @@ public class HandwriteActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
 
+        btn_handwritecheck = findViewById(R.id.btn_handwritecheck);
+        btn_sharehandwritediary = findViewById(R.id.btn_sharehandwritediary);
+
     }
 
     public class InnerPagerAdapter extends FragmentPagerAdapter {
@@ -84,10 +106,10 @@ public class HandwriteActivity extends AppCompatActivity {
             Fragment fragment = null;
             switch (position){
                 case 0:
-                    fragment = new hand_write_firstFragment();
+                    fragment = new hand_write_secondFragment();
                     break;
                 case 1:
-                    fragment = new hand_write_secondFragment();
+                    fragment = new hand_write_firstFragment();
                     break;
             }
             return fragment;
@@ -102,10 +124,10 @@ public class HandwriteActivity extends AppCompatActivity {
             String a = "";
             switch (position) {
                 case 0:
-                    a = "第一頁";
+                    a = "";
                     break;
                 case 1:
-                    a = "第二頁";
+                    a = "";
                     break;
                 default:
                     a = null;
@@ -113,7 +135,13 @@ public class HandwriteActivity extends AppCompatActivity {
             return a;
         }
 
+
     }
+
+
+
+
+
     // 擋住手機上回上一頁鍵
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -129,4 +157,8 @@ public class HandwriteActivity extends AppCompatActivity {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         return super.onKeyUp(keyCode, event);
     }
+
+
+
+
 }

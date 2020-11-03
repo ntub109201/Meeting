@@ -81,6 +81,7 @@ public class hand_write_firstFragment extends Fragment {
         recyclerview.setAdapter(myAdapter);
         doData();
 
+
         btn_addphoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
