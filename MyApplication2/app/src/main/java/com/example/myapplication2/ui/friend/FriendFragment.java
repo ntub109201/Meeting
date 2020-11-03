@@ -62,6 +62,7 @@ public class FriendFragment extends Fragment {
     private Button btn_addfriend;
     private ConstraintLayout no_friend_layout;
     private ImageView no_friend_picture1,no_friend_picture2;
+    private ConstraintLayout FriendLayout;
 
     public static int FriendTag;
 
@@ -73,6 +74,7 @@ public class FriendFragment extends Fragment {
         if(HomeFragment.changeBtn == true){
             HomeFragment.changeBtn = false;
         }
+
 
         btn_addfriend = root.findViewById(R.id.btn_addfriend);
         btn_addfriend.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +128,14 @@ public class FriendFragment extends Fragment {
         no_friend_layout = root.findViewById(R.id.no_friend_layout);
         no_friend_picture1 = root.findViewById(R.id.no_friend_picture1);
         no_friend_picture2 = root.findViewById(R.id.no_friend_picture2);
+        FriendLayout = root.findViewById(R.id.FriendLayout);
+
+        if(sqlReturn.check_friend){
+            no_friend_layout.setVisibility(View.GONE);
+            no_friend_picture1.setVisibility(View.GONE);
+            no_friend_picture2.setVisibility(View.GONE);
+            FriendLayout.setVisibility(View.VISIBLE);
+        }
 
         return root;
     }
@@ -258,13 +268,13 @@ public class FriendFragment extends Fragment {
                 myAdapter = new MyAdapter();
                 mRecyclerView.setAdapter(myAdapter);
                 RefreshLayoutFriend.setRefreshing(false);
-                no_friend_layout.setVisibility(View.INVISIBLE);
+                no_friend_layout.setVisibility(View.GONE);
                 no_friend_layout.setEnabled(false);
-                no_friend_picture1.setVisibility(View.INVISIBLE);
+                no_friend_picture1.setVisibility(View.GONE);
                 no_friend_picture1.setEnabled(false);
-                no_friend_picture2.setVisibility(View.INVISIBLE);
+                no_friend_picture2.setVisibility(View.GONE);
                 no_friend_picture2.setEnabled(false);
-
+                FriendLayout.setVisibility(View.VISIBLE);
             }
         }
 

@@ -354,6 +354,9 @@ public class LoginActivity extends AppCompatActivity {
                     sqlReturn.dateFriend[i] = obj.getString("date");
                     sqlReturn.friendName[i] = obj.getString("friendName01");
                 }
+                if(sqlReturn.SearchCountFriend>0){
+                    sqlReturn.check_friend = true;
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }

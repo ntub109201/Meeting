@@ -28,10 +28,7 @@ public class SocialArticalActivity extends AppCompatActivity {
         imbtnReturnToSocial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SocialArticalActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("id",3);
-                startActivity(intent);
+                SocialArticalActivity.this.finish();
             }
         });
 

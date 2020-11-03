@@ -82,4 +82,6 @@ public class sqlReturn{
     public static String[] add_friendName;
 
     public static ArrayList<Uri> arrayList;
+
+    public static boolean check_friend = false;
 }
