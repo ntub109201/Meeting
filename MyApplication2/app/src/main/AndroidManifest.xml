@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="com.android.hardware.camera2.full" />
 
     <application
@@ -16,6 +17,8 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.friend.SingleFriendActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AnythingTestActivity"
             android:screenOrientation="portrait" />
@@ -101,7 +104,7 @@
             android:label="@string/title_OCR"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HandwriteActivity"
+            android:name=".handwritepackage.HandwriteActivity"
             android:label="@string/title_handwritediary"
             android:screenOrientation="portrait" />
         <activity
@@ -124,7 +127,8 @@
             android:name=".Diary.DiaryWhatActivity"
             android:label="@string/title_diary"
             android:screenOrientation="portrait" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -250,7 +250,7 @@ public class HomeContextActivity extends AppCompatActivity {
                 new AlertDialog.Builder(activity)
                         .setTitle("日記修改失敗")
                         .setMessage("請確認網路是否連通!!")
-                        .setPositiveButton("OK", null)
+                        .setPositiveButton("了解", null)
                         .show();
             }
         }

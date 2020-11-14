@@ -17,7 +17,7 @@ import com.example.myapplication2.sqlReturn;
 
 public class SocialArticalActivity extends AppCompatActivity {
 
-    private TextView SocialDiaryTitle,SocialUserName,SocialDiaryDateTime,txtSocialContext;
+    private TextView SocialDiaryTitle,SocialUserName,SocialDiaryDateTime,txtSocialContext,SocialMood;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,22 @@ public class SocialArticalActivity extends AppCompatActivity {
         SocialDiaryTitle.setText(sqlReturn.tagNameFriend[FriendFragment.FriendTag]);
         txtSocialContext = findViewById(R.id.txtSocialContext);
         txtSocialContext.setText(sqlReturn.contentFriend[FriendFragment.FriendTag]);
+        SocialMood = findViewById(R.id.SocialMood);
+        String context = sqlReturn.moodFriend[FriendFragment.FriendTag];
+        String realContext = "";
+        if(context.equals("心情1")){
+            realContext = "心情超棒的";
+        }else if(context.equals("心情2")){
+            realContext = "心情不錯歐";
+        }else if(context.equals("心情3")){
+            realContext = "心情普普呢";
+        }else if(context.equals("心情4")){
+            realContext = "心情不好啊";
+        }else if(context.equals("心情5")){
+            realContext = "心情很差呢";
+        }
+
+        SocialMood.setText(realContext);
 
     }
     // 擋住手機上回上一頁鍵

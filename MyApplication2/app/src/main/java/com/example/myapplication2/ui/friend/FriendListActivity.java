@@ -3,6 +3,7 @@ package com.example.myapplication2.ui.friend;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -11,7 +12,9 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +51,7 @@ public class FriendListActivity extends AppCompatActivity {
     private MyAdapter2 myAdapter2;
     private SwipeRefreshLayout RefreshLayoutFriendList1, RefreshLayoutFriendList2;
     public static int data1_list = 3;
+    public static int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +96,7 @@ public class FriendListActivity extends AppCompatActivity {
 
         RecyclerView2 = findViewById(R.id.recyclerView2);
         RecyclerView2.setHasFixedSize(true);
-        LayoutManager2 = new LinearLayoutManager(this);
+        LayoutManager2 = new GridLayoutManager(this,3);
         RecyclerView2.setLayoutManager(LayoutManager2);
         myAdapter2 = new MyAdapter2();
         RecyclerView2.setAdapter(myAdapter2);
@@ -193,35 +197,12 @@ public class FriendListActivity extends AppCompatActivity {
     }
 
 
-
-
     private void doData2(){
+
         data2 = new LinkedList<>();
-
-        int a = 0 , b = 0, c = 0;
-        a = sqlReturn.SearchCountFriendList/3;
-        b = sqlReturn.SearchCountFriendList%3;
-        if (b != 0){
-            a+=1;
-        }
-        for(int i = 0; i < a; i++) {
+        for(int i = 0; i< sqlReturn.SearchCountFriendList;i++){
             HashMap<String, String> row = new HashMap<>();
-            if(c + 1 == sqlReturn.SearchCountFriendList){
-                row.put("textName", sqlReturn.friendListName[c]);
-            }else if(c + 2 == sqlReturn.SearchCountFriendList){
-                row.put("textName", sqlReturn.friendListName[c]);
-                row.put("textName1", sqlReturn.friendListName[c+1]);
-            }else if(c + 3 == sqlReturn.SearchCountFriendList){
-                row.put("textName", sqlReturn.friendListName[c]);
-                row.put("textName1", sqlReturn.friendListName[c+1]);
-                row.put("textName2", sqlReturn.friendListName[c+2]);
-            }else {
-                row.put("textName", sqlReturn.friendListName[c]);
-                row.put("textName1", sqlReturn.friendListName[c+1]);
-                row.put("textName2", sqlReturn.friendListName[c+2]);
-
-            }
-            c = c+ 3;
+            row.put("textName", sqlReturn.friendListName[i]);
             data2.add(row);
         }
 
@@ -231,17 +212,21 @@ public class FriendListActivity extends AppCompatActivity {
 
         class MyViewHolder extends RecyclerView.ViewHolder{
             public View itemView;
-            public TextView textName, textName1, textName2;
-            public RoundedImageView roundedImageView, roundedImageView1, roundedImageView2;
+            public TextView textName;
+            public RoundedImageView roundedImageView;
             public MyViewHolder(View view){
                 super(view);
                 itemView = view;
                 textName = itemView.findViewById(R.id.textName);
                 roundedImageView = itemView.findViewById(R.id.roundedImageView);
-                textName1 = itemView.findViewById(R.id.textName1);
-                roundedImageView1 = itemView.findViewById(R.id.roundedImageView1);
-                textName2 = itemView.findViewById(R.id.textName2);
-                roundedImageView2 = itemView.findViewById(R.id.roundedImageView2);
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        position = getAdapterPosition();
+                        friendSearch();
+                    }
+                });
             }
         }
 
@@ -258,8 +243,7 @@ public class FriendListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyAdapter2.MyViewHolder holder, int position) {
             holder.textName.setText(data2.get(position).get("textName"));
-            holder.textName1.setText(data2.get(position).get("textName1"));
-            holder.textName2.setText(data2.get(position).get("textName2"));
+            holder.roundedImageView.setImageResource(R.mipmap.ic_usericon_foreground);
         }
 
         @Override
@@ -310,6 +294,64 @@ public class FriendListActivity extends AppCompatActivity {
                 Toast.makeText(activity, "成功", Toast.LENGTH_LONG).show();
             }else {
                 Toast.makeText(activity, "失敗", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public void friendSearch(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "friendSearch");
+        map.put("uid", uid);
+        map.put("searchFriend",sqlReturn.friendListName[position]);
+        new friendSearch(this).execute((HashMap)map);
+    }
+
+    private class friendSearch extends HttpURLConnection_AsyncTask{
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        friendSearch(Activity context){activityReference = new WeakReference<>(context);}
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                sqlReturn.friendSearchCount = jsonObject.getInt("rowcount");
+                sqlReturn.textViewContextfriendSearch = jsonObject.getString("results");
+                jsonArray = new JSONArray(sqlReturn.textViewContextfriendSearch);
+                sqlReturn.friendSearchContent = new String[sqlReturn.friendSearchCount];
+                sqlReturn.friendSearchMood = new String[sqlReturn.friendSearchCount];
+                sqlReturn.friendSearchTagName = new String[sqlReturn.friendSearchCount];
+                sqlReturn.friendSearchDate = new String[sqlReturn.friendSearchCount];
+                sqlReturn.friendSearchName = new String[sqlReturn.friendSearchCount];
+                for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
+                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    sqlReturn.friendSearchContent[i] = obj.getString("content");
+                    sqlReturn.friendSearchMood[i] = obj.getString("mood");
+                    sqlReturn.friendSearchTagName[i] = obj.getString("tagName");
+                    sqlReturn.friendSearchDate[i] = obj.getString("date");
+                    sqlReturn.friendSearchName[i] = obj.getString("friendName01");
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (status){
+                Intent intent = new Intent(FriendListActivity.this,SingleFriendActivity.class);
+                startActivity(intent);
+            }else {
+                new AlertDialog.Builder(activity)
+                        .setTitle("提醒您")
+                        .setMessage("好友"+sqlReturn.friendListName[position]+"尚未新增日記")
+                        .setPositiveButton("了解", null)
+                        .show();
             }
         }
     }

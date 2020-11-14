@@ -410,7 +410,7 @@ public class OCRActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             progressBar.setVisibility(View.VISIBLE);
-                            DiaryInsert();
+//                            DiaryInsert();
                         }
                     }).setNegativeButton("我想再改改",null).create()
                     .show();

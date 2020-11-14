@@ -7,23 +7,17 @@ import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -35,12 +29,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.myapplication2.Diary.DiaryActivity;
-import com.example.myapplication2.DiaryValue;
-import com.example.myapplication2.HandwriteActivity;
+import com.example.myapplication2.handwritepackage.HandwriteActivity;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
-import com.example.myapplication2.Login.LoginActivity;
-import com.example.myapplication2.MainActivity;
-import com.example.myapplication2.ModifyPersonalActivity;
 import com.example.myapplication2.OCRActivity;
 import com.example.myapplication2.PersonalActivity;
 import com.example.myapplication2.R;
@@ -52,10 +42,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
-import java.sql.Ref;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Locale;
@@ -164,7 +152,7 @@ public class HomeFragment extends Fragment {
             public void onRefresh() {
                 if (buttonTest.getText().equals("晴天") || buttonTest.getText().equals("時晴") || buttonTest.getText().equals("多雲") || buttonTest.getText().equals("陣雨") || buttonTest.getText().equals("雷雨")) {
                     searchByMood();
-                } else if (buttonTest.getText().equals("美食") || buttonTest.getText().equals("購物")) {
+                } else if (buttonTest.getText().equals("美食") || buttonTest.getText().equals("購物") || buttonTest.getText().equals("戀愛")|| buttonTest.getText().equals("旅遊")|| buttonTest.getText().equals("娛樂")) {
                     searchByTag();
                 } else if(buttonTest.getText().equals("手寫日記")){
                     SearchHandWrite();
@@ -207,7 +195,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 searchBtn1.setText("美食");
                 searchBtn2.setText("購物");
-                searchBtn3.setText("愛情");
+                searchBtn3.setText("戀愛");
                 searchBtn4.setText("旅遊");
                 searchBtn5.setText("娛樂");
             }
@@ -223,13 +211,12 @@ public class HomeFragment extends Fragment {
         searchBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBarHome.setVisibility(View.VISIBLE);
                 if(searchBtn1.getText().equals("晴天")){
                     buttonTest.setText("晴天");
-                    progressBarHome.setVisibility(View.VISIBLE);
                     searchByMood();
                 }else if(searchBtn1.getText().equals("美食")){
                     buttonTest.setText("美食");
-                    progressBarHome.setVisibility(View.VISIBLE);
                     searchByTag();
                 }
 
@@ -238,9 +225,9 @@ public class HomeFragment extends Fragment {
         searchBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBarHome.setVisibility(View.VISIBLE);
                 if(searchBtn2.getText().equals("時晴")){
                     buttonTest.setText("時晴");
-                    progressBarHome.setVisibility(View.VISIBLE);
                     searchByMood();
                 }else if(searchBtn2.getText().equals("購物")){
                     buttonTest.setText("購物");
@@ -251,42 +238,41 @@ public class HomeFragment extends Fragment {
         searchBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBarHome.setVisibility(View.VISIBLE);
                 if(searchBtn3.getText().equals("多雲")){
                     buttonTest.setText("多雲");
-                    progressBarHome.setVisibility(View.VISIBLE);
                     searchByMood();
-                    //doDataSearchMood();
-                }else if(searchBtn3.getText().equals("愛情")){
-                    buttonTest.setText("愛情");
-                    //searchTag();
+                }else if(searchBtn3.getText().equals("戀愛")){
+                    buttonTest.setText("戀愛");
+                    searchByTag();
                 }
             }
         });
         searchBtn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBarHome.setVisibility(View.VISIBLE);
                 if(searchBtn4.getText().equals("陣雨")){
                     buttonTest.setText("陣雨");
-                    progressBarHome.setVisibility(View.VISIBLE);
+
                     searchByMood();
-                    //doDataSearchMood();
                 }else if(searchBtn4.getText().equals("旅遊")){
                     buttonTest.setText("旅遊");
-                    //searchTag();
+                    searchByTag();
                 }
             }
         });
         searchBtn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBarHome.setVisibility(View.VISIBLE);
                 if(searchBtn5.getText().equals("雷雨")){
                     buttonTest.setText("雷雨");
-                    progressBarHome.setVisibility(View.VISIBLE);
+
                     searchByMood();
-                    //doDataSearchMood();
                 }else if(searchBtn5.getText().equals("娛樂")){
                     buttonTest.setText("娛樂");
-                    //searchTag();
+                    searchByTag();
                 }
             }
         });
@@ -650,6 +636,12 @@ public class HomeFragment extends Fragment {
             searchTag = "美食";
         }else if(buttonTest.getText().equals("購物")){
             searchTag = "購物";
+        }else if(buttonTest.getText().equals("戀愛")){
+            searchTag = "戀愛";
+        }else if(buttonTest.getText().equals("旅遊")){
+            searchTag = "旅遊";
+        }else if(buttonTest.getText().equals("娛樂")){
+            searchTag = "休閒娛樂";
         }
         String uid = sqlReturn.GetUserID;
         Map<String,String> map = new HashMap<>();
@@ -678,25 +670,50 @@ public class HomeFragment extends Fragment {
 
             try {
                 jsonObject = new JSONObject(result);
-
-                sqlReturn.textViewContext2 = jsonObject.getString("results");
-                sqlReturn.SearchCountTag = jsonObject.getInt("rowcount");
-                jsonArray = new JSONArray(sqlReturn.textViewContext2);
-                sqlReturn.content2 = new String[sqlReturn.SearchCountTag];
-                sqlReturn.tagName2 = new String[sqlReturn.SearchCountTag];
-                sqlReturn.mood2 = new String[sqlReturn.SearchCountTag];
-                sqlReturn.date2 = new String[sqlReturn.SearchCountTag];
-                sqlReturn.Option2 = new String[sqlReturn.SearchCountTag];
-                sqlReturn.DiaryID2 = new String[sqlReturn.SearchCountTag];
-                for(int i = 0; i<sqlReturn.SearchCountTag; i++){
-                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
-                    sqlReturn.content2[i] = obj.getString("content");
-                    sqlReturn.tagName2[i] = obj.getString("tagName");
-                    sqlReturn.mood2[i] = obj.getString("mood");
-                    sqlReturn.date2[i] = obj.getString("date");
-                    sqlReturn.Option2[i] = obj.getString("optionNo");
-                    sqlReturn.DiaryID2[i] = obj.getString("diaryNo");
+                status = jsonObject.getBoolean("status");
+                if (status){
+                    sqlReturn.textViewContext2 = jsonObject.getString("results");
+                    sqlReturn.SearchCountTag = jsonObject.getInt("rowcount");
+                    jsonArray = new JSONArray(sqlReturn.textViewContext2);
+                    sqlReturn.content2 = new String[sqlReturn.SearchCountTag];
+                    sqlReturn.tagName2 = new String[sqlReturn.SearchCountTag];
+                    sqlReturn.mood2 = new String[sqlReturn.SearchCountTag];
+                    sqlReturn.date2 = new String[sqlReturn.SearchCountTag];
+                    sqlReturn.Option2 = new String[sqlReturn.SearchCountTag];
+                    sqlReturn.DiaryID2 = new String[sqlReturn.SearchCountTag];
+                    for(int i = 0; i<sqlReturn.SearchCountTag; i++){
+                        JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                        sqlReturn.content2[i] = obj.getString("content");
+                        sqlReturn.tagName2[i] = obj.getString("tagName");
+                        sqlReturn.mood2[i] = obj.getString("mood");
+                        sqlReturn.date2[i] = obj.getString("date");
+                        sqlReturn.Option2[i] = obj.getString("optionNo");
+                        sqlReturn.DiaryID2[i] = obj.getString("diaryNo");
+                    }
+                }else{
+                    sqlReturn.textViewContext2 = "";
+                    sqlReturn.SearchCountTag = 0;
+                    sqlReturn.content2 = new String[sqlReturn.SearchCountTag];
+                    sqlReturn.tagName2 = new String[sqlReturn.SearchCountTag];
+                    sqlReturn.mood2 = new String[sqlReturn.SearchCountTag];
+                    sqlReturn.date2 = new String[sqlReturn.SearchCountTag];
+                    sqlReturn.Option2 = new String[sqlReturn.SearchCountTag];
+                    sqlReturn.DiaryID2 = new String[sqlReturn.SearchCountTag];
+                    for(int i = 0; i<sqlReturn.SearchCountTag; i++){
+                        sqlReturn.content2[i] = "";
+                        sqlReturn.tagName2[i] = "";
+                        sqlReturn.mood2[i] = "";
+                        sqlReturn.date2[i] = "";
+                        sqlReturn.Option2[i] = "";
+                        sqlReturn.DiaryID2[i] = "";
+                    }
+                    new AlertDialog.Builder(activity)
+                            .setTitle("提醒")
+                            .setMessage("您沒有撰寫過主題為 ("+buttonTest.getText()+") 的日記")
+                            .setPositiveButton("OK", null)
+                            .show();
                 }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -710,6 +727,8 @@ public class HomeFragment extends Fragment {
                 mRecyclerView.setAdapter(myAdapter);
                 progressBarHome.setVisibility(View.INVISIBLE);
                 RefreshLayoutHome.setRefreshing(false);
+            }else{
+                progressBarHome.setVisibility(View.INVISIBLE);
             }
         }
 

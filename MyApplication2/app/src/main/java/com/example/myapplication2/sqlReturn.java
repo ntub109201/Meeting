@@ -53,11 +53,21 @@ public class sqlReturn{
     public static String[] tagNameFriend;
     public static String[] dateFriend;
     public static String[] friendName;
+    public static String[] friendBFF;
     // 此為抓好友
     public static String textViewContextFriendList = null;
     public static int SearchCountFriendList;
     public static String[] friendListName;
     public static String[] friendListNum;
+    public static String[] friendListBFF;
+    // 此為抓特定好友日記
+    public static String textViewContextfriendSearch = null;
+    public static int friendSearchCount;
+    public static String[] friendSearchContent;
+    public static String[] friendSearchMood;
+    public static String[] friendSearchTagName;
+    public static String[] friendSearchDate;
+    public static String[] friendSearchName;
     // 註冊成功
     public static Boolean RegisterFirstLogin = true;
     public static String RegisterEmail = "nx01daniel@gmail.com";
@@ -80,8 +90,5 @@ public class sqlReturn{
     public static String textAdd_friend;
     public static int add_friendNum;
     public static String[] add_friendName;
-
-    public static ArrayList<Uri> arrayList;
-
     public static boolean check_friend = false;
 }

@@ -248,6 +248,7 @@ public class FriendFragment extends Fragment {
                 sqlReturn.moodFriend = new String[sqlReturn.SearchCountFriend];
                 sqlReturn.dateFriend = new String[sqlReturn.SearchCountFriend];
                 sqlReturn.friendName = new String[sqlReturn.SearchCountFriend];
+                sqlReturn.friendBFF = new String[sqlReturn.SearchCountFriend];
                 for(int i = 0; i<sqlReturn.SearchCountFriend; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.contentFriend[i] = obj.getString("content");
@@ -255,6 +256,7 @@ public class FriendFragment extends Fragment {
                     sqlReturn.moodFriend[i] = obj.getString("mood");
                     sqlReturn.dateFriend[i] = obj.getString("date");
                     sqlReturn.friendName[i] = obj.getString("friendName01");
+                    sqlReturn.friendBFF[i] = obj.getString("BFF");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -311,18 +313,15 @@ public class FriendFragment extends Fragment {
                 jsonArray = new JSONArray(sqlReturn.textViewContextFriendList);
                 sqlReturn.friendListNum = new String[sqlReturn.SearchCountFriendList];
                 sqlReturn.friendListName = new String[sqlReturn.SearchCountFriendList];
+                sqlReturn.friendListBFF = new String[sqlReturn.SearchCountFriendList];
                 for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.friendListNum[i] = obj.getString("friendNum");
                     sqlReturn.friendListName[i] = obj.getString("friendName01");
+                    sqlReturn.friendListBFF[i] = obj.getString("BFF");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
-            if (sqlReturn.textViewContextFriendList!=null){
-                //Toast.makeText(activity, String.valueOf(sqlReturn.SearchCountMood), Toast.LENGTH_LONG).show();
-            }else {
-
             }
         }
     }
