@@ -53,7 +53,7 @@ public class FriendListActivity extends AppCompatActivity {
     public static int data1_list;
     public static int position1;
     public static int position2;
-    private ImageView imgNoFriend1,imgNoFriend2;
+    private ImageView imgNoFriend1,imgNoFriend2,imageDown1,imageDown2;
     private TextView test01;
 
 
@@ -64,6 +64,8 @@ public class FriendListActivity extends AppCompatActivity {
 
         imgNoFriend1 = findViewById(R.id.imgNoFriend1);
         imgNoFriend2 = findViewById(R.id.imgNoFriend2);
+        imageDown1 = findViewById(R.id.imageDown1);
+        imageDown2 = findViewById(R.id.imageDown2);
         test01 = findViewById(R.id.test01);
         test01.setText(String.valueOf(sqlReturn.add_friendCount));
 
@@ -206,10 +208,17 @@ public class FriendListActivity extends AppCompatActivity {
     private void doData2(){
 
         data2 = new LinkedList<>();
-        for(int i = 0; i< sqlReturn.SearchCountFriendList;i++){
-            HashMap<String, String> row = new HashMap<>();
-            row.put("textName", sqlReturn.friendListName[i]);
-            data2.add(row);
+        if(sqlReturn.SearchCountFriendList > 0){
+            imageDown1.setVisibility(View.INVISIBLE);
+            imageDown2.setVisibility(View.INVISIBLE);
+            for(int i = 0; i< sqlReturn.SearchCountFriendList;i++){
+                HashMap<String, String> row = new HashMap<>();
+                row.put("textName", sqlReturn.friendListName[i]);
+                data2.add(row);
+            }
+        }else{
+            imageDown1.setVisibility(View.VISIBLE);
+            imageDown2.setVisibility(View.VISIBLE);
         }
 
     }
@@ -297,9 +306,9 @@ public class FriendListActivity extends AppCompatActivity {
             }
             if (sqlReturn.textViewContextFriendList!=null){
                 doData2();
-                Toast.makeText(activity, "成功", Toast.LENGTH_LONG).show();
+                //Toast.makeText(activity, "成功", Toast.LENGTH_LONG).show();
             }else {
-                Toast.makeText(activity, "失敗", Toast.LENGTH_LONG).show();
+                //Toast.makeText(activity, "失敗", Toast.LENGTH_LONG).show();
             }
         }
     }

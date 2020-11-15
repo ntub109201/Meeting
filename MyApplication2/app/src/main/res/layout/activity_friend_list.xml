@@ -167,6 +167,33 @@
 
             </androidx.recyclerview.widget.RecyclerView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ImageView
+            android:id="@+id/imageDown1"
+            android:layout_width="266dp"
+            android:layout_height="76dp"
+            android:scaleType="centerCrop"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.06999999"
+            app:srcCompat="@mipmap/ic_nodatafriendicon1_foreground" />
+
+        <ImageView
+            android:id="@+id/imageDown2"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.563"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@mipmap/ic_nodatafriendicon2_foreground" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
