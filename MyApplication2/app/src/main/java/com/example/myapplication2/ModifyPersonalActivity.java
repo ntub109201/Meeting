@@ -148,7 +148,6 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         String job = spinJob.getSelectedItem().toString();
         String hobby = spinTag.getSelectedItem().toString();
         String userName = edtName.getText().toString();
-        String userPass = sqlReturn.RegisterPassword;
         String email = sqlReturn.RegisterEmail;
         Map<String,String> map = new HashMap<>();
         map.put("command", "newPersonInfo");
@@ -157,7 +156,6 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         map.put("hobby", hobby);
         map.put("userName",userName);
         map.put("email",email);
-        map.put("userPass",userPass);
         new sendPersonalData(this).execute((HashMap)map);
     }
     private class sendPersonalData extends HttpURLConnection_AsyncTask {

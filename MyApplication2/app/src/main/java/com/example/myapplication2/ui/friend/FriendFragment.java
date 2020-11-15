@@ -75,6 +75,7 @@ public class FriendFragment extends Fragment {
             HomeFragment.changeBtn = false;
         }
 
+        addFriend();
 
         btn_addfriend = root.findViewById(R.id.btn_addfriend);
         btn_addfriend.setOnClickListener(new View.OnClickListener() {
@@ -321,6 +322,54 @@ public class FriendFragment extends Fragment {
                     sqlReturn.friendListBFF[i] = obj.getString("BFF");
                 }
             } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // 取待加入好友
+    public void addFriend(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "friendConfirm");
+        map.put("uid", uid);
+        new addFriend(FriendFragment.super.getActivity()).execute((HashMap)map);
+    }
+    private class addFriend extends HttpURLConnection_AsyncTask {
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        addFriend(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                if(status){
+                    sqlReturn.textAdd_friend = jsonObject.getString("results");
+                    sqlReturn.add_friendCount = jsonObject.getInt("rowcount");
+                    jsonArray = new JSONArray(sqlReturn.textAdd_friend);
+                    sqlReturn.add_friendNum = new String[sqlReturn.add_friendCount];
+                    sqlReturn.add_friendName = new String[sqlReturn.add_friendCount];
+                    sqlReturn.add_friendBFF = new String[sqlReturn.add_friendCount];
+                    for (int i = 0; i<sqlReturn.add_friendCount; i++){
+                        JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                        sqlReturn.add_friendNum[i] = obj.getString("friendNum");
+                        sqlReturn.add_friendName[i] = obj.getString("friendName01");
+                        sqlReturn.add_friendBFF[i] = obj.getString("BFF");
+                    }
+                }else {
+                    Toast.makeText(activity, "失敗", Toast.LENGTH_LONG).show();
+                }
+            }catch (JSONException e){
                 e.printStackTrace();
             }
         }

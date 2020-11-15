@@ -50,14 +50,22 @@ public class FriendListActivity extends AppCompatActivity {
     private MyAdapter1 myAdapter1;
     private MyAdapter2 myAdapter2;
     private SwipeRefreshLayout RefreshLayoutFriendList1, RefreshLayoutFriendList2;
-    public static int data1_list = 3;
-    public static int position;
+    public static int data1_list;
+    public static int position1;
+    public static int position2;
+    private ImageView imgNoFriend1,imgNoFriend2;
+    private TextView test01;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
 
+        imgNoFriend1 = findViewById(R.id.imgNoFriend1);
+        imgNoFriend2 = findViewById(R.id.imgNoFriend2);
+        test01 = findViewById(R.id.test01);
+        test01.setText(String.valueOf(sqlReturn.add_friendCount));
 
         final Button btn_friendlist = findViewById(R.id.btn_friendlist);
         btn_friendlist.setOnClickListener(new View.OnClickListener() {
@@ -114,17 +122,17 @@ public class FriendListActivity extends AppCompatActivity {
 
     private void doData1(){
         data1 = new LinkedList<>();
-        if(sqlReturn.add_friendNum != 0){
-            data1_list = sqlReturn.add_friendNum;
+        if(sqlReturn.add_friendCount != 0){
+            imgNoFriend1.setVisibility(View.INVISIBLE);
+            imgNoFriend2.setVisibility(View.INVISIBLE);
+            data1_list = sqlReturn.add_friendCount;
             for(int i = 0; i < data1_list; i++){
                 HashMap<String,String> row = new HashMap<>();
                 data1.add(row);
             }
         }else {
-            for(int i = 0; i < data1_list; i++){
-                HashMap<String,String> row = new HashMap<>();
-                data1.add(row);
-            }
+            imgNoFriend1.setVisibility(View.VISIBLE);
+            imgNoFriend2.setVisibility(View.VISIBLE);
         }
     }
 
@@ -163,10 +171,9 @@ public class FriendListActivity extends AppCompatActivity {
                             .setPositiveButton("確定加入",new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    position1 = position;
                                     data1_list -=1;
-                                    Intent intent = new Intent(FriendListActivity.this,FriendListActivity.class);
-                                    startActivity(intent);
-                                    FriendListActivity.this.finish();
+                                    friendConfirmBack("y");
                                 }
                             }).setNegativeButton("取消",null).create().show();
                 }
@@ -180,10 +187,9 @@ public class FriendListActivity extends AppCompatActivity {
                             .setPositiveButton("確定拒絕",new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    position1 = position;
                                     data1_list -=1;
-                                    Intent intent = new Intent(FriendListActivity.this,FriendListActivity.class);
-                                    startActivity(intent);
-                                    FriendListActivity.this.finish();
+                                    friendConfirmBack("n");
                                 }
                             }).setNegativeButton("取消",null).create().show();
                 }
@@ -223,7 +229,7 @@ public class FriendListActivity extends AppCompatActivity {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        position = getAdapterPosition();
+                        position2 = getAdapterPosition();
                         friendSearch();
                     }
                 });
@@ -303,7 +309,7 @@ public class FriendListActivity extends AppCompatActivity {
         Map<String,String> map = new HashMap<>();
         map.put("command", "friendSearch");
         map.put("uid", uid);
-        map.put("searchFriend",sqlReturn.friendListName[position]);
+        map.put("searchFriend",sqlReturn.friendListName[position2]);
         new friendSearch(this).execute((HashMap)map);
     }
 
@@ -344,19 +350,60 @@ public class FriendListActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (status){
-                Intent intent = new Intent(FriendListActivity.this,SingleFriendActivity.class);
+                Intent intent = new Intent(FriendListActivity.this,SingleFriendListActivity.class);
                 startActivity(intent);
             }else {
                 new AlertDialog.Builder(activity)
                         .setTitle("提醒您")
-                        .setMessage("好友"+sqlReturn.friendListName[position]+"尚未新增日記")
+                        .setMessage("好友"+sqlReturn.friendListName[position2]+"尚未新增日記")
                         .setPositiveButton("了解", null)
                         .show();
             }
         }
     }
 
+    public void friendConfirmBack(String yesNo){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "friendSearch");
+        map.put("uid", uid);
+        map.put("friendNum",sqlReturn.add_friendNum[position1]);
+        map.put("yesNo",yesNo);
+        new friendConfirmBack(this).execute((HashMap)map);
+    }
 
+    private class friendConfirmBack extends HttpURLConnection_AsyncTask{
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        friendConfirmBack(Activity context){activityReference = new WeakReference<>(context);}
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (status){
+                Intent intent = new Intent(FriendListActivity.this,FriendListActivity.class);
+                startActivity(intent);
+                FriendListActivity.this.finish();
+            }else {
+                new AlertDialog.Builder(activity)
+                        .setTitle("提醒您")
+                        .setMessage("請檢察網路是否連通")
+                        .setPositiveButton("好", null)
+                        .show();
+            }
+        }
+    }
 
 
 }

@@ -30,15 +30,15 @@ public class SingleFriendActivity extends AppCompatActivity {
         });
 
         DiaryTitle = findViewById(R.id.DiaryTitle);
-        DiaryTitle.setText(sqlReturn.friendSearchTagName[0]);
+        DiaryTitle.setText(sqlReturn.friendSearchTagName[SingleFriendListActivity.position]);
         friendName = findViewById(R.id.friendName);
-        friendName.setText(sqlReturn.friendSearchName[0]);
+        friendName.setText(sqlReturn.friendSearchName[SingleFriendListActivity.position]);
         DiaryDateTime = findViewById(R.id.DiaryDateTime);
-        DiaryDateTime.setText(sqlReturn.friendSearchDate[0]);
+        DiaryDateTime.setText(sqlReturn.friendSearchDate[SingleFriendListActivity.position]);
         txtContext = findViewById(R.id.txtContext);
-        txtContext.setText(sqlReturn.friendSearchContent[0]);
+        txtContext.setText(sqlReturn.friendSearchContent[SingleFriendListActivity.position]);
         friendMood = findViewById(R.id.friendMood);
-        friendMood.setText(sqlReturn.friendSearchMood[0]);
+        friendMood.setText(sqlReturn.friendSearchMood[SingleFriendListActivity.position]);
 
     }
 

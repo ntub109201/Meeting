@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.myapplication2.Login.LoginActivity;
 import com.facebook.login.Login;
@@ -24,12 +25,15 @@ import java.util.Map;
 
 public class PersonalActivity extends AppCompatActivity {
 
+    private TextView textName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
 
-
+        textName = findViewById(R.id.textName);
+        textName.setText(sqlReturn.PersonalName);
 
         final int pageId = getIntent().getIntExtra("pageId",0);
         final Button btn_setback = findViewById(R.id.btn_setback);

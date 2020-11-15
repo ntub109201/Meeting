@@ -88,7 +88,9 @@ public class sqlReturn{
     public static String[] SearchFriendName;
     // 加入好友
     public static String textAdd_friend;
-    public static int add_friendNum;
+    public static int add_friendCount;
+    public static String[] add_friendNum;
     public static String[] add_friendName;
+    public static String[] add_friendBFF;
     public static boolean check_friend = false;
 }
