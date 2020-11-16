@@ -154,6 +154,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 //google登入結束
 
+    private String password = "";
+    private String userId = "";
+
     public void login(){
         edUserEmail = findViewById(R.id.userEmail);
         edPasswd = findViewById(R.id.password);
@@ -186,6 +189,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             JSONObject jsonObject = null;
             boolean status = false;
+
             // 取得弱連結的Context
             Activity activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return;
@@ -194,6 +198,8 @@ public class LoginActivity extends AppCompatActivity {
                 jsonObject = new JSONObject(result);
                 sqlReturn.GetUserID = jsonObject.getString("userID");
                 status = jsonObject.getBoolean("status");
+                userId = jsonObject.getString("userID");
+                password = jsonObject.getString("userPass");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -204,7 +210,8 @@ public class LoginActivity extends AppCompatActivity {
                 searchFriend();
                 personalData();
                 sqlReturn.RegisterEmail = edUserEmail.getText().toString();
-                sqlReturn.RegisterPassword = edPasswd.getText().toString();
+                sqlReturn.RegisterPassword = password;
+                sqlReturn.GetUserID = userId;
             }else {
                 new AlertDialog.Builder(activity)
                         .setTitle("登入失敗")

@@ -60,6 +60,11 @@ public class sqlReturn{
     public static String[] friendListName;
     public static String[] friendListNum;
     public static String[] friendListBFF;
+    // 此為抓摯友
+    public static String textViewContextBestFriendList = null;
+    public static int SearchCountBestFriendList;
+    public static String[] BestFriendListName;
+    public static String[] BestFriendListNum;
     // 此為抓特定好友日記
     public static String textViewContextfriendSearch = null;
     public static int friendSearchCount;

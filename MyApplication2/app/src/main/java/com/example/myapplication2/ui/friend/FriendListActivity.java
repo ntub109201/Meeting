@@ -50,7 +50,7 @@ public class FriendListActivity extends AppCompatActivity {
     private MyAdapter1 myAdapter1;
     private MyAdapter2 myAdapter2;
     private SwipeRefreshLayout RefreshLayoutFriendList1, RefreshLayoutFriendList2;
-    public static int data1_list;
+    public static int data1_list,data2_list;
     public static int position1;
     public static int position2;
     private ImageView imgNoFriend1,imgNoFriend2,imageDown1,imageDown2;
@@ -67,7 +67,7 @@ public class FriendListActivity extends AppCompatActivity {
         imageDown1 = findViewById(R.id.imageDown1);
         imageDown2 = findViewById(R.id.imageDown2);
         test01 = findViewById(R.id.test01);
-        test01.setText(String.valueOf(sqlReturn.add_friendCount));
+        test01.setText("");
 
         final Button btn_friendlist = findViewById(R.id.btn_friendlist);
         btn_friendlist.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +120,8 @@ public class FriendListActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     private void doData1(){
@@ -130,6 +132,7 @@ public class FriendListActivity extends AppCompatActivity {
             data1_list = sqlReturn.add_friendCount;
             for(int i = 0; i < data1_list; i++){
                 HashMap<String,String> row = new HashMap<>();
+                row.put("textName",sqlReturn.add_friendName[i]);
                 data1.add(row);
             }
         }else {
@@ -149,6 +152,7 @@ public class FriendListActivity extends AppCompatActivity {
                 itemView = view;
                 btn_confirm = itemView.findViewById(R.id.btn_confirm);
                 btn_cancel = itemView.findViewById(R.id.btn_cancel);
+                textName = itemView.findViewById(R.id.textName);
             }
         }
 
@@ -174,7 +178,7 @@ public class FriendListActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     position1 = position;
-                                    data1_list -=1;
+                                    sqlReturn.add_friendCount -=1;
                                     friendConfirmBack("y");
                                 }
                             }).setNegativeButton("取消",null).create().show();
@@ -190,12 +194,13 @@ public class FriendListActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     position1 = position;
-                                    data1_list -=1;
+                                    sqlReturn.add_friendCount -=1;
                                     friendConfirmBack("n");
                                 }
                             }).setNegativeButton("取消",null).create().show();
                 }
             });
+            holder.textName.setText(data1.get(position).get("textName"));
         }
 
         @Override
@@ -208,10 +213,11 @@ public class FriendListActivity extends AppCompatActivity {
     private void doData2(){
 
         data2 = new LinkedList<>();
-        if(sqlReturn.SearchCountFriendList > 0){
+        if(sqlReturn.SearchCountFriendList != 0){
             imageDown1.setVisibility(View.INVISIBLE);
             imageDown2.setVisibility(View.INVISIBLE);
-            for(int i = 0; i< sqlReturn.SearchCountFriendList;i++){
+            data2_list = sqlReturn.SearchCountFriendList;
+            for(int i = 0; i< data2_list;i++){
                 HashMap<String, String> row = new HashMap<>();
                 row.put("textName", sqlReturn.friendListName[i]);
                 data2.add(row);
@@ -301,14 +307,9 @@ public class FriendListActivity extends AppCompatActivity {
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.friendListName[i] = obj.getString("friendName01");
                 }
+                doData2();
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
-            if (sqlReturn.textViewContextFriendList!=null){
-                doData2();
-                //Toast.makeText(activity, "成功", Toast.LENGTH_LONG).show();
-            }else {
-                //Toast.makeText(activity, "失敗", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -374,7 +375,7 @@ public class FriendListActivity extends AppCompatActivity {
     public void friendConfirmBack(String yesNo){
         String uid = sqlReturn.GetUserID;
         Map<String,String> map = new HashMap<>();
-        map.put("command", "friendSearch");
+        map.put("command", "friendConfirmBack");
         map.put("uid", uid);
         map.put("friendNum",sqlReturn.add_friendNum[position1]);
         map.put("yesNo",yesNo);
@@ -401,6 +402,8 @@ public class FriendListActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (status){
+                addFriend();
+                searchFriendList();
                 Intent intent = new Intent(FriendListActivity.this,FriendListActivity.class);
                 startActivity(intent);
                 FriendListActivity.this.finish();
@@ -414,5 +417,53 @@ public class FriendListActivity extends AppCompatActivity {
         }
     }
 
+
+    // 取待加入好友
+    public void addFriend(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "friendConfirm");
+        map.put("uid", uid);
+        new addFriend(this).execute((HashMap)map);
+    }
+    private class addFriend extends HttpURLConnection_AsyncTask {
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        addFriend(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                if(status){
+                    sqlReturn.textAdd_friend = jsonObject.getString("results");
+                    sqlReturn.add_friendCount = jsonObject.getInt("rowcount");
+                    data1_list = sqlReturn.add_friendCount;
+                    jsonArray = new JSONArray(sqlReturn.textAdd_friend);
+                    sqlReturn.add_friendNum = new String[sqlReturn.add_friendCount];
+                    sqlReturn.add_friendName = new String[sqlReturn.add_friendCount];
+                    sqlReturn.add_friendBFF = new String[sqlReturn.add_friendCount];
+                    for (int i = 0; i<sqlReturn.add_friendCount; i++){
+                        JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                        sqlReturn.add_friendNum[i] = obj.getString("friendNum");
+                        sqlReturn.add_friendName[i] = obj.getString("friendName01");
+                        sqlReturn.add_friendBFF[i] = obj.getString("BFF");
+                    }
+                    doData1();
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

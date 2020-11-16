@@ -2,10 +2,13 @@ package com.example.myapplication2.ui.friend;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,11 +17,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.R;
+import com.example.myapplication2.sqlReturn;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class BestFriendActivity extends AppCompatActivity {
 
@@ -28,11 +39,16 @@ public class BestFriendActivity extends AppCompatActivity {
     private LinkedList<HashMap<String,String>> data1;
     private MyAdapter1 myAdapter1;
     private SwipeRefreshLayout RefreshLayoutBestFriendList;
+    private ConstraintLayout bestFriend_layout,noBestFriend;
+    private int position1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_best_friend);
+
+        bestFriend_layout = findViewById(R.id.bestFriend_layout);
+        noBestFriend = findViewById(R.id.noBestFriend);
 
         final Button btn_back = findViewById(R.id.btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -55,16 +71,17 @@ public class BestFriendActivity extends AppCompatActivity {
 
         RecyclerView1 = findViewById(R.id.recyclerView1);
         RecyclerView1.setHasFixedSize(true);
-        LayoutManager1 = new LinearLayoutManager(this);
+        LayoutManager1 = new GridLayoutManager(this,3);
         RecyclerView1.setLayoutManager(LayoutManager1);
         myAdapter1 = new MyAdapter1();
         RecyclerView1.setAdapter(myAdapter1);
         doData1();
+        searchBestFriendList();
         RefreshLayoutBestFriendList = findViewById(R.id.RefreshLayoutBestFriendList);
         RefreshLayoutBestFriendList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                doData1();
+                searchBestFriendList();
                 RefreshLayoutBestFriendList.setRefreshing(false);
             }
         });
@@ -73,18 +90,17 @@ public class BestFriendActivity extends AppCompatActivity {
 
     private void doData1(){
         data1 = new LinkedList<>();
-
-        String[] b = {"陳昱","振宇","景婷","詩庭","允謙","臭鼬"};
-        int a = 0;
-        for(int i = 0; i < 2; i++) {
-            HashMap<String, String> row = new HashMap<>();
-            row.put("textName",b[a]);
-            a ++;
-            row.put("textName1",b[a]);
-            a ++;
-            row.put("textName2",b[a]);
-            a ++;
-            data1.add(row);
+        if(sqlReturn.SearchCountBestFriendList != 0){
+            bestFriend_layout.setVisibility(View.VISIBLE);
+            noBestFriend.setVisibility(View.INVISIBLE);
+            for(int i = 0; i < sqlReturn.SearchCountBestFriendList; i++) {
+                HashMap<String, String> row = new HashMap<>();
+                row.put("textName",sqlReturn.BestFriendListName[i]);
+                data1.add(row);
+            }
+        }else{
+            bestFriend_layout.setVisibility(View.INVISIBLE);
+            noBestFriend.setVisibility(View.VISIBLE);
         }
     }
 
@@ -92,17 +108,19 @@ public class BestFriendActivity extends AppCompatActivity {
 
         class MyViewHolder extends RecyclerView.ViewHolder{
             public View itemView;
-            public TextView textName, textName1, textName2;
-            public RoundedImageView roundedImageView, roundedImageView1, roundedImageView2;
+            public TextView textName;
+            public RoundedImageView roundedImageView;
             public MyViewHolder(View view){
                 super(view);
                 itemView = view;
                 textName = itemView.findViewById(R.id.textName);
                 roundedImageView = itemView.findViewById(R.id.roundedImageView);
-                textName1 = itemView.findViewById(R.id.textName1);
-                roundedImageView1 = itemView.findViewById(R.id.roundedImageView1);
-                textName2 = itemView.findViewById(R.id.textName2);
-                roundedImageView2 = itemView.findViewById(R.id.roundedImageView2);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        position1 = getAdapterPosition();
+                    }
+                });
             }
         }
 
@@ -111,7 +129,7 @@ public class BestFriendActivity extends AppCompatActivity {
         public MyAdapter1.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
             View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.bestfriendlist_view1,parent,false);
+                    .inflate(R.layout.friend_list_item,parent,false);
             MyViewHolder vh = new MyViewHolder(itemView);
             return vh;
         }
@@ -119,13 +137,54 @@ public class BestFriendActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyAdapter1.MyViewHolder holder, int position) {
             holder.textName.setText(data1.get(position).get("textName"));
-            holder.textName1.setText(data1.get(position).get("textName1"));
-            holder.textName2.setText(data1.get(position).get("textName2"));
         }
 
         @Override
         public int getItemCount() {
             return data1.size();
+        }
+    }
+
+    public void searchBestFriendList(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "bestFriendInfoList");
+        map.put("uid", uid);
+        new searchBestFriendList(this).execute((HashMap)map);
+    }
+
+    private class searchBestFriendList extends HttpURLConnection_AsyncTask {
+
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        searchBestFriendList(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                sqlReturn.SearchCountBestFriendList = jsonObject.getInt("rowcount");
+                sqlReturn.textViewContextBestFriendList = jsonObject.getString("results");
+                jsonArray = new JSONArray(sqlReturn.textViewContextBestFriendList);
+                sqlReturn.BestFriendListName = new String[sqlReturn.SearchCountBestFriendList];
+                sqlReturn.BestFriendListNum = new String[sqlReturn.SearchCountBestFriendList];
+                for(int i = 0; i<sqlReturn.SearchCountBestFriendList; i++){
+                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    sqlReturn.BestFriendListName[i] = obj.getString("friendName01");
+                    sqlReturn.BestFriendListNum[i] = obj.getString("friendNum");
+                }
+                doData1();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

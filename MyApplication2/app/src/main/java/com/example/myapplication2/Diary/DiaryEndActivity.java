@@ -56,6 +56,7 @@ public class DiaryEndActivity extends AppCompatActivity {
     private Animation mOpen,mClose;
     private Button btn_sharebestfriend,btn_sharefriend,btn_sharediary;
     private boolean btnChange;
+    private String sharefriend = "n", sharebestfriend = "n";
 
 
     @Override
@@ -90,6 +91,32 @@ public class DiaryEndActivity extends AppCompatActivity {
                     btn_sharefriend.setVisibility(View.VISIBLE);
                     btn_sharefriend.setEnabled(true);
                     btnChange = true;
+                }
+            }
+        });
+
+        btn_sharefriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sharefriend.equals("n")){
+                    sharefriend = "y";
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend2);
+                }else{
+                    sharefriend = "n";
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                }
+            }
+        });
+
+        btn_sharebestfriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sharebestfriend.equals("n")){
+                    sharebestfriend = "y";
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend2);
+                }else{
+                    sharebestfriend = "n";
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend);
                 }
             }
         });
@@ -178,6 +205,8 @@ public class DiaryEndActivity extends AppCompatActivity {
         map.put("diaryDate",currentDate);
         map.put("diaryMood", DiaryValue.txtMood);
         map.put("diaryOptionClass", diaryOptionClass);
+        map.put("share",sharefriend);
+        map.put("bff",sharebestfriend);
         new DiaryInsert(this).execute((HashMap)map);
     }
 

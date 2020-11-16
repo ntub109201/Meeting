@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -32,11 +33,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etName, etEmail, etPassword, etPasswordCheck;
     private TextView txtMessage;
+    private Button btnGoLogin;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         final Button imBtnBack = findViewById(R.id.imbtnBackToLogin);
+
+        progressBar = findViewById(R.id.progressBar);
 
         imBtnBack.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -45,9 +50,27 @@ public class RegisterActivity extends AppCompatActivity {
                 RegisterActivity.this.startActivity(registerIntent);
             }
         });
+
+        btnGoLogin = findViewById(R.id.btnGoLogin);
+        btnGoLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(RegisterActivity.this)
+                        .setTitle("提醒")
+                        .setMessage("確定註冊")
+                        .setPositiveButton("確定",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                progressBar.setVisibility(View.VISIBLE);
+                                Register();
+                            }
+                        }).setNegativeButton("取消",null).create().show();
+            }
+        });
+
     }
 
-    public void Register(View v){
+    public void Register(){
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -140,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
                         .setPositiveButton("OK", null)
                         .show();
             }
-
+            progressBar.setVisibility(View.INVISIBLE);
 
         }
     }

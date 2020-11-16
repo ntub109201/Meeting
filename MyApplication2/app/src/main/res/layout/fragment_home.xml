@@ -8,11 +8,13 @@
     android:background="#FFFFFFFF"
     tools:context=".ui.home.HomeFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout1"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        android:background="@drawable/border_white"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/HistoryLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,6 +25,9 @@
             android:layout_height="wrap_content"
             android:background="#00000000"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/icon_btnuser_foreground" />
 
         <TextView
@@ -33,16 +38,15 @@
             android:gravity="center"
             android:text="@string/title_home"
             android:textColor="#7dd8d3"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/imBtnSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/ic_search_black_24dp" />
 
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/HistoryLayout"
@@ -60,13 +64,11 @@
             android:id="@+id/constraintLayout2"
             android:layout_width="0dp"
             android:layout_height="120dp"
+            android:background="@drawable/border_white"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView">
-            <!--選擇分類-->
-
-            <!--TAG-->
 
             <Button
                 android:id="@+id/searchBtnMood"
@@ -209,6 +211,8 @@
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -285,8 +289,8 @@
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/RefreshLayoutHome"
-                android:layout_width="358dp"
-                android:layout_height="353dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -294,8 +298,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/HistoryRecyclerview"
-                    android:layout_width="414dp"
-                    android:layout_height="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -304,15 +308,7 @@
                     app:layout_constraintVertical_bias="0.0" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-<!--            <Button-->
-<!--                android:id="@+id/btnAnim"-->
-<!--                style="@style/btn_primary"-->
-<!--                android:layout_width="64dp"-->
-<!--                android:layout_height="64dp"-->
-<!--                android:background="@drawable/ic_add_circle_black_24dp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent" />-->
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnAnim"
                 android:layout_width="wrap_content"

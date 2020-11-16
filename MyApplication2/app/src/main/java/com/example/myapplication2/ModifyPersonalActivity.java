@@ -152,6 +152,7 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         Map<String,String> map = new HashMap<>();
         map.put("command", "newPersonInfo");
         map.put("uid", uid);
+        map.put("userPass",sqlReturn.RegisterPassword);
         map.put("job", job);
         map.put("hobby", hobby);
         map.put("userName",userName);
