@@ -17,7 +17,10 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.friend.SingleFriendListActivity"></activity>
+        <activity android:name=".ui.friend.SingleBestFriendActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.friend.SingleFriendListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.friend.SingleFriendActivity"
             android:screenOrientation="portrait" />

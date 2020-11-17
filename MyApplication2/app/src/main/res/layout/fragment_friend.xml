@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:text="@string/title_friend"
                 android:textColor="#7dd8d3"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <ImageButton
                 android:id="@+id/imBtnSearchFriend"
@@ -94,8 +94,8 @@
 
         <ImageView
             android:id="@+id/no_friend_picture1"
-            android:layout_width="213dp"
-            android:layout_height="223dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -107,14 +107,14 @@
 
         <ImageView
             android:id="@+id/no_friend_picture2"
-            android:layout_width="324dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.61"
+            app:layout_constraintVertical_bias="0.57"
             app:srcCompat="@mipmap/ic_nodatasocialicon1_foreground" />
 
         <Button

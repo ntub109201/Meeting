@@ -68,11 +68,21 @@ public class sqlReturn{
     // 此為抓特定好友日記
     public static String textViewContextfriendSearch = null;
     public static int friendSearchCount;
+    public static String[] friendSearchNum;
     public static String[] friendSearchContent;
     public static String[] friendSearchMood;
     public static String[] friendSearchTagName;
     public static String[] friendSearchDate;
     public static String[] friendSearchName;
+    // 此為抓特定摯友日記
+    public static String textViewContextbestfriendSearch = null;
+    public static int bestfriendSearchCount;
+    public static String[] bestfriendSearchNum;
+    public static String[] bestfriendSearchContent;
+    public static String[] bestfriendSearchMood;
+    public static String[] bestfriendSearchTagName;
+    public static String[] bestfriendSearchDate;
+    public static String[] bestfriendSearchName;
     // 註冊成功
     public static Boolean RegisterFirstLogin = true;
     public static String RegisterEmail = "nx01daniel@gmail.com";

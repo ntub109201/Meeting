@@ -1,28 +1,39 @@
 package com.example.myapplication2.ui.friend;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class SingleFriendListActivity extends AppCompatActivity {
 
@@ -35,6 +46,7 @@ public class SingleFriendListActivity extends AppCompatActivity {
     private TextView textName;
     public static int position;
     private ImageButton imbtnReturnToFriendList;
+    private Button deleteFriend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +76,23 @@ public class SingleFriendListActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 doData();
-                RefreshLayoutFriendList.setRefreshing(false);
+            }
+        });
+
+        deleteFriend = findViewById(R.id.deleteFriend);
+        deleteFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(SingleFriendListActivity.this)
+                        .setTitle("提醒")
+                        .setMessage("您確定要刪除他嗎?")
+                        .setPositiveButton("確定",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteFriend();
+                            }
+                        }).setNegativeButton("取消",null).create().show();
+
             }
         });
 
@@ -149,5 +177,50 @@ public class SingleFriendListActivity extends AppCompatActivity {
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         return super.onKeyUp(keyCode, event);
+    }
+
+    public void deleteFriend(){
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "deleteFriend");
+        map.put("uid",sqlReturn.GetUserID);
+        map.put("friendNum",sqlReturn.friendSearchNum[0]);
+        new deleteFriend(this).execute((HashMap)map);
+    }
+
+    private class deleteFriend extends HttpURLConnection_AsyncTask {
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        deleteFriend(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+
+            if(status == true){
+                Intent intent = new Intent(SingleFriendListActivity.this,FriendListActivity.class);
+                startActivity(intent);
+                SingleFriendListActivity.this.finish();
+            }else{
+                new AlertDialog.Builder(activity)
+                        .setTitle("伺服器擁擠中")
+                        .setMessage("信箱登入失敗")
+                        .setPositiveButton("OK", null)
+                        .show();
+                Log.d("222","error");
+            }
+        }
     }
 }

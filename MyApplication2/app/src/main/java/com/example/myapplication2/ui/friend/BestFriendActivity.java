@@ -1,6 +1,7 @@
 package com.example.myapplication2.ui.friend;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -40,7 +41,7 @@ public class BestFriendActivity extends AppCompatActivity {
     private MyAdapter1 myAdapter1;
     private SwipeRefreshLayout RefreshLayoutBestFriendList;
     private ConstraintLayout bestFriend_layout,noBestFriend;
-    private int position1;
+    public static int  position1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,6 @@ public class BestFriendActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 searchBestFriendList();
-                RefreshLayoutBestFriendList.setRefreshing(false);
             }
         });
 
@@ -119,6 +119,7 @@ public class BestFriendActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         position1 = getAdapterPosition();
+                        bestFriendSearch();
                     }
                 });
             }
@@ -182,9 +183,73 @@ public class BestFriendActivity extends AppCompatActivity {
                     sqlReturn.BestFriendListNum[i] = obj.getString("friendNum");
                 }
                 doData1();
+                RefreshLayoutBestFriendList.setRefreshing(false);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
+
+    public void  bestFriendSearch(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "bestFriendListSearch");
+        map.put("uid", uid);
+        map.put("searchBestFriend",sqlReturn.BestFriendListName[position1]);
+        new bestFriendSearch(this).execute((HashMap)map);
+    }
+
+    private class bestFriendSearch extends HttpURLConnection_AsyncTask{
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        bestFriendSearch(Activity context){activityReference = new WeakReference<>(context);}
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                sqlReturn.bestfriendSearchCount = jsonObject.getInt("rowcount");
+                sqlReturn.textViewContextbestfriendSearch = jsonObject.getString("results");
+                jsonArray = new JSONArray(sqlReturn.textViewContextbestfriendSearch);
+                sqlReturn.bestfriendSearchNum = new String[sqlReturn.bestfriendSearchCount];
+                sqlReturn.bestfriendSearchContent = new String[sqlReturn.bestfriendSearchCount];
+                sqlReturn.bestfriendSearchMood = new String[sqlReturn.bestfriendSearchCount];
+                sqlReturn.bestfriendSearchTagName = new String[sqlReturn.bestfriendSearchCount];
+                sqlReturn.bestfriendSearchDate = new String[sqlReturn.bestfriendSearchCount];
+                sqlReturn.bestfriendSearchName = new String[sqlReturn.bestfriendSearchCount];
+                for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
+                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    sqlReturn.bestfriendSearchNum[i] = obj.getString("friendNum");
+                    sqlReturn.bestfriendSearchContent[i] = obj.getString("content");
+                    sqlReturn.bestfriendSearchMood[i] = obj.getString("mood");
+                    sqlReturn.bestfriendSearchTagName[i] = obj.getString("tagName");
+                    sqlReturn.bestfriendSearchDate[i] = obj.getString("date");
+                    sqlReturn.bestfriendSearchName[i] = obj.getString("friendName01");
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (status){
+                Intent intent = new Intent(BestFriendActivity.this,SingleBestFriendActivity.class);
+                startActivity(intent);
+                RefreshLayoutBestFriendList.setRefreshing(false);
+            }else {
+                new AlertDialog.Builder(activity)
+                        .setTitle("提醒您")
+                        .setMessage("摯友"+sqlReturn.friendListName[position1]+"尚未新增日記")
+                        .setPositiveButton("了解", null)
+                        .show();
+                RefreshLayoutBestFriendList.setRefreshing(false);
+            }
+        }
+    }
+
 }

@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -77,11 +78,18 @@ public class HomeFragment extends Fragment {
     private static boolean camera = false;
     private TextView DateTime,txtTodayTag;
     private ImageView imgTodayWhat;
+    private ConstraintLayout noHistoryData,haveDataLayout1,haveDataLayout2;
+    private CardView cardView1;
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        noHistoryData = root.findViewById(R.id.noHistoryData);
+        haveDataLayout1 = root.findViewById(R.id.constraintLayout2);
+        haveDataLayout2 = root.findViewById(R.id.constraintLayout8);
+        cardView1 = root.findViewById(R.id.cardView);
 
         btnWriteTodayDiary = root.findViewById(R.id.btnWriteTodayDiary);
         btnWriteTodayDiary.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +108,6 @@ public class HomeFragment extends Fragment {
         btnAnim.setOnClickListener(btnChangeColorOnClick);
 
         mLayout = root.findViewById(R.id.testConstraint);
-        // 前往引導日記
         goToDiarybutton = root.findViewById(R.id.goToDiarybutton);
         goToDiarybutton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -112,7 +119,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // 前往手寫日記
         goToHandwritebutton = root.findViewById(R.id.goToHandwritebutton);
         goToHandwritebutton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -124,7 +130,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // OCR暫時沒有
         goToOCRbutton = root.findViewById(R.id.goToOCRbutton);
         goToOCRbutton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -411,13 +416,25 @@ public class HomeFragment extends Fragment {
 
     }
     public void doData(){
-        data = new LinkedList<>();
-        for(int i = 0; i < sqlReturn.LoginCount; i++){
-            HashMap<String,String> row = new HashMap<>();
-            row.put("textTitle",sqlReturn.LoginMood[i]);
-            row.put("textDescription",sqlReturn.LoginDate[i]);
-            data.add(row);
-            sqlReturn.model = 1;
+
+        if(sqlReturn.LoginCount != 0){
+            noHistoryData.setVisibility(View.GONE);
+            haveDataLayout1.setVisibility(View.VISIBLE);
+            haveDataLayout2.setVisibility(View.VISIBLE);
+            cardView1.setVisibility(View.VISIBLE);
+            data = new LinkedList<>();
+            for(int i = 0; i < sqlReturn.LoginCount; i++){
+                HashMap<String,String> row = new HashMap<>();
+                row.put("textTitle",sqlReturn.LoginMood[i]);
+                row.put("textDescription",sqlReturn.LoginDate[i]);
+                data.add(row);
+                sqlReturn.model = 1;
+            }
+        }else{
+            noHistoryData.setVisibility(View.VISIBLE);
+            haveDataLayout1.setVisibility(View.INVISIBLE);
+            haveDataLayout2.setVisibility(View.INVISIBLE);
+            cardView1.setVisibility(View.INVISIBLE);
         }
     }
 

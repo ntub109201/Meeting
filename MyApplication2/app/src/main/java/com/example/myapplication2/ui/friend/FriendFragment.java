@@ -75,8 +75,6 @@ public class FriendFragment extends Fragment {
             HomeFragment.changeBtn = false;
         }
 
-        addFriend();
-
         btn_addfriend = root.findViewById(R.id.btn_addfriend);
         btn_addfriend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,11 +88,10 @@ public class FriendFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(FriendFragment.super.getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
         doData();
-        searchFriendList();
+        addFriend();
         searchFriend();
-        searchBestFriendList();
+        searchFriendList();
         myAdapter = new MyAdapter();
         mRecyclerView.setAdapter(myAdapter);
 
@@ -362,48 +359,6 @@ public class FriendFragment extends Fragment {
                     }
                 }
             }catch (JSONException e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void searchBestFriendList(){
-        String uid = sqlReturn.GetUserID;
-        Map<String,String> map = new HashMap<>();
-        map.put("command", "bestFriendInfoList");
-        map.put("uid", uid);
-        new searchBestFriendList(FriendFragment.super.getActivity()).execute((HashMap)map);
-    }
-
-    private class searchBestFriendList extends HttpURLConnection_AsyncTask {
-
-        // 建立弱連結
-        WeakReference<Activity> activityReference;
-        searchBestFriendList(Activity context){
-            activityReference = new WeakReference<>(context);
-        }
-        @Override
-        protected void onPostExecute(String result) {
-            JSONObject jsonObject = null;
-            JSONArray jsonArray = null;
-            boolean status = false;
-            // 取得弱連結的Context
-            Activity activity = activityReference.get();
-            if (activity == null || activity.isFinishing()) return;
-
-            try {
-                jsonObject = new JSONObject(result);
-                sqlReturn.SearchCountBestFriendList = jsonObject.getInt("rowcount");
-                sqlReturn.textViewContextBestFriendList = jsonObject.getString("results");
-                jsonArray = new JSONArray(sqlReturn.textViewContextBestFriendList);
-                sqlReturn.BestFriendListName = new String[sqlReturn.SearchCountBestFriendList];
-                sqlReturn.BestFriendListNum = new String[sqlReturn.SearchCountBestFriendList];
-                for(int i = 0; i<sqlReturn.SearchCountBestFriendList; i++){
-                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
-                    sqlReturn.BestFriendListName[i] = obj.getString("friendName01");
-                    sqlReturn.BestFriendListNum[i] = obj.getString("friendNum");
-                }
-            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }

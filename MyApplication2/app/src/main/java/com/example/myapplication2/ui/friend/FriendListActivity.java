@@ -95,12 +95,12 @@ public class FriendListActivity extends AppCompatActivity {
         myAdapter1 = new MyAdapter1();
         RecyclerView1.setAdapter(myAdapter1);
         doData1();
+        addFriend();
         RefreshLayoutFriendList1 = findViewById(R.id.RefreshLayoutFriendList1);
         RefreshLayoutFriendList1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                doData1();
-                RefreshLayoutFriendList1.setRefreshing(false);
+                addFriend();
             }
         });
 
@@ -111,12 +111,12 @@ public class FriendListActivity extends AppCompatActivity {
         myAdapter2 = new MyAdapter2();
         RecyclerView2.setAdapter(myAdapter2);
         doData2();
+        searchFriendList();
         RefreshLayoutFriendList2 = findViewById(R.id.RefreshLayoutFriendList2);
         RefreshLayoutFriendList2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 searchFriendList();
-                RefreshLayoutFriendList2.setRefreshing(false);
             }
         });
 
@@ -302,15 +302,20 @@ public class FriendListActivity extends AppCompatActivity {
                 sqlReturn.SearchCountFriendList = jsonObject.getInt("rowcount");
                 sqlReturn.textViewContextFriendList = jsonObject.getString("results");
                 jsonArray = new JSONArray(sqlReturn.textViewContextFriendList);
+                sqlReturn.friendListNum = new String[sqlReturn.SearchCountFriendList];
                 sqlReturn.friendListName = new String[sqlReturn.SearchCountFriendList];
+                sqlReturn.friendListBFF = new String[sqlReturn.SearchCountFriendList];
                 for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    sqlReturn.friendListNum[i] = obj.getString("friendNum");
                     sqlReturn.friendListName[i] = obj.getString("friendName01");
+                    sqlReturn.friendListBFF[i] = obj.getString("BFF");
                 }
                 doData2();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            RefreshLayoutFriendList1.setRefreshing(false);
         }
     }
 
@@ -342,6 +347,7 @@ public class FriendListActivity extends AppCompatActivity {
                 sqlReturn.friendSearchCount = jsonObject.getInt("rowcount");
                 sqlReturn.textViewContextfriendSearch = jsonObject.getString("results");
                 jsonArray = new JSONArray(sqlReturn.textViewContextfriendSearch);
+                sqlReturn.friendSearchNum = new String[sqlReturn.friendSearchCount];
                 sqlReturn.friendSearchContent = new String[sqlReturn.friendSearchCount];
                 sqlReturn.friendSearchMood = new String[sqlReturn.friendSearchCount];
                 sqlReturn.friendSearchTagName = new String[sqlReturn.friendSearchCount];
@@ -349,6 +355,7 @@ public class FriendListActivity extends AppCompatActivity {
                 sqlReturn.friendSearchName = new String[sqlReturn.friendSearchCount];
                 for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    sqlReturn.friendSearchNum[i] = obj.getString("friendNum");
                     sqlReturn.friendSearchContent[i] = obj.getString("content");
                     sqlReturn.friendSearchMood[i] = obj.getString("mood");
                     sqlReturn.friendSearchTagName[i] = obj.getString("tagName");
@@ -362,12 +369,14 @@ public class FriendListActivity extends AppCompatActivity {
             if (status){
                 Intent intent = new Intent(FriendListActivity.this,SingleFriendListActivity.class);
                 startActivity(intent);
+                RefreshLayoutFriendList2.setRefreshing(false);
             }else {
                 new AlertDialog.Builder(activity)
                         .setTitle("提醒您")
                         .setMessage("好友"+sqlReturn.friendListName[position2]+"尚未新增日記")
                         .setPositiveButton("了解", null)
                         .show();
+                RefreshLayoutFriendList2.setRefreshing(false);
             }
         }
     }

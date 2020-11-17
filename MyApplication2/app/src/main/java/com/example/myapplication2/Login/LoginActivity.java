@@ -209,18 +209,89 @@ public class LoginActivity extends AppCompatActivity {
                 history();
                 searchFriend();
                 personalData();
+                searchBestFriendList();
                 sqlReturn.RegisterEmail = edUserEmail.getText().toString();
                 sqlReturn.RegisterPassword = password;
                 sqlReturn.GetUserID = userId;
             }else {
                 new AlertDialog.Builder(activity)
-                        .setTitle("登入失敗")
-                        .setMessage("請確認帳號或密碼是否正確!!")
+                        .setTitle("伺服器擁擠中")
+                        .setMessage("登入失敗")
                         .setPositiveButton("OK", null)
                         .show();
                 pr1.setVisibility(View.INVISIBLE);
             }
 
+        }
+    }
+
+
+
+    private String message;
+    // Google登入
+    public void googleLogin(){
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "googleLogin");
+        map.put("googleID", uid);
+        map.put("userName", "google藍允謙");
+        //map.put("mail", mail);
+        pr1.setVisibility(View.VISIBLE);
+        new googleLogin(this).execute((HashMap)map);
+    }
+
+    private class googleLogin extends HttpURLConnection_AsyncTask{
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        googleLogin(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                message = jsonObject.getString("message");
+                sqlReturn.GetUserID = uid;
+                sqlReturn.RegisterEmail = mail;
+                sqlReturn.PersonalName = name;
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+
+            if(status == true){
+                MainActivity.login = true;
+                a = true;
+                history();
+                searchFriend();
+                personalData();
+                searchBestFriendList();
+                mGoogleSignInClient.signOut();
+                pr1.setVisibility(View.INVISIBLE);
+//                if(message.equals("已有登入資料")){
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+//                    startActivity(intent,options.toBundle());
+//                }else{
+//                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
+//                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+//                    startActivity(intent,options.toBundle());
+//                }
+            }else{
+                mGoogleSignInClient.signOut();
+                pr1.setVisibility(View.INVISIBLE);
+                new AlertDialog.Builder(activity)
+                        .setTitle("伺服器擁擠中")
+                        .setMessage("信箱登入失敗")
+                        .setPositiveButton("OK", null)
+                        .show();
+                Log.d("222","error");
+            }
         }
     }
 
@@ -314,6 +385,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
     // 此為社群好友貼文全抓
     public void searchFriend(){
         while (LoginActivity.a) {
@@ -370,6 +442,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
     // 取加入好友
     public void personalData(){
         String uid = sqlReturn.GetUserID;
@@ -411,28 +484,25 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
-    private String message;
-    // Google登入
-    public void googleLogin(){
+    public void searchBestFriendList(){
+        String uid = sqlReturn.GetUserID;
         Map<String,String> map = new HashMap<>();
-        map.put("command", "googleLogin");
-        map.put("googleID", uid);
-        map.put("userName", "google藍允謙");
-        //map.put("mail", mail);
-        pr1.setVisibility(View.VISIBLE);
-        new googleLogin(this).execute((HashMap)map);
+        map.put("command", "bestFriendInfoList");
+        map.put("uid", uid);
+        new searchBestFriendList(this).execute((HashMap)map);
     }
 
-    private class googleLogin extends HttpURLConnection_AsyncTask{
+    private class searchBestFriendList extends HttpURLConnection_AsyncTask {
+
         // 建立弱連結
         WeakReference<Activity> activityReference;
-        googleLogin(Activity context){
+        searchBestFriendList(Activity context){
             activityReference = new WeakReference<>(context);
         }
         @Override
         protected void onPostExecute(String result) {
             JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
             boolean status = false;
             // 取得弱連結的Context
             Activity activity = activityReference.get();
@@ -440,37 +510,18 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 jsonObject = new JSONObject(result);
-                status = jsonObject.getBoolean("status");
-                message = jsonObject.getString("message");
-
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-
-            if(status == true){
-                if(message.equals("已有登入資料")){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                    startActivity(intent,options.toBundle());
-                }else{
-                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                    startActivity(intent,options.toBundle());
+                sqlReturn.SearchCountBestFriendList = jsonObject.getInt("rowcount");
+                sqlReturn.textViewContextBestFriendList = jsonObject.getString("results");
+                jsonArray = new JSONArray(sqlReturn.textViewContextBestFriendList);
+                sqlReturn.BestFriendListName = new String[sqlReturn.SearchCountBestFriendList];
+                sqlReturn.BestFriendListNum = new String[sqlReturn.SearchCountBestFriendList];
+                for(int i = 0; i<sqlReturn.SearchCountBestFriendList; i++){
+                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    sqlReturn.BestFriendListName[i] = obj.getString("friendName01");
+                    sqlReturn.BestFriendListNum[i] = obj.getString("friendNum");
                 }
-                sqlReturn.GetUserID = uid;
-                sqlReturn.RegisterEmail = mail;
-                sqlReturn.PersonalName = name;
-                mGoogleSignInClient.signOut();
-                pr1.setVisibility(View.INVISIBLE);
-            }else{
-                mGoogleSignInClient.signOut();
-                pr1.setVisibility(View.INVISIBLE);
-                new AlertDialog.Builder(activity)
-                        .setTitle("伺服器擁擠中")
-                        .setMessage("信箱登入失敗")
-                        .setPositiveButton("OK", null)
-                        .show();
-                Log.d("222","error");
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }

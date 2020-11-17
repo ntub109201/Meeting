@@ -107,6 +107,7 @@ public class SetBestFriendActivity extends AppCompatActivity {
         for(int i = 0; i < sqlReturn.SearchCountFriendList; i++) {
             HashMap<String, String> row = new HashMap<>();
             row.put("txtName",sqlReturn.friendListName[i]);
+            row.put("bff",sqlReturn.friendListBFF[i]);
             data1.add(row);
         }
     }
@@ -140,7 +141,13 @@ public class SetBestFriendActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyAdapter1.MyViewHolder holder, int position) {
             holder.textName.setText(data1.get(position).get("txtName"));
-
+            if(data1.get(position).get("bff").equals("y")){
+                holder.btn_add.setText("已是摯友");
+                holder.btn_add.setTextColor(Color.parseColor("#FFFFFF"));
+                holder.btn_add.setBackgroundResource(R.drawable.btn_friendconfirm2);
+                btn_check[position] = 1;
+                holder.btn_add.setEnabled(false);
+            }
             holder.btn_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

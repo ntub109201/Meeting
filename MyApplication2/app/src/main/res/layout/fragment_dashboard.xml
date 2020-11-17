@@ -30,9 +30,9 @@
             android:layout_height="match_parent"
             android:layout_weight="10"
             android:gravity="center"
+            android:text="@string/title_dashboard"
             android:textColor="#7dd8d3"
-            android:textSize="24sp"
-            android:text="@string/title_dashboard" />
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/imBtnSearch"
