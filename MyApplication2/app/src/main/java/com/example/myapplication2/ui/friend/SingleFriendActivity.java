@@ -2,6 +2,7 @@ package com.example.myapplication2.ui.friend;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -43,18 +44,13 @@ public class SingleFriendActivity extends AppCompatActivity {
     }
 
     // 擋住手機上回上一頁鍵
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
-            }
-        }
-        return false;
-    }
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            SingleFriendActivity.this.finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

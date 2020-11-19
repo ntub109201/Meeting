@@ -73,6 +73,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            android:id="@+id/btn_back"
+            android:layout_width="60dp"
+            android:layout_height="61dp"
+            android:background="@mipmap/ic_friendback_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
             android:id="@+id/btn_friendsearch"
             android:layout_width="60dp"
             android:layout_height="61dp"
@@ -88,6 +97,9 @@
             android:id="@+id/constraintLayout17"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_friendsearch"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

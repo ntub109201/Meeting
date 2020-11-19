@@ -13,8 +13,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +70,18 @@ public class FriendListActivity extends AppCompatActivity {
         imageDown2 = findViewById(R.id.imageDown2);
         test01 = findViewById(R.id.test01);
         test01.setText("");
+
+        final Button btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendListActivity.this,MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("id",2);
+                FriendListActivity.this.startActivity(intent);
+                finish();
+            }
+        });
 
         final Button btn_friendlist = findViewById(R.id.btn_friendlist);
         btn_friendlist.setOnClickListener(new View.OnClickListener() {
@@ -315,16 +329,18 @@ public class FriendListActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             RefreshLayoutFriendList1.setRefreshing(false);
         }
     }
 
     public void friendSearch(){
         String uid = sqlReturn.GetUserID;
+        String friendName = sqlReturn.friendListName[position2];
         Map<String,String> map = new HashMap<>();
         map.put("command", "friendSearch");
         map.put("uid", uid);
-        map.put("searchFriend",sqlReturn.friendListName[position2]);
+        map.put("searchFriend",friendName);
         new friendSearch(this).execute((HashMap)map);
     }
 
@@ -353,7 +369,7 @@ public class FriendListActivity extends AppCompatActivity {
                 sqlReturn.friendSearchTagName = new String[sqlReturn.friendSearchCount];
                 sqlReturn.friendSearchDate = new String[sqlReturn.friendSearchCount];
                 sqlReturn.friendSearchName = new String[sqlReturn.friendSearchCount];
-                for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
+                for(int i = 0; i<sqlReturn.friendSearchCount; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.friendSearchNum[i] = obj.getString("friendNum");
                     sqlReturn.friendSearchContent[i] = obj.getString("content");
@@ -413,9 +429,18 @@ public class FriendListActivity extends AppCompatActivity {
             if (status){
                 addFriend();
                 searchFriendList();
-                Intent intent = new Intent(FriendListActivity.this,FriendListActivity.class);
-                startActivity(intent);
-                FriendListActivity.this.finish();
+                new AlertDialog.Builder(FriendListActivity.this)
+                        .setCancelable(false)
+                        .setTitle("恭喜您")
+                        .setMessage("兩位已經是好友囉，可以欣賞好友分享的日記了!!")
+                        .setPositiveButton("好", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(FriendListActivity.this,MainActivity.class);
+                                intent.putExtra("id",2);
+                                startActivity(intent);
+                            }
+                        }).show();
             }else {
                 new AlertDialog.Builder(activity)
                         .setTitle("提醒您")
@@ -473,6 +498,20 @@ public class FriendListActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+    // 擋住手機上回上一頁鍵
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            Intent intent = new Intent(FriendListActivity.this,MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("id",2);
+            FriendListActivity.this.startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

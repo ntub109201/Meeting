@@ -156,23 +156,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
-        <TextView
-            android:id="@+id/txtSocialContext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="start|top"
-            android:paddingLeft="12dp"
-            android:paddingTop="15dp"
-            android:paddingRight="-1dp"
-            android:text="文章內容"
-            android:textColor="#7dd8d3"
-            android:textSize="24sp"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <TextView
+                android:id="@+id/txtSocialContext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="273dp"
+                android:gravity="start|top"
+                android:paddingLeft="12dp"
+                android:paddingTop="15dp"
+                android:paddingRight="-1dp"
+                android:text="文章內容"
+                android:textColor="#7dd8d3"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </ScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

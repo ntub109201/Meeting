@@ -29,10 +29,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.myapplication2.PhotoActivity;
 import com.example.myapplication2.Diary.DiaryActivity;
-import com.example.myapplication2.handwritepackage.HandwriteActivity;
+import com.example.myapplication2.handWritePackage.HandwriteActivity;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
-import com.example.myapplication2.OCRActivity;
 import com.example.myapplication2.PersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
     private static boolean camera = false;
     private TextView DateTime,txtTodayTag;
     private ImageView imgTodayWhat;
-    private ConstraintLayout noHistoryData,haveDataLayout1,haveDataLayout2;
+    private ConstraintLayout noHistoryData,haveDataLayout1;
     private CardView cardView1;
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
@@ -88,7 +88,6 @@ public class HomeFragment extends Fragment {
 
         noHistoryData = root.findViewById(R.id.noHistoryData);
         haveDataLayout1 = root.findViewById(R.id.constraintLayout2);
-        haveDataLayout2 = root.findViewById(R.id.constraintLayout8);
         cardView1 = root.findViewById(R.id.cardView);
 
         btnWriteTodayDiary = root.findViewById(R.id.btnWriteTodayDiary);
@@ -136,7 +135,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 getPermissionsCamera();
                 if(camera){
-                    Intent intent = new Intent(HomeFragment.super.getActivity(), OCRActivity.class);
+                    Intent intent = new Intent(HomeFragment.super.getActivity(), PhotoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HomeFragment.super.getActivity());
                     HomeFragment.super.getActivity().startActivity(intent,options.toBundle());
                 }
@@ -166,7 +165,6 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-
 
         doData();
         history();
@@ -416,13 +414,12 @@ public class HomeFragment extends Fragment {
 
     }
     public void doData(){
-
+        data = new LinkedList<>();
         if(sqlReturn.LoginCount != 0){
             noHistoryData.setVisibility(View.GONE);
             haveDataLayout1.setVisibility(View.VISIBLE);
-            haveDataLayout2.setVisibility(View.VISIBLE);
             cardView1.setVisibility(View.VISIBLE);
-            data = new LinkedList<>();
+            RefreshLayoutHome.setVisibility(View.VISIBLE);
             for(int i = 0; i < sqlReturn.LoginCount; i++){
                 HashMap<String,String> row = new HashMap<>();
                 row.put("textTitle",sqlReturn.LoginMood[i]);
@@ -431,10 +428,12 @@ public class HomeFragment extends Fragment {
                 sqlReturn.model = 1;
             }
         }else{
+            HashMap<String,String> row = new HashMap<>();
+            data.add(row);
             noHistoryData.setVisibility(View.VISIBLE);
             haveDataLayout1.setVisibility(View.INVISIBLE);
-            haveDataLayout2.setVisibility(View.INVISIBLE);
             cardView1.setVisibility(View.INVISIBLE);
+            RefreshLayoutHome.setVisibility(View.INVISIBLE);
         }
     }
 

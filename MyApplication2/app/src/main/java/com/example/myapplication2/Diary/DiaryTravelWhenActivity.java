@@ -6,6 +6,7 @@ import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -150,4 +151,17 @@ public class DiaryTravelWhenActivity extends AppCompatActivity {
             }
         }
     };
+
+    // 擋住手機上回上一頁鍵
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            Intent intent = new Intent(DiaryTravelWhenActivity.this, DiaryWhyActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhenActivity.this);
+            DiaryTravelWhenActivity.this.startActivity(intent,options.toBundle());
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

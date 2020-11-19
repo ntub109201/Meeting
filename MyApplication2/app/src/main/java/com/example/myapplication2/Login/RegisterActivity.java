@@ -35,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView txtMessage;
     private Button btnGoLogin;
     private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,35 +84,64 @@ public class RegisterActivity extends AppCompatActivity {
         if(Name.equals("")){
             if(Email.equals("")){
                 if(password1.equals("")){
-                    txtMessage.setText("未輸入基本資料");
-                    txtMessage.setTextColor(Color.rgb(236, 17, 17));
+                    new AlertDialog.Builder(RegisterActivity.this)
+                            .setTitle("提醒您")
+                            .setMessage("未輸入基本資料")
+                            .setPositiveButton("了解", null)
+                            .show();
+                    progressBar.setVisibility(View.INVISIBLE);
                     return;
                 }else {
-                    txtMessage.setText("未輸入使用者名稱及電子信箱");
-                    txtMessage.setTextColor(Color.rgb(236, 17, 17));
+                    new AlertDialog.Builder(RegisterActivity.this)
+                            .setTitle("提醒您")
+                            .setMessage("未輸入使用者名稱及帳號")
+                            .setPositiveButton("了解", null)
+                            .show();
+                    progressBar.setVisibility(View.INVISIBLE);
                     return;
                 }
             }else if(password1.equals("")){
-                txtMessage.setText("未輸入使用者名稱及密碼");
-                txtMessage.setTextColor(Color.rgb(236, 17, 17));
+                new AlertDialog.Builder(RegisterActivity.this)
+                        .setTitle("提醒您")
+                        .setMessage("未輸入使用者名稱及密碼")
+                        .setPositiveButton("了解", null)
+                        .show();
+                progressBar.setVisibility(View.INVISIBLE);
                 return;
             }else{
-                txtMessage.setText("未輸入使用者名稱");
-                txtMessage.setTextColor(Color.rgb(236, 17, 17));
+                new AlertDialog.Builder(RegisterActivity.this)
+                        .setTitle("提醒您")
+                        .setMessage("未輸入使用者名稱")
+                        .setPositiveButton("了解", null)
+                        .show();
+                progressBar.setVisibility(View.INVISIBLE);
                 return;
             }
         }else if(Email.equals("")){
             if(password1.equals("")){
-                txtMessage.setText("未輸入電子郵件及密碼");
-                txtMessage.setTextColor(Color.rgb(236, 17, 17));
+                new AlertDialog.Builder(RegisterActivity.this)
+                        .setTitle("提醒您")
+                        .setMessage("未輸入帳號及密碼")
+                        .setPositiveButton("了解", null)
+                        .show();
+                progressBar.setVisibility(View.INVISIBLE);
+                return;
             }else{
-                txtMessage.setText("未輸入電子郵件信箱");
-                txtMessage.setTextColor(Color.rgb(236, 17, 17));
+                new AlertDialog.Builder(RegisterActivity.this)
+                        .setTitle("提醒您")
+                        .setMessage("未輸入帳號")
+                        .setPositiveButton("了解", null)
+                        .show();
+                progressBar.setVisibility(View.INVISIBLE);
                 return;
             }
         }else if(password1.equals("")){
-            txtMessage.setText("未輸入密碼");
-            txtMessage.setTextColor(Color.rgb(236, 17, 17));
+            new AlertDialog.Builder(RegisterActivity.this)
+                    .setTitle("提醒您")
+                    .setMessage("未輸入密碼")
+                    .setPositiveButton("了解", null)
+                    .show();
+            progressBar.setVisibility(View.INVISIBLE);
             return;
         }else{
             if(password1.equals(password2)){
@@ -121,10 +151,13 @@ public class RegisterActivity extends AppCompatActivity {
                 map.put("name", Name);
                 map.put("email", Email);
                 new Regsiter(this).execute((HashMap)map);
-
             }else{
-                txtMessage.setText("密碼不相同");
-                txtMessage.setTextColor(Color.rgb(236, 17, 17));
+                new AlertDialog.Builder(RegisterActivity.this)
+                        .setTitle("提醒您")
+                        .setMessage("密碼不相同")
+                        .setPositiveButton("了解", null)
+                        .show();
+                progressBar.setVisibility(View.INVISIBLE);
                 return;
             }
         }
@@ -149,17 +182,27 @@ public class RegisterActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (status){
-                Toast.makeText(activity, "註冊成功", Toast.LENGTH_LONG).show();
+
+//                Toast.makeText(activity, "註冊成功", Toast.LENGTH_LONG).show();
                 // 對Context進行操作
                 sqlReturn.RegisterEmail = etEmail.getText().toString();
                 sqlReturn.RegisterPassword = etPassword.getText().toString();
                 sqlReturn.RegisterFirstLogin = false;
-                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-                startActivity(intent);
+                new AlertDialog.Builder(RegisterActivity.this)
+                        .setCancelable(false)
+                        .setTitle("歡迎您使用Guidary")
+                        .setMessage("接下來只要登入就能使用囉!!!")
+                        .setPositiveButton("好", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        }).show();
             }else {
                 new AlertDialog.Builder(activity)
                         .setTitle("註冊失敗")
-                        .setMessage("請確認網路是否開啟!!")
+                        .setMessage("伺服器維護中，請稍後再嘗試")
                         .setPositiveButton("OK", null)
                         .show();
             }

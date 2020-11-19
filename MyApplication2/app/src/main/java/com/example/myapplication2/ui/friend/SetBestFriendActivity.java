@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +60,7 @@ public class SetBestFriendActivity extends AppCompatActivity {
                 Intent intent = new Intent(SetBestFriendActivity.this,BestFriendActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 SetBestFriendActivity.this.startActivity(intent);
+                finish();
             }
         });
 
@@ -143,7 +147,7 @@ public class SetBestFriendActivity extends AppCompatActivity {
             holder.textName.setText(data1.get(position).get("txtName"));
             if(data1.get(position).get("bff").equals("y")){
                 holder.btn_add.setText("已是摯友");
-                holder.btn_add.setTextColor(Color.parseColor("#FFFFFF"));
+                holder.btn_add.setTextColor(Color.parseColor("#73AF00"));
                 holder.btn_add.setBackgroundResource(R.drawable.btn_friendconfirm2);
                 btn_check[position] = 1;
                 holder.btn_add.setEnabled(false);
@@ -204,7 +208,10 @@ public class SetBestFriendActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if(status){
-                SetBestFriendActivity.this.finish();
+                Intent intent = new Intent(SetBestFriendActivity.this,BestFriendActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SetBestFriendActivity.this);
+                startActivity(intent,options.toBundle());
+
             }else {
                 new AlertDialog.Builder(activity)
                         .setTitle("加入失敗")
@@ -213,5 +220,18 @@ public class SetBestFriendActivity extends AppCompatActivity {
                         .show();
             }
         }
+    }
+    // 擋住手機上回上一頁鍵
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            Intent intent = new Intent(SetBestFriendActivity.this,BestFriendActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            SetBestFriendActivity.this.startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

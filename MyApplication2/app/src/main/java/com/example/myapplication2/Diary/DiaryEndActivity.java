@@ -39,6 +39,7 @@ import org.json.JSONObject;
 import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -50,7 +51,7 @@ public class DiaryEndActivity extends AppCompatActivity {
     private String EditDiaryContext;
     private DisplayMetrics mPhone;
     private ImageView imageDiaryGetPhoto;
-    private String DiaryContext;
+    public String DiaryContext;
     private ImageButton btn_DiaryEnd;
     private String currentDate;
     private Animation mOpen,mClose;
@@ -113,9 +114,11 @@ public class DiaryEndActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(sharebestfriend.equals("n")){
                     sharebestfriend = "y";
+                    sharefriend = "y";
                     btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend2);
                 }else{
                     sharebestfriend = "n";
+                    sharefriend = "n";
                     btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend);
                 }
             }
@@ -131,17 +134,7 @@ public class DiaryEndActivity extends AppCompatActivity {
         imbtnReturnLast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditDiaryContext = editText3.getText().toString();
-                DiaryValue.Time = "";
-                DiaryValue.EndTime = "123";
-                Intent intent = new Intent();
-                intent.setClass(DiaryEndActivity.this,DiaryPreviewActivity.class);
-                Bundle tagData = new Bundle();
-                tagData.putString("1",LastView);
-                intent.putExtras(tagData);
-                intent.putExtra("Edit", EditDiaryContext);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryEndActivity.this);
-                startActivity(intent,options.toBundle());
+                DiaryEndActivity.this.finish();
             }
         });
 
@@ -174,12 +167,7 @@ public class DiaryEndActivity extends AppCompatActivity {
                         .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                if(editText3.getText().toString().equals(DiaryContext)){
-                                    DiaryInsert();
-                                }else{
-                                    DiaryContext = editText3.getText().toString();
-                                    DiaryInsert();
-                                }
+                                DiaryInsert();
                             }
                         }).setNegativeButton("取消",null).create()
                         .show();
@@ -232,9 +220,21 @@ public class DiaryEndActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (status){
-                DiaryPreviewActivity.totalPlus = "";
-                DiaryPreviewActivity.total = "";
+                DiaryValue.txtTag = "";
+                DiaryValue.txtMood = "";
+                DiaryValue.firstWhat = "";
+                DiaryValue.txtWhat = "";
+                DiaryValue.txtWhy = "";
+                DiaryValue.txtWhere = "";
+                DiaryValue.txtWhen = "";
+                DiaryValue.txtWho = "";
+                DiaryValue.Time = "";
+                DiaryValue.EndTime = "";
                 DiaryValue.howCount = 0;
+                DiaryValue.Eye_Count = 0;
+                DiaryValue.Mouth_Count = 0;
+                DiaryValue.Smell_Count = 0;
+                DiaryPreviewActivity.total = "";
                 Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(DiaryEndActivity.this, MainActivity.class);
                 intent.putExtra("id",1);
@@ -295,18 +295,13 @@ public class DiaryEndActivity extends AppCompatActivity {
     }
 
     // 擋住手機上回上一頁鍵
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
-            }
-        }
-        return false;
-    }
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            DiaryEndActivity.this.finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

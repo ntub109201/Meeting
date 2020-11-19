@@ -10,24 +10,17 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication2.AnythingTestActivity;
-import com.example.myapplication2.Diary.DiaryActivity;
-import com.example.myapplication2.DiaryValue;
+import com.example.myapplication2.PhotoActivity;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.MainActivity;
-import com.example.myapplication2.PersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
-import com.example.myapplication2.ui.friend.FriendListActivity;
-import com.example.myapplication2.ui.home.HomeContextActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -77,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, AnythingTestActivity.class);
+                Intent intent = new Intent(LoginActivity.this, PhotoActivity.class);
                 startActivity(intent);
             }
         });
@@ -210,13 +203,14 @@ public class LoginActivity extends AppCompatActivity {
                 searchFriend();
                 personalData();
                 searchBestFriendList();
+                searchFriendList();
                 sqlReturn.RegisterEmail = edUserEmail.getText().toString();
                 sqlReturn.RegisterPassword = password;
                 sqlReturn.GetUserID = userId;
             }else {
                 new AlertDialog.Builder(activity)
-                        .setTitle("伺服器擁擠中")
-                        .setMessage("登入失敗")
+                        .setTitle("登入失敗")
+                        .setMessage("伺服器維護中，請稍後再嘗試")
                         .setPositiveButton("OK", null)
                         .show();
                 pr1.setVisibility(View.INVISIBLE);
@@ -271,6 +265,7 @@ public class LoginActivity extends AppCompatActivity {
                 searchFriend();
                 personalData();
                 searchBestFriendList();
+                searchFriendList();
                 mGoogleSignInClient.signOut();
                 pr1.setVisibility(View.INVISIBLE);
 //                if(message.equals("已有登入資料")){
@@ -286,8 +281,8 @@ public class LoginActivity extends AppCompatActivity {
                 mGoogleSignInClient.signOut();
                 pr1.setVisibility(View.INVISIBLE);
                 new AlertDialog.Builder(activity)
-                        .setTitle("伺服器擁擠中")
-                        .setMessage("信箱登入失敗")
+                        .setTitle("信箱登入失敗")
+                        .setMessage("伺服器維護中，請稍後再嘗試")
                         .setPositiveButton("OK", null)
                         .show();
                 Log.d("222","error");
@@ -523,6 +518,51 @@ public class LoginActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void searchFriendList(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "friendInfoList");
+        map.put("uid", uid);
+        new searchFriendList(this).execute((HashMap)map);
+    }
+
+    private class searchFriendList extends HttpURLConnection_AsyncTask {
+
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        searchFriendList(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                sqlReturn.SearchCountFriendList = jsonObject.getInt("rowcount");
+                sqlReturn.textViewContextFriendList = jsonObject.getString("results");
+                jsonArray = new JSONArray(sqlReturn.textViewContextFriendList);
+                sqlReturn.friendListNum = new String[sqlReturn.SearchCountFriendList];
+                sqlReturn.friendListName = new String[sqlReturn.SearchCountFriendList];
+                sqlReturn.friendListBFF = new String[sqlReturn.SearchCountFriendList];
+                for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
+                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    sqlReturn.friendListNum[i] = obj.getString("friendNum");
+                    sqlReturn.friendListName[i] = obj.getString("friendName01");
+                    sqlReturn.friendListBFF[i] = obj.getString("BFF");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -209,5 +210,20 @@ public class DiaryHowSmellActivity extends AppCompatActivity {
             Drawable light_incense = getResources().getDrawable(R.mipmap.ic_btn_refreshing_foreground);
             btn_light_incense.setCompoundDrawablesWithIntrinsicBounds(null,light_incense,null,null);
         }
+    }
+    // 擋住手機上回上一頁鍵
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            // 很重要
+            DiaryValue.howCount = 0;
+            DiaryValue.Smell_Count = 0;
+            Intent intent = new Intent(DiaryHowSmellActivity.this, DiaryHowActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowSmellActivity.this);
+            DiaryHowSmellActivity.this.startActivity(intent,options.toBundle());
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

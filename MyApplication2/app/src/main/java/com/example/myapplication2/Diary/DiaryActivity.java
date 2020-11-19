@@ -93,29 +93,55 @@ public class DiaryActivity extends AppCompatActivity {
         imbtnReturnFrontPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiaryPreviewActivity.totalPlus = "";
-                DiaryPreviewActivity.total = "";
+                DiaryValue.txtTag = "";
+                DiaryValue.txtMood = "";
+                DiaryValue.firstWhat = "";
+                DiaryValue.txtWhat = "";
+                DiaryValue.txtWhy = "";
+                DiaryValue.txtWhere = "";
+                DiaryValue.txtWhen = "";
+                DiaryValue.txtWho = "";
+                DiaryValue.Time = "";
+                DiaryValue.EndTime = "";
+                DiaryValue.howCount = 0;
+                DiaryValue.Eye_Count = 0;
+                DiaryValue.Mouth_Count = 0;
+                DiaryValue.Smell_Count = 0;
                 Intent intent = new Intent(DiaryActivity.this,MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
                 startActivity(intent);
+                finish();
             }
         });
     }
     // 擋住手機上回上一頁鍵
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
-            }
-        }
-        return false;
-    }
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            DiaryValue.txtTag = "";
+            DiaryValue.txtMood = "";
+            DiaryValue.firstWhat = "";
+            DiaryValue.txtWhat = "";
+            DiaryValue.txtWhy = "";
+            DiaryValue.txtWhere = "";
+            DiaryValue.txtWhen = "";
+            DiaryValue.txtWho = "";
+            DiaryValue.Time = "";
+            DiaryValue.EndTime = "";
+            DiaryValue.howCount = 0;
+            DiaryValue.Eye_Count = 0;
+            DiaryValue.Mouth_Count = 0;
+            DiaryValue.Smell_Count = 0;
+            Intent intent = new Intent(DiaryActivity.this,MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("id",1);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 

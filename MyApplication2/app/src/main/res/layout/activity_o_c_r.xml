@@ -185,18 +185,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.753" />
 
-        <Button
-            android:id="@+id/btn_addphoto"
-            style="@style/btn_addphoto2"
-            android:layout_width="53dp"
-            android:layout_height="54dp"
-            android:textColor="#FAF8F8"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.915"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.049" />
+<!--        <Button-->
+<!--            android:id="@+id/btn_addphoto"-->
+<!--            style="@style/btn_addphoto2"-->
+<!--            android:layout_width="53dp"-->
+<!--            android:layout_height="54dp"-->
+<!--            android:textColor="#FAF8F8"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.915"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.049" />-->
 
         <Button
             android:id="@+id/btn_paper_shopping"

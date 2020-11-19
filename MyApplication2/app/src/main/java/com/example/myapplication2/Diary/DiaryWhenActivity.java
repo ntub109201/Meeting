@@ -147,7 +147,6 @@ public class DiaryWhenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DiaryValue.txtWhen = "";
                 DiaryValue.Time = "";
-                DiaryValue.EndTime = "";
                 if(DiaryValue.txtTag.equals("美食")){
                     Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
@@ -340,22 +339,42 @@ public class DiaryWhenActivity extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             txtDate.setText(String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth));
             DiaryValue.Time = txtDate.getText().toString();
-            DiaryValue.EndTime = (String.valueOf(year)+"-"+String.valueOf(month+1)+"-"+String.valueOf(dayOfMonth));
         }
     };
     // 擋住手機上回上一頁鍵
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            if(DiaryValue.txtTag.equals("美食")) {
+                if(DiaryValue.txtWhat.equals("")){
+                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhereActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    DiaryWhenActivity.this.startActivity(intent, options.toBundle());
+                }else {
+                    Intent intent = new Intent(DiaryWhenActivity.this, DiaryHowActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                    DiaryWhenActivity.this.startActivity(intent, options.toBundle());
+                }
+            }else if(DiaryValue.txtTag.equals("購物")){
+                Intent intent = new Intent(DiaryWhenActivity.this, DiaryTagActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+            }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhatActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+            }else if(DiaryValue.txtTag.equals("戀愛")){
+                Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhoActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                DiaryWhenActivity.this.startActivity(intent,options.toBundle());
+            }else if(DiaryValue.txtTag.equals("旅遊")){
+                Intent intent = new Intent(DiaryWhenActivity.this, DiaryWhyActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhenActivity.this);
+                DiaryWhenActivity.this.startActivity(intent,options.toBundle());
             }
         }
-        return false;
-    }
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+        return super.onKeyDown(keyCode, event);
     }
 }

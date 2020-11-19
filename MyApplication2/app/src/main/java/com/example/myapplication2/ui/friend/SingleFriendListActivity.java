@@ -27,6 +27,7 @@ import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,11 +72,12 @@ public class SingleFriendListActivity extends AppCompatActivity {
         myAdapter = new MyAdapter();
         RecyclerView.setAdapter(myAdapter);
         doData();
+        friendSearch();
         RefreshLayoutFriendList = findViewById(R.id.RefreshLayoutFriend);
         RefreshLayoutFriendList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                doData();
+                friendSearch();
             }
         });
 
@@ -103,8 +105,8 @@ public class SingleFriendListActivity extends AppCompatActivity {
         data = new LinkedList<>();
         for(int i = 0; i< sqlReturn.friendSearchCount; i++){
             HashMap<String, String> row = new HashMap<>();
-            row.put("date", sqlReturn.friendSearchDate[i]);
-            row.put("tag", sqlReturn.friendSearchTagName[i]);
+            row.put("date", sqlReturn.friendSearchDate[0]);
+            row.put("tag", sqlReturn.friendSearchTagName[0]);
             data.add(row);
         }
 
@@ -210,17 +212,75 @@ public class SingleFriendListActivity extends AppCompatActivity {
             }
 
             if(status == true){
+
+                if(sqlReturn.SearchCountFriendList == 1){
+                    sqlReturn.SearchCountFriendList = 0;
+                }
                 Intent intent = new Intent(SingleFriendListActivity.this,FriendListActivity.class);
                 startActivity(intent);
-                SingleFriendListActivity.this.finish();
             }else{
                 new AlertDialog.Builder(activity)
-                        .setTitle("伺服器擁擠中")
-                        .setMessage("信箱登入失敗")
+                        .setTitle("刪除好友失敗")
+                        .setMessage("伺服器擁擠中")
                         .setPositiveButton("OK", null)
                         .show();
                 Log.d("222","error");
             }
         }
     }
+    public void friendSearch(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "friendSearch");
+        map.put("uid", uid);
+        map.put("searchFriend",sqlReturn.friendListName[position]);
+        new friendSearch(this).execute((HashMap)map);
+    }
+
+    private class friendSearch extends HttpURLConnection_AsyncTask{
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        friendSearch(Activity context){activityReference = new WeakReference<>(context);}
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                sqlReturn.friendSearchCount = jsonObject.getInt("rowcount");
+                sqlReturn.textViewContextfriendSearch = jsonObject.getString("results");
+                jsonArray = new JSONArray(sqlReturn.textViewContextfriendSearch);
+                sqlReturn.friendSearchNum = new String[sqlReturn.friendSearchCount];
+                sqlReturn.friendSearchContent = new String[sqlReturn.friendSearchCount];
+                sqlReturn.friendSearchMood = new String[sqlReturn.friendSearchCount];
+                sqlReturn.friendSearchTagName = new String[sqlReturn.friendSearchCount];
+                sqlReturn.friendSearchDate = new String[sqlReturn.friendSearchCount];
+                sqlReturn.friendSearchName = new String[sqlReturn.friendSearchCount];
+                for(int i = 0; i<sqlReturn.friendSearchCount; i++){
+                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    sqlReturn.friendSearchNum[i] = obj.getString("friendNum");
+                    sqlReturn.friendSearchContent[i] = obj.getString("content");
+                    sqlReturn.friendSearchMood[i] = obj.getString("mood");
+                    sqlReturn.friendSearchTagName[i] = obj.getString("tagName");
+                    sqlReturn.friendSearchDate[i] = obj.getString("date");
+                    sqlReturn.friendSearchName[i] = obj.getString("friendName01");
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (status){
+                RefreshLayoutFriendList.setRefreshing(false);
+            }else{
+                friendSearch();
+            }
+        }
+    }
+
 }

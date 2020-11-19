@@ -222,18 +222,28 @@ public class DiaryHowActivity extends AppCompatActivity {
 
 
     // 擋住手機上回上一頁鍵
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            for(int i = 0; i< 5; i++){
+                DiaryValue.txtHow_choose[i] = "";
+            }
+            DiaryValue.howCount = 0;
+            DiaryValue.Eye_Count = 0;
+            DiaryValue.Mouth_Count = 0;
+            DiaryValue.Smell_Count = 0;
+            if(DiaryValue.txtTag.equals("美食")){
+                Intent intent = new Intent(DiaryHowActivity.this, DiaryWhereActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                DiaryHowActivity.this.startActivity(intent,options.toBundle());
+            }else {
+                Intent intent = new Intent(DiaryHowActivity.this, DiaryTravelWhereActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowActivity.this);
+                DiaryHowActivity.this.startActivity(intent,options.toBundle());
             }
         }
-        return false;
-    }
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+        return super.onKeyDown(keyCode, event);
     }
 }

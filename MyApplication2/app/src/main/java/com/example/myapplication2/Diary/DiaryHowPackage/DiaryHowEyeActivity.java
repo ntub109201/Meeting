@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
@@ -247,5 +248,21 @@ public class DiaryHowEyeActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    // 擋住手機上回上一頁鍵
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            // 很重要
+            //DiaryValue.howCount = 0;
+            DiaryValue.Eye_Count = 0;
+            Intent intent = new Intent(DiaryHowEyeActivity.this, DiaryHowActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowEyeActivity.this);
+            DiaryHowEyeActivity.this.startActivity(intent,options.toBundle());
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
+import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 
@@ -62,6 +63,7 @@ public class SearchFriendActivity extends AppCompatActivity {
                 Intent intent = new Intent(SearchFriendActivity.this,FriendListActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -251,27 +253,36 @@ public class SearchFriendActivity extends AppCompatActivity {
             }
             if (status){
                 progressBar1.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(SearchFriendActivity.this,FriendListActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                new AlertDialog.Builder(SearchFriendActivity.this)
+                        .setCancelable(false)
+                        .setTitle("提醒您")
+                        .setMessage("加入的好友需要對方按下接受後才能成為好友歐!!")
+                        .setPositiveButton("好", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                Intent intent = new Intent(SearchFriendActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.putExtra("id",2);
+                                startActivity(intent);
+                            }
+                        }).show();
             } else {
                 progressBar1.setVisibility(View.INVISIBLE);
             }
         }
     }
     // 擋住手機上回上一頁鍵
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
-            }
-        }
-        return false;
-    }
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            Intent intent = new Intent(SearchFriendActivity.this,FriendListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -570,19 +570,29 @@ public class DiaryWhereActivity extends AppCompatActivity {
     //----------------------------------------------------------------------------------------------
 
     // 擋住手機上回上一頁鍵
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            if(DiaryValue.txtTag.equals("美食")){
+                Intent intent = new Intent(DiaryWhereActivity.this, DiaryWhyActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                DiaryWhereActivity.this.startActivity(intent, options.toBundle());
+            }else if(DiaryValue.txtTag.equals("購物")){
+                Intent intent = new Intent(DiaryWhereActivity.this, DiaryWhyActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                DiaryWhereActivity.this.startActivity(intent, options.toBundle());
+            }else if(DiaryValue.txtTag.equals("休閒娛樂")){
+                Intent intent = new Intent(DiaryWhereActivity.this, DiaryWhenActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                DiaryWhereActivity.this.startActivity(intent, options.toBundle());
+            }else if(DiaryValue.txtTag.equals("戀愛")){
+                Intent intent = new Intent(DiaryWhereActivity.this, DiaryTagActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryWhereActivity.this);
+                DiaryWhereActivity.this.startActivity(intent, options.toBundle());
             }
         }
-        return false;
-    }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+        return super.onKeyDown(keyCode, event);
     }
 }

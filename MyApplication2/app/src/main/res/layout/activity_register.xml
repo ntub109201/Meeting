@@ -139,7 +139,7 @@
         android:layout_height="50dp"
         android:background="@drawable/edittext"
         android:ems="10"
-        android:hint="電子郵件信箱(帳號)"
+        android:hint="帳號"
         android:inputType="textEmailAddress"
         android:textColorHint="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"

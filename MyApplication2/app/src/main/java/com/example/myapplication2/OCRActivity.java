@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,11 +18,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -39,8 +42,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -62,17 +68,24 @@ public class OCRActivity extends AppCompatActivity {
     private LinearLayoutManager mLayoutManager;
     private LinkedList<HashMap<String,String>> data1;
     private OCRActivity.MyAdapter myAdapter;
-    private int count;
+    private static int count;
     private Bitmap mbmp;
-    private int picPosition;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_o_c_r);
 
-        Intent photo_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(photo_intent, 1);
+
+
+        Intent intent = getIntent();
+        String filePath = intent.getStringExtra("fileName");
+
+        byte[] decodedBytes = Base64.decode(filePath,Base64.DEFAULT);
+
+        mbmp = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+        count +=1;
 
         progressBar = findViewById(R.id.progressBar);
 
@@ -80,13 +93,14 @@ public class OCRActivity extends AppCompatActivity {
 
         recyclerview = findViewById(R.id.recyclerview);
 
-        btn_addphoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 1);
-            }
-        });
+//        btn_addphoto.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(OCRActivity.this, PhotoActivity.class);
+//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(OCRActivity.this);
+//                OCRActivity.this.startActivity(intent,options.toBundle());
+//            }
+//        });
 
 
         recyclerview.setHasFixedSize(false);
@@ -102,6 +116,7 @@ public class OCRActivity extends AppCompatActivity {
         btn_back_paper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                count = 0;
                 Intent intent = new Intent(OCRActivity.this,MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
@@ -473,23 +488,6 @@ public class OCRActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1) {
-            count +=1;
-            mbmp = (Bitmap) data.getExtras().get("data");
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            mbmp.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
-
-            byte[] bytes = byteArrayOutputStream.toByteArray();
-            mbmp = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-            doData();
-            recyclerview.scrollToPosition(picPosition);
-        }
-    }
-
     private void doData(){
         data1 = new LinkedList<>();
         for(int i = 0; i < count; i++){
@@ -524,7 +522,6 @@ public class OCRActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
             holder.imgPhoto.setImageBitmap(mbmp);
-            picPosition = picPosition+1;
         }
 
         @Override
@@ -533,20 +530,21 @@ public class OCRActivity extends AppCompatActivity {
         }
     }
 
+
+
     // 擋住手機上回上一頁鍵
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
-            }
-        }
-        return false;
-    }
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            count = 0;
+            Intent intent = new Intent(OCRActivity.this,MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("id",1);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 

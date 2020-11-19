@@ -304,6 +304,9 @@ public class HomeContextActivity extends AppCompatActivity {
             }
             if (status){
                 proBarHomeContext.setVisibility(View.INVISIBLE);
+                if(sqlReturn.LoginCount == 1){
+                    sqlReturn.LoginCount=0;
+                }
                 Toast.makeText(activity, "刪除成功", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(HomeContextActivity.this,MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -321,18 +324,13 @@ public class HomeContextActivity extends AppCompatActivity {
     }
 
     // 擋住手機上回上一頁鍵
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
-            }
-        }
-        return false;
-    }
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            HomeContextActivity.this.finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

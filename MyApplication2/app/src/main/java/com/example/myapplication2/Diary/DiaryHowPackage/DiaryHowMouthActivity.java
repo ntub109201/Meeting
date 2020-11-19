@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -290,5 +291,20 @@ public class DiaryHowMouthActivity extends AppCompatActivity {
             }
         });
 
+    }
+    // 擋住手機上回上一頁鍵
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            // 很重要
+            //DiaryValue.howCount = 0;
+            DiaryValue.Mouth_Count = 0;
+            Intent intent = new Intent(DiaryHowMouthActivity.this, DiaryHowActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryHowMouthActivity.this);
+            DiaryHowMouthActivity.this.startActivity(intent,options.toBundle());
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

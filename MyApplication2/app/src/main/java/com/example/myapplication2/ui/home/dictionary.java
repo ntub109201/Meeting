@@ -202,5 +202,13 @@ public class dictionary {
         dict.put("783",R.mipmap.ic_btn_backpacker_foreground);
         dict.put("784",R.mipmap.ic_btn_company_foreground);
         dict.put("785",R.mipmap.ic_btn_sports_foreground);
+        //-------------------------------------------------
+        dict.put("817",R.mipmap.ic_btn_ecology_foreground);
+        dict.put("818",R.mipmap.ic_btn_ecology_foreground);
+        dict.put("819",R.mipmap.ic_btn_art_foreground);
+        dict.put("820",R.mipmap.ic_btn_island_foreground);
+        dict.put("821",R.mipmap.ic_btn_backpacker_foreground);
+        dict.put("822",R.mipmap.ic_btn_company_foreground);
+        dict.put("823",R.mipmap.ic_btn_sports_foreground);
     }
 }

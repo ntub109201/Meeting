@@ -1,4 +1,4 @@
-package com.example.myapplication2.handwritepackage;
+package com.example.myapplication2.handWritePackage;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -6,12 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -19,8 +15,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.text.Layout;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -32,9 +28,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
-import com.example.myapplication2.sqlReturn;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
@@ -43,9 +40,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -464,26 +463,36 @@ public class HandwriteActivity extends AppCompatActivity {
 
     private void uploadImagesToServer() {
         if (InternetConnection.checkConnection(HandwriteActivity.this)) {
+
+            final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .readTimeout(5, TimeUnit.MINUTES)
+                    .connectTimeout(5, TimeUnit.MINUTES)
+                    .build();
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(ApiService.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
                     .build();
 
             showProgress();
-
             // create list of file parts (photo, video, ...)
             List<MultipartBody.Part> parts = new ArrayList<>();
 
             // create upload service client
             ApiService service = retrofit.create(ApiService.class);
 
-            if (arrayList != null) {
-                // create part for file (photo, video, ...)
-                for (int i = 0; i < arrayList.size(); i++) {
-                    parts.add(prepareFilePart("image"+i, arrayList.get(i)));
-                }
-            }
 
+            try {
+                if (arrayList != null) {
+                    // create part for file (photo, video, ...)
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        parts.add(prepareFilePart("image" + i, arrayList.get(i)));
+                    }
+                }
+            }catch (Exception e){
+                Log.e(TAG, "File select error", e);
+            }
             // create a map of data to pass along
             RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
             RequestBody size = createPartFromString(""+parts.size());
@@ -674,19 +683,17 @@ public class HandwriteActivity extends AppCompatActivity {
 
 
     // 擋住手機上回上一頁鍵
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
-            }
-        }
-        return false;
-    }
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            Intent intent = new Intent(HandwriteActivity.this, MainActivity.class);
+            intent.putExtra("id",1);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 

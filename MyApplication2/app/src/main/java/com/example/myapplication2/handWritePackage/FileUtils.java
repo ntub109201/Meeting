@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.myapplication2.handwritepackage;
+package com.example.myapplication2.handWritePackage;
 
 import android.content.ContentUris;
 import android.content.Context;

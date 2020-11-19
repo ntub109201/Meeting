@@ -7,8 +7,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="com.android.hardware.camera2.full" />
+
 
     <application
         android:allowBackup="true"
@@ -17,6 +19,7 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".ui.friend.SingleBestFriendActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.friend.SingleFriendListActivity"
@@ -25,7 +28,7 @@
             android:name=".ui.friend.SingleFriendActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AnythingTestActivity"
+            android:name=".PhotoActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".Diary.DiaryTravelWhereActivity" />
         <activity
@@ -109,7 +112,7 @@
             android:label="@string/title_OCR"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".handwritepackage.HandwriteActivity"
+            android:name=".handWritePackage.HandwriteActivity"
             android:label="@string/title_handwritediary"
             android:screenOrientation="portrait" />
         <activity
