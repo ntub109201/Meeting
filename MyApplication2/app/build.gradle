@@ -11,6 +11,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        resValue "string", "google_maps_key", ("AIzaSyAn5DNk2wNWFuLQjtglg3y9Ec4qeoslqsU")
+        resValue "string", "google_maps_key_web", ("AIzaSyAOVFiB2MmMTt8IZY5JyQPBvbIVFp8iTnU")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -62,4 +64,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+
+    // Google Maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.libraries.places:places:2.3.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.4+'
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
 }

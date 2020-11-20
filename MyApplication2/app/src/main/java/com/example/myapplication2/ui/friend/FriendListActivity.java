@@ -387,11 +387,17 @@ public class FriendListActivity extends AppCompatActivity {
                 startActivity(intent);
                 RefreshLayoutFriendList2.setRefreshing(false);
             }else {
-                new AlertDialog.Builder(activity)
-                        .setTitle("提醒您")
-                        .setMessage("好友"+sqlReturn.friendListName[position2]+"尚未新增日記")
-                        .setPositiveButton("了解", null)
-                        .show();
+                for(int i = 0; i<sqlReturn.friendSearchCount; i++){
+                    sqlReturn.friendSearchNum[i] = "";
+                    sqlReturn.friendSearchContent[i] = "";
+                    sqlReturn.friendSearchMood[i] = "";
+                    sqlReturn.friendSearchTagName[i] = "";
+                    sqlReturn.friendSearchDate[i] = "";
+                    sqlReturn.friendSearchName[i] = "";
+                }
+                sqlReturn.friendSearchCount = 0;
+                Intent intent = new Intent(FriendListActivity.this,SingleFriendListActivity.class);
+                startActivity(intent);
                 RefreshLayoutFriendList2.setRefreshing(false);
             }
         }

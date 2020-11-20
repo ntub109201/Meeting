@@ -55,7 +55,8 @@ public class SingleFriendListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_friend_list);
 
         textName = findViewById(R.id.textName);
-        textName.setText(sqlReturn.friendSearchName[0]);
+
+        textName.setText(sqlReturn.friendListName[FriendListActivity.position2]);
 
         imbtnReturnToFriendList = findViewById(R.id.imbtnReturnToFriendList);
         imbtnReturnToFriendList.setOnClickListener(new View.OnClickListener() {
@@ -105,8 +106,8 @@ public class SingleFriendListActivity extends AppCompatActivity {
         data = new LinkedList<>();
         for(int i = 0; i< sqlReturn.friendSearchCount; i++){
             HashMap<String, String> row = new HashMap<>();
-            row.put("date", sqlReturn.friendSearchDate[0]);
-            row.put("tag", sqlReturn.friendSearchTagName[0]);
+            row.put("date", sqlReturn.friendSearchDate[i]);
+            row.put("tag", sqlReturn.friendSearchTagName[i]);
             data.add(row);
         }
 
@@ -165,17 +166,6 @@ public class SingleFriendListActivity extends AppCompatActivity {
         }
     }
 
-    // 擋住手機上回上一頁鍵
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
-            }
-        }
-        return false;
-    }
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         return super.onKeyUp(keyCode, event);
@@ -233,7 +223,7 @@ public class SingleFriendListActivity extends AppCompatActivity {
         Map<String,String> map = new HashMap<>();
         map.put("command", "friendSearch");
         map.put("uid", uid);
-        map.put("searchFriend",sqlReturn.friendListName[position]);
+        map.put("searchFriend",textName.getText().toString());
         new friendSearch(this).execute((HashMap)map);
     }
 
@@ -278,9 +268,20 @@ public class SingleFriendListActivity extends AppCompatActivity {
             if (status){
                 RefreshLayoutFriendList.setRefreshing(false);
             }else{
-                friendSearch();
+                RefreshLayoutFriendList.setRefreshing(false);
             }
         }
+    }
+
+    // 擋住手機上回上一頁鍵
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            SingleFriendListActivity.this.finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

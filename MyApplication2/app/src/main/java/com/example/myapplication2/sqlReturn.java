@@ -108,4 +108,16 @@ public class sqlReturn{
     public static String[] add_friendName;
     public static String[] add_friendBFF;
     public static boolean check_friend = false;
+    //統計
+    public static int $moodTotal;
+    public static int moodResult01;
+    public static int moodResult02;
+    public static int moodResult03;
+    public static int moodResult04;
+    public static int moodResult05;
+    public static int tagResult01;
+    public static int tagResult02;
+    public static int tagResult03;
+    public static int tagResult04;
+    public static int tagResult05;
 }

@@ -15,4 +15,6 @@
     <color name="how_color2">#AFD279</color>
     <color name="pink">#F3BFD0</color>
     <color name="light_gray">#D9D9D9</color>
+    <color name="colorTabText">#59B4C4</color>
+    <color name="colorTabTextSelected">#3994A4</color>
 </resources>

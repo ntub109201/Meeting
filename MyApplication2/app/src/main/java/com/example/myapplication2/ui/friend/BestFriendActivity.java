@@ -227,7 +227,7 @@ public class BestFriendActivity extends AppCompatActivity {
                 sqlReturn.bestfriendSearchTagName = new String[sqlReturn.bestfriendSearchCount];
                 sqlReturn.bestfriendSearchDate = new String[sqlReturn.bestfriendSearchCount];
                 sqlReturn.bestfriendSearchName = new String[sqlReturn.bestfriendSearchCount];
-                for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
+                for(int i = 0; i<sqlReturn.bestfriendSearchCount; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.bestfriendSearchNum[i] = obj.getString("friendNum");
                     sqlReturn.bestfriendSearchContent[i] = obj.getString("content");
@@ -241,15 +241,21 @@ public class BestFriendActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (status){
-                Intent intent = new Intent(BestFriendActivity.this,SingleBestFriendActivity.class);
+                Intent intent = new Intent(BestFriendActivity.this,SingleBestFriendListActivity.class);
                 startActivity(intent);
                 RefreshLayoutBestFriendList.setRefreshing(false);
             }else {
-                new AlertDialog.Builder(activity)
-                        .setTitle("提醒您")
-                        .setMessage("摯友"+sqlReturn.friendListName[position1]+"尚未新增日記")
-                        .setPositiveButton("了解", null)
-                        .show();
+                for(int i = 0; i<sqlReturn.bestfriendSearchCount; i++){
+                    sqlReturn.bestfriendSearchNum[i] = "";
+                    sqlReturn.bestfriendSearchContent[i] = "";
+                    sqlReturn.bestfriendSearchMood[i] = "";
+                    sqlReturn.bestfriendSearchTagName[i] = "";
+                    sqlReturn.bestfriendSearchDate[i] = "";
+                    sqlReturn.bestfriendSearchName[i] = "";
+                }
+                sqlReturn.bestfriendSearchCount = 0;
+                Intent intent = new Intent(BestFriendActivity.this,SingleBestFriendListActivity.class);
+                startActivity(intent);
                 RefreshLayoutBestFriendList.setRefreshing(false);
             }
         }
