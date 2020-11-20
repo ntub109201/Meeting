@@ -20,7 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-public class SecondActivity02 extends AppCompatActivity {
+public class GoogleLoginSignOutActivity extends AppCompatActivity {
     ImageView imageView01;
     TextView name,email,id;
     Button signOut01;
@@ -78,7 +78,7 @@ public class SecondActivity02 extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         // ...
-                        Toast.makeText(SecondActivity02.this,"Sign out Successful",Toast.LENGTH_LONG).show();
+                        Toast.makeText(GoogleLoginSignOutActivity.this,"Sign out Successful",Toast.LENGTH_LONG).show();
                         finish();
                     }
                 });

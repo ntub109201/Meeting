@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
             uid = account.getId();
             name = account.getDisplayName();
             mail = account.getEmail();
-//            Intent intent = new Intent(LoginActivity.this,SecondActivity02.class);
+//            Intent intent = new Intent(LoginActivity.this,GoogleLoginSignOutActivity.class);
 //            startActivity(intent);
             googleLogin();
         } catch (ApiException e) {

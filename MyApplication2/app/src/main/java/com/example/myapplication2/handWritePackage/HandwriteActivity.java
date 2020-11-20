@@ -464,15 +464,15 @@ public class HandwriteActivity extends AppCompatActivity {
     private void uploadImagesToServer() {
         if (InternetConnection.checkConnection(HandwriteActivity.this)) {
 
-            final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .readTimeout(5, TimeUnit.MINUTES)
-                    .connectTimeout(5, TimeUnit.MINUTES)
-                    .build();
+//            final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                    .readTimeout(5, TimeUnit.MINUTES)
+//                    .connectTimeout(5, TimeUnit.MINUTES)
+//                    .build();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(ApiService.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(okHttpClient)
+//                    .client(okHttpClient)
                     .build();
 
             showProgress();
@@ -494,7 +494,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 Log.e(TAG, "File select error", e);
             }
             // create a map of data to pass along
-            RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
+            RequestBody description = createPartFromString("http://10836008.000webhostapp.com");
             RequestBody size = createPartFromString(""+parts.size());
 
             // finally, execute the request

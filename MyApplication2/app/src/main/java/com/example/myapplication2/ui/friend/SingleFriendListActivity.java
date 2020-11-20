@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
+import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -206,7 +207,8 @@ public class SingleFriendListActivity extends AppCompatActivity {
                 if(sqlReturn.SearchCountFriendList == 1){
                     sqlReturn.SearchCountFriendList = 0;
                 }
-                Intent intent = new Intent(SingleFriendListActivity.this,FriendListActivity.class);
+                Intent intent = new Intent(SingleFriendListActivity.this, MainActivity.class);
+                intent.putExtra("id",2);
                 startActivity(intent);
             }else{
                 new AlertDialog.Builder(activity)
@@ -268,6 +270,14 @@ public class SingleFriendListActivity extends AppCompatActivity {
             if (status){
                 RefreshLayoutFriendList.setRefreshing(false);
             }else{
+                for(int i = 0; i<sqlReturn.friendSearchCount; i++){
+                    sqlReturn.friendSearchNum[i] = "";
+                    sqlReturn.friendSearchContent[i] = "";
+                    sqlReturn.friendSearchMood[i] = "";
+                    sqlReturn.friendSearchTagName[i] = "";
+                    sqlReturn.friendSearchDate[i] = "";
+                    sqlReturn.friendSearchName[i] = "";
+                }
                 RefreshLayoutFriendList.setRefreshing(false);
             }
         }

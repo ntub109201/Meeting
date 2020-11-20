@@ -396,6 +396,8 @@ public class FriendListActivity extends AppCompatActivity {
                     sqlReturn.friendSearchName[i] = "";
                 }
                 sqlReturn.friendSearchCount = 0;
+                sqlReturn.friendSearchNum = new String[1];
+                sqlReturn.friendSearchNum[0] = sqlReturn.friendListNum[position2];
                 Intent intent = new Intent(FriendListActivity.this,SingleFriendListActivity.class);
                 startActivity(intent);
                 RefreshLayoutFriendList2.setRefreshing(false);

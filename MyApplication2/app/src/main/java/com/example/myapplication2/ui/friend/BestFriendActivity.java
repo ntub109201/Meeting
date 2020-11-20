@@ -254,6 +254,8 @@ public class BestFriendActivity extends AppCompatActivity {
                     sqlReturn.bestfriendSearchName[i] = "";
                 }
                 sqlReturn.bestfriendSearchCount = 0;
+                sqlReturn.bestfriendSearchNum = new String[1];
+                sqlReturn.bestfriendSearchNum[0] = sqlReturn.BestFriendListNum[position1];
                 Intent intent = new Intent(BestFriendActivity.this,SingleBestFriendListActivity.class);
                 startActivity(intent);
                 RefreshLayoutBestFriendList.setRefreshing(false);

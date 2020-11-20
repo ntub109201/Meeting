@@ -42,7 +42,7 @@
             android:name=".ui.dashboard.PieChartActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Login.SecondActivity02"
+            android:name=".Login.GoogleLoginSignOutActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.friend.SearchFriendActivity"

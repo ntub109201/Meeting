@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
+import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 
@@ -47,6 +48,8 @@ public class SingleBestFriendListActivity extends AppCompatActivity {
     private TextView textName;
     public static int position1;
     private ImageButton imbtnReturnToFriendList;
+    private Button deleteBestFriend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +65,23 @@ public class SingleBestFriendListActivity extends AppCompatActivity {
                 SingleBestFriendListActivity.this.finish();
             }
         });
+
+        deleteBestFriend = findViewById(R.id.deleteBestFriend);
+        deleteBestFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(SingleBestFriendListActivity.this)
+                        .setTitle("提醒")
+                        .setMessage("您確定要刪除他嗎?")
+                        .setPositiveButton("確定",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteBestFriend();
+                            }
+                        }).setNegativeButton("取消",null).create().show();
+            }
+        });
+
 
         RecyclerView = findViewById(R.id.RecyclerView);
         RecyclerView.setHasFixedSize(true);
@@ -201,10 +221,68 @@ public class SingleBestFriendListActivity extends AppCompatActivity {
             if (status){
                 RefreshLayoutFriendList.setRefreshing(false);
             }else{
+                for(int i = 0; i<sqlReturn.bestfriendSearchCount; i++){
+                    sqlReturn.bestfriendSearchNum[i] = "";
+                    sqlReturn.bestfriendSearchContent[i] = "";
+                    sqlReturn.bestfriendSearchMood[i] = "";
+                    sqlReturn.bestfriendSearchTagName[i] = "";
+                    sqlReturn.bestfriendSearchDate[i] = "";
+                    sqlReturn.bestfriendSearchName[i] = "";
+                }
+                sqlReturn.bestfriendSearchCount = 0;
                 RefreshLayoutFriendList.setRefreshing(false);
             }
         }
     }
+
+    public void deleteBestFriend(){
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "deleteBestFriend");
+        map.put("uid",sqlReturn.GetUserID);
+        map.put("friendNum","羅小左");
+        new deleteBestFriend(this).execute((HashMap)map);
+    }
+
+    private class deleteBestFriend extends HttpURLConnection_AsyncTask {
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        deleteBestFriend(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+
+            if(status == true){
+                if(sqlReturn.SearchCountBestFriendList == 1){
+                    sqlReturn.SearchCountBestFriendList = 0;
+                }
+                Intent intent = new Intent(SingleBestFriendListActivity.this, MainActivity.class);
+                intent.putExtra("id",2);
+                startActivity(intent);
+            }else{
+                new AlertDialog.Builder(activity)
+                        .setTitle("刪除好友失敗")
+                        .setMessage("伺服器擁擠中")
+                        .setPositiveButton("OK", null)
+                        .show();
+                Log.d("222","error");
+            }
+        }
+    }
+
     // 擋住手機上回上一頁鍵
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
