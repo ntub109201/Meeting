@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
     private String name;
     private EditText edUserEmail;
     private EditText edPasswd;
-    //public static String GetUserID;
     public static boolean a = false;
     private Button btnLogin;
     int RC_SIGN_IN = 100; //自己定義的int在onActivityResult才可以抓到是利用Google登入的
@@ -65,15 +64,6 @@ public class LoginActivity extends AppCompatActivity {
         edPasswd = findViewById(R.id.password);
         edPasswd.setText(sqlReturn.RegisterPassword);
         sign_in = findViewById(R.id.sign_in_button);
-
-        final TextView test = findViewById(R.id.register2);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, PhotoActivity.class);
-                startActivity(intent);
-            }
-        });
 
         final Button registerLink = findViewById(R.id.register);
         registerLink.setOnClickListener(new View.OnClickListener() {
@@ -261,6 +251,7 @@ public class LoginActivity extends AppCompatActivity {
             if(status == true){
                 MainActivity.login = true;
                 a = true;
+                sqlReturn.googleLogin = true;
                 history();
                 searchFriend();
                 personalData();
@@ -268,15 +259,7 @@ public class LoginActivity extends AppCompatActivity {
                 searchFriendList();
                 mGoogleSignInClient.signOut();
                 pr1.setVisibility(View.INVISIBLE);
-//                if(message.equals("已有登入資料")){
-//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-//                    startActivity(intent,options.toBundle());
-//                }else{
-//                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
-//                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-//                    startActivity(intent,options.toBundle());
-//                }
+
             }else{
                 mGoogleSignInClient.signOut();
                 pr1.setVisibility(View.INVISIBLE);

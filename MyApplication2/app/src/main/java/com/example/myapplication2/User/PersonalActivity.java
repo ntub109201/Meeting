@@ -1,9 +1,8 @@
-package com.example.myapplication2;
+package com.example.myapplication2.User;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -14,14 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication2.Login.LoginActivity;
-import com.facebook.login.Login;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.Map;
+import com.example.myapplication2.MainActivity;
+import com.example.myapplication2.R;
+import com.example.myapplication2.sqlReturn;
 
 public class PersonalActivity extends AppCompatActivity {
 
@@ -70,7 +64,7 @@ public class PersonalActivity extends AppCompatActivity {
         btn_chapersoninfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PersonalActivity.this,ModifyPersonalActivity.class);
+                Intent intent = new Intent(PersonalActivity.this, ModifyPersonalActivity.class);
                 intent.putExtra("id",pageId);
                 startActivity(intent);
             }

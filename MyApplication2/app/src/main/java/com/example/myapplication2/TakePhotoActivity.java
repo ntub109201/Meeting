@@ -3,29 +3,18 @@ package com.example.myapplication2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,22 +27,15 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Map;
 
-public class OCRActivity extends AppCompatActivity {
+public class TakePhotoActivity extends AppCompatActivity {
 
     private boolean paper_sunnyClick = false, paper_mcClick = false, paper_cloudyClick = false, paper_thunderClick = false, paper_rainClick = false;
     private boolean paper_tripClick = false, paper_shoppingClick = false, paper_loveClick = false, paper_foodClick = false, paper_casualClick = false;
@@ -67,7 +49,7 @@ public class OCRActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private LinkedList<HashMap<String,String>> data1;
-    private OCRActivity.MyAdapter myAdapter;
+    private TakePhotoActivity.MyAdapter myAdapter;
     private static int count;
     private Bitmap mbmp;
 
@@ -96,15 +78,15 @@ public class OCRActivity extends AppCompatActivity {
 //        btn_addphoto.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(OCRActivity.this, PhotoActivity.class);
-//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(OCRActivity.this);
-//                OCRActivity.this.startActivity(intent,options.toBundle());
+//                Intent intent = new Intent(TakePhotoActivity.this, PhotoActivity.class);
+//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TakePhotoActivity.this);
+//                TakePhotoActivity.this.startActivity(intent,options.toBundle());
 //            }
 //        });
 
 
         recyclerview.setHasFixedSize(false);
-        mLayoutManager = new LinearLayoutManager(OCRActivity.this);
+        mLayoutManager = new LinearLayoutManager(TakePhotoActivity.this);
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerview.setLayoutManager(mLayoutManager);
         myAdapter = new MyAdapter();
@@ -117,7 +99,7 @@ public class OCRActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 count = 0;
-                Intent intent = new Intent(OCRActivity.this,MainActivity.class);
+                Intent intent = new Intent(TakePhotoActivity.this,MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
                 startActivity(intent);
@@ -399,25 +381,25 @@ public class OCRActivity extends AppCompatActivity {
         }
 
         if(countMood == 0 && countTag == 0){
-            new AlertDialog.Builder(OCRActivity.this)
+            new AlertDialog.Builder(TakePhotoActivity.this)
                     .setTitle("提醒您")
                     .setMessage("請點選心情和主題!!")
                     .setPositiveButton("好", null)
                     .show();
         }else if(countMood == 0){
-            new AlertDialog.Builder(OCRActivity.this)
+            new AlertDialog.Builder(TakePhotoActivity.this)
                     .setTitle("提醒您")
                     .setMessage("請點選心情!!")
                     .setPositiveButton("好", null)
                     .show();
         }else if(countTag == 0){
-            new AlertDialog.Builder(OCRActivity.this)
+            new AlertDialog.Builder(TakePhotoActivity.this)
                     .setTitle("提醒您")
                     .setMessage("請點選主題!!")
                     .setPositiveButton("好", null)
                     .show();
         }else{
-            new AlertDialog.Builder(OCRActivity.this)
+            new AlertDialog.Builder(TakePhotoActivity.this)
                     .setCancelable(false)
                     .setTitle("提醒您")
                     .setMessage("確定完成?")
@@ -472,9 +454,9 @@ public class OCRActivity extends AppCompatActivity {
             }
             if (status){
                 Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(OCRActivity.this, MainActivity.class);
+                Intent intent = new Intent(TakePhotoActivity.this, MainActivity.class);
                 intent.putExtra("id",1);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(OCRActivity.this);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TakePhotoActivity.this);
                 startActivity(intent,options.toBundle());
             }else {
                 new AlertDialog.Builder(activity)
@@ -539,7 +521,7 @@ public class OCRActivity extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
         {
             count = 0;
-            Intent intent = new Intent(OCRActivity.this,MainActivity.class);
+            Intent intent = new Intent(TakePhotoActivity.this,MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("id",1);
             startActivity(intent);

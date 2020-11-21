@@ -2,7 +2,6 @@ package com.example.myapplication2.Diary;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -26,7 +25,7 @@ public class DiaryTagActivity extends AppCompatActivity {
         final ImageButton imbtnReturnToDiary = (ImageButton) findViewById(R.id.imbtnReturnToDiary);
         imbtnReturnToDiary.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent intent = new Intent(DiaryTagActivity.this, DiaryActivity.class);
+                Intent intent = new Intent(DiaryTagActivity.this, DiaryMoodActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTagActivity.this);
                 DiaryTagActivity.this.startActivity(intent,options.toBundle());
             }
@@ -120,7 +119,7 @@ public class DiaryTagActivity extends AppCompatActivity {
         // TODO 自動產生的方法 Stub
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
         {
-            Intent intent = new Intent(DiaryTagActivity.this, DiaryActivity.class);
+            Intent intent = new Intent(DiaryTagActivity.this, DiaryMoodActivity.class);
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTagActivity.this);
             DiaryTagActivity.this.startActivity(intent,options.toBundle());
         }

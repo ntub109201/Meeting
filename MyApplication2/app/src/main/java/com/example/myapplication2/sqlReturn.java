@@ -17,7 +17,7 @@ public class sqlReturn{
     public static String[] LoginDate;
     public static String[] LoginOption;
     public static String[] LoginDiaryID;
-
+    public static boolean googleLogin = false;
     // 此為歷史抓心情
     public static String textViewContext1 = null;
     public static int SearchCountMood;

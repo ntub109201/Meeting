@@ -1,11 +1,9 @@
-package com.example.myapplication2;
+package com.example.myapplication2.User;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -13,20 +11,18 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
+import com.example.myapplication2.HttpURLConnection_AsyncTask;
+import com.example.myapplication2.R;
+import com.example.myapplication2.sqlReturn;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,6 +98,11 @@ public class ModifyPersonalActivity extends AppCompatActivity {
 
 
         edtName = findViewById(R.id.edtName);
+        if(sqlReturn.googleLogin){
+            edtName.setEnabled(false);
+        }else {
+            edtName.setEnabled(true);
+        }
         edtName.setText(sqlReturn.PersonalName);
 
         final int pageId = getIntent().getIntExtra("pageId",0);

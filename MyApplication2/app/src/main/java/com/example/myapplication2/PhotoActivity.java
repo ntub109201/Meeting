@@ -129,7 +129,7 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, C
             bitmap.compress(Bitmap.CompressFormat.JPEG, 60 /*ignored for PNG*/, bos);
             byte[] bitmapdata = bos.toByteArray();
             String encoded = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
-            Intent intent = new Intent(PhotoActivity.this,OCRActivity.class);
+            Intent intent = new Intent(PhotoActivity.this, TakePhotoActivity.class);
             intent.putExtra("fileName", encoded);
             startActivity(intent);
         }

@@ -19,6 +19,7 @@
         android:roundIcon="@drawable/ic_launcher_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".User.PasswordActivity"></activity>
         <activity
             android:name=".ui.friend.SingleBestFriendListActivity"
             android:screenOrientation="portrait" />
@@ -57,7 +58,7 @@
             android:name=".ui.friend.BestFriendActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PersonalActivity"
+            android:name=".User.PersonalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Diary.DiaryWhoActivity"
@@ -81,7 +82,7 @@
             android:name=".Diary.DiaryWhereActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ModifyPersonalActivity"
+            android:name=".User.ModifyPersonalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Login.FirstLoginActivity"
@@ -112,7 +113,7 @@
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OCRActivity"
+            android:name=".TakePhotoActivity"
             android:label="@string/title_OCR"
             android:screenOrientation="portrait" />
         <activity
@@ -120,7 +121,7 @@
             android:label="@string/title_handwritediary"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Diary.DiaryActivity"
+            android:name=".Diary.DiaryMoodActivity"
             android:label="@string/title_diary"
             android:screenOrientation="portrait" />
         <activity
@@ -152,6 +153,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

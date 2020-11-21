@@ -25,7 +25,6 @@ import androidx.annotation.RequiresApi;
 
 
 public class Guidor {
-    //DBHelper DBHelper = new DBHelper(getApplicationContext(), DB_NAME, null, 1);
     private final boolean debug = true;
     private DBHelper DBHelper;
     private JSONArray how_option = new JSONArray(), taste = new JSONArray(),
@@ -33,18 +32,11 @@ public class Guidor {
     private ArrayList<String> howSeq = new ArrayList<>();
     private String mood_option, tag_option, what_option, who_option, when_option, why_option, where_option, diary, previous_patternNo;
     private boolean prologue, error=false;
-    // curProp : what、when、who ... etc
-    // curDiaryContentNo : 1、2、3 ... etc，即DB裡的Sentence-Pattern的編號
-    //private String curProp = "", curDiaryContentNo = "";
-    // propSeq : 5W1H的排序組合，總個數可能會少於 6
-    // diaryContentNoSeq : 由DB裡的Sentence-Pattern的編號組成的排序組合，且每一個prop中只會有一個子元素被選取( 0 ~ 6 個編號被選取)
     private ArrayList<String> propSeq = new ArrayList<>(), diaryContentNoSeq = new ArrayList<>();
     Guidor(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version){
         init();
         this.DBHelper = new DBHelper(context, name, factory, version);
-        //openDB();
     }
-    //public abstract void openDB();
     private void init(){
         this.prologue = true;
         this.mood_option = "";
@@ -148,7 +140,6 @@ public class Guidor {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //this.how_option = how;
         return this;
     }
     public void setDiary(String diary){
@@ -185,9 +176,7 @@ public class Guidor {
         propSeq.clear();
         this.diary = "";
     }
-    private void recreateDiary(){
-
-    }
+    private void recreateDiary(){}
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void createDiary(){
         ArrayList<String> addDiaryContentNoSeq = new ArrayList<>();
@@ -233,20 +222,6 @@ public class Guidor {
                             Log.d("sentencePatternNo", sentencePatternNo);
                         if(tag_option.equals("旅遊")){
                             sb.append("，");
-                        }else{
-//                            cursor = db.rawQuery("SELECT punctuationMark\n" +
-//                                    "FROM pattern_link\n" +
-//                                    "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "", null);
-//                            cursor.moveToFirst();
-//                            if (debug)
-//                                Log.d("NiCe", "SELECT punctuationMark\n" +
-//                                        "FROM pattern_link\n" +
-//                                        "WHERE sentencePatternNo = " + sentencePatternNo + " AND nextPattern = " + how_pattern[k] + "");
-//                            do{
-//                                punctuations.add(cursor.getString(0));
-//                            }while(cursor.moveToNext());
-//                            punctuation = choosePunctuation(punctuations.get((int)(Math.random()*punctuations.size())));
-//                            sb.append(punctuation);
                         }
                         try{
                             do{
@@ -257,7 +232,6 @@ public class Guidor {
                         }catch(CursorIndexOutOfBoundsException e){
                             sb.append("，");
                         }
-
                     }
                     // get pattern
                     index = how_pattern[k];
@@ -266,7 +240,6 @@ public class Guidor {
                             "WHERE sentencePatternNo = '" + index + "'", null);
                     cursor.moveToFirst();
                     pattern = cursor.getString(0);
-
                     if (pattern.contains("_multiOption_")){
                         StringBuilder replace_how = new StringBuilder();
                         switch (howSeq.get(0)){
@@ -335,8 +308,6 @@ public class Guidor {
                         }
                         howSeq.remove(0);
                         sb.append(pattern.replace("_multiOption_", replace_how.toString()));
-                    }else{
-
                     }
                 }
             }else{
@@ -416,23 +387,6 @@ public class Guidor {
         Cursor cursor = null;
         String prop = propSeq.get(diaryContentNoSeq.size());
         option = getOption(prop);
-//        switch (prop){
-//            case "what":
-//                option = what_option;
-//                break;
-//            case "why":
-//                option = why_option;
-//                break;
-//            case "when":
-//                option = when_option;
-//                break;
-//            case "who":
-//                option = who_option;
-//                break;
-//            case "where":
-//                option = where_option;
-//                break;
-//        }
         boolean first=true;
         if (prop.equals("how")){
             // 5 sense
@@ -441,7 +395,6 @@ public class Guidor {
                 String optionClass = "";
                 if (debug)
                     Log.d("FOR迴圈", String.valueOf(i));
-
                 try {
                     for (int k=1; k<how_option.getJSONArray(i).length(); k++){
                         if (k==1){
@@ -538,7 +491,6 @@ public class Guidor {
                     }
                     selectedIndexes.deleteCharAt(selectedIndexes.length()-2);
                     indexes.clear();
-
                     cursor = db.rawQuery("SELECT nextPattern\n" +
                             "    FROM pattern_link\n" +
                             "    WHERE nextPattern in (\n" +
@@ -579,10 +531,6 @@ public class Guidor {
 
                         int randomIndex = (int)(Math.random()*indexes.size());
                         index = indexes.get(randomIndex);
-//                cursor = db.rawQuery("SELECT pattern\n" +
-//                        "FROM sentence_pattern\n" +
-//                        "WHERE sentencePatternNo = '" + index + "'", null);
-//                cursor.moveToFirst();
                         ret += index;
                         if (i != how_option.length()-1)
                             ret += "_";
@@ -591,10 +539,6 @@ public class Guidor {
                 }else{
                     int randomIndex = (int)(Math.random()*indexes.size());
                     index = indexes.get(randomIndex);
-//                cursor = db.rawQuery("SELECT pattern\n" +
-//                        "FROM sentence_pattern\n" +
-//                        "WHERE sentencePatternNo = '" + index + "'", null);
-//                cursor.moveToFirst();
                     ret += index;
                     if (i != how_option.length()-1)
                         ret += "_";
@@ -648,7 +592,6 @@ public class Guidor {
                 if (debug)
                     Log.d("indexes.add", cursor.getString(0));
             }while(cursor.moveToNext());
-
             if (diaryContentNoSeq.size() >= 1){
                 if (!propSeq.get(diaryContentNoSeq.size()-1).equals("how")){
                     StringBuilder existProp = new StringBuilder(), selectedIndexes = new StringBuilder();
@@ -661,7 +604,6 @@ public class Guidor {
                     existProp.deleteCharAt(existProp.length()-2);
                     selectedIndexes.deleteCharAt(selectedIndexes.length()-2);
                     indexes.clear();
-
                     cursor = db.rawQuery("SELECT nextPattern\n" +
                             "    FROM pattern_link\n" +
                             "    WHERE nextPattern in (\n" +
@@ -679,7 +621,6 @@ public class Guidor {
                                 "    AND sentencePatternNo IN (\n" +
                                 "    \t" + previous_patternNo + "\n" +
                                 "    )");
-
                     if (cursor.getCount() == 0){
                         String callback_value = recursiveFixPatternSeq(diaryContentNoSeq.size()-1, selectedIndexes.toString(), selectedIndexes.toString(), null);
                         switch (callback_value){
@@ -702,10 +643,6 @@ public class Guidor {
             }
             randomIndex = (int)(Math.random()*indexes.size());
             index = indexes.get(randomIndex);
-//            cursor = db.rawQuery("SELECT pattern\n" +
-//                    "FROM sentence_pattern\n" +
-//                    "WHERE sentencePatternNo = '" + index + "'", null);
-//            cursor.moveToFirst();
             ret = index;
         }
         assert cursor != null;
@@ -718,10 +655,7 @@ public class Guidor {
         Cursor cursor;
         String callback_value, return_value;
         String index = null;
-
-
         callback_value = recursiveFixPatternSeq(start_position, target_patternNos, target_patternNos, null);
-
         switch (callback_value){
             case "-1":
             case "-2":
@@ -745,7 +679,6 @@ public class Guidor {
         Cursor cursor;
         String prop = propSeq.get(position);
         String option = getOption(propSeq.get(position));
-
         // select sentencePatternNos as nodes at this position
         cursor = db.rawQuery("SELECT sentencePatternNo\n" +
                 "FROM `pattern_index`\n" +
@@ -766,16 +699,12 @@ public class Guidor {
                 ")", null);
         if (cursor.getCount() == 0) return "-1";
         cursor.moveToFirst();
-        // create a list contain all pattern in this prop_option
         do {
             thisSentencePatternNo_list.add(cursor.getString(0));
         }while(cursor.moveToNext());
-            // make nodes result easily SELECT
         for (String s : thisSentencePatternNo_list) sb_thisSentencePatternNo_list_tmp.append("'").append(s).append("'").append(", ");
         sb_thisSentencePatternNo_list_tmp.deleteCharAt(sb_thisSentencePatternNo_list_tmp.length()-2);
         thisSentencePatternNo_list.clear();
-
-        // filter node(position) that can connect to node(position-1)
         if (position >= 1){
             cursor = db.rawQuery("SELECT DISTINCT nextPattern\n" +
                     "    FROM pattern_link\n" +
@@ -785,21 +714,16 @@ public class Guidor {
                     "    AND sentencePatternNo IN (\n" +
                     "    \t" + diaryContentNoSeq.get(position-1) + "\n" +
                     "    )", null);
-            // important annotation--> this is impossible
             if (cursor.getCount() == 0) return "-2";
         }
-
         cursor.moveToFirst();
         do {
             thisSentencePatternNo_list.add(cursor.getString(0));
             if (debug)
                 Log.d("fix_indexes.this.add", cursor.getString(0));
         }while(cursor.moveToNext());
-        // make nodes result easily SELECT
         for (String s : thisSentencePatternNo_list) sb_thisSentencePatternNo_list.append("'").append(s).append("'").append(", ");
         sb_thisSentencePatternNo_list.deleteCharAt(sb_thisSentencePatternNo_list.length()-2);
-
-        //select nodes to nextPatternNos
         cursor = db.rawQuery("SELECT DISTINCT sentencePatternNo\n" +
                 "    FROM pattern_link\n" +
                 "    WHERE nextPattern in (\n" +
@@ -815,13 +739,9 @@ public class Guidor {
                 tmp_list.add(cursor.getString(0));
             }while(cursor.moveToNext());
             nodeSet.put(position, tmp_list);
-
-            // sort the positions
             ArrayList<Integer> sort_position = new ArrayList<>(nodeSet.keySet());
             Map<Integer, ArrayList<String>> linkable_nodeSet = new HashMap<>();
             Collections.sort(sort_position);
-
-            //make sure with the node(s) can connect to end node
             boolean node_connected=true;
             String nextPatternNos = null, thisPatternNos;
             for (int i=0; i<=sort_position.size(); i++){
@@ -829,21 +749,16 @@ public class Guidor {
                 ArrayList<String> nextPatternNos_list = new ArrayList<>();
                 thisPatternNos = nextPatternNos;
                 StringBuilder sb = new StringBuilder();
-
                 if (i == sort_position.size()){
-                    // only end node
                     nextPatternNos = target_patternNos;
                 }else{
-                    // except end node
                     for (String node : nodeSet.get(sort_position.get(i)))
                         sb.append("'").append(node).append("'").append(", ");
                     sb.deleteCharAt(sb.length()-2);
                     nextPatternNos = sb.toString();
                 }
-
                 if (i==0)
                     continue;
-                // select accessible route
                 cursor = db.rawQuery("SELECT DISTINCT sentencePatternNo, nextPattern\n" +
                         "    FROM pattern_link\n" +
                         "    WHERE nextPattern in (\n" +
@@ -872,20 +787,6 @@ public class Guidor {
                     for (String s : patternNos_list)
                         sb.append("'").append(s).append("'").append(",");
                     sb.deleteCharAt(sb.length()-1);
-
-                    //linkable_nodeSet.put(i, new ArrayList<>());
-//                    if (patternNos_list.clone() instanceof ArrayList<?>){
-//                        ArrayList<?> tmp_arrayList = (ArrayList<?>)patternNos_list.clone();
-//                        Class valueClass = tmp_arrayList.stream().findFirst().map(Object::getClass).orElse(null);
-//                        if (String.class.equals(valueClass)) {
-//                            for (Object s : tmp_arrayList){
-//                                String value = (String) s;
-//                                linkable_nodeSet.get(i).add(value);
-//                            }
-//                        }
-//                    }
-//                    linkable_nodeSet.put(i-1, sb.toString());
-//                    Log.d("NiCe", "recursiveFixPatternSeq: add: "+linkable_nodeSet.get(i));
                     linkable_nodeSet.put(i-1, patternNos_list);
                     if (i == sort_position.size()){
                         linkable_nodeSet.put(i, nextPatternNos_list);
@@ -896,7 +797,6 @@ public class Guidor {
                     break;
                 }
             }
-            // if success:
             if (node_connected){
                 for (Integer i : linkable_nodeSet.keySet()){
                     for (String s : linkable_nodeSet.get(i)){
@@ -909,8 +809,6 @@ public class Guidor {
                 int randomIndex;
                 for (int z=0; z<=sort_position.size(); z++){
                     Log.d("NiCe", ""+z);
-//                    Log.d("NiCe", "recursiveFixPatternSeq: "+linkable_nodeSet.get(z));
-//                    String[] arr = linkable_nodeSet.get(z).split(",");
                     randomIndex = (int)(Math.random()*linkable_nodeSet.get(z).size());
                     v = linkable_nodeSet.get(z).get(randomIndex);
                     if (z!=sort_position.size() && !v.equals(diaryContentNoSeq.get(sort_position.get(z)))){

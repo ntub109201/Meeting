@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,7 +16,7 @@ import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 
-public class DiaryActivity extends AppCompatActivity {
+public class DiaryMoodActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +33,9 @@ public class DiaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtMood = "心情1";
-                Intent registerIntent = new Intent(DiaryActivity.this, DiaryTagActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryActivity.this);
-                DiaryActivity.this.startActivity(registerIntent,options.toBundle());
+                Intent registerIntent = new Intent(DiaryMoodActivity.this, DiaryTagActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryMoodActivity.this);
+                DiaryMoodActivity.this.startActivity(registerIntent,options.toBundle());
             }
         });
 
@@ -46,9 +45,9 @@ public class DiaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtMood = "心情2";
-                Intent registerIntent = new Intent(DiaryActivity.this, DiaryTagActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryActivity.this);
-                DiaryActivity.this.startActivity(registerIntent,options.toBundle());
+                Intent registerIntent = new Intent(DiaryMoodActivity.this, DiaryTagActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryMoodActivity.this);
+                DiaryMoodActivity.this.startActivity(registerIntent,options.toBundle());
             }
         });
 
@@ -58,9 +57,9 @@ public class DiaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtMood = "心情3";
-                Intent registerIntent = new Intent(DiaryActivity.this, DiaryTagActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryActivity.this);
-                DiaryActivity.this.startActivity(registerIntent,options.toBundle());
+                Intent registerIntent = new Intent(DiaryMoodActivity.this, DiaryTagActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryMoodActivity.this);
+                DiaryMoodActivity.this.startActivity(registerIntent,options.toBundle());
             }
         });
 
@@ -70,9 +69,9 @@ public class DiaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtMood = "心情4";
-                Intent registerIntent = new Intent(DiaryActivity.this, DiaryTagActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryActivity.this);
-                DiaryActivity.this.startActivity(registerIntent,options.toBundle());
+                Intent registerIntent = new Intent(DiaryMoodActivity.this, DiaryTagActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryMoodActivity.this);
+                DiaryMoodActivity.this.startActivity(registerIntent,options.toBundle());
             }
         });
 
@@ -82,9 +81,9 @@ public class DiaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtMood = "心情5";
-                Intent registerIntent = new Intent(DiaryActivity.this, DiaryTagActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryActivity.this);
-                DiaryActivity.this.startActivity(registerIntent,options.toBundle());
+                Intent registerIntent = new Intent(DiaryMoodActivity.this, DiaryTagActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryMoodActivity.this);
+                DiaryMoodActivity.this.startActivity(registerIntent,options.toBundle());
             }
         });
 
@@ -107,7 +106,7 @@ public class DiaryActivity extends AppCompatActivity {
                 DiaryValue.Eye_Count = 0;
                 DiaryValue.Mouth_Count = 0;
                 DiaryValue.Smell_Count = 0;
-                Intent intent = new Intent(DiaryActivity.this,MainActivity.class);
+                Intent intent = new Intent(DiaryMoodActivity.this,MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
                 startActivity(intent);
@@ -135,7 +134,7 @@ public class DiaryActivity extends AppCompatActivity {
             DiaryValue.Eye_Count = 0;
             DiaryValue.Mouth_Count = 0;
             DiaryValue.Smell_Count = 0;
-            Intent intent = new Intent(DiaryActivity.this,MainActivity.class);
+            Intent intent = new Intent(DiaryMoodActivity.this,MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("id",1);
             startActivity(intent);

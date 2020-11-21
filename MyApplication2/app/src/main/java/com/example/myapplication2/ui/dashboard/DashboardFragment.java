@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
-import com.example.myapplication2.PersonalActivity;
+import com.example.myapplication2.User.PersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 import com.example.myapplication2.ui.home.HomeFragment;
@@ -20,19 +20,14 @@ import com.example.myapplication2.ui.home.HomeFragment;
 import static com.example.myapplication2.R.layout.fragment_dashboard;
 
 import androidx.annotation.AttrRes;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
-import androidx.fragment.app.DialogFragment;
 import androidx.navigation.Navigation;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -46,32 +41,25 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.CompositeDateValidator;
 import com.google.android.material.datepicker.DateValidatorPointBackward;
-import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-import static java.security.AccessController.getContext;
 
 public class DashboardFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
 

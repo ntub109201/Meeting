@@ -30,10 +30,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.myapplication2.PhotoActivity;
-import com.example.myapplication2.Diary.DiaryActivity;
+import com.example.myapplication2.Diary.DiaryMoodActivity;
 import com.example.myapplication2.handWritePackage.HandwriteActivity;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
-import com.example.myapplication2.PersonalActivity;
+import com.example.myapplication2.User.PersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
         btnWriteTodayDiary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeFragment.super.getActivity(), DiaryActivity.class);
+                Intent intent = new Intent(HomeFragment.super.getActivity(), DiaryMoodActivity.class);
                 startActivity(intent);
             }
         });
@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 changeBtn = false;
-                Intent registerIntent = new Intent(HomeFragment.super.getActivity(), DiaryActivity.class);
+                Intent registerIntent = new Intent(HomeFragment.super.getActivity(), DiaryMoodActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HomeFragment.super.getActivity());
                 HomeFragment.super.getActivity().startActivity(registerIntent,options.toBundle());
             }
@@ -333,7 +333,6 @@ public class HomeFragment extends Fragment {
     }
 
     public class history extends HttpURLConnection_AsyncTask {
-
         // 建立弱連結
         WeakReference<Activity> activityReference;
         history(Activity context){

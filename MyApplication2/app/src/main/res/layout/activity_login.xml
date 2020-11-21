@@ -88,24 +88,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.74" />
 
-    <TextView
-        android:id="@+id/register2"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:text="忘記密碼?"
-        android:textColor="#CFAE8F"
-        android:textColorHighlight="#CFAE8F"
-        android:textColorHint="#CFAE8F"
-        android:textColorLink="#CFAE8F"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.79"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.623" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="300dp"

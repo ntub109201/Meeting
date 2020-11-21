@@ -30,7 +30,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
     private Button btn_SaveEdit;
     private ImageButton imBtnBack;
     private String noWhat = "";
-//    public String edit = "";
     private String tag1;
 
     @Override

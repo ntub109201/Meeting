@@ -148,6 +148,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
+        android:id="@+id/progressBarHow"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="390dp"
         android:layout_height="24dp"

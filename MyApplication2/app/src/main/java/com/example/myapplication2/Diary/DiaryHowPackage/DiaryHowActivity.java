@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.myapplication2.Diary.DiaryPreviewActivity;
@@ -24,13 +25,19 @@ public class DiaryHowActivity extends AppCompatActivity {
     private Button btn_eye, btn_mouth, btn_nose;
     private TextView mPreview, btn_skip;
     private ImageButton imBtnNextHow;
+    private ProgressBar progressBarHow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_how);
 
-
+        progressBarHow = findViewById(R.id.progressBarHow);
+        if(DiaryValue.txtWhat.equals("美食")){
+            progressBarHow.setProgress(65);
+        }else {
+            progressBarHow.setProgress(100);
+        }
         final TextView textView_How = findViewById(R.id.textView_How);
         int randomNum = (int)(Math.random()* 3 + 1);
         How_dictionary dict = new How_dictionary();
