@@ -40,6 +40,7 @@ public class HomeContextActivity extends AppCompatActivity {
     private ProgressBar proBarHomeContext;
     private boolean changeBtn;
     private Animation mOpen,mClose;
+    private String sharefriend = "n", sharebestfriend = "n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,61 @@ public class HomeContextActivity extends AppCompatActivity {
         textDescription = findViewById(R.id.textDescription);
         ContextImageView = findViewById(R.id.ContextImageView);
         proBarHomeContext = findViewById(R.id.proBarHomeContext);
+
+        changeBtn = false;
+        btn_share = findViewById(R.id.btn_share);
+        btn_share_friend = findViewById(R.id.btn_share_friend);
+        btn_share_best_friend = findViewById(R.id.btn_share_best_friend);
+        btn_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(changeBtn){
+                    btn_share_friend.setAnimation(mClose);
+                    btn_share_best_friend.setAnimation(mClose);
+                    btn_share_friend.setVisibility(View.INVISIBLE);
+                    btn_share_best_friend.setVisibility(View.INVISIBLE);
+                    btn_share_friend.setEnabled(false);
+                    btn_share_best_friend.setEnabled(false);
+                    changeBtn = false;
+                }else {
+                    btn_share_friend.setAnimation(mOpen);
+                    btn_share_best_friend.setAnimation(mOpen);
+                    btn_share_friend.setVisibility(View.VISIBLE);
+                    btn_share_best_friend.setVisibility(View.VISIBLE);
+                    btn_share_friend.setEnabled(true);
+                    btn_share_best_friend.setEnabled(true);
+                    changeBtn = true;
+                }
+            }
+        });
+
+        btn_share_friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sharefriend.equals("n")){
+                    sharefriend = "y";
+                    btn_share_friend.setBackgroundResource(R.drawable.btn_sharediaryend2);
+                }else{
+                    sharefriend = "n";
+                    btn_share_friend.setBackgroundResource(R.drawable.btn_sharediary1);
+                }
+            }
+        });
+
+        btn_share_best_friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sharebestfriend.equals("n")){
+                    sharebestfriend = "y";
+                    sharefriend = "y";
+                    btn_share_best_friend.setBackgroundResource(R.drawable.btn_sharediaryend2);
+                }else{
+                    sharebestfriend = "n";
+                    sharefriend = "n";
+                    btn_share_best_friend.setBackgroundResource(R.drawable.btn_sharediary1);
+                }
+            }
+        });
 
         dictionary dict = new dictionary();
         Getdata = getIntent().getIntExtra("data",0);
@@ -144,7 +200,7 @@ public class HomeContextActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 proBarHomeContext.setVisibility(View.VISIBLE);
-                                EditDiary();
+//                                EditDiary();
                             }
                         }).setNegativeButton("取消",null).create().show();
             }
@@ -165,32 +221,7 @@ public class HomeContextActivity extends AppCompatActivity {
             }
         });
 
-        changeBtn = false;
-        btn_share = findViewById(R.id.btn_share);
-        btn_share_friend = findViewById(R.id.btn_share_friend);
-        btn_share_best_friend = findViewById(R.id.btn_share_best_friend);
-        btn_share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(changeBtn){
-                    btn_share_friend.setAnimation(mClose);
-                    btn_share_best_friend.setAnimation(mClose);
-                    btn_share_friend.setVisibility(View.INVISIBLE);
-                    btn_share_best_friend.setVisibility(View.INVISIBLE);
-                    btn_share_friend.setEnabled(false);
-                    btn_share_best_friend.setEnabled(false);
-                    changeBtn = false;
-                }else {
-                    btn_share_friend.setAnimation(mOpen);
-                    btn_share_best_friend.setAnimation(mOpen);
-                    btn_share_friend.setVisibility(View.VISIBLE);
-                    btn_share_best_friend.setVisibility(View.VISIBLE);
-                    btn_share_friend.setEnabled(true);
-                    btn_share_best_friend.setEnabled(true);
-                    changeBtn = true;
-                }
-            }
-        });
+
 
     }
 
@@ -200,24 +231,32 @@ public class HomeContextActivity extends AppCompatActivity {
             map.put("command", "editDiary");
             map.put("diaryNo",sqlReturn.LoginDiaryID[HomeFragment.homeTag]);
             map.put("diaryNewContent",txtHistoryDiary.getText().toString());
+            map.put("share",sharefriend);
+            map.put("bff",sharebestfriend);
             new EditDiary(this).execute((HashMap)map);
         }else if(Getdata == 2){
             Map<String,String> map = new HashMap<>();
             map.put("command", "editDiary");
             map.put("diaryNo",sqlReturn.DiaryID1[HomeFragment.homeTag]);
             map.put("diaryNewContent",txtHistoryDiary.getText().toString());
+            map.put("share",sharefriend);
+            map.put("bff",sharebestfriend);
             new EditDiary(this).execute((HashMap)map);
         }else if(Getdata == 3){
             Map<String,String> map = new HashMap<>();
             map.put("command", "editDiary");
             map.put("diaryNo",sqlReturn.DiaryID2[HomeFragment.homeTag]);
             map.put("diaryNewContent",txtHistoryDiary.getText().toString());
+            map.put("share",sharefriend);
+            map.put("bff",sharebestfriend);
             new EditDiary(this).execute((HashMap)map);
         }else if(Getdata == 4){
             Map<String,String> map = new HashMap<>();
             map.put("command", "editDiary");
             map.put("diaryNo",sqlReturn.DiaryID3[HomeFragment.homeTag]);
             map.put("diaryNewContent",txtHistoryDiary.getText().toString());
+            map.put("share",sharefriend);
+            map.put("bff",sharebestfriend);
             new EditDiary(this).execute((HashMap)map);
         }
     }

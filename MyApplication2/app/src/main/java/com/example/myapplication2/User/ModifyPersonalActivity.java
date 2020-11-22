@@ -32,6 +32,7 @@ public class ModifyPersonalActivity extends AppCompatActivity {
     private Button btnSave;
     private EditText edtName;
     private Spinner spinJob, spinTag;
+    private int pageId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,14 +106,14 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         }
         edtName.setText(sqlReturn.PersonalName);
 
-        final int pageId = getIntent().getIntExtra("pageId",0);
+        pageId = getIntent().getIntExtra("pageId",0);
         imBackPersonal = findViewById(R.id.imBackPersonal);
         imBackPersonal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ModifyPersonalActivity.this, PersonalActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("id",pageId);
+                intent.putExtra("pageId",pageId);
                 startActivity(intent);
             }
         });
@@ -196,18 +197,17 @@ public class ModifyPersonalActivity extends AppCompatActivity {
 
 
     // 擋住手機上回上一頁鍵
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                event.startTracking();
-            } else {
-                onBackPressed(); // 是其他按鍵則再Call Back方法
-            }
-        }
-        return false;
-    }
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO 自動產生的方法 Stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            pageId = getIntent().getIntExtra("pageId",0);
+            Intent intent = new Intent(ModifyPersonalActivity.this, PersonalActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("pageId",pageId);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

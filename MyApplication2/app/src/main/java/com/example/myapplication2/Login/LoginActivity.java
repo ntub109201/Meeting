@@ -5,6 +5,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -59,10 +60,16 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         pr1 = findViewById(R.id.progressBar1);
+
+        InputFilter[] filters = new InputFilter[1];
+        filters[0] = new InputFilter.LengthFilter(36);
+
         edUserEmail = findViewById(R.id.userEmail);
+        edUserEmail.setFilters(filters);
         edUserEmail.setText(sqlReturn.RegisterEmail);
         edPasswd = findViewById(R.id.password);
-        edPasswd.setText(sqlReturn.RegisterPassword);
+        edPasswd.setFilters(filters);
+        edPasswd.setText(sqlReturn.LoginPassword);
         sign_in = findViewById(R.id.sign_in_button);
 
         final Button registerLink = findViewById(R.id.register);
@@ -194,6 +201,7 @@ public class LoginActivity extends AppCompatActivity {
                 personalData();
                 searchBestFriendList();
                 searchFriendList();
+                sqlReturn.LoginPassword = edPasswd.getText().toString();
                 sqlReturn.RegisterEmail = edUserEmail.getText().toString();
                 sqlReturn.RegisterPassword = password;
                 sqlReturn.GetUserID = userId;

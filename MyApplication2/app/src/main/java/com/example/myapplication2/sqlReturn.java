@@ -86,7 +86,8 @@ public class sqlReturn{
     // 註冊成功
     public static Boolean RegisterFirstLogin = true;
     public static String RegisterEmail = "nx01daniel@gmail.com";
-    public static String RegisterPassword = "1234";
+    public static String RegisterPassword = "";
+    public static String LoginPassword = "1234";
     // 個人資料
     public static String PersonalName;
     public static String PersonalPicture;
