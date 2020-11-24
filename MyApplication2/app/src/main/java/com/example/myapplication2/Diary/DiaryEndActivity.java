@@ -1,13 +1,21 @@
 package com.example.myapplication2.Diary;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -15,8 +23,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -31,26 +42,42 @@ import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.Login.LoginActivity;
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
+import com.example.myapplication2.Diary.ApiService;
+import com.example.myapplication2.Diary.FileUtils;
 import com.example.myapplication2.sqlReturn;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DiaryEndActivity extends AppCompatActivity {
 
     private TextView editText3;
     private String EditDiaryContext;
     private DisplayMetrics mPhone;
-    private ImageView imageDiaryGetPhoto;
     public String DiaryContext;
     private ImageButton btn_DiaryEnd;
     private String currentDate;
@@ -58,12 +85,36 @@ public class DiaryEndActivity extends AppCompatActivity {
     private Button btn_sharebestfriend,btn_sharefriend,btn_sharediary;
     private boolean btnChange;
     private String sharefriend = "n", sharebestfriend = "n";
-
+    private RecyclerView recyclerview;
+    private RecyclerView.Adapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
+    private DiaryEndActivity.MyAdapter myAdapter;
+    private LinkedList<HashMap<String,String>> data1;
+    private int currentItem = 0;
+    //多張圖片
+    private static final String TAG = DiaryEndActivity.class.getSimpleName();
+    private Uri imageUri;
+    private ArrayList<Uri> arrayList;
+    private final int REQUEST_CODE_PERMISSIONS  = 1;
+    private final int REQUEST_CODE_READ_STORAGE = 2;
+    private CardView noImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_end);
+
+        noImageView = findViewById(R.id.noImageView);
+
+        recyclerview = findViewById(R.id.recyclerview);
+        recyclerview.setHasFixedSize(false);
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerview.setLayoutManager(mLayoutManager);
+        myAdapter = new MyAdapter();
+        recyclerview.setAdapter(myAdapter);
+        doData();
+
 
         final String LastView = getIntent().getStringExtra("1");
 
@@ -101,9 +152,11 @@ public class DiaryEndActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(sharefriend.equals("n")){
                     sharefriend = "y";
+                    sharebestfriend = "y";
                     btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend2);
                 }else{
                     sharefriend = "n";
+                    sharebestfriend = "n";
                     btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend);
                 }
             }
@@ -114,7 +167,7 @@ public class DiaryEndActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(sharebestfriend.equals("n")){
                     sharebestfriend = "y";
-                    sharefriend = "y";
+                    sharefriend = "n";
                     btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend2);
                 }else{
                     sharebestfriend = "n";
@@ -141,17 +194,16 @@ public class DiaryEndActivity extends AppCompatActivity {
         mPhone = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(mPhone);
         final ImageButton getPhoto = findViewById(R.id.DiarygetPhoto);
-        imageDiaryGetPhoto = findViewById(R.id.imageDiaryGetPhoto);
         getPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                //開啟Pictures畫面Type設定為image
-                intent.setType("image/*");
-                //使用Intent.ACTION_GET_CONTENT這個Action
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                //取得相片後返回本畫面
-                startActivityForResult(intent, 1);
+                noImageView.setVisibility(View.INVISIBLE);
+                arrayList = new ArrayList<>();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    askForPermission();
+                } else {
+                    showChooser();
+                }
             }
         });
 
@@ -251,48 +303,276 @@ public class DiaryEndActivity extends AppCompatActivity {
         }
     }
 
+    private void showChooser() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent, REQUEST_CODE_READ_STORAGE);
+    }
+
+    private void doData(){
+        data1 = new LinkedList<>();
+        for(int i = 0; i < currentItem; i++){
+            HashMap<String,String> row = new HashMap<>();
+            data1.add(row);
+        }
+    }
+
+    private class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+
+        class MyViewHolder extends RecyclerView.ViewHolder{
+            public View itemView;
+            public ImageView imgPhoto;
+            public MyViewHolder(View view){
+                super(view);
+                itemView = view;
+                imgPhoto = itemView.findViewById(R.id.imgPhoto);
+
+            }
+        }
+
+        @NonNull
+        @Override
+        public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.handwrite_item,parent,false);
+            MyViewHolder vh = new MyViewHolder(itemView);
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
+            holder.imgPhoto.setImageURI(arrayList.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return data1.size();
+        }
+    }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //當使用者按下確定後
-        if (resultCode == RESULT_OK) {
-            //取得圖檔的路徑位置
-            Uri uri = data.getData();
-            ContentResolver cr = this.getContentResolver();
-            try
-            {
-                //讀取照片，型態為Bitmap
-                Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
+        if (requestCode == REQUEST_CODE_READ_STORAGE) {
+            if (resultData != null) {
+                if (resultData.getClipData() != null) {
+                    int count = resultData.getClipData().getItemCount();
+                    currentItem = 0;
+                    while (currentItem < count) {
+                        imageUri = resultData.getClipData().getItemAt(currentItem).getUri();
+                        currentItem = currentItem + 1;
 
-                //判斷照片為橫向或者為直向，並進入ScalePic判斷圖片是否要進行縮放
-                if(bitmap.getWidth()>bitmap.getHeight())ScalePic(bitmap,mPhone.heightPixels);
-                else ScalePic(bitmap,mPhone.widthPixels);
-            }
-            catch (FileNotFoundException e)
-            {
+                        Log.d("Uri Selected", imageUri.toString());
+
+                        try {
+                            arrayList.add(imageUri);
+                            recyclerview.setHasFixedSize(false);
+                            mLayoutManager = new LinearLayoutManager(this);
+                            mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                            recyclerview.setLayoutManager(mLayoutManager);
+                            MyAdapter MyAdapter = new MyAdapter();
+                            recyclerview.setAdapter(MyAdapter);
+                            doData();
+                        } catch (Exception e) {
+                            Log.e(TAG, "File select error", e);
+                        }
+                    }
+                } else if (resultData.getData() != null) {
+                    currentItem = 0;
+                    currentItem = currentItem + 1;
+                    imageUri = resultData.getData();
+                    Log.i(TAG, "Uri = " + imageUri.toString());
+
+                    try {
+                        arrayList.add(imageUri);
+                        recyclerview.setHasFixedSize(false);
+                        mLayoutManager = new LinearLayoutManager(this);
+                        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                        recyclerview.setLayoutManager(mLayoutManager);
+                        MyAdapter MyAdapter = new MyAdapter();
+                        recyclerview.setAdapter(MyAdapter);
+                        doData();
+                    } catch (Exception e) {
+                        Log.e(TAG, "File select error", e);
+                    }
+                }
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void ScalePic(Bitmap bitmap,int phone)
-    {
-        //縮放比例預設為1
-        float mScale = 1 ;
+    private void uploadImagesToServer() {
+        if (InternetConnection.checkConnection(DiaryEndActivity.this)) {
 
-        //如果圖片寬度大於手機寬度則進行縮放，否則直接將圖片放入ImageView內
-        if(bitmap.getWidth() > phone )
-        {
-            //判斷縮放比例
-            mScale = (float)phone/(float)bitmap.getWidth();
+//            final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                    .readTimeout(5, TimeUnit.MINUTES)
+//                    .connectTimeout(5, TimeUnit.MINUTES)
+//                    .build();
 
-            Matrix mMat = new Matrix() ;
-            mMat.setScale(mScale, mScale);
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(ApiService.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+//                    .client(okHttpClient)
+                    .build();
 
-            Bitmap mScaleBitmap = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),mMat,false);
-            imageDiaryGetPhoto.setImageBitmap(mScaleBitmap);
+            showProgress();
+            // create list of file parts (photo, video, ...)
+            List<MultipartBody.Part> parts = new ArrayList<>();
+
+            // create upload service client
+            ApiService service = retrofit.create(ApiService.class);
+
+
+            try {
+                if (arrayList != null) {
+                    // create part for file (photo, video, ...)
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        parts.add(prepareFilePart("image" + i, arrayList.get(i)));
+                    }
+                }
+            }catch (Exception e){
+                Log.e(TAG, "File select error", e);
+            }
+            // create a map of data to pass along
+            RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
+            RequestBody size = createPartFromString(""+parts.size());
+
+            // finally, execute the request
+            Call<ResponseBody> call = service.uploadMultiple(description, size, parts);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                    hideProgress();
+                    if(response.isSuccessful()) {
+                        Toast.makeText(DiaryEndActivity.this,
+                                "Images successfully uploaded!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(DiaryEndActivity.this,MainActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryEndActivity.this);
+                        intent.putExtra("id",1);
+                        startActivity(intent,options.toBundle());
+                    } else {
+                        Snackbar.make(findViewById(android.R.id.content),
+                                R.string.string_some_thing_wrong, Snackbar.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                    hideProgress();
+                    Log.e(TAG, "Image upload failed!", t);
+                    Snackbar.make(findViewById(android.R.id.content),
+                            "Image upload failed!", Snackbar.LENGTH_LONG).show();
+                }
+            });
+
+        } else {
+            hideProgress();
+            Toast.makeText(DiaryEndActivity.this,
+                    R.string.string_internet_connection_not_available, Toast.LENGTH_SHORT).show();
         }
-        else imageDiaryGetPhoto.setImageBitmap(bitmap);
     }
+    private void showProgress() {
+//        new AlertDialog.Builder(HandwriteActivity.this)
+//                .setTitle("提醒您")
+//                .setMessage("上傳時間較常請耐心等候")
+//                .setPositiveButton("了解", null)
+//                .show();
+//        progressBarHandWrite.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgress() {
+//        progressBarHandWrite.setVisibility(View.INVISIBLE);
+
+    }
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(MediaType.parse(FileUtils.MIME_TYPE_TEXT), descriptionString);
+        //return RequestBody.create(MediaType.parse(FileUtils.MIME_TYPE_IMAGE), descriptionString);
+    }
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+        // use the FileUtils to get the actual file by uri
+        File file = FileUtils.getFile(this, fileUri);
+
+        // create RequestBody instance from file
+        RequestBody requestFile = RequestBody.create (MediaType.parse(FileUtils.MIME_TYPE_IMAGE), file);
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+    }
+
+    /**
+     *  Runtime Permission
+     */
+    private void askForPermission() {
+        if ((ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) +
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                != PackageManager.PERMISSION_GRANTED) {
+            /* Ask for permission */
+            // need to request permission
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                Snackbar.make(this.findViewById(android.R.id.content),
+                        "Please grant permissions to write data in sdcard",
+                        Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                        v -> ActivityCompat.requestPermissions(this,
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                REQUEST_CODE_PERMISSIONS)).show();
+            } else {
+                /* Request for permission */
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_CODE_PERMISSIONS);
+            }
+
+        } else {
+            showChooser();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission Granted
+                showChooser();
+            } else {
+                // Permission Denied
+                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    private void showMessageOKCancel(DialogInterface.OnClickListener okListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog dialog = builder.setMessage("You need to grant access to Read External Storage")
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create();
+
+        dialog.setOnShowListener(arg0 -> {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
+                    ContextCompat.getColor(this, android.R.color.holo_blue_light));
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(
+                    ContextCompat.getColor(this, android.R.color.holo_red_light));
+        });
+
+        dialog.show();
+    }
+
 
     // 擋住手機上回上一頁鍵
     @Override

@@ -10,20 +10,48 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout1"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:background="#FDEED0"
+        android:layout_height="wrap_content"
+        android:background="#CFAE8F"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btn_back_paper"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/btn_back_paper_foreground"
+            android:id="@+id/btn_sharehandwritediary"
+            android:layout_width="63dp"
+            android:layout_height="0dp"
+            android:background="@mipmap/ic_handwritesharewhite_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btn_paper_check"
+            app:layout_constraintHorizontal_bias="0.824"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/btn_preview_how"
+            style="@style/btn_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:background="#CFAE8F"
+            android:text="照相日記"
+            android:textColor="#FFFFFF"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_back_paper"
+            android:layout_width="65dp"
+            android:layout_height="61dp"
+            android:background="@color/take_photo_brown"
+            android:backgroundTint="@color/take_photo_brown"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp"/>
 
         <Button
             android:id="@+id/btn_paper_check"
@@ -73,6 +101,7 @@
         <Button
             android:id="@+id/btn_paper_rain"
             style="@style/btn_paper_rain"
+            android:backgroundTint="@color/white"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="Button"
@@ -86,6 +115,7 @@
         <Button
             android:id="@+id/btn_paper_sunny"
             style="@style/btn_paper_sunny"
+            android:backgroundTint="@color/white"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="Button"
@@ -99,6 +129,7 @@
         <Button
             android:id="@+id/btn_paper_mc"
             style="@style/btn_paper_mc"
+            android:backgroundTint="@color/white"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="Button"
@@ -112,6 +143,7 @@
         <Button
             android:id="@+id/btn_paper_cloudy"
             style="@style/btn_paper_cloudy"
+            android:backgroundTint="@color/white"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="Button"
@@ -124,6 +156,7 @@
         <Button
             android:id="@+id/btn_paper_thunder"
             style="@style/btn_paper_thunder"
+            android:backgroundTint="@color/white"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="Button"
@@ -137,6 +170,7 @@
         <Button
             android:id="@+id/btn_paper_love"
             style="@style/btn_paper_love"
+            android:backgroundTint="@color/white"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="Button"
@@ -149,6 +183,7 @@
         <Button
             android:id="@+id/btn_paper_food"
             style="@style/btn_paper_food"
+            android:backgroundTint="@color/white"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="Button"
@@ -162,6 +197,7 @@
         <Button
             android:id="@+id/btn_paper_casual"
             style="@style/btn_paper_casual"
+            android:backgroundTint="@color/white"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="Button"
@@ -175,6 +211,7 @@
         <Button
             android:id="@+id/btn_paper_trip"
             style="@style/btn_paper_trip"
+            android:backgroundTint="@color/white"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="Button"
@@ -201,6 +238,7 @@
         <Button
             android:id="@+id/btn_paper_shopping"
             style="@style/btn_paper_shopping"
+            android:backgroundTint="@color/white"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="Button"

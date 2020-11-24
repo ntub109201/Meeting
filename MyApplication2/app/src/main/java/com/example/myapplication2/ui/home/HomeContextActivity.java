@@ -98,9 +98,11 @@ public class HomeContextActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(sharefriend.equals("n")){
                     sharefriend = "y";
+                    sharebestfriend = "y";
                     btn_share_friend.setBackgroundResource(R.drawable.btn_sharediaryend2);
                 }else{
                     sharefriend = "n";
+                    sharebestfriend = "n";
                     btn_share_friend.setBackgroundResource(R.drawable.btn_sharediary1);
                 }
             }
@@ -111,7 +113,7 @@ public class HomeContextActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(sharebestfriend.equals("n")){
                     sharebestfriend = "y";
-                    sharefriend = "y";
+                    sharefriend = "n";
                     btn_share_best_friend.setBackgroundResource(R.drawable.btn_sharediaryend2);
                 }else{
                     sharebestfriend = "n";

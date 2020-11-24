@@ -133,8 +133,8 @@
                 android:textColor="#77D8D5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.04"
-                app:layout_constraintStart_toEndOf="@+id/searchBtnTag"
+                app:layout_constraintHorizontal_bias="0.235"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.177" />
 
@@ -148,10 +148,25 @@
                 android:textColor="#77D8D5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.296"
-                app:layout_constraintStart_toEndOf="@+id/searchBtnTag"
+                app:layout_constraintHorizontal_bias="0.47"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.179" />
+                app:layout_constraintVertical_bias="0.177" />
+
+            <Button
+                android:id="@+id/searchBtnPhoto"
+                style="@style/btn_primary"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:backgroundTint="#FFEDED"
+                android:text="照相日記"
+                android:textColor="#77D8D5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.751"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.177" />
 
             <Button
                 android:id="@+id/searchBtnTag"
@@ -165,7 +180,7 @@
                 android:textColor="#77D8D5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.044"
+                app:layout_constraintHorizontal_bias="0.041"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
@@ -238,7 +253,7 @@
                 style="@style/btn_primary"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
-                android:backgroundTint="#A3FCAA"
+                android:backgroundTint="#77B7FF"
                 android:text="雷雨"
                 android:textColor="#fff"
                 android:textSize="20sp"
@@ -405,6 +420,7 @@
         <Button
             android:id="@+id/goToDiarybutton"
             style="@style/btn_diarybtn"
+            android:backgroundTint="#F7DF95"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:enabled="false"
@@ -421,6 +437,7 @@
         <Button
             android:id="@+id/goToOCRbutton"
             style="@style/btn_diarybtn"
+            android:backgroundTint="#CFAE8F"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:enabled="false"
@@ -437,6 +454,7 @@
         <Button
             android:id="@+id/goToHandwritebutton"
             style="@style/btn_diarybtn"
+            android:backgroundTint="#F3BFD0"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:enabled="false"

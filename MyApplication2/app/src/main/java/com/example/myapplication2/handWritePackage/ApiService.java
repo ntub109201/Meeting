@@ -17,10 +17,11 @@ import retrofit2.http.Part;
  */
 
 public interface ApiService {
-    String BASE_URL = "http://10836008.000webhostapp.com";
+    String BASE_URL = "https://10836008.000webhostapp.com";
 
     @Multipart
     @POST("upload-new.php")
+    // @POST("test.php")
     Call<ResponseBody> uploadMultiple(
             @Part("description") RequestBody description,
             @Part("size") RequestBody size,

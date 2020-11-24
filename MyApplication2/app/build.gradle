@@ -6,13 +6,13 @@ android {
 
     defaultConfig {
         applicationId "com.example.myapplication2"
-        minSdkVersion 27
-        targetSdkVersion 29
+        minSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
-        resValue "string", "google_maps_key", ("AIzaSyAn5DNk2wNWFuLQjtglg3y9Ec4qeoslqsU")
-        resValue "string", "google_maps_key_web", ("AIzaSyAOVFiB2MmMTt8IZY5JyQPBvbIVFp8iTnU")
+        resValue "string", "google_maps_key", ("AIzaSyAv9rMl_HQDugFvWONMDcbGdV5BoC8-euE")
+        resValue "string", "google_maps_key_web", ("AIzaSyAv9rMl_HQDugFvWONMDcbGdV5BoC8-euE")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

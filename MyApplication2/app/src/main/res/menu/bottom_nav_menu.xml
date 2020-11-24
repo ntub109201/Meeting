@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@mipmap/ic_new_home_foreground"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_friend"
-        android:icon="@android:drawable/ic_menu_myplaces"
+        android:icon="@mipmap/ic_new_friend_foreground"
         android:title="@string/title_friend" />
     <item
         android:id="@+id/navigation_dashboard"
@@ -16,7 +16,7 @@
         android:title="@string/title_dashboard" />
     <item
         android:id="@+id/navigation_maybelike"
-        android:icon="@mipmap/ic_btn_placeholder_foreground"
+        android:icon="@mipmap/ic_new_maybelike_foreground"
         android:title="@string/title_maybelike" />
 
 </menu>

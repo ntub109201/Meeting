@@ -3,6 +3,7 @@ package com.example.myapplication2.handWritePackage;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -75,11 +77,14 @@ public class HandwriteActivity extends AppCompatActivity {
     private boolean paper_tripClick = false, paper_shoppingClick = false, paper_loveClick = false, paper_foodClick = false, paper_casualClick = false;
 
     private ProgressBar progressBarHandWrite;
+    private CardView noImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handwrite);
+
+        noImageView = findViewById(R.id.noImageView);
 
         final ImageButton imbtnReturnMain = findViewById(R.id.imbtnReturnMain);
         imbtnReturnMain.setOnClickListener(new View.OnClickListener() {
@@ -333,6 +338,7 @@ public class HandwriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                noImageView.setVisibility(View.INVISIBLE);
                 arrayList = new ArrayList<>();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     askForPermission();
@@ -494,7 +500,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 Log.e(TAG, "File select error", e);
             }
             // create a map of data to pass along
-            RequestBody description = createPartFromString("http://10836008.000webhostapp.com");
+            RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
             RequestBody size = createPartFromString(""+parts.size());
 
             // finally, execute the request
@@ -507,6 +513,10 @@ public class HandwriteActivity extends AppCompatActivity {
                     if(response.isSuccessful()) {
                         Toast.makeText(HandwriteActivity.this,
                                 "Images successfully uploaded!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(HandwriteActivity.this,MainActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HandwriteActivity.this);
+                        intent.putExtra("id",1);
+                        startActivity(intent,options.toBundle());
                     } else {
                         Snackbar.make(findViewById(android.R.id.content),
                                 R.string.string_some_thing_wrong, Snackbar.LENGTH_LONG).show();
@@ -529,20 +539,22 @@ public class HandwriteActivity extends AppCompatActivity {
         }
     }
     private void showProgress() {
-        new AlertDialog.Builder(HandwriteActivity.this)
-                .setTitle("提醒您")
-                .setMessage("上傳時間較常請耐心等候")
-                .setPositiveButton("了解", null)
-                .show();
+//        new AlertDialog.Builder(HandwriteActivity.this)
+//                .setTitle("提醒您")
+//                .setMessage("上傳時間較常請耐心等候")
+//                .setPositiveButton("了解", null)
+//                .show();
         progressBarHandWrite.setVisibility(View.VISIBLE);
     }
 
     private void hideProgress() {
         progressBarHandWrite.setVisibility(View.INVISIBLE);
+
     }
     @NonNull
     private RequestBody createPartFromString(String descriptionString) {
         return RequestBody.create(MediaType.parse(FileUtils.MIME_TYPE_TEXT), descriptionString);
+        //return RequestBody.create(MediaType.parse(FileUtils.MIME_TYPE_IMAGE), descriptionString);
     }
 
     @NonNull

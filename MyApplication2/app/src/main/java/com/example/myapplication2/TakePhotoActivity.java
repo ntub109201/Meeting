@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -94,7 +95,7 @@ public class TakePhotoActivity extends AppCompatActivity {
         doData();
 
 
-        final Button btn_back_paper = findViewById(R.id.btn_back_paper);
+        final ImageButton btn_back_paper = findViewById(R.id.btn_back_paper);
         btn_back_paper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

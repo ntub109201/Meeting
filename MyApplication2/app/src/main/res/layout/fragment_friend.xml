@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.friend.FriendFragment">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout1"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -19,12 +19,13 @@
             <ImageButton
                 android:id="@+id/imBtnPersonal"
                 android:layout_width="42dp"
-                android:layout_height="wrap_content"
+                android:layout_height="75dp"
                 android:background="#00000000"
                 android:scaleType="centerCrop"
-                app:srcCompat="@mipmap/icon_btnuser_foreground"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="1dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_profileset_foreground" />
 
             <TextView
                 android:id="@+id/title_Friend"
@@ -34,7 +35,11 @@
                 android:gravity="center"
                 android:text="@string/title_friend"
                 android:textColor="#7dd8d3"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imBtnSearchFriend"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/imBtnSearchFriend"
@@ -42,10 +47,11 @@
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:scaleType="centerCrop"
-                app:srcCompat="@mipmap/icon_btnfriendlist_foreground"
-                tools:layout_editor_absoluteX="357dp"
-                tools:layout_editor_absoluteY="1dp" />
-        </LinearLayout>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_friendlist_foreground" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:id="@+id/FriendLayout"
