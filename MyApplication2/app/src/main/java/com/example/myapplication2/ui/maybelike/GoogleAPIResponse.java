@@ -65,8 +65,8 @@ public class GoogleAPIResponse implements NotifyInterface, GoogleAPIResponseData
     }
     private void setTabList(@Nullable String[] tab){
         if (tab == null){
-            String[] a = new String[]{"餐廳", "咖啡廳", "酒吧"};
-            String[] b = new String[]{"restaurant", "cafe", "bar"};
+            String[] a = new String[]{"餐廳", "咖啡廳", "酒吧", "購物中心", "商店", "超市", "咖啡廳", "電影院", "遊樂園", "旅遊景點"};
+            String[] b = new String[]{"restaurant", "cafe", "bar", "shopping_mall", "store", "supermarket", "cafe", "movie_theater", "amusement_park", "tourist_attraction"};
             Collections.addAll(tab_ch, a);
             Collections.addAll(tab_type, b);
         }else{

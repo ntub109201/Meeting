@@ -45,6 +45,7 @@ import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.CompositeDateValidator;
 import com.google.android.material.datepicker.DateValidatorPointBackward;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,10 +90,12 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
     final String TAG = "nice";
     private Button btnRecommend;
     private TextView suggestion,statistics__no_text_1,statistics__no_text_2;
+
     private Button recommend;
     private ImageView statistics_no;
 
     private TextView selectedTextDate_start,selectedTextDate_end,selectedTextSelected_date;
+    private TabLayout tabLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -119,17 +122,41 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
                 startActivity(intent);
             }
         });
+        tabLayout = root.findViewById(R.id.tabLayout2);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.d(TAG, "pieChart: "+tabLayout.getSelectedTabPosition());
+                if(tabLayout.getSelectedTabPosition()==0){
+                    mood_statistics(d1,d2);
+                }else{
+                    tag_statistics(d1,d2);
+                }
+//                pieChart();
+//                suggest();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         // 隱藏所有物件
         suggestion = root.findViewById(R.id.suggestion);
-        recommend = root.findViewById(R.id.recommend);
+        //recommend = root.findViewById(R.id.recommend);
         pie_Chart = root.findViewById(R.id.pie_chart);
         statistics__no_text_1 = root.findViewById(R.id.statistics__no_text_1);
         statistics__no_text_2 = root.findViewById(R.id.statistics__no_text_2);
         statistics_no = root.findViewById(R.id.statistics_no);
 
         suggestion.setVisibility( View.INVISIBLE );
-        recommend.setVisibility( View.INVISIBLE );
+        btnRecommend.setVisibility( View.INVISIBLE );
         pie_Chart.setVisibility( View.INVISIBLE );
         statistics__no_text_1.setVisibility( View.INVISIBLE );
         statistics__no_text_2.setVisibility( View.INVISIBLE );
@@ -143,9 +170,11 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, -7);
         String startDate=sdf.format(c.getTime());
+        d1=startDate;
         c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, 0);
         String endDate = sdf.format(c.getTime());
+        d2=endDate;
 
         selectedTextDate_start = root.findViewById(R.id.date_start);
         selectedTextDate_start.setText(startDate);
@@ -154,7 +183,6 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
         mood_statistics(startDate,endDate);
 
         initialize();
-
         //date
         selectedTextSelected_date = root.findViewById(R.id.selected_date);
         root.findViewById(R.id.show_dialog).setOnClickListener(new View.OnClickListener() {
@@ -172,6 +200,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
             }
         });
 
+
         return root;
     }
 
@@ -182,77 +211,82 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
 
     private  void suggest() {
         // 建議
-        int[] moodResult = {sqlReturn.moodResult01, sqlReturn.moodResult02, sqlReturn.moodResult03, sqlReturn.moodResult04, sqlReturn.moodResult05};
-
-        // 資料 - 心情
-        String[] mood1 =
-                {"每天做一件令別人愉快的事，自己也會特別快樂。",
-                        "好心情像冬天裡難得的好天氣，一瞬間照亮瞭心間；好心情像夏天的冰棍，一下子涼爽瞭心田。",
-                        "有了積極的心態，便有了戰勝一切困難取得成功的信心。繼續保持！"};
-        String[] mood2 =
-                {"心情普遍不錯唷！要記得，只要心情是晴朗的，人生就沒有雨天，繼續保持：）",
-                        "微笑，是最美的陽光"};
-        String[] mood3 =
-                {"健康良好的心理是取得成功的開端",
-                        "保持一顆年輕的心，做個簡單的人，享受陽光和溫暖。",
-                        "只要你還願意，世界一定會給你驚喜。"};
-        String[] mood4 =
-                {"活在當下，別在懷念過去或者憧憬未來中浪費掉你現在的生活。",
-                        "結局很美妙的事，但開頭並非如此，不必太灰心。",
-                        "任何事情，總有答案。與其煩惱，不如順其自然",
-                        "一切都會好起來的，即使不會是在今天，但總有一天會的",
-                        "日出东海落西山，愁也一天，喜也一天；遇事不钻牛角尖，人也舒坦，心也舒坦。"};
-        String[] mood5 =
-                {"如果我不堅強、誰能替我勇敢，如果我不獨立誰又能給與支持！找到問題點，一起面對它、解決他！",
-                        "當你不能夠再擁有的時候，你唯一可以做的就是令自己不要忘記。",
-                        "不要小看自己，因為人有無限的可能。",
-                        "所有看似美好的，都經歷過或者正在經歷著不美好。"};
-        // 資料 - 主題
-        String[] tag1 =
-                {"每天做一件令別人愉快的事，自己也會特別快樂。",
-                        "好心情像冬天裡難得的好天氣，一瞬間照亮瞭心間；好心情像夏天的冰棍，一下子涼爽瞭心田。",
-                        "有了積極的心態，便有了戰勝一切困難取得成功的信心。繼續保持！"};
-        String[] tag2 =
-                {"心情普遍不錯唷！要記得，只要心情是晴朗的，人生就沒有雨天，繼續保持：）",
-                        "微笑，是最美的陽光"};
-        String[] tag3 =
-                {"健康良好的心理是取得成功的開端",
-                        "保持一顆年輕的心，做個簡單的人，享受陽光和溫暖。",
-                        "只要你還願意，世界一定會給你驚喜。"};
-        String[] tag4 =
-                {"活在當下，別在懷念過去或者憧憬未來中浪費掉你現在的生活。",
-                        "結局很美妙的事，但開頭並非如此，不必太灰心。",
-                        "任何事情，總有答案。與其煩惱，不如順其自然",
-                        "一切都會好起來的，即使不會是在今天，但總有一天會的",
-                        "日出东海落西山，愁也一天，喜也一天；遇事不钻牛角尖，人也舒坦，心也舒坦。"};
-        String[] tag5 =
-                {"如果我不堅強、誰能替我勇敢，如果我不獨立誰又能給與支持！找到問題點，一起面對它、解決他！",
-                        "當你不能夠再擁有的時候，你唯一可以做的就是令自己不要忘記。",
-                        "不要小看自己，因為人有無限的可能。",
-                        "所有看似美好的，都經歷過或者正在經歷著不美好。"};
-
+        int[] suggestResult;
+        ArrayList<String[]> data = new ArrayList<>();
+        if(tabLayout.getSelectedTabPosition()==0){
+            suggestResult = new int[]{sqlReturn.moodResult01, sqlReturn.moodResult02, sqlReturn.moodResult03, sqlReturn.moodResult04, sqlReturn.moodResult05};
+            // 資料 - 心情
+            String[] mood1 =
+                    {"每天做一件令別人愉快的事，自己也會特別快樂。",
+                            "好心情像冬天裡難得的好天氣，一瞬間照亮瞭心間；好心情像夏天的冰棍，一下子涼爽瞭心田。",
+                            "有了積極的心態，便有了戰勝一切困難取得成功的信心。繼續保持！"};
+            String[] mood2 =
+                    {"心情普遍不錯唷！要記得，只要心情是晴朗的，人生就沒有雨天，繼續保持：）",
+                            "微笑，是最美的陽光"};
+            String[] mood3 =
+                    {"健康良好的心理是取得成功的開端",
+                            "保持一顆年輕的心，做個簡單的人，享受陽光和溫暖。",
+                            "只要你還願意，世界一定會給你驚喜。"};
+            String[] mood4 =
+                    {"活在當下，別在懷念過去或者憧憬未來中浪費掉你現在的生活。",
+                            "結局很美妙的事，但開頭並非如此，不必太灰心。",
+                            "任何事情，總有答案。與其煩惱，不如順其自然",
+                            "一切都會好起來的，即使不會是在今天，但總有一天會的",
+                            "日出东海落西山，愁也一天，喜也一天；遇事不钻牛角尖，人也舒坦，心也舒坦。"};
+            String[] mood5 =
+                    {"如果我不堅強、誰能替我勇敢，如果我不獨立誰又能給與支持！找到問題點，一起面對它、解決他！",
+                            "當你不能夠再擁有的時候，你唯一可以做的就是令自己不要忘記。",
+                            "不要小看自己，因為人有無限的可能。",
+                            "所有看似美好的，都經歷過或者正在經歷著不美好。"};
+            data.add(mood1);data.add(mood2);data.add(mood3);data.add(mood4);data.add(mood5);
+        }else{
+            suggestResult = new int[]{sqlReturn.tagResult01, sqlReturn.tagResult02, sqlReturn.tagResult03, sqlReturn.tagResult04, sqlReturn.tagResult05};
+            // 資料 - 主題
+            String[] tag1 =
+                    {"這段期間吃很多美食唷～別忘了要多運動，維持健康生活，繼續吃遍全世界。",
+                            "最近常吃美食耶～享受美食的懷抱～"};
+            // 購物
+            String[] tag2 =
+                    {"這段期間購物的頻率偏高耶！要謹慎理財，掌握金錢的支出～",
+                            "購物率有點高呦！下手前可能需要再三思～",
+                            "不要衝動消費啊，衝動是魔鬼"};
+            // 戀愛
+            String[] tag3 =
+                    {"生活，是用來經營的，而不是用來計較的；感情，是用來維繫的，而不是用來考驗的",
+                            "愛情，從來就沒有固定形態，拿別人的樣板是臨摹不出自己的幸福的",
+                            "最好的愛情，會讓你不斷完善自我，而非失去自我"};
+            // 旅遊
+            String[] tag4 =
+                    {"休息是為了走更長遠的路，在這段期間規劃的旅程，將帶給你無限的回憶。",
+                            "旅行可以放鬆自己的心情，寬闊自己的心境，忘掉不順心，迎接新的開心"};
+            // 休閒娛樂
+            String[] tag5 =
+                    {"適度的娱樂能放鬆人的情緒，陶冶人的情操",
+                            "放鬆與娛樂，被認為是生活中不可缺少的要素"};
+            data.add(tag1);data.add(tag2);data.add(tag3);data.add(tag4);data.add(tag5);
+        }
 
         suggestion.setText("");
-        if(moodResult[0] >= moodResult[1] && moodResult[0] >= moodResult[2] && moodResult[0] >= moodResult[3] && moodResult[0] >= moodResult[4]) {
-            int num=mood1.length;
+        if(suggestResult[0] >= suggestResult[1] && suggestResult[0] >= suggestResult[2] && suggestResult[0] >= suggestResult[3] && suggestResult[0] >= suggestResult[4]) {
+            int num=data.get(0).length;
             int number_random = (int)(Math.random()*num);
-            suggestion.append(mood1[number_random]);
-        }else if(moodResult[1] >= moodResult[0] && moodResult[1] >= moodResult[2] && moodResult[1] >= moodResult[3] && moodResult[1] >= moodResult[4]) {
-            int num=mood1.length;
+            suggestion.append(data.get(0)[number_random]);
+        }else if(suggestResult[1] >= suggestResult[0] && suggestResult[1] >= suggestResult[2] && suggestResult[1] >= suggestResult[3] && suggestResult[1] >= suggestResult[4]) {
+            int num=data.get(1).length;
             int number_random = (int)(Math.random()*num);
-            suggestion.append(mood2[number_random]);
-        }else if(moodResult[2] >= moodResult[0] && moodResult[2] >= moodResult[1] && moodResult[2] >= moodResult[3] && moodResult[1] >= moodResult[4]) {
-            int num=mood1.length;
+            suggestion.append(data.get(1)[number_random]);
+        }else if(suggestResult[2] >= suggestResult[0] && suggestResult[2] >= suggestResult[1] && suggestResult[2] >= suggestResult[3] && suggestResult[1] >= suggestResult[4]) {
+            int num=data.get(2).length;
             int number_random = (int)(Math.random()*num);
-            suggestion.append(mood3[number_random]);
-        }else if(moodResult[3] >= moodResult[0] && moodResult[3] >= moodResult[2] && moodResult[3] >= moodResult[1] && moodResult[1] >= moodResult[4]) {
-            int num=mood1.length;
+            suggestion.append(data.get(2)[number_random]);
+        }else if(suggestResult[3] >= suggestResult[0] && suggestResult[3] >= suggestResult[2] && suggestResult[3] >= suggestResult[1] && suggestResult[1] >= suggestResult[4]) {
+            int num=data.get(3).length;
             int number_random = (int)(Math.random()*num);
-            suggestion.append(mood4[number_random]);
-        }else if(moodResult[4] >= moodResult[0] && moodResult[4] >= moodResult[2] && moodResult[4] >= moodResult[3] && moodResult[4] >= moodResult[1]) {
-            int num=mood1.length;
+            suggestion.append(data.get(3)[number_random]);
+        }else if(suggestResult[4] >= suggestResult[0] && suggestResult[4] >= suggestResult[2] && suggestResult[4] >= suggestResult[3] && suggestResult[4] >= suggestResult[1]) {
+            int num=data.get(4).length;
             int number_random = (int)(Math.random()*num);
-            suggestion.append(mood5[number_random]);
+            suggestion.append(data.get(4)[number_random]);
         }else{
             suggestion.append("資料不足");
         }
@@ -266,43 +300,41 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
         pie_Chart.setEntryLabelTextSize(17f); //圖表裡文字大小
         pie_Chart.setEntryLabelColor(Color.parseColor("#ffffff")); //圖表裡文字顏色
         ArrayList<PieEntry> visitors = new ArrayList<>();
-
-        //心情
-        if(moodResult01 != 0){
-            visitors.add(new PieEntry(moodResult01,"晴天"));
+        if(tabLayout.getSelectedTabPosition()==0){
+            //心情
+            if(moodResult01 != 0){
+                visitors.add(new PieEntry(moodResult01,"晴天"));
+            }
+            if(moodResult02 != 0){
+                visitors.add(new PieEntry(moodResult02,"時晴"));
+            }
+            if(moodResult03 != 0){
+                visitors.add(new PieEntry(moodResult03,"多雲"));
+            }
+            if(moodResult04 != 0){
+                visitors.add(new PieEntry(moodResult04,"陣雨"));
+            }
+            if(moodResult05 != 0){
+                visitors.add(new PieEntry(moodResult05,"雷雨"));
+            }
+        }else{
+            //主題
+            if(tagResult01 != 0){
+                visitors.add(new PieEntry(tagResult01,"美食"));
+            }
+            if(tagResult02 != 0){
+                visitors.add(new PieEntry(tagResult02,"購物"));
+            }
+            if(tagResult03 != 0){
+                visitors.add(new PieEntry(tagResult03,"感情"));
+            }
+            if(tagResult04 != 0){
+                visitors.add(new PieEntry(tagResult04,"旅遊"));
+            }
+            if(tagResult05 != 0){
+                visitors.add(new PieEntry(tagResult05,"休閒娛樂"));
+            }
         }
-        if(moodResult02 != 0){
-            visitors.add(new PieEntry(moodResult02,"時晴"));
-        }
-        if(moodResult03 != 0){
-            visitors.add(new PieEntry(moodResult03,"多雲"));
-        }
-        if(moodResult04 != 0){
-            visitors.add(new PieEntry(moodResult04,"陣雨"));
-        }
-        if(moodResult05 != 0){
-            visitors.add(new PieEntry(moodResult05,"雷雨"));
-        }
-
-        //主題
-
-        if(tagResult01 != 0){
-            visitors.add(new PieEntry(tagResult01,"美食"));
-        }
-        if(tagResult02 != 0){
-            visitors.add(new PieEntry(tagResult02,"購物"));
-        }
-        if(tagResult03 != 0){
-            visitors.add(new PieEntry(tagResult03,"感情"));
-        }
-        if(tagResult04 != 0){
-            visitors.add(new PieEntry(tagResult04,"旅遊"));
-        }
-        if(tagResult05 != 0){
-            visitors.add(new PieEntry(tagResult05,"休閒娛樂"));
-        }
-
-
         PieDataSet pieDateSet = new PieDataSet(visitors,"");
         ArrayList<Integer> colors = new ArrayList<Integer>();
         colors.add(Color.rgb(245, 187, 207));
@@ -471,7 +503,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
                     if(fragment.moodResult01 == 0 && fragment.moodResult02 == 0 && fragment.moodResult03 == 0 && fragment.moodResult04 ==0 && fragment.moodResult05 == 0){
                         // 資料不足
                         suggestion.setVisibility( View.INVISIBLE );
-                        recommend.setVisibility( View.INVISIBLE );
+                        btnRecommend.setVisibility( View.INVISIBLE );
                         pie_Chart.setVisibility( View.INVISIBLE );
                         statistics__no_text_1.setVisibility( View.VISIBLE );
                         statistics__no_text_2.setVisibility( View.VISIBLE );
@@ -479,7 +511,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
                     }else {
 
                         suggestion.setVisibility( View.VISIBLE );
-                        recommend.setVisibility( View.VISIBLE );
+                        btnRecommend.setVisibility( View.VISIBLE );
                         pie_Chart.setVisibility( View.VISIBLE );
                         statistics__no_text_1.setVisibility( View.INVISIBLE );
                         statistics__no_text_2.setVisibility( View.INVISIBLE );
@@ -498,7 +530,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
     }
     public void tag_statistics(String startDate, String endDate){
         Map<String,String> map = new HashMap<>();
-        map.put("command", "moodCaculate");
+        map.put("command", "tagCaculate");
         map.put("startDate", startDate);
         map.put("endDate", endDate);
         map.put("uid", sqlReturn.GetUserID);
@@ -522,6 +554,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
             if (fragment == null) return;
 
             try {
+                Log.d("error", result);
                 jsonObject = new JSONObject(result);
 
                 status = jsonObject.getBoolean("status");
@@ -533,14 +566,37 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
                     sqlReturn.tagResult04 = jsonObject.getInt("旅遊tag");
                     sqlReturn.tagResult05 = jsonObject.getInt("休閒娛樂tag");
 
-                    tagResult01 = sqlReturn.tagResult01;
-                    tagResult02 = sqlReturn.tagResult02;
-                    tagResult03 = sqlReturn.tagResult03;
-                    tagResult04 = sqlReturn.tagResult04;
-                    tagResult05 = sqlReturn.tagResult05;
+                    tagResult01 = sqlReturn.moodResult01;
+                    tagResult02 = sqlReturn.moodResult02;
+                    tagResult03 = sqlReturn.moodResult03;
+                    tagResult04 = sqlReturn.moodResult04;
+                    tagResult05 = sqlReturn.moodResult05;
+
+                    //主題
+                    if(tagResult01 == 0 && tagResult02 == 0 && tagResult03 == 0 && tagResult04 ==0 && tagResult05 == 0){
+                        // 資料不足
+                        suggestion.setVisibility( View.INVISIBLE );
+                        btnRecommend.setVisibility( View.INVISIBLE );
+                        pie_Chart.setVisibility( View.INVISIBLE );
+                        statistics__no_text_1.setVisibility( View.VISIBLE );
+                        statistics__no_text_2.setVisibility( View.VISIBLE );
+                        statistics_no.setVisibility( View.VISIBLE );
+                    }else {
+
+                        suggestion.setVisibility( View.VISIBLE );
+                        btnRecommend.setVisibility( View.VISIBLE );
+                        pie_Chart.setVisibility( View.VISIBLE );
+                        statistics__no_text_1.setVisibility( View.INVISIBLE );
+                        statistics__no_text_2.setVisibility( View.INVISIBLE );
+                        statistics_no.setVisibility( View.INVISIBLE );
+                        fragment.pieChart();
+                        fragment.suggest();
+                    }
+                    progressbar.setVisibility(View.INVISIBLE);
                 }else {
                     Toast.makeText(fragment.getActivity(), "失敗", Toast.LENGTH_LONG).show();
                 }
+
             }catch (JSONException e){
                 e.printStackTrace();
             }

@@ -85,6 +85,7 @@ public class DiaryEndActivity extends AppCompatActivity {
     private Button btn_sharebestfriend,btn_sharefriend,btn_sharediary;
     private boolean btnChange;
     private String sharefriend = "n", sharebestfriend = "n";
+    private boolean check_sharefriend = true,check_sharebestfriend = true;
     private RecyclerView recyclerview;
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -150,30 +151,45 @@ public class DiaryEndActivity extends AppCompatActivity {
         btn_sharefriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sharefriend.equals("n")){
+                if(check_sharefriend == true){
                     sharefriend = "y";
                     sharebestfriend = "y";
+                    check_sharefriend = false;
+                    check_sharebestfriend = true;
                     btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend2);
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+
                 }else{
                     sharefriend = "n";
                     sharebestfriend = "n";
+                    check_sharefriend = true;
+                    check_sharebestfriend = true;
                     btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend);
                 }
+                Log.d(TAG, " share "+sharefriend +" bff "+sharebestfriend);
             }
         });
 
         btn_sharebestfriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sharebestfriend.equals("n")){
+                if(check_sharebestfriend == true){
                     sharebestfriend = "y";
                     sharefriend = "n";
+                    check_sharefriend = true;
+                    check_sharebestfriend = false;
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend);
                     btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend2);
                 }else{
                     sharebestfriend = "n";
                     sharefriend = "n";
+                    check_sharefriend = true;
+                    check_sharebestfriend = true;
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend);
                     btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend);
                 }
+                Log.d(TAG, " share "+sharefriend +" bff "+sharebestfriend);
             }
         });
 

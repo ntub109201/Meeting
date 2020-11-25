@@ -155,7 +155,7 @@
         app:srcCompat="@mipmap/ic_addphoto_foreground" />
 
     <Button
-        android:id="@+id/btn_sharefriend"
+        android:id="@+id/btn_sharebestfriend"
         style="@style/btn_sharefriend"
         android:layout_width="64dp"
         android:layout_height="63dp"
@@ -171,7 +171,7 @@
         app:layout_constraintVertical_bias="0.100000024" />
 
     <Button
-        android:id="@+id/btn_sharebestfriend"
+        android:id="@+id/btn_sharefriend"
         style="@style/btn_sharefriend"
         android:layout_width="63dp"
         android:layout_height="64dp"

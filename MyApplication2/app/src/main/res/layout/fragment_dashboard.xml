@@ -44,6 +44,29 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EBF6F8"
+        app:layout_constraintBottom_toTopOf="@+id/DashBoardLauout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1"
+        app:layout_constraintVertical_bias="0.0"
+        app:tabIndicatorColor="#84b8b6">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="心情" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主題" />
+    </com.google.android.material.tabs.TabLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/DashBoardLauout"
         android:layout_width="match_parent"
@@ -51,8 +74,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout1"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout2"
         tools:context=".MainActivity">
+
 
         <Button
             android:id="@+id/recommend"
@@ -76,8 +100,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="#87C3C0"
-            android:insetBottom="0dp"
             android:insetTop="0dp"
+            android:insetBottom="0dp"
             app:backgroundTint="#87C3C0"
             app:elevation="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/rectangle_9"
@@ -128,9 +152,9 @@
             android:id="@+id/selected_date"
             android:layout_width="300dp"
             android:layout_height="30dp"
+            android:layout_marginTop="92dp"
             android:layout_marginEnd="56dp"
             android:layout_marginRight="56dp"
-            android:layout_marginTop="92dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

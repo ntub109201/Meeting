@@ -67,9 +67,19 @@ public class DiaryTravelWhereActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiaryValue.txtWhere = "";
-                Intent intent = new Intent(DiaryTravelWhereActivity.this, DiaryHowActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhereActivity.this);
-                DiaryTravelWhereActivity.this.startActivity(intent,options.toBundle());
+                if(DiaryValue.txtWhat.equals("")){
+                    Intent intent = new Intent();
+                    intent.setClass(DiaryTravelWhereActivity.this,DiaryPreviewActivity.class);
+                    Bundle tagData = new Bundle();
+                    tagData.putString("1","DiaryTravelWhereActivity");
+                    intent.putExtras(tagData);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhereActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else {
+                    Intent intent = new Intent(DiaryTravelWhereActivity.this, DiaryHowActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryTravelWhereActivity.this);
+                    startActivity(intent, options.toBundle());
+                }
             }
         });
 

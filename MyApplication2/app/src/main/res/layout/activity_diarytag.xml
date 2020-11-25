@@ -25,6 +25,8 @@
             android:text="預覽"
             android:textColor="#8C5A5A"
             android:textSize="18dp"
+            android:visibility="invisible"
+            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.955"

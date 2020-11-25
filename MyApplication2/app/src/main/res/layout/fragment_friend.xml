@@ -34,7 +34,7 @@
                 android:layout_weight="10"
                 android:gravity="center"
                 android:text="@string/title_friend"
-                android:textColor="#7dd8d3"
+                android:textColor="#DDE8DD"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/imBtnSearchFriend"
