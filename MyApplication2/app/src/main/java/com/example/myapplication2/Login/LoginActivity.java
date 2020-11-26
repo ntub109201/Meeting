@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     int RC_SIGN_IN = 100; //自己定義的int在onActivityResult才可以抓到是利用Google登入的
     GoogleSignInClient mGoogleSignInClient;
     SignInButton sign_in;
+    private boolean googleIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +93,8 @@ public class LoginActivity extends AppCompatActivity {
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                googleIn = true;
                 switch (v.getId()) {
                     case R.id.sign_in_button:
                         signIn();
@@ -211,8 +214,8 @@ public class LoginActivity extends AppCompatActivity {
                         .setMessage("伺服器維護中，請稍後再嘗試")
                         .setPositiveButton("OK", null)
                         .show();
-                pr1.setVisibility(View.INVISIBLE);
             }
+
 
         }
     }
@@ -266,11 +269,8 @@ public class LoginActivity extends AppCompatActivity {
                 searchBestFriendList();
                 searchFriendList();
                 mGoogleSignInClient.signOut();
-                pr1.setVisibility(View.INVISIBLE);
-
             }else{
                 mGoogleSignInClient.signOut();
-                pr1.setVisibility(View.INVISIBLE);
                 new AlertDialog.Builder(activity)
                         .setTitle("信箱登入失敗")
                         .setMessage("伺服器維護中，請稍後再嘗試")
@@ -345,29 +345,14 @@ public class LoginActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (sqlReturn.LoginTextViewContext!=null){
-                if(!sqlReturn.RegisterFirstLogin){
-                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                    startActivity(intent,options.toBundle());
-                }else {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                    intent.putExtra("id",1);
-                    startActivity(intent,options.toBundle());
-                }
+
+            if(sqlReturn.LoginTextViewContext!=null){
+                LoginAccess();
             }else {
-                if(!sqlReturn.RegisterFirstLogin){
-                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                    startActivity(intent,options.toBundle());
-                }else {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("id",1);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                    startActivity(intent,options.toBundle());
-                }
+                LoginAccess();
             }
+
+
         }
 
     }
@@ -555,6 +540,43 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    private void LoginAccess(){
+        if(googleIn == true){
+            if(!sqlReturn.RegisterFirstLogin){
+                sqlReturn.RegisterFirstLogin = true;
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                intent.putExtra("id",1);
+                startActivity(intent,options.toBundle());
+            }else {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                intent.putExtra("id",1);
+                startActivity(intent,options.toBundle());
+            }
+        }else {
+            if(!sqlReturn.RegisterFirstLogin){
+                if(sqlReturn.RegisterEmail == edUserEmail.getText().toString()){
+                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else {
+                    sqlReturn.RegisterFirstLogin = true;
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                    intent.putExtra("id",1);
+                    startActivity(intent,options.toBundle());
+                }
+            }else {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                intent.putExtra("id",1);
+                startActivity(intent,options.toBundle());
+            }
+        }
+        pr1.setVisibility(View.INVISIBLE);
     }
 
 

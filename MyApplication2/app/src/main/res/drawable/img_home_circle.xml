@@ -38,21 +38,21 @@
 <!--    </shape></item>-->
 
     <item android:state_pressed="true"><shape>
-        <solid android:color="#FFFFED" />
-        <stroke android:width="1dp" android:color="#FFFFED" />
+        <solid android:color="#FFFFFF" />
+        <stroke android:width="1dp" android:color="#FFFFFF" />
         <corners android:radius="5dp"/>
     </shape></item>
 
     <item android:state_enabled="false"><shape>
-        <solid android:color="#FFFFED" />
-        <stroke android:width="1dp" android:color="#FFFFED" />
+        <solid android:color="#FFFFFF" />
+        <stroke android:width="1dp" android:color="#FFFFFF" />
         <corners android:radius="5dp"/>
     </shape></item>
 
 
     <item><shape>
-        <solid android:color="#FFFFED" />
-        <stroke android:width="1dp" android:color="#FFFFED" />
+        <solid android:color="#FFFFFF" />
+        <stroke android:width="1dp" android:color="#FFFFFF" />
         <corners android:radius="10dp"/>
     </shape></item>
 </selector>

@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,10 +25,12 @@ import android.widget.Toast;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView txtMessage;
     private Button btnGoLogin;
     private ProgressBar progressBar;
+    private Button btn_addCamera;
+    private RoundedImageView roundedImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         final Button imBtnBack = findViewById(R.id.imbtnBackToLogin);
 
         progressBar = findViewById(R.id.progressBar);
+        roundedImageView = findViewById(R.id.roundedImageView);
 
         imBtnBack.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -69,7 +78,40 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        btn_addCamera = findViewById(R.id.btn_addCamera);
+        btn_addCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, 1);
+            }
+        });
+
     }
+
+    //取得相片後返回的監聽式
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //當使用者按下確定後
+        if (resultCode == RESULT_OK) {
+            //取得圖檔的路徑位置
+            Uri uri = data.getData();
+            ContentResolver cr = this.getContentResolver();
+            try {
+                //由抽象資料接口轉換圖檔路徑為Bitmap
+                Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+                //取得圖片控制項ImageView
+                // 將Bitmap設定到ImageView
+                roundedImageView.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                Log.e("Exception", e.getMessage(),e);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 
     public void Register(){
         etName = findViewById(R.id.etName);
@@ -186,7 +228,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                Toast.makeText(activity, "註冊成功", Toast.LENGTH_LONG).show();
                 // 對Context進行操作
                 sqlReturn.RegisterEmail = etEmail.getText().toString();
-                sqlReturn.RegisterPassword = etPassword.getText().toString();
+                sqlReturn.LoginPassword = etPassword.getText().toString();
                 sqlReturn.RegisterFirstLogin = false;
                 new AlertDialog.Builder(RegisterActivity.this)
                         .setCancelable(false)
