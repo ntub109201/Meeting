@@ -83,6 +83,7 @@ public class FriendFragment extends Fragment {
             @Override
             public void onRefresh() {
                 searchFriend();
+                searchFriendList();
             }
         });
 

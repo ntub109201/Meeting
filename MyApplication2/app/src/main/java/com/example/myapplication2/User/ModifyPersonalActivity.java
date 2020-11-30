@@ -128,17 +128,7 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(ModifyPersonalActivity.this)
-                        .setCancelable(false)
-                        .setTitle("提醒您")
-                        .setMessage("確定修改個人資料?")
-                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                sendPersonalData();
-                            }
-                        }).setNegativeButton("取消",null).create()
-                        .show();
+                sendPersonalData();
             }
         });
 

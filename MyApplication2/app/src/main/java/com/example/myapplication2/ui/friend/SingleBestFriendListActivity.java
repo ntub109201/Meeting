@@ -129,7 +129,7 @@ public class SingleBestFriendListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         position1 = getAdapterPosition();
-                        Intent intent = new Intent(SingleBestFriendListActivity.this,SingleFriendActivity.class);
+                        Intent intent = new Intent(SingleBestFriendListActivity.this,SingleBestFriendActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -151,7 +151,7 @@ public class SingleBestFriendListActivity extends AppCompatActivity {
             holder.date.setText(data.get(position).get("date"));
             holder.tag.setText(data.get(position).get("tag"));
             if(position % 3 == 0){
-                holder.photo_image.setImageResource(R.drawable.images);
+                holder.photo_image.setImageResource(R.drawable.test_photo);
             }else if(position % 3 == 1){
                 holder.photo_image.setImageResource(R.drawable.image2);
             }else {

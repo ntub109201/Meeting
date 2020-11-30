@@ -144,7 +144,7 @@
             android:id="@+id/edtName"
             android:layout_width="160dp"
             android:layout_height="45dp"
-            android:background="@drawable/edittext"
+            android:background="@drawable/edittext2"
             android:ems="10"
             android:hint="暱稱"
             android:inputType="textPersonName"

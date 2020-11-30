@@ -41,11 +41,16 @@ public class HomeContextActivity extends AppCompatActivity {
     private boolean changeBtn;
     private Animation mOpen,mClose;
     private String sharefriend = "n", sharebestfriend = "n";
+    private boolean check_sharefriend = true,check_sharebestfriend = true;
+    private ImageView img_homeContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_context);
+
+        img_homeContext = findViewById(R.id.img_homeContext);
+        img_homeContext.setImageResource(R.drawable.test_photo);
 
         mOpen = AnimationUtils.loadAnimation(HomeContextActivity.this,R.anim.button_open);
         mClose = AnimationUtils.loadAnimation(HomeContextActivity.this,R.anim.button_close);
@@ -96,14 +101,21 @@ public class HomeContextActivity extends AppCompatActivity {
         btn_share_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sharefriend.equals("n")){
+                if(check_sharefriend == true){
                     sharefriend = "y";
                     sharebestfriend = "y";
+                    check_sharefriend = false;
+                    check_sharebestfriend = true;
                     btn_share_friend.setBackgroundResource(R.drawable.btn_sharediaryend2);
+                    btn_share_best_friend.setBackgroundResource(R.drawable.btn_sharediaryend);
+
                 }else{
                     sharefriend = "n";
                     sharebestfriend = "n";
-                    btn_share_friend.setBackgroundResource(R.drawable.btn_sharediary1);
+                    check_sharefriend = true;
+                    check_sharebestfriend = true;
+                    btn_share_friend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                    btn_share_best_friend.setBackgroundResource(R.drawable.btn_sharediaryend);
                 }
             }
         });
@@ -111,14 +123,20 @@ public class HomeContextActivity extends AppCompatActivity {
         btn_share_best_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sharebestfriend.equals("n")){
+                if(check_sharebestfriend == true){
                     sharebestfriend = "y";
                     sharefriend = "n";
+                    check_sharefriend = true;
+                    check_sharebestfriend = false;
+                    btn_share_friend.setBackgroundResource(R.drawable.btn_sharediaryend);
                     btn_share_best_friend.setBackgroundResource(R.drawable.btn_sharediaryend2);
                 }else{
                     sharebestfriend = "n";
                     sharefriend = "n";
-                    btn_share_best_friend.setBackgroundResource(R.drawable.btn_sharediary1);
+                    check_sharefriend = true;
+                    check_sharebestfriend = true;
+                    btn_share_friend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                    btn_share_best_friend.setBackgroundResource(R.drawable.btn_sharediaryend);
                 }
             }
         });

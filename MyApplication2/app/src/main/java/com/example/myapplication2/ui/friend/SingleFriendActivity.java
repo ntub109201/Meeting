@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication2.R;
@@ -16,6 +17,7 @@ import com.example.myapplication2.sqlReturn;
 public class SingleFriendActivity extends AppCompatActivity {
 
     private TextView DiaryTitle,friendName,DiaryDateTime,txtContext,friendMood;
+    private ImageView img_singleFriend_photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,9 @@ public class SingleFriendActivity extends AppCompatActivity {
                 SingleFriendActivity.this.finish();
             }
         });
+
+        img_singleFriend_photo = findViewById(R.id.img_singleFriend_photo);
+        img_singleFriend_photo.setImageResource(R.drawable.test_photo);
 
         DiaryTitle = findViewById(R.id.DiaryTitle);
         DiaryTitle.setText(sqlReturn.friendSearchTagName[SingleFriendListActivity.position]);

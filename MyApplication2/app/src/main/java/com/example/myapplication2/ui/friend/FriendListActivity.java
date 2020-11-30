@@ -341,6 +341,7 @@ public class FriendListActivity extends AppCompatActivity {
         map.put("command", "friendSearch");
         map.put("uid", uid);
         map.put("searchFriend",friendName);
+        map.put("bff",sqlReturn.friendListBFF[position2]);
         new friendSearch(this).execute((HashMap)map);
     }
 

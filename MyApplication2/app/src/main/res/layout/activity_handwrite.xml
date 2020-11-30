@@ -37,7 +37,7 @@
             android:background="@mipmap/ic_handwritesharewhite_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btn_handwritecheck"
-            app:layout_constraintHorizontal_bias="0.824"
+            app:layout_constraintHorizontal_bias="0.784"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
@@ -68,6 +68,39 @@
             app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_sharebestfriend"
+        style="@style/btn_sharefriend"
+        android:layout_width="64dp"
+        android:layout_height="63dp"
+        android:text="摯友"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.907"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024" />
+
+    <Button
+        android:id="@+id/btn_sharefriend"
+        style="@style/btn_sharefriend"
+        android:layout_width="63dp"
+        android:layout_height="64dp"
+        android:text="所有
+            好友"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.672"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <Button
         android:id="@+id/btn_addphoto"
@@ -305,7 +338,7 @@
             app:layout_constraintVertical_bias="1.0">
 
             <EditText
-                android:id="@+id/textView18"
+                android:id="@+id/handWrite_context"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"

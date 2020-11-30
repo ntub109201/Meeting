@@ -51,7 +51,6 @@ public class TakePhotoActivity extends AppCompatActivity {
     private LinearLayoutManager mLayoutManager;
     private LinkedList<HashMap<String,String>> data1;
     private TakePhotoActivity.MyAdapter myAdapter;
-    private static int count;
     private Bitmap mbmp;
 
 
@@ -68,7 +67,6 @@ public class TakePhotoActivity extends AppCompatActivity {
         byte[] decodedBytes = Base64.decode(filePath,Base64.DEFAULT);
 
         mbmp = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-        count +=1;
 
         progressBar = findViewById(R.id.progressBar);
 
@@ -99,7 +97,6 @@ public class TakePhotoActivity extends AppCompatActivity {
         btn_back_paper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count = 0;
                 Intent intent = new Intent(TakePhotoActivity.this,MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
@@ -125,6 +122,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 if(paper_sunnyClick){
                     paper_sunnyClick = false;
                     btn_paper_sunny.setBackgroundTintList(getColorStateList(R.color.white));
+                    mood = "";
                 }else if(!paper_sunnyClick){
                     paper_sunnyClick = true;
                     paper_mcClick = false;
@@ -136,6 +134,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                     btn_paper_cloudy.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_thunder.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_rain.setBackgroundTintList(getColorStateList(R.color.white));
+                    mood = "心情1";
                 }
             }
         });
@@ -146,6 +145,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 if(paper_mcClick){
                     paper_mcClick = false;
                     btn_paper_mc.setBackgroundTintList(getColorStateList(R.color.white));
+                    mood = "";
                 }else if(!paper_mcClick){
                     paper_sunnyClick = false;
                     paper_mcClick = true;
@@ -157,6 +157,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                     btn_paper_cloudy.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_thunder.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_rain.setBackgroundTintList(getColorStateList(R.color.white));
+                    mood = "心情2";
                 }
             }
         });
@@ -167,6 +168,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 if(paper_cloudyClick){
                     paper_cloudyClick = false;
                     btn_paper_cloudy.setBackgroundTintList(getColorStateList(R.color.white));
+                    mood = "";
                 }else if(!paper_cloudyClick){
                     paper_sunnyClick = false;
                     paper_mcClick = false;
@@ -178,27 +180,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                     btn_paper_cloudy.setBackgroundTintList(getColorStateList(R.color.orange));
                     btn_paper_thunder.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_rain.setBackgroundTintList(getColorStateList(R.color.white));
-                }
-            }
-        });
-
-        btn_paper_thunder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(paper_thunderClick){
-                    paper_thunderClick = false;
-                    btn_paper_thunder.setBackgroundTintList(getColorStateList(R.color.white));
-                }else if(!paper_thunderClick){
-                    paper_sunnyClick = false;
-                    paper_mcClick = false;
-                    paper_cloudyClick = false;
-                    paper_thunderClick = true;
-                    paper_rainClick = false;
-                    btn_paper_sunny.setBackgroundTintList(getColorStateList(R.color.white));
-                    btn_paper_mc.setBackgroundTintList(getColorStateList(R.color.white));
-                    btn_paper_cloudy.setBackgroundTintList(getColorStateList(R.color.white));
-                    btn_paper_thunder.setBackgroundTintList(getColorStateList(R.color.orange));
-                    btn_paper_rain.setBackgroundTintList(getColorStateList(R.color.white));
+                    mood = "心情3";
                 }
             }
         });
@@ -209,6 +191,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 if(paper_rainClick){
                     paper_rainClick = false;
                     btn_paper_rain.setBackgroundTintList(getColorStateList(R.color.white));
+                    mood = "";
                 }else if(!paper_rainClick){
                     paper_sunnyClick = false;
                     paper_mcClick = false;
@@ -220,6 +203,30 @@ public class TakePhotoActivity extends AppCompatActivity {
                     btn_paper_cloudy.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_thunder.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_rain.setBackgroundTintList(getColorStateList(R.color.orange));
+                    mood = "心情4";
+                }
+            }
+        });
+
+        btn_paper_thunder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(paper_thunderClick){
+                    paper_thunderClick = false;
+                    btn_paper_thunder.setBackgroundTintList(getColorStateList(R.color.white));
+                    mood = "";
+                }else if(!paper_thunderClick){
+                    paper_sunnyClick = false;
+                    paper_mcClick = false;
+                    paper_cloudyClick = false;
+                    paper_thunderClick = true;
+                    paper_rainClick = false;
+                    btn_paper_sunny.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_paper_mc.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_paper_cloudy.setBackgroundTintList(getColorStateList(R.color.white));
+                    btn_paper_thunder.setBackgroundTintList(getColorStateList(R.color.orange));
+                    btn_paper_rain.setBackgroundTintList(getColorStateList(R.color.white));
+                    mood = "心情5";
                 }
             }
         });
@@ -230,6 +237,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 if(paper_tripClick){
                     paper_tripClick = false;
                     btn_paper_trip.setBackgroundTintList(getColorStateList(R.color.white));
+                    tag = "";
                 }else if(!paper_tripClick){
                     paper_tripClick = true;
                     paper_shoppingClick = false;
@@ -241,6 +249,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                     btn_paper_love.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_food.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_casual.setBackgroundTintList(getColorStateList(R.color.white));
+                    tag = "旅遊";
                 }
             }
         });
@@ -251,6 +260,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 if(paper_shoppingClick){
                     paper_shoppingClick = false;
                     btn_paper_shopping.setBackgroundTintList(getColorStateList(R.color.white));
+                    tag = "";
                 }else if(!paper_shoppingClick){
                     paper_tripClick = false;
                     paper_shoppingClick = true;
@@ -262,6 +272,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                     btn_paper_love.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_food.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_casual.setBackgroundTintList(getColorStateList(R.color.white));
+                    tag = "購物";
                 }
             }
         });
@@ -272,6 +283,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 if(paper_loveClick){
                     paper_loveClick = false;
                     btn_paper_love.setBackgroundTintList(getColorStateList(R.color.white));
+                    tag = "";
                 }else if(!paper_loveClick){
                     paper_tripClick = false;
                     paper_shoppingClick = false;
@@ -283,6 +295,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                     btn_paper_love.setBackgroundTintList(getColorStateList(R.color.orange));
                     btn_paper_food.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_casual.setBackgroundTintList(getColorStateList(R.color.white));
+                    tag = "戀愛";
                 }
             }
         });
@@ -293,6 +306,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 if(paper_foodClick){
                     paper_foodClick = false;
                     btn_paper_food.setBackgroundTintList(getColorStateList(R.color.white));
+                    tag = "";
                 }else if(!paper_foodClick){
                     paper_tripClick = false;
                     paper_shoppingClick = false;
@@ -304,6 +318,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                     btn_paper_love.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_food.setBackgroundTintList(getColorStateList(R.color.orange));
                     btn_paper_casual.setBackgroundTintList(getColorStateList(R.color.white));
+                    tag = "美食";
                 }
             }
         });
@@ -314,6 +329,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 if(paper_casualClick){
                     paper_casualClick = false;
                     btn_paper_casual.setBackgroundTintList(getColorStateList(R.color.white));
+                    tag = "";
                 }else if(!paper_casualClick){
                     paper_tripClick = false;
                     paper_shoppingClick = false;
@@ -325,6 +341,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                     btn_paper_love.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_food.setBackgroundTintList(getColorStateList(R.color.white));
                     btn_paper_casual.setBackgroundTintList(getColorStateList(R.color.orange));
+                    tag = "休閒娛樂";
                 }
             }
         });
@@ -343,57 +360,20 @@ public class TakePhotoActivity extends AppCompatActivity {
     }
 
     public void count(){
-        if(paper_sunnyClick){
-            mood = "心情1";
-            countMood = 1;
-        }else if(paper_mcClick){
-            mood = "心情2";
-            countMood = 1;
-        }else if(paper_cloudyClick){
-            mood = "心情3";
-            countMood = 1;
-        }else if(paper_rainClick){
-            mood = "心情4";
-            countMood = 1;
-        }else if(paper_thunderClick){
-            mood = "心情5";
-            countMood = 1;
-        }else {
-            mood = "";
-        }
 
-        if(paper_tripClick){
-            tag = "旅遊";
-            countTag = 1;
-        }else if(paper_shoppingClick){
-            tag = "購物";
-            countTag = 1;
-        }else if(paper_loveClick){
-            tag = "戀愛";
-            countTag = 1;
-        }else if(paper_foodClick){
-            tag = "美食";
-            countTag = 1;
-        }else if(paper_casualClick){
-            tag = "休閒娛樂";
-            countTag = 1;
-        }else {
-            tag = "";
-        }
-
-        if(countMood == 0 && countTag == 0){
+        if(mood.equals("") && tag.equals("")){
             new AlertDialog.Builder(TakePhotoActivity.this)
                     .setTitle("提醒您")
                     .setMessage("請點選心情和主題!!")
                     .setPositiveButton("好", null)
                     .show();
-        }else if(countMood == 0){
+        }else if(mood.equals("")){
             new AlertDialog.Builder(TakePhotoActivity.this)
                     .setTitle("提醒您")
                     .setMessage("請點選心情!!")
                     .setPositiveButton("好", null)
                     .show();
-        }else if(countTag == 0){
+        }else if(tag.equals("")){
             new AlertDialog.Builder(TakePhotoActivity.this)
                     .setTitle("提醒您")
                     .setMessage("請點選主題!!")
@@ -418,7 +398,6 @@ public class TakePhotoActivity extends AppCompatActivity {
 
     public void DiaryInsert(){
 
-
         String currentDate;
         currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         Map<String,String> map = new HashMap<>();
@@ -428,7 +407,7 @@ public class TakePhotoActivity extends AppCompatActivity {
         map.put("diaryTag",tag);
         map.put("diaryDate",currentDate);
         map.put("diaryMood", mood);
-        map.put("diaryOptionClass", "");
+        map.put("diaryOptionClass", "拍照無what");
         new DiaryInsert(this).execute((HashMap)map);
     }
 
@@ -473,7 +452,7 @@ public class TakePhotoActivity extends AppCompatActivity {
 
     private void doData(){
         data1 = new LinkedList<>();
-        for(int i = 0; i < count; i++){
+        for(int i = 0; i < 1; i++){
             HashMap<String,String> row = new HashMap<>();
             data1.add(row);
         }
@@ -514,14 +493,12 @@ public class TakePhotoActivity extends AppCompatActivity {
     }
 
 
-
     // 擋住手機上回上一頁鍵
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO 自動產生的方法 Stub
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
         {
-            count = 0;
             Intent intent = new Intent(TakePhotoActivity.this,MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("id",1);
@@ -529,6 +506,4 @@ public class TakePhotoActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
 }

@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +19,15 @@ import com.example.myapplication2.sqlReturn;
 public class SocialArticalActivity extends AppCompatActivity {
 
     private TextView SocialDiaryTitle,SocialUserName,SocialDiaryDateTime,txtSocialContext,SocialMood;
+    private ImageView img_friend_photo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socialartical);
 
+        img_friend_photo = findViewById(R.id.img_friend_photo);
+        img_friend_photo.setImageResource(R.drawable.test_photo);
 
         final ImageButton imbtnReturnToSocial = findViewById(R.id.imbtnReturnToSocial);
         imbtnReturnToSocial.setOnClickListener(new View.OnClickListener() {

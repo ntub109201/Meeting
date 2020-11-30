@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,24 +25,38 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
+import com.example.myapplication2.sqlReturn;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
@@ -75,9 +90,19 @@ public class HandwriteActivity extends AppCompatActivity {
 
     private boolean paper_sunnyClick = false, paper_mcClick = false, paper_cloudyClick = false, paper_thunderClick = false, paper_rainClick = false;
     private boolean paper_tripClick = false, paper_shoppingClick = false, paper_loveClick = false, paper_foodClick = false, paper_casualClick = false;
+    private String mood = "";
+    private String tag = "";
+    private Boolean btnChange;
+    private Animation mOpen,mClose;
+    private Button btn_sharefriend,btn_sharebestfriend;
+    private boolean check_sharefriend = true,check_sharebestfriend = true;
+    private String sharefriend = "n", sharebestfriend = "n";
 
     private ProgressBar progressBarHandWrite;
     private CardView noImageView;
+    private EditText handWrite_context;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +110,8 @@ public class HandwriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_handwrite);
 
         noImageView = findViewById(R.id.noImageView);
+
+        btn_sharehandwritediary = findViewById(R.id.btn_sharehandwritediary);
 
         final ImageButton imbtnReturnMain = findViewById(R.id.imbtnReturnMain);
         imbtnReturnMain.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +123,8 @@ public class HandwriteActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        handWrite_context = findViewById(R.id.handWrite_context);
 
         btn_handwritecheck = findViewById(R.id.btn_handwritecheck);
 
@@ -129,6 +158,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 if(paper_sunnyClick){
                     paper_sunnyClick = false;
                     btn_paper_sunny.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    mood = "";
                 }else if(!paper_sunnyClick){
                     paper_sunnyClick = true;
                     paper_mcClick = false;
@@ -140,6 +170,7 @@ public class HandwriteActivity extends AppCompatActivity {
                     btn_paper_cloudy.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_thunder.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_rain.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    mood = "心情1";
                 }
             }
         });
@@ -150,6 +181,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 if(paper_mcClick){
                     paper_mcClick = false;
                     btn_paper_mc.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    mood = "";
                 }else if(!paper_mcClick){
                     paper_sunnyClick = false;
                     paper_mcClick = true;
@@ -161,6 +193,7 @@ public class HandwriteActivity extends AppCompatActivity {
                     btn_paper_cloudy.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_thunder.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_rain.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    mood = "心情2";
                 }
             }
         });
@@ -171,6 +204,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 if(paper_cloudyClick){
                     paper_cloudyClick = false;
                     btn_paper_cloudy.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    mood = "";
                 }else if(!paper_cloudyClick){
                     paper_sunnyClick = false;
                     paper_mcClick = false;
@@ -182,27 +216,7 @@ public class HandwriteActivity extends AppCompatActivity {
                     btn_paper_cloudy.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.orange));
                     btn_paper_thunder.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_rain.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
-                }
-            }
-        });
-
-        btn_paper_thunder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(paper_thunderClick){
-                    paper_thunderClick = false;
-                    btn_paper_thunder.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
-                }else if(!paper_thunderClick){
-                    paper_sunnyClick = false;
-                    paper_mcClick = false;
-                    paper_cloudyClick = false;
-                    paper_thunderClick = true;
-                    paper_rainClick = false;
-                    btn_paper_sunny.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
-                    btn_paper_mc.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
-                    btn_paper_cloudy.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
-                    btn_paper_thunder.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.orange));
-                    btn_paper_rain.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    mood = "心情3";
                 }
             }
         });
@@ -213,6 +227,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 if(paper_rainClick){
                     paper_rainClick = false;
                     btn_paper_rain.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    mood = "";
                 }else if(!paper_rainClick){
                     paper_sunnyClick = false;
                     paper_mcClick = false;
@@ -224,9 +239,34 @@ public class HandwriteActivity extends AppCompatActivity {
                     btn_paper_cloudy.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_thunder.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_rain.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.orange));
+                    mood = "心情4";
                 }
             }
         });
+
+        btn_paper_thunder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(paper_thunderClick){
+                    paper_thunderClick = false;
+                    btn_paper_thunder.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    mood = "";
+                }else if(!paper_thunderClick){
+                    paper_sunnyClick = false;
+                    paper_mcClick = false;
+                    paper_cloudyClick = false;
+                    paper_thunderClick = true;
+                    paper_rainClick = false;
+                    btn_paper_sunny.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    btn_paper_mc.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    btn_paper_cloudy.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    btn_paper_thunder.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.orange));
+                    btn_paper_rain.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    mood = "心情5";
+                }
+            }
+        });
+
 
         btn_paper_trip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,6 +274,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 if(paper_tripClick){
                     paper_tripClick = false;
                     btn_paper_trip.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    tag = "";
                 }else if(!paper_tripClick){
                     paper_tripClick = true;
                     paper_shoppingClick = false;
@@ -245,6 +286,7 @@ public class HandwriteActivity extends AppCompatActivity {
                     btn_paper_love.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_food.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_casual.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    tag = "旅遊";
                 }
             }
         });
@@ -255,6 +297,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 if(paper_shoppingClick){
                     paper_shoppingClick = false;
                     btn_paper_shopping.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    tag = "";
                 }else if(!paper_shoppingClick){
                     paper_tripClick = false;
                     paper_shoppingClick = true;
@@ -266,6 +309,7 @@ public class HandwriteActivity extends AppCompatActivity {
                     btn_paper_love.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_food.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_casual.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    tag = "購物";
                 }
             }
         });
@@ -276,6 +320,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 if(paper_loveClick){
                     paper_loveClick = false;
                     btn_paper_love.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    tag = "";
                 }else if(!paper_loveClick){
                     paper_tripClick = false;
                     paper_shoppingClick = false;
@@ -287,6 +332,7 @@ public class HandwriteActivity extends AppCompatActivity {
                     btn_paper_love.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.orange));
                     btn_paper_food.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_casual.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    tag = "戀愛";
                 }
             }
         });
@@ -297,6 +343,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 if(paper_foodClick){
                     paper_foodClick = false;
                     btn_paper_food.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    tag = "";
                 }else if(!paper_foodClick){
                     paper_tripClick = false;
                     paper_shoppingClick = false;
@@ -308,6 +355,7 @@ public class HandwriteActivity extends AppCompatActivity {
                     btn_paper_love.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_food.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.orange));
                     btn_paper_casual.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    tag = "美食";
                 }
             }
         });
@@ -318,6 +366,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 if(paper_casualClick){
                     paper_casualClick = false;
                     btn_paper_casual.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
+                    tag = "";
                 }else if(!paper_casualClick){
                     paper_tripClick = false;
                     paper_shoppingClick = false;
@@ -329,10 +378,83 @@ public class HandwriteActivity extends AppCompatActivity {
                     btn_paper_love.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_food.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.white));
                     btn_paper_casual.setBackgroundTintList(HandwriteActivity.this.getColorStateList(R.color.orange));
+                    tag = "休閒娛樂";
                 }
             }
         });
 
+        mOpen = AnimationUtils.loadAnimation(HandwriteActivity.this,R.anim.button_open);
+        mClose = AnimationUtils.loadAnimation(HandwriteActivity.this,R.anim.button_close);
+        btnChange = false;
+        btn_sharefriend = findViewById(R.id.btn_sharefriend);
+        btn_sharebestfriend = findViewById(R.id.btn_sharebestfriend);
+        btn_sharehandwritediary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btnChange){
+                    btn_sharebestfriend.setAnimation(mClose);
+                    btn_sharefriend.setAnimation(mClose);
+                    btn_sharebestfriend.setVisibility(View.INVISIBLE);
+                    btn_sharebestfriend.setEnabled(false);
+                    btn_sharefriend.setVisibility(View.INVISIBLE);
+                    btn_sharefriend.setEnabled(false);
+                    btnChange = false;
+                }else {
+                    btn_sharebestfriend.setAnimation(mOpen);
+                    btn_sharefriend.setAnimation(mOpen);
+                    btn_sharebestfriend.setVisibility(View.VISIBLE);
+                    btn_sharebestfriend.setEnabled(true);
+                    btn_sharefriend.setVisibility(View.VISIBLE);
+                    btn_sharefriend.setEnabled(true);
+                    btnChange = true;
+                }
+            }
+        });
+
+        btn_sharefriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(check_sharefriend == true){
+                    sharefriend = "y";
+                    sharebestfriend = "y";
+                    check_sharefriend = false;
+                    check_sharebestfriend = true;
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend2);
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+
+                }else{
+                    sharefriend = "n";
+                    sharebestfriend = "n";
+                    check_sharefriend = true;
+                    check_sharebestfriend = true;
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                }
+                Log.d(TAG, " share "+sharefriend +" bff "+sharebestfriend);
+            }
+        });
+
+        btn_sharebestfriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(check_sharebestfriend == true){
+                    sharebestfriend = "y";
+                    sharefriend = "n";
+                    check_sharefriend = true;
+                    check_sharebestfriend = false;
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend2);
+                }else{
+                    sharebestfriend = "n";
+                    sharefriend = "n";
+                    check_sharefriend = true;
+                    check_sharebestfriend = true;
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                }
+                Log.d(TAG, " share "+sharefriend +" bff "+sharebestfriend);
+            }
+        });
 
         btn_addphoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -351,17 +473,7 @@ public class HandwriteActivity extends AppCompatActivity {
         btn_handwritecheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(HandwriteActivity.this)
-                        .setCancelable(false)
-                        .setTitle("提醒您")
-                        .setMessage("確定完成日記?")
-                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                uploadImagesToServer();
-                            }
-                        }).setNegativeButton("取消",null).create()
-                        .show();
+                count();
             }
         });
 
@@ -637,60 +749,99 @@ public class HandwriteActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    //    public void DiaryInsert(){
-//        String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-//        handWriteContext = txtHandWrite.getText().toString();
-//        Map<String,String> map = new HashMap<>();
-//        map.put("command", "newDiaryHandWrite");
-//        map.put("uid", sqlReturn.GetUserID);
-//        map.put("diaryContent",handWriteContext);
-//        map.put("diaryTag","手寫日記");
-//        map.put("diaryDate",currentDate);
-//        map.put("diaryMood","手寫日記心情");
-//        map.put("diaryOptionClass","手寫日記選項");
-//        new DiaryInsert(this).execute((HashMap)map);
-//    }
-//
-//    private class DiaryInsert extends HttpURLConnection_AsyncTask {
-//
-//        // 建立弱連結
-//        WeakReference<Activity> activityReference;
-//        DiaryInsert(Activity context){
-//            activityReference = new WeakReference<>(context);
-//        }
-//        @Override
-//        protected void onPostExecute(String result) {
-//            JSONObject jsonObject = null;
-//            boolean status = false;
-//            // 取得弱連結的Context
-//            Activity activity = activityReference.get();
-//            if (activity == null || activity.isFinishing()) return;
-//
-//            try {
-//                jsonObject = new JSONObject(result);
-//                status = jsonObject.getBoolean("status");
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//            if (status){
-//                Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(HandwriteActivity.this, MainActivity.class);
-//                intent.putExtra("id",1);
-//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HandwriteActivity.this);
-//                startActivity(intent,options.toBundle());
-//                txtHandWrite.setText("");
-//                progressBarHandWrite.setVisibility(View.INVISIBLE);
-//            }else {
-//                new AlertDialog.Builder(activity)
-//                        .setTitle("伺服器擁擠中")
-//                        .setMessage("請重複點選結束按鈕!!")
-//                        .setPositiveButton("OK", null)
-//                        .show();
-//                progressBarHandWrite.setVisibility(View.INVISIBLE);
-//            }
-//
-//        }
-//    }
+
+    public void count(){
+
+        if(mood.equals("") && tag.equals("")){
+            new AlertDialog.Builder(HandwriteActivity.this)
+                    .setTitle("提醒您")
+                    .setMessage("請點選心情和主題!!")
+                    .setPositiveButton("好", null)
+                    .show();
+        }else if(mood.equals("")){
+            new AlertDialog.Builder(HandwriteActivity.this)
+                    .setTitle("提醒您")
+                    .setMessage("請點選心情!!")
+                    .setPositiveButton("好", null)
+                    .show();
+        }else if(tag.equals("")){
+            new AlertDialog.Builder(HandwriteActivity.this)
+                    .setTitle("提醒您")
+                    .setMessage("請點選主題!!")
+                    .setPositiveButton("好", null)
+                    .show();
+        }else{
+            new AlertDialog.Builder(HandwriteActivity.this)
+                    .setCancelable(false)
+                    .setTitle("提醒您")
+                    .setMessage("確定完成日記?")
+                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //uploadImagesToServer();
+                            DiaryInsert();
+                        }
+                    }).setNegativeButton("取消",null).create()
+                    .show();
+        }
+
+    }
+
+    public void DiaryInsert(){
+
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "newDiaryHandWrite");
+        map.put("uid", sqlReturn.GetUserID);
+        map.put("diaryContent",handWrite_context.getText().toString());
+        map.put("diaryTag",tag);
+        map.put("diaryDate",currentDate);
+        map.put("diaryMood",mood);
+        map.put("diaryOptionClass","手寫無what");
+        map.put("share",sharefriend);
+        map.put("bff",sharebestfriend);
+        new DiaryInsert(this).execute((HashMap)map);
+    }
+
+    private class DiaryInsert extends HttpURLConnection_AsyncTask {
+
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        DiaryInsert(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (status){
+                Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(HandwriteActivity.this, MainActivity.class);
+                intent.putExtra("id",1);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HandwriteActivity.this);
+                startActivity(intent,options.toBundle());
+                progressBarHandWrite.setVisibility(View.INVISIBLE);
+            }else {
+                new AlertDialog.Builder(activity)
+                        .setTitle("伺服器擁擠中")
+                        .setMessage("請重複點選結束按鈕!!")
+                        .setPositiveButton("OK", null)
+                        .show();
+                progressBarHandWrite.setVisibility(View.INVISIBLE);
+            }
+
+        }
+    }
 
 
 
@@ -707,8 +858,5 @@ public class HandwriteActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
-
 
 }

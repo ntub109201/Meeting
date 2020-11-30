@@ -65,16 +65,8 @@ public class RegisterActivity extends AppCompatActivity {
         btnGoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(RegisterActivity.this)
-                        .setTitle("提醒")
-                        .setMessage("確定註冊")
-                        .setPositiveButton("確定",new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                progressBar.setVisibility(View.VISIBLE);
-                                Register();
-                            }
-                        }).setNegativeButton("取消",null).create().show();
+                progressBar.setVisibility(View.VISIBLE);
+                Register();
             }
         });
 

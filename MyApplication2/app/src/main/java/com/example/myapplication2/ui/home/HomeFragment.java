@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private LinkedList<HashMap<String,String>> data;
     private HomeFragment.MyAdapter myAdapter;
-    private Button btnWriteTodayDiary;
+    private TextView btnWriteTodayDiary;
     public static int homeTag;
     private Button searchBtnMood;
     private Button searchBtnTag;

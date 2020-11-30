@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication2.R;
@@ -16,12 +17,15 @@ import com.example.myapplication2.sqlReturn;
 public class SingleBestFriendActivity extends AppCompatActivity {
 
     private TextView DiaryTitle,friendName,DiaryDateTime,txtContext,friendMood;
+    private ImageView img_singleBestFriend_photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_best_friend);
 
+        img_singleBestFriend_photo = findViewById(R.id.img_singleBestFriend_photo);
+        img_singleBestFriend_photo.setImageResource(R.drawable.test_photo);
 
         final ImageButton imbtnReturnToFriendList = findViewById(R.id.imbtnReturnToFriendList);
         imbtnReturnToFriendList.setOnClickListener(new View.OnClickListener() {

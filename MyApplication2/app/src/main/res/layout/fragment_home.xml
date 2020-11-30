@@ -303,20 +303,22 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <Button
+                <TextView
                     android:id="@+id/btnWriteTodayDiary"
-                    android:layout_width="60dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginEnd="16dp"
                     android:background="#77D8D5"
                     android:text="TODAY"
+                    android:textAlignment="center"
                     android:textColor="#fff"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.703"
                     app:layout_constraintStart_toEndOf="@+id/imageView7"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.432" />
+                    app:layout_constraintVertical_bias="0.65999997" />
 
                 <TextView
                     android:id="@+id/DateTime"
