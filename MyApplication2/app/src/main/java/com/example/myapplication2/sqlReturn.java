@@ -121,4 +121,8 @@ public class sqlReturn{
     public static int tagResult03;
     public static int tagResult04;
     public static int tagResult05;
+    //經緯度
+    public static double lat;
+    public static double lng;
+    public static boolean locationPermissionGranted=false;
 }

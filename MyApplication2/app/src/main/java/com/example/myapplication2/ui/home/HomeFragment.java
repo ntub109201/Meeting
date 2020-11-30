@@ -4,11 +4,15 @@ import android.Manifest;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +40,7 @@ import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.User.PersonalActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
+import com.example.myapplication2.ui.maybelike.ServiceGetLocation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -44,9 +49,11 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -80,6 +87,20 @@ public class HomeFragment extends Fragment {
     private ImageView imgTodayWhat;
     private ConstraintLayout noHistoryData,haveDataLayout1;
     private CardView cardView1;
+
+    private ServiceGetLocation.ServiceBinder myBinder;
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder binder) {
+            myBinder = (ServiceGetLocation.ServiceBinder) binder;
+            myBinder.getLocation();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName className) {
+        }
+    };
+
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -142,7 +163,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        getPermissionsCamera();
+        HomeFragment.super.getActivity().bindService(new Intent(HomeFragment.super.getActivity(), ServiceGetLocation.class), mServiceConnection, Context.BIND_AUTO_CREATE);
+        request_permissions();
 
         // adapter
         mRecyclerView = root.findViewById(R.id.HistoryRecyclerview);
@@ -916,5 +938,57 @@ public class HomeFragment extends Fragment {
     };
 
     //----------------------------------------------------------------------------------------------
+
+    //----------------------------------------------------------------------------------------------
+    // 请求多个权限
+    private void request_permissions() {
+        // 创建一个权限列表，把需要使用而没用授权的的权限存放在这里
+        List<String> permissionList = new ArrayList<>();
+
+        // 判断权限是否已经授予，没有就把该权限添加到列表中
+        if (ActivityCompat.checkSelfPermission(HomeFragment.super.getActivity(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.CAMERA);
+        }else{
+            camera=true;
+        }
+
+        if (ActivityCompat.checkSelfPermission(HomeFragment.super.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }else{
+            sqlReturn.locationPermissionGranted=true;
+            if(myBinder!=null) myBinder.getLocation();
+
+        }
+
+        // 如果列表为空，就是全部权限都获取了，不用再次获取了。不为空就去申请权限
+        if (!permissionList.isEmpty()) {
+            ActivityCompat.requestPermissions(HomeFragment.super.getActivity(),
+                    permissionList.toArray(new String[permissionList.size()]), 1002);
+        }
+    }
+    // 请求权限回调方法
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1002:
+                // 1002请求码对应的是申请多个权限
+                if (grantResults.length > 0) {
+                    camera = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    sqlReturn.locationPermissionGranted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    if(myBinder!=null)myBinder.getLocation();
+
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        //HomeFragment.super.getActivity().unbindService(mServiceConnection);
+        super.onDestroy();
+    }
 
 }

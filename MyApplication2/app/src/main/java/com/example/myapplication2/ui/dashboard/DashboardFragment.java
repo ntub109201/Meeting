@@ -90,8 +90,6 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
     final String TAG = "nice";
     private Button btnRecommend;
     private TextView suggestion,statistics__no_text_1,statistics__no_text_2;
-
-    private Button recommend;
     private ImageView statistics_no;
 
     private TextView selectedTextDate_start,selectedTextDate_end,selectedTextSelected_date;
@@ -122,6 +120,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
                 startActivity(intent);
             }
         });
+
         tabLayout = root.findViewById(R.id.tabLayout2);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
@@ -183,6 +182,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
         mood_statistics(startDate,endDate);
 
         initialize();
+
         //date
         selectedTextSelected_date = root.findViewById(R.id.selected_date);
         root.findViewById(R.id.show_dialog).setOnClickListener(new View.OnClickListener() {
@@ -199,7 +199,6 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
 
             }
         });
-
 
         return root;
     }
@@ -242,6 +241,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
         }else{
             suggestResult = new int[]{sqlReturn.tagResult01, sqlReturn.tagResult02, sqlReturn.tagResult03, sqlReturn.tagResult04, sqlReturn.tagResult05};
             // 資料 - 主題
+            // 美食
             String[] tag1 =
                     {"這段期間吃很多美食唷～別忘了要多運動，維持健康生活，繼續吃遍全世界。",
                             "最近常吃美食耶～享受美食的懷抱～"};
@@ -265,6 +265,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
                             "放鬆與娛樂，被認為是生活中不可缺少的要素"};
             data.add(tag1);data.add(tag2);data.add(tag3);data.add(tag4);data.add(tag5);
         }
+
 
         suggestion.setText("");
         if(suggestResult[0] >= suggestResult[1] && suggestResult[0] >= suggestResult[2] && suggestResult[0] >= suggestResult[3] && suggestResult[0] >= suggestResult[4]) {
@@ -293,7 +294,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
     }
 
 
-    private  void pieChart() {
+    private void pieChart() {
 
         suggestion.append(Integer.toString(moodResult01));
 
@@ -335,6 +336,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
                 visitors.add(new PieEntry(tagResult05,"休閒娛樂"));
             }
         }
+
         PieDataSet pieDateSet = new PieDataSet(visitors,"");
         ArrayList<Integer> colors = new ArrayList<Integer>();
         colors.add(Color.rgb(245, 187, 207));
@@ -430,10 +432,13 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
                                 String s = "Start: "+d1+", \nEnd: "+d2;
                                 selectedTextDate_start.setText(d1);
                                 selectedTextDate_end.setText(d2);
-                                mood_statistics(d1,d2);
-                                tag_statistics(d1,d2);
-                                pieChart();
-                                suggest();
+                                if(tabLayout.getSelectedTabPosition()==0){
+                                    mood_statistics(d1,d2);
+                                }else{
+                                    tag_statistics(d1,d2);
+                                }
+//                                pieChart();
+//                                suggest();
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -481,7 +486,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
             if (fragment == null) return;
 
             try {
-                Log.d("error", result);
+                Log.d("moodCaculate", result);
                 jsonObject = new JSONObject(result);
 
                 status = jsonObject.getBoolean("status");
@@ -516,12 +521,12 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
                         statistics__no_text_1.setVisibility( View.INVISIBLE );
                         statistics__no_text_2.setVisibility( View.INVISIBLE );
                         statistics_no.setVisibility( View.INVISIBLE );
-                        fragment.pieChart();
-                        fragment.suggest();
+                        pieChart();
+                        suggest();
                     }
                     progressbar.setVisibility(View.INVISIBLE);
                 }else {
-                    Toast.makeText(fragment.getActivity(), "失敗", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "失敗", Toast.LENGTH_LONG).show();
                 }
             }catch (JSONException e){
                 e.printStackTrace();
@@ -554,7 +559,7 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
             if (fragment == null) return;
 
             try {
-                Log.d("error", result);
+                Log.d("tagCaculate", result);
                 jsonObject = new JSONObject(result);
 
                 status = jsonObject.getBoolean("status");
@@ -566,11 +571,12 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
                     sqlReturn.tagResult04 = jsonObject.getInt("旅遊tag");
                     sqlReturn.tagResult05 = jsonObject.getInt("休閒娛樂tag");
 
-                    tagResult01 = sqlReturn.moodResult01;
-                    tagResult02 = sqlReturn.moodResult02;
-                    tagResult03 = sqlReturn.moodResult03;
-                    tagResult04 = sqlReturn.moodResult04;
-                    tagResult05 = sqlReturn.moodResult05;
+                    tagResult01 = sqlReturn.tagResult01;
+                    tagResult02 = sqlReturn.tagResult02;
+                    tagResult03 = sqlReturn.tagResult03;
+                    tagResult04 = sqlReturn.tagResult04;
+                    tagResult05 = sqlReturn.tagResult05;
+                    Log.d(TAG, "tag1: "+tagResult01);
 
                     //主題
                     if(tagResult01 == 0 && tagResult02 == 0 && tagResult03 == 0 && tagResult04 ==0 && tagResult05 == 0){
@@ -589,14 +595,13 @@ public class DashboardFragment extends Fragment implements DatePickerDialog.OnDa
                         statistics__no_text_1.setVisibility( View.INVISIBLE );
                         statistics__no_text_2.setVisibility( View.INVISIBLE );
                         statistics_no.setVisibility( View.INVISIBLE );
-                        fragment.pieChart();
-                        fragment.suggest();
+                        pieChart();
+                        suggest();
                     }
                     progressbar.setVisibility(View.INVISIBLE);
                 }else {
-                    Toast.makeText(fragment.getActivity(), "失敗", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "失敗", Toast.LENGTH_LONG).show();
                 }
-
             }catch (JSONException e){
                 e.printStackTrace();
             }

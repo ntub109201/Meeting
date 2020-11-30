@@ -3,7 +3,6 @@ package com.example.myapplication2.ui.dashboard;
 import android.util.Log;
 
 import com.example.myapplication2.sqlReturn;
-import com.example.myapplication2.ui.maybelike.GoogleAPIResponse;
 import com.example.myapplication2.ui.maybelike.NotifyInterface;
 
 import org.json.JSONObject;

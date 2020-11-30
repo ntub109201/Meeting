@@ -42,10 +42,10 @@ public class FriendFragment extends Fragment {
     private MyAdapter myAdapter;
     private SwipeRefreshLayout RefreshLayoutFriend;
     private ImageButton imBtnPersonal;
-    private Button btn_addfriend;
     private ConstraintLayout no_friend_layout;
-    private ImageView no_friend_picture1,no_friend_picture2;
+    private ImageView no_friend_picture1;
     private ConstraintLayout FriendLayout;
+    private TextView haveFriendNoData;
 
     public static int FriendTag;
 
@@ -58,14 +58,8 @@ public class FriendFragment extends Fragment {
             HomeFragment.changeBtn = false;
         }
 
-        btn_addfriend = root.findViewById(R.id.btn_addfriend);
-        btn_addfriend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FriendFragment.super.getActivity(),FriendListActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
         // adapter
         mRecyclerView = root.findViewById(R.id.RecyclerView_1);
         mRecyclerView.setHasFixedSize(true);
@@ -110,14 +104,19 @@ public class FriendFragment extends Fragment {
 
         no_friend_layout = root.findViewById(R.id.no_friend_layout);
         no_friend_picture1 = root.findViewById(R.id.no_friend_picture1);
-        no_friend_picture2 = root.findViewById(R.id.no_friend_picture2);
+        haveFriendNoData = root.findViewById(R.id.haveFriendNoData);
         FriendLayout = root.findViewById(R.id.FriendLayout);
 
         if(sqlReturn.check_friend){
             no_friend_layout.setVisibility(View.GONE);
             no_friend_picture1.setVisibility(View.GONE);
-            no_friend_picture2.setVisibility(View.GONE);
+            haveFriendNoData.setVisibility(View.GONE);
             FriendLayout.setVisibility(View.VISIBLE);
+        }else{
+            no_friend_layout.setVisibility(View.VISIBLE);
+            no_friend_picture1.setVisibility(View.VISIBLE);
+            haveFriendNoData.setVisibility(View.VISIBLE);
+            FriendLayout.setVisibility(View.INVISIBLE);
         }
 
         return root;
@@ -250,8 +249,7 @@ public class FriendFragment extends Fragment {
                 no_friend_layout.setEnabled(false);
                 no_friend_picture1.setVisibility(View.GONE);
                 no_friend_picture1.setEnabled(false);
-                no_friend_picture2.setVisibility(View.GONE);
-                no_friend_picture2.setEnabled(false);
+                haveFriendNoData.setVisibility(View.INVISIBLE);
                 FriendLayout.setVisibility(View.VISIBLE);
             }
         }

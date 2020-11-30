@@ -84,6 +84,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
             </androidx.recyclerview.widget.RecyclerView>
+
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -98,6 +99,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
 
+        <TextView
+            android:id="@+id/haveFriendNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="等好友新增日記就能看到囉!"
+            android:textColor="#ADC7A5"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.62" />
+
         <ImageView
             android:id="@+id/no_friend_picture1"
             android:layout_width="180dp"
@@ -111,29 +125,9 @@
             app:layout_constraintVertical_bias="0.181"
             app:srcCompat="@mipmap/ic_nodatasocialicon_foreground" />
 
-        <ImageView
-            android:id="@+id/no_friend_picture2"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.57"
-            app:srcCompat="@mipmap/ic_nodatasocialicon1_foreground" />
 
-        <Button
-            android:id="@+id/btn_addfriend"
-            style="@style/btn_addfriend"
-            android:layout_width="129dp"
-            android:layout_height="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.75" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

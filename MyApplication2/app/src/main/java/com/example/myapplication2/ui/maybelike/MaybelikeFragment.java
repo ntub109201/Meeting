@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,6 +13,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -29,19 +32,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.util.Attributes;
-import com.example.myapplication2.User.PersonalActivity;
 import com.example.myapplication2.R;
+import com.example.myapplication2.User.PersonalActivity;
 import com.example.myapplication2.sqlReturn;
 import com.example.myapplication2.ui.dashboard.Statistics;
 import com.example.myapplication2.ui.home.HomeFragment;
@@ -69,14 +63,30 @@ import com.google.maps.android.ui.IconGenerator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+public class MaybelikeFragment extends Fragment implements OnMapReadyCallback,GoogleAPIResponseDataInterface {
 
     private ImageButton imBtnPersonal;
+
     //private Context mContext = getContext();
     private static final String TAG = MaybelikeFragment.class.getSimpleName();
     private static GoogleMap map;
@@ -117,17 +127,107 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
     private BottomSheetBehavior bottomSheetBehavior;
     private ArrayList<Marker> markerList;
     private Object lastClickedMarker;
-    private GoogleAPIResponse googleAPIResponse;
 
     private DisplayMetrics dm = new DisplayMetrics();
 
-    private LinearLayout llBottomSheet;
+    private String api_key;
+    // count finished thread
+    private int finished_thread_count;
+    //----------------------
+    // GetPlacePhoto
+    private final int image_max_width = 300;
+    private Map<String, Bitmap[]> place_photos = new HashMap<>();
+    //----------------------
+    // GetDistanceToPlace
+    private Map<String, ArrayList<Integer>> place_distance = new HashMap<>();
+    //----------------------
+    private Thread getPlacePhoto;
+    private Thread getDistanceToPlace;
+    private Thread getSurroundingFeatures;
+    // handler
+    private Handler handler = new Handler(new Handler.Callback() {
+        @SuppressLint("ClickableViewAccessibility")
+        @Override
+        public boolean handleMessage(@NonNull Message m) {
+            String s = m.getData().getString("key")==null?"":m.getData().getString("key");
+            Log.d(TAG, "handleMessage: "+s);
+            assert s != null;
+            switch (s){
+                case "GetSurroundingFeatures":
+                    finished_thread_count = 0;
+                    getPlacePhoto = new Thread(new GetPlacePhoto());
+                    getDistanceToPlace = new Thread(new GetDistanceToPlace());
+                    getPlacePhoto.start();
+                    getDistanceToPlace.start();
+                    break;
+                case "photo_and_distance":
+                    finished_thread_count++;
+                    if(finished_thread_count>=2){
+                        mAdapter = new ListViewAdapter(getActivity(), googleAPIResponseDataInterface());
+                        Log.d(TAG, mAdapter.toString());
+                        mListView.setAdapter(mAdapter);
+                        mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
+                        mAdapter.setMode(Attributes.Mode.Single);
 
+                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                //((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+                                map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(markerList.get(position).getPosition().latitude, markerList.get(position).getPosition().longitude), map.getCameraPosition().zoom, 0f, 0f)));
+                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                            }
+                        });
+                        mListView.setOnTouchListener(new View.OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                Log.e("ListView", "OnTouch");
+                                return false;
+                            }
+                        });
+                        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                            @Override
+                            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                                //Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
+                                return true;
+                            }
+                        });
+                        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                            @Override
+                            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                                Log.e("ListView", "onScrollStateChanged");
+                            }
+
+                            @Override
+                            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                            }
+                        });
+
+                        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                //Log.e("ListView", "onItemSelected:" + position);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+                                //Log.e("ListView", "onNothingSelected:");
+                            }
+                        });
+                        addMarker();
+                    }
+            }
+            return false;
+        }
+    });
+    //private GoogleAPIResponse googleAPIResponse = new GoogleAPIResponse(getResources().getString(R.string.google_maps_key_web), lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_maybelike, container, false);
-
+        api_key = getResources().getString(R.string.google_maps_key_web);
         if(HomeFragment.changeBtn == true){
             HomeFragment.changeBtn = false;
         }
@@ -143,7 +243,7 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
         });
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         // get the bottom sheet view
-        llBottomSheet = root.findViewById(R.id.bottom_sheet);
+        LinearLayout llBottomSheet = root.findViewById(R.id.bottom_sheet);
         // set bottom sheet height in percentlBottomSheet.getLayoutParams();
         llBottomSheet.getLayoutParams().height = dm.heightPixels*7/9;
 //        params.height = dm.heightPixels*7/9;
@@ -154,10 +254,10 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
         bottomSheetBehavior = BottomSheetBehavior.from(llBottomSheet);
 
         // change the state of the bottom sheet
-//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-
+        bottomSheetBehavior.setDraggable(false);
         // set the peek height
         bottomSheetBehavior.setPeekHeight(250);
 
@@ -210,7 +310,7 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
                 }
             }
         }else{
-            setTabList(null);
+            setTabList("default");
         }
 
         tabLayout = root.findViewById(R.id.tabLayout);
@@ -233,63 +333,73 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
                 if (!jObject.has(tab_name) && jObject.isNull(tab_name)) {
                     if (tab.getText() != null) {
 //                        InitListView((String) tab.getText());
-                        googleAPIResponse = new GoogleAPIResponse(getResources().getString(R.string.google_maps_key_web), lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                        googleAPIResponse.setTabText(tab_name).start();
-                        mListView = root.findViewById(R.id.features_listView);
-                        mAdapter = new ListViewAdapter(getActivity(), googleAPIResponse.googleAPIResponseDataInterface());
-                        Log.d(TAG, mAdapter.toString());
-                        mListView.setAdapter(mAdapter);
-                        mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
-                        mAdapter.setMode(Attributes.Mode.Single);
-
-                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                //((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
-                                map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(markerList.get(position).getPosition().latitude, markerList.get(position).getPosition().longitude), map.getCameraPosition().zoom, 0f, 0f)));
-                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                            }
-                        });
-                        mListView.setOnTouchListener(new View.OnTouchListener() {
-                            @Override
-                            public boolean onTouch(View v, MotionEvent event) {
-                                Log.e("ListView", "OnTouch");
-                                return false;
-                            }
-                        });
-                        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                            @Override
-                            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                                Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
-                                return true;
-                            }
-                        });
-                        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-                            @Override
-                            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                                Log.e("ListView", "onScrollStateChanged");
-                            }
-
-                            @Override
-                            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                            }
-                        });
-
-                        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                Log.e("ListView", "onItemSelected:" + position);
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-                                Log.e("ListView", "onNothingSelected:");
-                            }
-                        });
-                        addMarker();
+                        //googleAPIResponse = new GoogleAPIResponse(getResources().getString(R.string.google_maps_key_web), lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                        start(tab_name);
                         //addMarker_v2();
                     }
+                }else{
+                    setTabText(tab_name);
+                    setTabList2(null);
+                    if (tab_type.size() != tab_ch.size() || tabText.isEmpty()){
+                        return;
+                    }
+                    searchType = tab_type.get(tab_ch.indexOf(tabText));
+                    if (radius == -1) radius = defaultRadius;
+                    if (searchType == null) searchType = defaultSearchType;
+
+                    mAdapter = new ListViewAdapter(getActivity(), googleAPIResponseDataInterface());
+                    Log.d(TAG, mAdapter.toString());
+                    mListView.setAdapter(mAdapter);
+                    mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
+                    mAdapter.setMode(Attributes.Mode.Single);
+
+                    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            //((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+                            map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(markerList.get(position).getPosition().latitude, markerList.get(position).getPosition().longitude), map.getCameraPosition().zoom, 0f, 0f)));
+                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                            if(!bottomSheetBehavior.isDraggable())bottomSheetBehavior.setDraggable(true);
+                        }
+                    });
+                    mListView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            Log.e("ListView", "OnTouch");
+                            return false;
+                        }
+                    });
+                    mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                        @Override
+                        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                            //Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+                    });
+                    mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                        @Override
+                        public void onScrollStateChanged(AbsListView view, int scrollState) {
+                            Log.e("ListView", "onScrollStateChanged");
+                        }
+
+                        @Override
+                        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                        }
+                    });
+
+                    mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            //Log.e("ListView", "onItemSelected:" + position);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            //Log.e("ListView", "onNothingSelected:");
+                        }
+                    });
+                    addMarker();
                 }
 
 
@@ -305,7 +415,22 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
 
             }
         });
+
+        mListView = root.findViewById(R.id.features_listView);
+        start(tab_ch.get(tabLayout.getSelectedTabPosition()));
         return root;
+    }
+    public void start(String tab_name){
+        setTabText(tab_name);
+        setTabList2(null);
+        if (tab_type.size() != tab_ch.size() || tabText.isEmpty()){
+            return;
+        }
+        searchType = tab_type.get(tab_ch.indexOf(tabText));
+        if (radius == -1) radius = defaultRadius;
+        if (searchType == null) searchType = defaultSearchType;
+        getSurroundingFeatures = new Thread(new GetSurroundingFeatures());
+        getSurroundingFeatures.start();
     }
     /**
      * Manipulates the map once available.
@@ -316,7 +441,7 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
-
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         try {
             // Customise the styling of the base map using a JSON object defined
@@ -357,7 +482,7 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
                 float bias=0;
                 boolean ret = true, isbottomed = false;
                 if (lastClickedMarker != null && lastClickedMarker instanceof Integer){
-                    switch(googleAPIResponse.getItemsCount()-(int)lastClickedMarker){
+                    switch(getItemsCount()-(int)lastClickedMarker){
                         case 1:
                             isbottomed = true;
                             bottomSheetBehavior.setHalfExpandedRatio(1f);
@@ -389,6 +514,7 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
                     if (bottomSheetBehavior.getHalfExpandedRatio()!=0.365f || bottomSheetBehavior.getState()!=BottomSheetBehavior.STATE_HALF_EXPANDED)
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
                 }
+                if(!bottomSheetBehavior.isDraggable())bottomSheetBehavior.setDraggable(true);
                 if (true){
                     map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(marker.getPosition().latitude,marker.getPosition().longitude),DEFAULT_ZOOM,0f, 0f)));
                     map.moveCamera(CameraUpdateFactory.scrollBy(0, bias));
@@ -486,11 +612,11 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void addMarker_v2(){
         markerList = new ArrayList<>();
-        for (int i=0; i<googleAPIResponse.getItemsCount(); i++){
-            LatLng latLng = new LatLng(googleAPIResponse.getLat(i), googleAPIResponse.getLng(i));
+        for (int i=0; i<getItemsCount(); i++){
+            LatLng latLng = new LatLng(getLat(i), getLng(i));
 
             TextView text = new TextView(getActivity().getApplicationContext());
-            text.setText(googleAPIResponse.getPlaceName(i));
+            text.setText(getPlaceName(i));
             text.setTextAppearance(R.style.PlaceNameInfoOverlayText);
             text.setMaxWidth(500);
             IconGenerator generator = new IconGenerator(getActivity().getApplicationContext());
@@ -538,14 +664,15 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
     }
     private void addMarker(){
         markerList = new ArrayList<>();
-        for (int i=0; i<googleAPIResponse.getItemsCount(); i++){
+        for (int i=0; i<getItemsCount(); i++){
 //            Marker marker = map.addMarker(new MarkerOptions()
 //                    .position(new LatLng(googleAPIResponse.getLat(i),googleAPIResponse.getLng(i)))
 //                    .title(googleAPIResponse.getPlaceName(i)));
 //            marker.setTag(i);
-            LatLng latLng = new LatLng(googleAPIResponse.getLat(i),googleAPIResponse.getLng(i));
+            LatLng latLng = new LatLng(getLat(i),getLng(i));
+            if(getActivity()==null)return;
             TextView text = new TextView(getActivity().getApplicationContext());
-            text.setText(googleAPIResponse.getPlaceName(i));
+            text.setText(getPlaceName(i));
             text.setTextSize(18);
             text.setTextColor(getResources().getColor(R.color.colorTabText));
             //text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 9));
@@ -603,6 +730,7 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
             markerList.get(markerList.size()-1).setTag(i);
         }
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        if(!bottomSheetBehavior.isDraggable())bottomSheetBehavior.setDraggable(true);
     }
     private void setTabList(@Nullable String TAB){
         String[] tab = null;
@@ -621,7 +749,7 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
                     tab = new String[]{"amusement_park", "tourist_attraction"};
                     break;
                 case "休閒":
-                    tab = new String[]{"movie_theater"};
+                    tab = new String[]{"movie_theater", "park"};
                     break;
                 default:
                     tab = null;
@@ -644,7 +772,8 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
                         .put("cafe", "咖啡廳")
                         .put("movie_theater", "電影院")
                         .put("amusement_park", "遊樂園")
-                        .put("tourist_attraction", "旅遊景點");
+                        .put("tourist_attraction", "旅遊景點")
+                        .put("park", "公園");;
 
                 String[] a = new String[tab.length];
                 for (int i=0; i<tab.length; i++){
@@ -656,5 +785,320 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback {
                 e.printStackTrace();
             }
         }
+    }
+    private String tabText;
+    public void setTabText(String tabText){
+        this.tabText = tabText;
+    }
+    private void setTabList2(@Nullable String[] tab){
+        if (tab == null){
+            String[] a = new String[]{"餐廳", "咖啡廳", "酒吧", "購物中心", "商店", "超市", "咖啡廳", "電影院", "遊樂園", "旅遊景點", "公園"};
+            String[] b = new String[]{"restaurant", "cafe", "bar", "shopping_mall", "store", "supermarket", "cafe", "movie_theater", "amusement_park", "tourist_attraction", "park"};
+            Collections.addAll(tab_ch, a);
+            Collections.addAll(tab_type, b);
+        }else{
+
+        }
+    }
+    //    public void start(){
+//        setTabList(null);
+//        if (tab_type.size() != tab_ch.size() || tabText.isEmpty()){
+//            return;
+//        }
+//        searchType = tab_type.get(tab_ch.indexOf(tabText));
+//        if (radius == -1) radius = defaultRadius;
+//        if (searchType == null) searchType = defaultSearchType;
+//
+//        Thread getSurroundingFeatures = new Thread(new GetSurroundingFeatures());
+//        getSurroundingFeatures.start();
+//        synchronized(this){
+//            try{
+//                this.wait();
+//                Log.d("NiCe", "OK_1");
+//            }catch (InterruptedException e){
+//                e.printStackTrace();
+//            }
+//        }
+//        Log.d("NiCe", "OK_2");
+//        finished_thread_count = 0;
+//        Thread getPlacePhoto = new Thread(new GetPlacePhoto(this));
+//        Thread getDistanceToPlace = new Thread(new GetDistanceToPlace(this));
+//        getPlacePhoto.start();
+//        getDistanceToPlace.start();
+//        Log.d("NiCe", "OK_3");
+//        synchronized (this){
+//            while(true){
+//                if (finished_thread_count >= 2) break;
+//                try{
+//                    this.wait();
+//                    Log.d("NiCe", "OK_4");
+//                }catch (InterruptedException e){
+//                    e.printStackTrace();
+//                }
+//            }
+//            Log.d("NiCe", "OK_5");
+//        }
+//    }
+    private class GetSurroundingFeatures implements Runnable{
+        private String getSurroundingFeature_api;
+        GetSurroundingFeatures(){
+            StringBuilder sb = new StringBuilder();
+            sb.append("https://maps.googleapis.com/maps/api/place/nearbysearch/json?")
+                    .append("location=").append(sqlReturn.lat).append(",").append(sqlReturn.lng).append("&")
+                    .append("radius=").append(radius).append("&")
+                    .append("types=").append(searchType).append("&")
+                    .append("sensor=").append(true).append("&")
+                    .append("key=").append(api_key);
+            this.getSurroundingFeature_api = sb.toString();
+        }
+        @Override
+        public void run() {
+            //synchronized(GoogleAPIResponse.this) {
+            Log.d("NiCe", this.getSurroundingFeature_api);
+            HttpURLConnection connection;
+            try{
+                URL url = new URL(getSurroundingFeature_api);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setUseCaches(true);
+                connection.setAllowUserInteraction(false);
+                connection.setDoInput(true);
+                connection.connect();
+                int status = connection.getResponseCode();
+                switch (status){
+                    case 200:
+                    case 201:
+                        BufferedReader br =new BufferedReader(new InputStreamReader(connection.getInputStream(),"utf-8"));
+                        StringBuilder sb = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+                        br.close();
+                        jObject.put(tabText, new JSONObject(sb.toString()));
+                        Log.d(TAG, sb.toString());
+                        //GoogleAPIResponse.this.notify();
+                        Message msg = Message.obtain();
+                        msg.getData().putString("key","GetSurroundingFeatures");
+                        handler.sendMessage(msg);
+                        Log.d(TAG, "run: handler sendMessage");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //}
+        }
+    }
+    public class GetPlacePhoto implements Runnable{
+        private NotifyInterface mInterface = null;
+        private String[] GetPlacePhoto_api;
+        GetPlacePhoto() {
+            //this.mInterface = iface;
+            if (jObject.has(tabText) && !jObject.isNull(tabText)){
+                try{
+                    if (jObject.getJSONObject(tabText).getJSONArray("results").length() > 0){
+                        GetPlacePhoto_api = new String[jObject.getJSONObject(tabText).getJSONArray("results").length()];
+                        for (int i=0; i<jObject.getJSONObject(tabText).getJSONArray("results").length(); i++){
+                            try{
+                                StringBuilder sb = new StringBuilder();
+                                GetPlacePhoto_api[i] =
+                                        sb.append("https://maps.googleapis.com/maps/api/place/photo?")
+                                                .append("photoreference=").append(jObject.getJSONObject(tabText).getJSONArray("results").getJSONObject(i).getJSONArray("photos").getJSONObject(0).getString("photo_reference")).append("&")
+                                                .append("key=").append(api_key).append("&")
+                                                .append("maxwidth=").append(image_max_width).toString();
+                                Log.d(TAG, i+"GetPlacePhoto: "+GetPlacePhoto_api[i]);
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        private void notifyEnd() {
+            if (this.mInterface != null)
+                this.mInterface.runEnd();
+        }
+        @Override
+        public void run() {
+            if (GetPlacePhoto_api != null){
+                Bitmap[] bitmaps = new Bitmap[GetPlacePhoto_api.length];
+                for (int i=0; i<GetPlacePhoto_api.length; i++){
+                    bitmaps[i] = getBitmapFromURL(GetPlacePhoto_api[i]);
+                }
+                place_photos.put(tabText, bitmaps);
+                //this.notifyEnd();
+                Message msg = Message.obtain();
+                msg.getData().putString("key", "photo_and_distance");
+                handler.sendMessage(msg);
+            }
+        }
+        private Bitmap getBitmapFromURL(String url){
+            Bitmap bitmap;
+            HttpURLConnection connection;
+            try{
+                URL u = new URL(url);
+                connection = (HttpURLConnection) u.openConnection();
+                // connection.setRequestMethod("GET");
+                connection.setUseCaches(false);
+                connection.setAllowUserInteraction(false);
+                connection.setDoInput(true);
+                connection.connect();
+                int status = connection.getResponseCode();
+                switch (status){
+                    case 200:
+                    case 201:
+                        InputStream input = connection.getInputStream();
+                        bitmap = BitmapFactory.decodeStream(input);
+                        return ImageHelper.getRoundedCornerBitmap(bitmap, 20);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+    public class GetDistanceToPlace implements Runnable{
+        private NotifyInterface mInterface = null;
+        private String[] GetDistanceToPlace_api;
+        GetDistanceToPlace(){
+            //this.mInterface = iface;
+            if (jObject.has(tabText) && !jObject.isNull(tabText)) {
+                try {
+                    int sent_count = (int) Math.ceil(jObject.getJSONObject(tabText).getJSONArray("results").length() / 25.0);
+                    GetDistanceToPlace_api = new String[sent_count];
+                    Log.d(TAG, "GetDistanceToPlace: " + sent_count);
+                    for (int i = 0; i < sent_count; i++) {
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("https://maps.googleapis.com/maps/api/distancematrix/json?")
+                                .append("key=").append(api_key).append("&")
+                                .append("mode=").append("walking").append("&")
+                                .append("origins=").append(sqlReturn.lat).append(",").append(sqlReturn.lng).append("&")
+                                .append("destinations=");
+                        for (int j = i * 25; j < jObject.getJSONObject(tabText).getJSONArray("results").length(); j++) {
+                            if (j == 25 + i * 25) break;
+                            sb.append(jObject.getJSONObject(tabText).getJSONArray("results").getJSONObject(j).getJSONObject("geometry").getJSONObject("location").getDouble("lat"))
+                                    .append(",")
+                                    .append(jObject.getJSONObject(tabText).getJSONArray("results").getJSONObject(j).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
+                            if (j != jObject.getJSONObject(tabText).getJSONArray("results").length()-1)
+                                sb.append("|");
+                        }
+                        GetDistanceToPlace_api[i] = sb.toString();
+                        Log.d(TAG, "GetDistanceToPlace: " + GetDistanceToPlace_api[i]);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        private void notifyEnd() {
+            if (this.mInterface != null)
+                this.mInterface.runEnd();
+        }
+        @Override
+        public void run() {
+            if (GetDistanceToPlace_api != null){
+                ArrayList<Integer> arrayList = new ArrayList<>();;
+                for (String api : GetDistanceToPlace_api) {
+                    try {
+                        HttpURLConnection connection;
+                        URL url = new URL(api);
+                        connection = (HttpURLConnection) url.openConnection();
+                        connection.setRequestMethod("GET");
+                        connection.setUseCaches(false);
+                        connection.setAllowUserInteraction(false);
+                        connection.setDoInput(true);
+                        connection.connect();
+                        int status = connection.getResponseCode();
+                        Log.d(TAG, "status: "+status);
+                        switch (status) {
+                            case 200:
+                            case 201:
+                                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
+                                StringBuilder sb = new StringBuilder();
+                                String line;
+                                while ((line = br.readLine()) != null) {
+                                    sb.append(line).append("\n");
+                                }
+                                br.close();
+                                JSONObject jsonObject = new JSONObject(sb.toString());
+                                for (int i = 0; i < jsonObject.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").length(); i++) {
+                                    arrayList.add(jsonObject.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(i).getJSONObject("distance").getInt("value"));
+                                    Log.d(TAG, "run: "+jsonObject.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(i).getJSONObject("distance").getInt("value"));
+                                }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                place_distance.put(tabText, arrayList);
+                //this.notifyEnd();
+                Message msg = Message.obtain();
+                msg.getData().putString("key","photo_and_distance");
+                handler.sendMessage(msg);
+            }
+        }
+    }
+    @Override
+    public String getPlaceName(int position) {
+        String placeName = null;
+        try{
+            if (jObject.has(tabText) && !jObject.isNull(tabText))
+                placeName = jObject.getJSONObject(tabText).getJSONArray("results").getJSONObject(position).getString("name");
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return placeName;
+    }
+    @Override
+    public Bitmap getPlacePhoto(int position){
+        return (Objects.requireNonNull(this.place_photos.get(tabText)))[position];
+    }
+    @Override
+    public int getPlaceDistance(int position){
+        return (this.place_distance.get(tabText)).get(position);
+    }
+    @Override
+    public int getItemsCount(){
+        int itemsCount = 0;
+        try{
+            if (jObject.has(tabText) && !jObject.isNull(tabText))
+                itemsCount = jObject.getJSONObject(tabText).getJSONArray("results").length();
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return itemsCount;
+    }
+    @Override
+    public double getLng(int position){
+        double lng = 0;
+        try{
+            lng = jObject.getJSONObject(tabText).getJSONArray("results").getJSONObject(position).getJSONObject("geometry").getJSONObject("location").getDouble("lng");
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return lng;
+    }
+    @Override
+    public double getLat(int position){
+        double lat = 0;
+        try{
+            lat = jObject.getJSONObject(tabText).getJSONArray("results").getJSONObject(position).getJSONObject("geometry").getJSONObject("location").getDouble("lat");
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return lat;
+    }
+    public GoogleAPIResponseDataInterface googleAPIResponseDataInterface(){
+        return this;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 }
