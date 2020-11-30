@@ -582,15 +582,9 @@ public class HandwriteActivity extends AppCompatActivity {
     private void uploadImagesToServer() {
         if (InternetConnection.checkConnection(HandwriteActivity.this)) {
 
-//            final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//                    .readTimeout(5, TimeUnit.MINUTES)
-//                    .connectTimeout(5, TimeUnit.MINUTES)
-//                    .build();
-
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(ApiService.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-//                    .client(okHttpClient)
                     .build();
 
             showProgress();
@@ -603,7 +597,6 @@ public class HandwriteActivity extends AppCompatActivity {
 
             try {
                 if (arrayList != null) {
-                    // create part for file (photo, video, ...)
                     for (int i = 0; i < arrayList.size(); i++) {
                         parts.add(prepareFilePart("image" + i, arrayList.get(i)));
                     }
@@ -611,7 +604,7 @@ public class HandwriteActivity extends AppCompatActivity {
             }catch (Exception e){
                 Log.e(TAG, "File select error", e);
             }
-            // create a map of data to pass along
+
             RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
             RequestBody size = createPartFromString(""+parts.size());
 
@@ -623,8 +616,6 @@ public class HandwriteActivity extends AppCompatActivity {
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                     hideProgress();
                     if(response.isSuccessful()) {
-//                        Toast.makeText(HandwriteActivity.this,
-//                                "Images successfully uploaded!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(HandwriteActivity.this,MainActivity.class);
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HandwriteActivity.this);
                         intent.putExtra("id",1);
@@ -646,16 +637,9 @@ public class HandwriteActivity extends AppCompatActivity {
 
         } else {
             hideProgress();
-//            Toast.makeText(HandwriteActivity.this,
-//                    R.string.string_internet_connection_not_available, Toast.LENGTH_SHORT).show();
         }
     }
     private void showProgress() {
-//        new AlertDialog.Builder(HandwriteActivity.this)
-//                .setTitle("提醒您")
-//                .setMessage("上傳時間較常請耐心等候")
-//                .setPositiveButton("了解", null)
-//                .show();
         progressBarHandWrite.setVisibility(View.VISIBLE);
     }
 
@@ -778,8 +762,8 @@ public class HandwriteActivity extends AppCompatActivity {
                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            //uploadImagesToServer();
                             DiaryInsert();
+                            //uploadImagesToServer();
                         }
                     }).setNegativeButton("取消",null).create()
                     .show();

@@ -1,20 +1,26 @@
-package com.example.myapplication2;
+package com.example.myapplication2.takePhoto;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,23 +31,42 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.myapplication2.HttpURLConnection_AsyncTask;
+import com.example.myapplication2.MainActivity;
+import com.example.myapplication2.R;
+import com.example.myapplication2.sqlReturn;
+import com.google.android.material.snackbar.Snackbar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TakePhotoActivity extends AppCompatActivity {
 
     private boolean paper_sunnyClick = false, paper_mcClick = false, paper_cloudyClick = false, paper_thunderClick = false, paper_rainClick = false;
     private boolean paper_tripClick = false, paper_shoppingClick = false, paper_loveClick = false, paper_foodClick = false, paper_casualClick = false;
-    private String mood;
-    private String tag;
+    private String mood = "";
+    private String tag = "";
     private int countMood = 0, countTag = 0;
     private ProgressBar progressBar;
     private Button btn_addphoto;
@@ -52,6 +77,9 @@ public class TakePhotoActivity extends AppCompatActivity {
     private LinkedList<HashMap<String,String>> data1;
     private TakePhotoActivity.MyAdapter myAdapter;
     private Bitmap mbmp;
+    private Uri imageUri;
+    private ArrayList<Uri> arrayList;
+
 
 
     @Override
@@ -59,29 +87,22 @@ public class TakePhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_o_c_r);
 
-
+        arrayList = new ArrayList<>();
 
         Intent intent = getIntent();
         String filePath = intent.getStringExtra("fileName");
-
         byte[] decodedBytes = Base64.decode(filePath,Base64.DEFAULT);
-
         mbmp = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+        String uri = intent.getStringExtra("Uri");
+        imageUri = Uri.parse(uri);
+        arrayList.add(imageUri);
 
         progressBar = findViewById(R.id.progressBar);
 
         btn_addphoto = findViewById(R.id.btn_addphoto);
 
         recyclerview = findViewById(R.id.recyclerview);
-
-//        btn_addphoto.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(TakePhotoActivity.this, PhotoActivity.class);
-//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TakePhotoActivity.this);
-//                TakePhotoActivity.this.startActivity(intent,options.toBundle());
-//            }
-//        });
 
 
         recyclerview.setHasFixedSize(false);
@@ -97,7 +118,7 @@ public class TakePhotoActivity extends AppCompatActivity {
         btn_back_paper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TakePhotoActivity.this,MainActivity.class);
+                Intent intent = new Intent(TakePhotoActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
                 startActivity(intent);
@@ -359,6 +380,90 @@ public class TakePhotoActivity extends AppCompatActivity {
 
     }
 
+
+    private void uploadImagesToServer() {
+        if (InternetConnection.checkConnection(TakePhotoActivity.this)) {
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(ApiService.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            showProgress();
+            List<MultipartBody.Part> parts = new ArrayList<>();
+
+            ApiService service = retrofit.create(ApiService.class);
+
+            try {
+                if (arrayList != null) {
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        parts.add(prepareFilePart("image" + i, arrayList.get(i)));
+                    }
+                }
+            }catch (Exception e){
+
+            }
+            // create a map of data to pass along
+            RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
+            RequestBody size = createPartFromString(""+parts.size());
+
+            // finally, execute the request
+            Call<ResponseBody> call = service.uploadMultiple(description, size, parts);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                    hideProgress();
+                    if(response.isSuccessful()) {
+                        Toast.makeText(TakePhotoActivity.this,"Images successfully uploaded!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(TakePhotoActivity.this,MainActivity.class);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TakePhotoActivity.this);
+                        intent.putExtra("id",1);
+                        startActivity(intent,options.toBundle());
+                    } else {
+                        Snackbar.make(findViewById(android.R.id.content),
+                                R.string.string_some_thing_wrong, Snackbar.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                    hideProgress();
+                    Snackbar.make(findViewById(android.R.id.content),
+                            "Image upload failed!", Snackbar.LENGTH_LONG).show();
+                }
+            });
+
+        } else {
+            hideProgress();
+        }
+    }
+    private void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgress() {
+        progressBar.setVisibility(View.INVISIBLE);
+
+    }
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(MediaType.parse(FileUtils.MIME_TYPE_TEXT), descriptionString);
+    }
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+        // use the FileUtils to get the actual file by uri
+        File file = FileUtils.getFile(this, fileUri);
+
+        // create RequestBody instance from file
+        RequestBody requestFile = RequestBody.create (MediaType.parse(FileUtils.MIME_TYPE_IMAGE), file);
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+    }
+
+
     public void count(){
 
         if(mood.equals("") && tag.equals("")){
@@ -388,6 +493,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             progressBar.setVisibility(View.VISIBLE);
+                            uploadImagesToServer();
 //                            DiaryInsert();
                         }
                     }).setNegativeButton("我想再改改",null).create()

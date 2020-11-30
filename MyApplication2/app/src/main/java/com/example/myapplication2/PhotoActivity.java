@@ -11,6 +11,7 @@ import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
@@ -20,8 +21,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.myapplication2.takePhoto.TakePhotoActivity;
+
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -123,14 +128,18 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, C
     }
 
     public void saveBitmap(Bitmap bitmap) {
+
         try
         {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 60 /*ignored for PNG*/, bos);
             byte[] bitmapdata = bos.toByteArray();
+            String s = new String(bitmapdata);
+            Uri uri = Uri.parse(s);
             String encoded = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
             Intent intent = new Intent(PhotoActivity.this, TakePhotoActivity.class);
             intent.putExtra("fileName", encoded);
+            intent.putExtra("Uri",String.valueOf(uri));
             startActivity(intent);
         }
         catch(Exception ex)

@@ -54,6 +54,7 @@ public class sqlReturn{
     public static String[] dateFriend;
     public static String[] friendName;
     public static String[] friendBFF;
+    public static String[] friendImage;
     // 此為抓好友
     public static String textViewContextFriendList = null;
     public static int SearchCountFriendList;

@@ -121,7 +121,7 @@
 <!--            </intent-filter>-->
         </activity>
         <activity
-            android:name=".TakePhotoActivity"
+            android:name=".takePhoto.TakePhotoActivity"
             android:label="@string/title_OCR"
             android:screenOrientation="portrait" />
         <activity

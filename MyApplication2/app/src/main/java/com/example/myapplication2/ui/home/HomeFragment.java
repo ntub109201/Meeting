@@ -87,6 +87,7 @@ public class HomeFragment extends Fragment {
     private ImageView imgTodayWhat;
     private ConstraintLayout noHistoryData,haveDataLayout1;
     private CardView cardView1;
+    public static int contentPosition;
 
     private ServiceGetLocation.ServiceBinder myBinder;
     private ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -344,6 +345,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
+
     // 此為全抓
     //----------------------------------------------------------------------------------------------
     public void history(){
@@ -513,6 +515,7 @@ public class HomeFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
 
+            contentPosition = position;
             dictionary dict = new dictionary();
 
             if(sqlReturn.model == 1){

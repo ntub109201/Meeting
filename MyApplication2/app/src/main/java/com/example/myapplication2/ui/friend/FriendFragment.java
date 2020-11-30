@@ -2,6 +2,9 @@ package com.example.myapplication2.ui.friend;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +31,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -173,19 +180,49 @@ public class FriendFragment extends Fragment {
             holder.place_text.setText(data.get(position).get("place_text"));
             holder.place_description_text.setText(data.get(position).get("place_description_text"));
             holder.tag_text.setText(data.get(position).get("tag_text"));
-            if(position % 3 == 0){
-                holder.photo_image.setImageResource(R.drawable.test_photo);
-            }else if(position % 3 == 1){
-                holder.photo_image.setImageResource(R.drawable.image2);
-            }else {
-                holder.photo_image.setImageResource(R.mipmap.ic_wallpaper_foreground);
-            }
+            //holder.photo_image.setImageResource(R.drawable.test_photo);
 
+            for(int i = 0; i<sqlReturn.SearchCountFriend; i++){
+                new AsyncTask<String, Void, Bitmap>(){
+                    @Override
+                    protected Bitmap doInBackground(String... params) //實作doInBackground
+                    {
+                        String url = params[0];
+                        return getBitmapFromURL(url);
+                    }
+
+                    @Override
+                    protected void onPostExecute(Bitmap result) //當doinbackground完成後
+                    {
+                        holder.photo_image.setImageBitmap(result);
+                        super.onPostExecute(result);
+                    }
+                }.execute(sqlReturn.friendImage[i]);
+            }
         }
 
         @Override
         public int getItemCount() {
             return data.size();
+        }
+    }
+
+    private static Bitmap getBitmapFromURL(String imageUrl)
+    {
+        try
+        {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -224,6 +261,7 @@ public class FriendFragment extends Fragment {
                 sqlReturn.dateFriend = new String[sqlReturn.SearchCountFriend];
                 sqlReturn.friendName = new String[sqlReturn.SearchCountFriend];
                 sqlReturn.friendBFF = new String[sqlReturn.SearchCountFriend];
+                sqlReturn.friendImage = new String[sqlReturn.SearchCountFriend];
                 for(int i = 0; i<sqlReturn.SearchCountFriend; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.contentFriend[i] = obj.getString("content");
@@ -232,6 +270,7 @@ public class FriendFragment extends Fragment {
                     sqlReturn.dateFriend[i] = obj.getString("date");
                     sqlReturn.friendName[i] = obj.getString("friendName01");
                     sqlReturn.friendBFF[i] = obj.getString("BFF");
+                    sqlReturn.friendImage[i] = obj.getString("image_path");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

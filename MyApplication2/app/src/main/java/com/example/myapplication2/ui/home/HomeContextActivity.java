@@ -1,14 +1,23 @@
 package com.example.myapplication2.ui.home;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -27,8 +36,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class HomeContextActivity extends AppCompatActivity {
@@ -42,15 +57,28 @@ public class HomeContextActivity extends AppCompatActivity {
     private Animation mOpen,mClose;
     private String sharefriend = "n", sharebestfriend = "n";
     private boolean check_sharefriend = true,check_sharebestfriend = true;
-    private ImageView img_homeContext;
+
+    private RecyclerView recyclerview;
+    private RecyclerView.Adapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
+    private HomeContextActivity.MyAdapter myAdapter;
+    private LinkedList<HashMap<String,String>> data1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_context);
 
-        img_homeContext = findViewById(R.id.img_homeContext);
-        img_homeContext.setImageResource(R.drawable.test_photo);
+
+        getPhoto();
+        recyclerview = findViewById(R.id.recyclerview);
+        recyclerview.setHasFixedSize(false);
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerview.setLayoutManager(mLayoutManager);
+        myAdapter = new MyAdapter();
+        recyclerview.setAdapter(myAdapter);
+        doData();
 
         mOpen = AnimationUtils.loadAnimation(HomeContextActivity.this,R.anim.button_open);
         mClose = AnimationUtils.loadAnimation(HomeContextActivity.this,R.anim.button_close);
@@ -144,7 +172,7 @@ public class HomeContextActivity extends AppCompatActivity {
         dictionary dict = new dictionary();
         Getdata = getIntent().getIntExtra("data",0);
         if(Getdata == 1){
-            String total = "    "+sqlReturn.LoginContent[HomeFragment.homeTag];
+            String total = sqlReturn.LoginContent[HomeFragment.homeTag];
             String mood = sqlReturn.LoginMood[HomeFragment.homeTag];
             String date = sqlReturn.LoginDate[HomeFragment.homeTag];
             if(mood.equals("晴天")){
@@ -163,7 +191,7 @@ public class HomeContextActivity extends AppCompatActivity {
             textDescription.setText(date);
             ContextImageView.setImageResource(dict.dict.get(sqlReturn.LoginOption[HomeFragment.homeTag]));
         }else if(Getdata == 2){
-            String total = "    "+ sqlReturn.content1[HomeFragment.homeTag];
+            String total = sqlReturn.content1[HomeFragment.homeTag];
             String mood = sqlReturn.mood1[HomeFragment.homeTag];
             String date = sqlReturn.date1[HomeFragment.homeTag];
             if(mood.equals("晴天")){
@@ -182,7 +210,7 @@ public class HomeContextActivity extends AppCompatActivity {
             textDescription.setText(date);
             ContextImageView.setImageResource(dict.dict.get(sqlReturn.Option1[HomeFragment.homeTag]));
         }else if(Getdata == 3){
-            String total = "    "+ sqlReturn.content2[HomeFragment.homeTag];
+            String total = sqlReturn.content2[HomeFragment.homeTag];
             String mood = sqlReturn.mood2[HomeFragment.homeTag];
             String date = sqlReturn.date2[HomeFragment.homeTag];
             if(mood.equals("心情1")){
@@ -201,7 +229,7 @@ public class HomeContextActivity extends AppCompatActivity {
             textDescription.setText(date);
             ContextImageView.setImageResource(dict.dict.get(sqlReturn.Option2[HomeFragment.homeTag]));
         }else if(Getdata == 4){
-            String total = "    "+ sqlReturn.content3[HomeFragment.homeTag];
+            String total = sqlReturn.content3[HomeFragment.homeTag];
             String mood = sqlReturn.mood3[HomeFragment.homeTag];
             String date = sqlReturn.date3[HomeFragment.homeTag];
             txtHistoryDiary.setText(total);
@@ -220,7 +248,7 @@ public class HomeContextActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 proBarHomeContext.setVisibility(View.VISIBLE);
-//                                EditDiary();
+                                EditDiary();
                             }
                         }).setNegativeButton("取消",null).create().show();
             }
@@ -241,9 +269,10 @@ public class HomeContextActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
+
+
+
 
     public void EditDiary(){
         if(Getdata == 1){
@@ -299,7 +328,7 @@ public class HomeContextActivity extends AppCompatActivity {
             }
             if (status){
                 proBarHomeContext.setVisibility(View.INVISIBLE);
-                Toast.makeText(activity, "修改成功", Toast.LENGTH_LONG).show();
+                //Toast.makeText(activity, "修改成功", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(HomeContextActivity.this,MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
@@ -366,7 +395,7 @@ public class HomeContextActivity extends AppCompatActivity {
                 if(sqlReturn.LoginCount == 1){
                     sqlReturn.LoginCount=0;
                 }
-                Toast.makeText(activity, "刪除成功", Toast.LENGTH_LONG).show();
+                //Toast.makeText(activity, "刪除成功", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(HomeContextActivity.this,MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",1);
@@ -379,6 +408,133 @@ public class HomeContextActivity extends AppCompatActivity {
                         .show();
                 proBarHomeContext.setVisibility(View.INVISIBLE);
             }
+        }
+    }
+
+    private String context;
+    private int rowcount;
+    private String[] image_path;
+
+    // 此為抓圖片
+    public void getPhoto(){
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "historyContent");
+        map.put("diaryNo", sqlReturn.LoginDiaryID[HomeFragment.contentPosition]);
+        new getPhoto(this).execute((HashMap)map);
+    }
+
+    public class getPhoto extends HttpURLConnection_AsyncTask {
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        getPhoto(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                context = jsonObject.getString("results");
+                rowcount = jsonObject.getInt("rowcount");
+                jsonArray = new JSONArray(context);
+                image_path = new String[rowcount];
+                for(int i =0 ;i < rowcount;i++){
+                    JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    image_path[i] = obj.getString("image_path");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    private void doData(){
+        data1 = new LinkedList<>();
+        for(int i = 0; i < rowcount; i++){
+            HashMap<String,String> row = new HashMap<>();
+            data1.add(row);
+        }
+    }
+
+    private class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+
+        class MyViewHolder extends RecyclerView.ViewHolder{
+            public View itemView;
+            public ImageView imgPhoto;
+            public MyViewHolder(View view){
+                super(view);
+                itemView = view;
+                imgPhoto = itemView.findViewById(R.id.imgPhoto);
+
+            }
+        }
+
+        @NonNull
+        @Override
+        public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.handwrite_item,parent,false);
+            MyViewHolder vh = new MyViewHolder(itemView);
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
+
+            if (rowcount == 0){
+                holder.imgPhoto.setImageResource(R.mipmap.ic_wallpaper_foreground);
+            }else {
+                for(int i = 0; i<rowcount; i++){
+                    new AsyncTask<String, Void, Bitmap>(){
+                        @Override
+                        protected Bitmap doInBackground(String... params) //實作doInBackground
+                        {
+                            String url = params[0];
+                            return getBitmapFromURL(url);
+                        }
+
+                        @Override
+                        protected void onPostExecute(Bitmap result) //當doinbackground完成後
+                        {
+                            holder.imgPhoto.setImageBitmap(result);
+                            super.onPostExecute(result);
+                        }
+                    }.execute(image_path[i]);
+                }
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return data1.size();
+        }
+    }
+
+    private static Bitmap getBitmapFromURL(String imageUrl)
+    {
+        try
+        {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
         }
     }
 

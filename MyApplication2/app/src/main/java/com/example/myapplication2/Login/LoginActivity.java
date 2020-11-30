@@ -394,6 +394,7 @@ public class LoginActivity extends AppCompatActivity {
                 sqlReturn.moodFriend = new String[sqlReturn.SearchCountFriend];
                 sqlReturn.dateFriend = new String[sqlReturn.SearchCountFriend];
                 sqlReturn.friendName = new String[sqlReturn.SearchCountFriend];
+                sqlReturn.friendImage = new String[sqlReturn.SearchCountFriend];
                 for(int i = 0; i<sqlReturn.SearchCountFriend; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.contentFriend[i] = obj.getString("content");
@@ -401,6 +402,7 @@ public class LoginActivity extends AppCompatActivity {
                     sqlReturn.moodFriend[i] = obj.getString("mood");
                     sqlReturn.dateFriend[i] = obj.getString("date");
                     sqlReturn.friendName[i] = obj.getString("friendName01");
+                    sqlReturn.friendImage[i] = obj.getString("image_path");
                 }
                 if(sqlReturn.SearchCountFriend>0){
                     sqlReturn.check_friend = true;
