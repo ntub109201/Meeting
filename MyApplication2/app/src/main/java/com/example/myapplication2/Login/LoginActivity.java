@@ -168,7 +168,6 @@ public class LoginActivity extends AppCompatActivity {
             pr1.setVisibility(View.VISIBLE);
         }
 
-
     }
 
     private class login extends HttpURLConnection_AsyncTask {

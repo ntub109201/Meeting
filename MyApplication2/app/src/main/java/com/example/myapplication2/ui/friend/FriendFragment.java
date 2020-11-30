@@ -175,7 +175,7 @@ public class FriendFragment extends Fragment {
             holder.place_description_text.setText(data.get(position).get("place_description_text"));
             holder.tag_text.setText(data.get(position).get("tag_text"));
             if(position % 3 == 0){
-                holder.photo_image.setImageResource(R.drawable.images);
+                holder.photo_image.setImageResource(R.drawable.test_photo);
             }else if(position % 3 == 1){
                 holder.photo_image.setImageResource(R.drawable.image2);
             }else {
