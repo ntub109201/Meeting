@@ -623,8 +623,8 @@ public class HandwriteActivity extends AppCompatActivity {
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                     hideProgress();
                     if(response.isSuccessful()) {
-                        Toast.makeText(HandwriteActivity.this,
-                                "Images successfully uploaded!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(HandwriteActivity.this,
+//                                "Images successfully uploaded!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(HandwriteActivity.this,MainActivity.class);
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HandwriteActivity.this);
                         intent.putExtra("id",1);
@@ -646,8 +646,8 @@ public class HandwriteActivity extends AppCompatActivity {
 
         } else {
             hideProgress();
-            Toast.makeText(HandwriteActivity.this,
-                    R.string.string_internet_connection_not_available, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(HandwriteActivity.this,
+//                    R.string.string_internet_connection_not_available, Toast.LENGTH_SHORT).show();
         }
     }
     private void showProgress() {
@@ -725,7 +725,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 showChooser();
             } else {
                 // Permission Denied
-                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -825,7 +825,7 @@ public class HandwriteActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (status){
-                Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
+                //Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(HandwriteActivity.this, MainActivity.class);
                 intent.putExtra("id",1);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HandwriteActivity.this);

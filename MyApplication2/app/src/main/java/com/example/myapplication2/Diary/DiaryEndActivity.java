@@ -303,7 +303,7 @@ public class DiaryEndActivity extends AppCompatActivity {
                 DiaryValue.Mouth_Count = 0;
                 DiaryValue.Smell_Count = 0;
                 DiaryPreviewActivity.total = "";
-                Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
+                //Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(DiaryEndActivity.this, MainActivity.class);
                 intent.putExtra("id",1);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryEndActivity.this);
@@ -463,8 +463,8 @@ public class DiaryEndActivity extends AppCompatActivity {
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                     hideProgress();
                     if(response.isSuccessful()) {
-                        Toast.makeText(DiaryEndActivity.this,
-                                "Images successfully uploaded!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(DiaryEndActivity.this,
+//                                "Images successfully uploaded!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(DiaryEndActivity.this,MainActivity.class);
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryEndActivity.this);
                         intent.putExtra("id",1);
@@ -486,8 +486,8 @@ public class DiaryEndActivity extends AppCompatActivity {
 
         } else {
             hideProgress();
-            Toast.makeText(DiaryEndActivity.this,
-                    R.string.string_internet_connection_not_available, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(DiaryEndActivity.this,
+//                    R.string.string_internet_connection_not_available, Toast.LENGTH_SHORT).show();
         }
     }
     private void showProgress() {
@@ -565,7 +565,7 @@ public class DiaryEndActivity extends AppCompatActivity {
                 showChooser();
             } else {
                 // Permission Denied
-                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);

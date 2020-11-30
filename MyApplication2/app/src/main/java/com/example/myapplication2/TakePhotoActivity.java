@@ -433,7 +433,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (status){
-                Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
+                //Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(TakePhotoActivity.this, MainActivity.class);
                 intent.putExtra("id",1);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TakePhotoActivity.this);

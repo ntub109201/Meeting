@@ -239,7 +239,7 @@ public class SingleBestFriendListActivity extends AppCompatActivity {
         Map<String,String> map = new HashMap<>();
         map.put("command", "deleteBestFriend");
         map.put("uid",sqlReturn.GetUserID);
-        map.put("friendNum",sqlReturn.bestfriendSearchNum[0]);
+        map.put("friendNum",sqlReturn.BestFriendListNum[BestFriendActivity.position1]);
         new deleteBestFriend(this).execute((HashMap)map);
     }
 

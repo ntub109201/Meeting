@@ -169,7 +169,7 @@ public class ModifyPersonalActivity extends AppCompatActivity {
                 jsonObject = new JSONObject(result);
                 status = jsonObject.getBoolean("status");
                 if(status){
-                    Toast.makeText(activity, "修改成功", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(activity, "修改成功", Toast.LENGTH_LONG).show();
                     sqlReturn.PersonalJob = spinJob.getSelectedItem().toString();
                     sqlReturn.PersonalHobby = spinTag.getSelectedItem().toString();
                     sqlReturn.PersonalName = edtName.getText().toString();
