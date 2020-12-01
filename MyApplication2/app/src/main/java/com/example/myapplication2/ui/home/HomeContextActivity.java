@@ -52,37 +52,44 @@ public class HomeContextActivity extends AppCompatActivity {
     private ImageView ContextImageView;
     private Button btnDelete,btnSave,btn_share,btn_share_best_friend,btn_share_friend;
     private int Getdata;
-    private ProgressBar proBarHomeContext;
+    private ProgressBar proBarHomeContext,progressBar3;
     private boolean changeBtn;
     private Animation mOpen,mClose;
     private String sharefriend = "n", sharebestfriend = "n";
     private boolean check_sharefriend = true,check_sharebestfriend = true;
 
-    private RecyclerView recyclerview;
-    private RecyclerView.Adapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
-    private HomeContextActivity.MyAdapter myAdapter;
-    private LinkedList<HashMap<String,String>> data1;
+//    private RecyclerView recyclerview;
+//    private RecyclerView.Adapter mAdapter;
+//    private LinearLayoutManager mLayoutManager;
+//    private HomeContextActivity.MyAdapter myAdapter;
+//    private LinkedList<HashMap<String,String>> data1;
 
-    private static String context;
-    private static int rowcount;
-    private static String[] image_path;
+
+    private ImageView imageView;
+    private String context = "";
+    private int rowcount = 0;
+    private String image_path[];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_context);
 
+        imageView = findViewById(R.id.imageView);
+        progressBar3 = findViewById(R.id.progressBar3);
 
         getPhoto();
-        recyclerview = findViewById(R.id.recyclerview);
-        recyclerview.setHasFixedSize(false);
-        mLayoutManager = new LinearLayoutManager(this);
-        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerview.setLayoutManager(mLayoutManager);
-        myAdapter = new MyAdapter();
-        recyclerview.setAdapter(myAdapter);
-        doData();
+
+
+//        recyclerview = findViewById(R.id.recyclerview);
+//        recyclerview.setHasFixedSize(false);
+//        mLayoutManager = new LinearLayoutManager(this);
+//        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        recyclerview.setLayoutManager(mLayoutManager);
+//        myAdapter = new MyAdapter();
+//        recyclerview.setAdapter(myAdapter);
+//        doData();
 
         mOpen = AnimationUtils.loadAnimation(HomeContextActivity.this,R.anim.button_open);
         mClose = AnimationUtils.loadAnimation(HomeContextActivity.this,R.anim.button_close);
@@ -416,7 +423,6 @@ public class HomeContextActivity extends AppCompatActivity {
     }
 
 
-
     // 此為抓圖片
     public void getPhoto(){
         Intent intent = getIntent();
@@ -457,68 +463,87 @@ public class HomeContextActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-        }
-    }
+            if(rowcount!=0){
+                new AsyncTask<String, Void, Bitmap>(){
+                    @Override
+                    protected Bitmap doInBackground(String... params) //實作doInBackground
+                    {
+                        String url = params[0];
+                        return getBitmapFromURL(url);
+                    }
 
-    private void doData(){
-        data1 = new LinkedList<>();
-        for(int i = 0; i < rowcount; i++){
-            HashMap<String,String> row = new HashMap<>();
-            data1.add(row);
-        }
-    }
-
-    private class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-
-        class MyViewHolder extends RecyclerView.ViewHolder{
-            public View itemView;
-            public ImageView imgPhoto;
-            public ProgressBar progressBarNoData;
-            public MyViewHolder(View view){
-                super(view);
-                itemView = view;
-                imgPhoto = itemView.findViewById(R.id.imgPhoto);
-                progressBarNoData = itemView.findViewById(R.id.progressBarNoData);
-                progressBarNoData.setVisibility(View.VISIBLE);
+                    @Override
+                    protected void onPostExecute(Bitmap result) //當doinbackground完成後
+                    {
+                        imageView.setImageBitmap(result);
+                        progressBar3.setVisibility(View.INVISIBLE);
+                        super.onPostExecute(result);
+                    }
+                }.execute(image_path[0]);
             }
-        }
 
-        @NonNull
-        @Override
-        public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-            View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.handwrite_item,parent,false);
-            MyViewHolder vh = new MyViewHolder(itemView);
-            return vh;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
-
-            new AsyncTask<String, Void, Bitmap>(){
-                @Override
-                protected Bitmap doInBackground(String... params) //實作doInBackground
-                {
-                    String url = params[0];
-                    return getBitmapFromURL(url);
-                }
-
-                @Override
-                protected void onPostExecute(Bitmap result) //當doinbackground完成後
-                {
-                    holder.imgPhoto.setImageBitmap(result);
-                    holder.progressBarNoData.setVisibility(View.INVISIBLE);
-                    super.onPostExecute(result);
-                }
-            }.execute(image_path[position]);
-        }
-
-        @Override
-        public int getItemCount() {
-            return data1.size();
         }
     }
+
+//    private void doData(){
+//        data1 = new LinkedList<>();
+//        for(int i = 0; i < rowcount; i++){
+//            HashMap<String,String> row = new HashMap<>();
+//            data1.add(row);
+//        }
+//    }
+//
+//    private class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+//
+//        class MyViewHolder extends RecyclerView.ViewHolder{
+//            public View itemView;
+//            public ImageView imgPhoto;
+//            public ProgressBar progressBarNoData;
+//            public MyViewHolder(View view){
+//                super(view);
+//                itemView = view;
+//                imgPhoto = itemView.findViewById(R.id.imgPhoto);
+//                progressBarNoData = itemView.findViewById(R.id.progressBarNoData);
+//                progressBarNoData.setVisibility(View.VISIBLE);
+//            }
+//        }
+//
+//        @NonNull
+//        @Override
+//        public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//
+//            View itemView = LayoutInflater.from(parent.getContext())
+//                    .inflate(R.layout.handwrite_item,parent,false);
+//            MyViewHolder vh = new MyViewHolder(itemView);
+//            return vh;
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
+//
+//            new AsyncTask<String, Void, Bitmap>(){
+//                @Override
+//                protected Bitmap doInBackground(String... params) //實作doInBackground
+//                {
+//                    String url = params[0];
+//                    return getBitmapFromURL(url);
+//                }
+//
+//                @Override
+//                protected void onPostExecute(Bitmap result) //當doinbackground完成後
+//                {
+//                    holder.imgPhoto.setImageBitmap(result);
+//                    holder.progressBarNoData.setVisibility(View.INVISIBLE);
+//                    super.onPostExecute(result);
+//                }
+//            }.execute(image_path[position]);
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return data1.size();
+//        }
+//    }
 
     private static Bitmap getBitmapFromURL(String imageUrl)
     {

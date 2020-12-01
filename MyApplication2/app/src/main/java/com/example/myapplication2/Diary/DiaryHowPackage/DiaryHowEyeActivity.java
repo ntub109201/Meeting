@@ -202,11 +202,11 @@ public class DiaryHowEyeActivity extends AppCompatActivity {
                 if(vastClick){
                     vastClick = false;
                     DiaryValue.Eye_Count -=1;
-                    btn_special.setBackgroundTintList(getColorStateList(R.color.how_color1));
+                    btn_vast.setBackgroundTintList(getColorStateList(R.color.how_color1));
                 }else if(!vastClick){
                     vastClick = true;
                     DiaryValue.Eye_Count +=1;
-                    btn_special.setBackgroundTintList(getColorStateList(R.color.how_color2));
+                    btn_vast.setBackgroundTintList(getColorStateList(R.color.how_color2));
                 }
             }
         });

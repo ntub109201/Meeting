@@ -89,6 +89,7 @@ public class HomeFragment extends Fragment {
     private CardView cardView1;
     public static int contentPosition;
 
+
     private ServiceGetLocation.ServiceBinder myBinder;
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
@@ -434,8 +435,10 @@ public class HomeFragment extends Fragment {
                 }
             }
         }
-
     }
+
+    private boolean currentStatus;
+
     public void doData(){
         data = new LinkedList<>();
         if(sqlReturn.LoginCount != 0){
@@ -542,6 +545,8 @@ public class HomeFragment extends Fragment {
         }
     }
     //----------------------------------------------------------------------------------------------
+
+
 
 
     //----------------------------------------------------------------------------------------------

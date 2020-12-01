@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">引導日記</string>
+    <string name="app_name">Guidary</string>
     <string name="title_diary">引導日記</string>
     <string name="title_handwritediary">手寫日記</string>
     <string name="title_OCR">OCR</string>

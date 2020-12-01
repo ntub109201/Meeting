@@ -25,6 +25,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -71,16 +73,17 @@ public class TakePhotoActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button btn_addphoto;
 
-    private RecyclerView recyclerview;
-    private RecyclerView.Adapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
-    private LinkedList<HashMap<String,String>> data1;
-    private TakePhotoActivity.MyAdapter myAdapter;
     private Bitmap mbmp;
     private Uri imageUri;
     private ArrayList<Uri> arrayList;
     private static String diaryNo ="";
+    private ImageView imageView;
 
+    private Animation mOpen,mClose;
+    private Boolean btnChange;
+    private Button btn_sharePhotoDiary,btn_sharefriend,btn_sharebestfriend;
+    private boolean check_sharefriend = true,check_sharebestfriend = true;
+    private String sharefriend = "n", sharebestfriend = "n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +96,8 @@ public class TakePhotoActivity extends AppCompatActivity {
         String filePath = intent.getStringExtra("fileName");
         byte[] decodedBytes = Base64.decode(filePath,Base64.DEFAULT);
         mbmp = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+        imageView = findViewById(R.id.imageView);
+        imageView.setImageBitmap(mbmp);
 
         String uri = intent.getStringExtra("Uri");
         imageUri = Uri.parse(uri);
@@ -101,18 +106,6 @@ public class TakePhotoActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         btn_addphoto = findViewById(R.id.btn_addphoto);
-
-        recyclerview = findViewById(R.id.recyclerview);
-
-
-        recyclerview.setHasFixedSize(false);
-        mLayoutManager = new LinearLayoutManager(TakePhotoActivity.this);
-        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerview.setLayoutManager(mLayoutManager);
-        myAdapter = new MyAdapter();
-        recyclerview.setAdapter(myAdapter);
-        doData();
-
 
         final ImageButton btn_back_paper = findViewById(R.id.btn_back_paper);
         btn_back_paper.setOnClickListener(new View.OnClickListener() {
@@ -367,6 +360,78 @@ public class TakePhotoActivity extends AppCompatActivity {
             }
         });
 
+        mOpen = AnimationUtils.loadAnimation(TakePhotoActivity.this,R.anim.button_open);
+        mClose = AnimationUtils.loadAnimation(TakePhotoActivity.this,R.anim.button_close);
+        btnChange = false;
+        btn_sharePhotoDiary = findViewById(R.id.btn_sharePhotoDiary);
+        btn_sharefriend = findViewById(R.id.btn_sharefriend);
+        btn_sharebestfriend = findViewById(R.id.btn_sharebestfriend);
+        btn_sharePhotoDiary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btnChange){
+                    btn_sharebestfriend.setAnimation(mClose);
+                    btn_sharefriend.setAnimation(mClose);
+                    btn_sharebestfriend.setVisibility(View.INVISIBLE);
+                    btn_sharebestfriend.setEnabled(false);
+                    btn_sharefriend.setVisibility(View.INVISIBLE);
+                    btn_sharefriend.setEnabled(false);
+                    btnChange = false;
+                }else {
+                    btn_sharebestfriend.setAnimation(mOpen);
+                    btn_sharefriend.setAnimation(mOpen);
+                    btn_sharebestfriend.setVisibility(View.VISIBLE);
+                    btn_sharebestfriend.setEnabled(true);
+                    btn_sharefriend.setVisibility(View.VISIBLE);
+                    btn_sharefriend.setEnabled(true);
+                    btnChange = true;
+                }
+            }
+        });
+
+        btn_sharefriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(check_sharefriend == true){
+                    sharefriend = "y";
+                    sharebestfriend = "y";
+                    check_sharefriend = false;
+                    check_sharebestfriend = true;
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend2);
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+
+                }else{
+                    sharefriend = "n";
+                    sharebestfriend = "n";
+                    check_sharefriend = true;
+                    check_sharebestfriend = true;
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                }
+            }
+        });
+
+        btn_sharebestfriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(check_sharebestfriend == true){
+                    sharebestfriend = "y";
+                    sharefriend = "n";
+                    check_sharefriend = true;
+                    check_sharebestfriend = false;
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend2);
+                }else{
+                    sharebestfriend = "n";
+                    sharefriend = "n";
+                    check_sharefriend = true;
+                    check_sharebestfriend = true;
+                    btn_sharefriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                    btn_sharebestfriend.setBackgroundResource(R.drawable.btn_sharediaryend);
+                }
+            }
+        });
+
 
         final Button btn_paper_check = findViewById(R.id.btn_paper_check);
         btn_paper_check.setOnClickListener(new View.OnClickListener() {
@@ -407,15 +472,16 @@ public class TakePhotoActivity extends AppCompatActivity {
             RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
             RequestBody size = createPartFromString(""+parts.size());
             RequestBody diaryNoToserver = createPartFromString(diaryNo);
+            RequestBody picTarget = createPartFromString("diary");
             // finally, execute the request
-            Call<ResponseBody> call = service.uploadMultiple(description, size,diaryNoToserver,parts);
+            Call<ResponseBody> call = service.uploadMultiple(description, size,diaryNoToserver,picTarget,parts);
 
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                     hideProgress();
                     if(response.isSuccessful()) {
-                        Toast.makeText(TakePhotoActivity.this,"Images successfully uploaded!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(TakePhotoActivity.this,"Images successfully uploaded!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(TakePhotoActivity.this,MainActivity.class);
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TakePhotoActivity.this);
                         intent.putExtra("id",1);
@@ -492,10 +558,7 @@ public class TakePhotoActivity extends AppCompatActivity {
                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            progressBar.setVisibility(View.VISIBLE);
- //                           uploadImagesToServer();
-//                            DiaryInsert();
-                            progressBar.setVisibility(View.INVISIBLE);
+                            DiaryInsert();
                         }
                     }).setNegativeButton("我想再改改",null).create()
                     .show();
@@ -508,13 +571,15 @@ public class TakePhotoActivity extends AppCompatActivity {
         String currentDate;
         currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         Map<String,String> map = new HashMap<>();
-        map.put("command", "newDiary");
+        map.put("command", "newDiaryHandWrite");
         map.put("uid", sqlReturn.GetUserID);
         map.put("diaryContent",(currentDate+"\n"+tag+"拍照日記"));
         map.put("diaryTag",tag);
         map.put("diaryDate",currentDate);
         map.put("diaryMood", mood);
         map.put("diaryOptionClass", "拍照無what");
+        map.put("share",sharefriend);
+        map.put("bff",sharebestfriend);
         new DiaryInsert(this).execute((HashMap)map);
     }
 
@@ -536,69 +601,24 @@ public class TakePhotoActivity extends AppCompatActivity {
             try {
                 jsonObject = new JSONObject(result);
                 status = jsonObject.getBoolean("status");
+                diaryNo = jsonObject.getString("diaryNo");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (status){
-                //Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(TakePhotoActivity.this, MainActivity.class);
-                intent.putExtra("id",1);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TakePhotoActivity.this);
-                startActivity(intent,options.toBundle());
-            }else {
+
+            if (diaryNo.equals("")){
                 new AlertDialog.Builder(activity)
                         .setTitle("伺服器擁擠中")
-                        .setMessage("請重複點選結束按鈕!!")
+                        .setMessage("伺服器維護中，請稍後再嘗試")
                         .setPositiveButton("OK", null)
                         .show();
-            }
-            progressBar.setVisibility(View.INVISIBLE);
-        }
-    }
-
-
-    private void doData(){
-        data1 = new LinkedList<>();
-        for(int i = 0; i < 1; i++){
-            HashMap<String,String> row = new HashMap<>();
-            data1.add(row);
-        }
-    }
-
-    private class  MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-
-        class MyViewHolder extends RecyclerView.ViewHolder{
-            public View itemView;
-            public ImageView imgPhoto;
-            public MyViewHolder(View view){
-                super(view);
-                itemView = view;
-                imgPhoto = itemView.findViewById(R.id.imgPhoto);
-
+                progressBar.setVisibility(View.INVISIBLE);
+            }else {
+                uploadImagesToServer();
             }
         }
-
-        @NonNull
-        @Override
-        public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-            View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.photo_item,parent,false);
-            MyViewHolder vh = new MyViewHolder(itemView);
-            return vh;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
-            holder.imgPhoto.setImageBitmap(mbmp);
-        }
-
-        @Override
-        public int getItemCount() {
-            return data1.size();
-        }
     }
-
 
     // 擋住手機上回上一頁鍵
     @Override

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -48,7 +49,7 @@ public class PersonalActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         pageId = getIntent().getIntExtra("pageId",0);
-        final Button btn_setback = findViewById(R.id.btn_setback);
+        final ImageButton btn_setback = findViewById(R.id.btn_setback);
         btn_setback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -11,6 +11,7 @@ import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
@@ -25,6 +26,7 @@ import com.example.myapplication2.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, C
     private Button mTaskPicture;
     private Camera camera;
 
-    String pmPhotoFileName="";
+    String pmPhotoFileName="TempPhoto";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,7 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, C
 
 
         Intent intent = this.getIntent();
-        pmPhotoFileName = intent.getStringExtra("pmPhotoFileName");
+//        pmPhotoFileName = intent.getStringExtra("pmPhotoFileName");
 
         initViews();
     }
@@ -129,15 +131,35 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, C
 
         try
         {
+            String pmPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath()  + File.separator +  "Guidary";
+
+            File folder = new File( pmPath);
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+
+            File f=new File(pmPath,pmPhotoFileName + ".JPG");
+            f.createNewFile();
+
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 60 /*ignored for PNG*/, bos);
             byte[] bitmapdata = bos.toByteArray();
-            String s = new String(bitmapdata);
-            Uri uri = Uri.parse(s);
+//            String s = new String(bitmapdata);
+//            Uri uri = Uri.parse(s);
+
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(bitmapdata);
+
+            fos.flush();
+            fos.close();
+
+            Uri uri = Uri.fromFile(f);
+            String uriString = String.valueOf(uri);
             String encoded = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
             Intent intent = new Intent(PhotoActivity.this, TakePhotoActivity.class);
             intent.putExtra("fileName", encoded);
-            intent.putExtra("Uri",String.valueOf(uri));
+            intent.putExtra("Uri",uriString);
+//            intent.putExtra("Uri",String.valueOf(uri));
             startActivity(intent);
         }
         catch(Exception ex)

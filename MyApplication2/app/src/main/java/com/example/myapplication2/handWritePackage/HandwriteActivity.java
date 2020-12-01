@@ -13,9 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.text.Layout;
@@ -49,6 +52,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -75,12 +79,12 @@ public class HandwriteActivity extends AppCompatActivity {
 
     private Button btn_handwritecheck,btn_sharehandwritediary;
     private ConstraintLayout textLayout;
-    private RecyclerView recyclerview;
-    private RecyclerView.Adapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
-    private HandwriteActivity.MyAdapter myAdapter;
-    private LinkedList<HashMap<String,String>> data1;
-    private int currentItem = 0;
+//    private RecyclerView recyclerview;
+//    private RecyclerView.Adapter mAdapter;
+//    private LinearLayoutManager mLayoutManager;
+//    private HandwriteActivity.MyAdapter myAdapter;
+//    private LinkedList<HashMap<String,String>> data1;
+//    private int currentItem = 0;
     //多張圖片
     private static final String TAG = HandwriteActivity.class.getSimpleName();
     private Uri imageUri;
@@ -100,17 +104,14 @@ public class HandwriteActivity extends AppCompatActivity {
     private String sharefriend = "n", sharebestfriend = "n";
 
     private ProgressBar progressBarHandWrite;
-    private CardView noImageView;
     private EditText handWrite_context;
-
+    private ImageView imageView;
     private static String diaryNo ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handwrite);
-
-        noImageView = findViewById(R.id.noImageView);
 
         btn_sharehandwritediary = findViewById(R.id.btn_sharehandwritediary);
 
@@ -125,6 +126,7 @@ public class HandwriteActivity extends AppCompatActivity {
             }
         });
 
+        imageView = findViewById(R.id.imageView);
         handWrite_context = findViewById(R.id.handWrite_context);
 
         btn_handwritecheck = findViewById(R.id.btn_handwritecheck);
@@ -132,14 +134,14 @@ public class HandwriteActivity extends AppCompatActivity {
         textLayout = findViewById(R.id.textLayout);
         textLayout.setZ(100);
         btn_addphoto = findViewById(R.id.btn_addphoto);
-        recyclerview = findViewById(R.id.recyclerview);
-        recyclerview.setHasFixedSize(false);
-        mLayoutManager = new LinearLayoutManager(this);
-        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerview.setLayoutManager(mLayoutManager);
-        myAdapter = new MyAdapter();
-        recyclerview.setAdapter(myAdapter);
-        doData();
+//        recyclerview = findViewById(R.id.recyclerview);
+//        recyclerview.setHasFixedSize(false);
+//        mLayoutManager = new LinearLayoutManager(this);
+//        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        recyclerview.setLayoutManager(mLayoutManager);
+//        myAdapter = new MyAdapter();
+//        recyclerview.setAdapter(myAdapter);
+//        doData();
 
         final Button btn_paper_sunny = findViewById(R.id.btn_paper_sunny);
         final Button btn_paper_mc = findViewById(R.id.btn_paper_mc);
@@ -461,7 +463,6 @@ public class HandwriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                noImageView.setVisibility(View.INVISIBLE);
                 arrayList = new ArrayList<>();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     askForPermission();
@@ -481,103 +482,131 @@ public class HandwriteActivity extends AppCompatActivity {
     }
 
     private void showChooser() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//        intent.setType("image/*");
+//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//        intent.addCategory(Intent.CATEGORY_OPENABLE);
+//        startActivityForResult(intent, REQUEST_CODE_READ_STORAGE);
+
+        Intent intent = new Intent();
         intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intent, REQUEST_CODE_READ_STORAGE);
+        startActivityForResult(intent, 1);
     }
 
-    private void doData(){
-        data1 = new LinkedList<>();
-        for(int i = 0; i < currentItem; i++){
-            HashMap<String,String> row = new HashMap<>();
-            data1.add(row);
-        }
-    }
+//    private void doData(){
+//        data1 = new LinkedList<>();
+//        for(int i = 0; i < currentItem; i++){
+//            HashMap<String,String> row = new HashMap<>();
+//            data1.add(row);
+//        }
+//    }
+//
+//    private class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+//
+//        class MyViewHolder extends RecyclerView.ViewHolder{
+//            public View itemView;
+//            public ImageView imgPhoto;
+//            public MyViewHolder(View view){
+//                super(view);
+//                itemView = view;
+//                imgPhoto = itemView.findViewById(R.id.imgPhoto);
+//
+//            }
+//        }
+//
+//        @NonNull
+//        @Override
+//        public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//
+//            View itemView = LayoutInflater.from(parent.getContext())
+//                    .inflate(R.layout.handwrite_item,parent,false);
+//            MyViewHolder vh = new MyViewHolder(itemView);
+//            return vh;
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
+//            holder.imgPhoto.setImageURI(arrayList.get(position));
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return data1.size();
+//        }
+//    }
 
-    private class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+//        super.onActivityResult(requestCode, resultCode, resultData);
+//        if (requestCode == REQUEST_CODE_READ_STORAGE) {
+//            if (resultData != null) {
+//                if (resultData.getClipData() != null) {
+//                    int count = resultData.getClipData().getItemCount();
+//                    currentItem = 0;
+//                    while (currentItem < count) {
+//                        imageUri = resultData.getClipData().getItemAt(currentItem).getUri();
+//                        currentItem = currentItem + 1;
+//
+//                        Log.d("Uri Selected", imageUri.toString());
+//
+//                        try {
+//                            arrayList.add(imageUri);
+//                            recyclerview.setHasFixedSize(false);
+//                            mLayoutManager = new LinearLayoutManager(this);
+//                            mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+//                            recyclerview.setLayoutManager(mLayoutManager);
+//                            MyAdapter MyAdapter = new MyAdapter();
+//                            recyclerview.setAdapter(MyAdapter);
+//                            doData();
+//                        } catch (Exception e) {
+//                            Log.e(TAG, "File select error", e);
+//                        }
+//                    }
+//                } else if (resultData.getData() != null) {
+//                    currentItem = 0;
+//                    currentItem = currentItem + 1;
+//                    imageUri = resultData.getData();
+//                    Log.i(TAG, "Uri = " + imageUri.toString());
+//
+//                    try {
+//                        arrayList.add(imageUri);
+//                        recyclerview.setHasFixedSize(false);
+//                        mLayoutManager = new LinearLayoutManager(this);
+//                        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+//                        recyclerview.setLayoutManager(mLayoutManager);
+//                        MyAdapter MyAdapter = new MyAdapter();
+//                        recyclerview.setAdapter(MyAdapter);
+//                        doData();
+//                    } catch (Exception e) {
+//                        Log.e(TAG, "File select error", e);
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-        class MyViewHolder extends RecyclerView.ViewHolder{
-            public View itemView;
-            public ImageView imgPhoto;
-            public MyViewHolder(View view){
-                super(view);
-                itemView = view;
-                imgPhoto = itemView.findViewById(R.id.imgPhoto);
-
-            }
-        }
-
-        @NonNull
-        @Override
-        public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-            View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.handwrite_item,parent,false);
-            MyViewHolder vh = new MyViewHolder(itemView);
-            return vh;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
-            holder.imgPhoto.setImageURI(arrayList.get(position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return data1.size();
-        }
-    }
-
+    //取得相片後返回的監聽式
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-        super.onActivityResult(requestCode, resultCode, resultData);
-        if (requestCode == REQUEST_CODE_READ_STORAGE) {
-            if (resultData != null) {
-                if (resultData.getClipData() != null) {
-                    int count = resultData.getClipData().getItemCount();
-                    currentItem = 0;
-                    while (currentItem < count) {
-                        imageUri = resultData.getClipData().getItemAt(currentItem).getUri();
-                        currentItem = currentItem + 1;
-
-                        Log.d("Uri Selected", imageUri.toString());
-
-                        try {
-                            arrayList.add(imageUri);
-                            recyclerview.setHasFixedSize(false);
-                            mLayoutManager = new LinearLayoutManager(this);
-                            mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                            recyclerview.setLayoutManager(mLayoutManager);
-                            MyAdapter MyAdapter = new MyAdapter();
-                            recyclerview.setAdapter(MyAdapter);
-                            doData();
-                        } catch (Exception e) {
-                            Log.e(TAG, "File select error", e);
-                        }
-                    }
-                } else if (resultData.getData() != null) {
-                    currentItem = 0;
-                    currentItem = currentItem + 1;
-                    imageUri = resultData.getData();
-                    Log.i(TAG, "Uri = " + imageUri.toString());
-
-                    try {
-                        arrayList.add(imageUri);
-                        recyclerview.setHasFixedSize(false);
-                        mLayoutManager = new LinearLayoutManager(this);
-                        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                        recyclerview.setLayoutManager(mLayoutManager);
-                        MyAdapter MyAdapter = new MyAdapter();
-                        recyclerview.setAdapter(MyAdapter);
-                        doData();
-                    } catch (Exception e) {
-                        Log.e(TAG, "File select error", e);
-                    }
-                }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //當使用者按下確定後
+        if (resultCode == RESULT_OK) {
+            //取得圖檔的路徑位置
+            Uri uri = data.getData();
+            arrayList.add(uri);
+            ContentResolver cr = this.getContentResolver();
+            try {
+                //由抽象資料接口轉換圖檔路徑為Bitmap
+                Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+                //取得圖片控制項ImageView
+                // 將Bitmap設定到ImageView
+                imageView.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                Log.e("Exception", e.getMessage(),e);
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void uploadImagesToServer() {
@@ -609,9 +638,10 @@ public class HandwriteActivity extends AppCompatActivity {
             RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
             RequestBody size = createPartFromString(""+parts.size());
             RequestBody diaryNoToserver = createPartFromString(diaryNo);
+            RequestBody picTarget = createPartFromString("diary");
 
             // finally, execute the request
-            Call<ResponseBody> call = service.uploadMultiple(description, size,diaryNoToserver, parts);
+            Call<ResponseBody> call = service.uploadMultiple(description, size,diaryNoToserver,picTarget, parts);
 
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -816,7 +846,7 @@ public class HandwriteActivity extends AppCompatActivity {
             if (diaryNo.equals("")){
                 new AlertDialog.Builder(activity)
                         .setTitle("伺服器擁擠中")
-                        .setMessage("請重複點選結束按鈕!!")
+                        .setMessage("伺服器維護中，請稍後再嘗試")
                         .setPositiveButton("OK", null)
                         .show();
                 progressBarHandWrite.setVisibility(View.INVISIBLE);

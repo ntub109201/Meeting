@@ -90,11 +90,11 @@ public class DiaryHowSmellActivity extends AppCompatActivity {
                                 j++;
                             }
                             if(thickClick){
-                                DiaryValue.txtHow_food_Smell[j] = "清新";
+                                DiaryValue.txtHow_food_Smell[j] = "污染";
                                 j++;
                             }
                             if(light_incenseClick){
-                                DiaryValue.txtHow_food_Smell[j] = "污染";
+                                DiaryValue.txtHow_food_Smell[j] = "清新";
                                 j++;
                             }
                         }

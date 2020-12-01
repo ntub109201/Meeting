@@ -26,5 +26,6 @@ public interface ApiService {
             @Part("description") RequestBody description,
             @Part("size") RequestBody size,
             @Part("diaryNo") RequestBody diaryNoToserver,
+            @Part("picTarget") RequestBody picTarget,
             @Part List<MultipartBody.Part> files);
 }

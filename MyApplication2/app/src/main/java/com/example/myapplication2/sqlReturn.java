@@ -45,6 +45,10 @@ public class sqlReturn{
     public static String[] date3;
     public static String[] Option3;
     public static String[] DiaryID3;
+    // 此為歷史抓圖片
+    public static String HistoryPhotoContext;
+    public static int HistoryPhotoRowcount;
+    public static String[] HistoryPhoto_image_path;
     // 此為社群好友貼文全抓
     public static String textViewContextFriend = null;
     public static int SearchCountFriend;
@@ -126,5 +130,6 @@ public class sqlReturn{
     public static double lat;
     public static double lng;
     public static boolean locationPermissionGranted=false;
+
 
 }

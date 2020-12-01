@@ -1,13 +1,18 @@
 package com.example.myapplication2.Login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -25,15 +30,30 @@ import android.widget.Toast;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
+import com.google.android.material.snackbar.Snackbar;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -43,6 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button btn_addCamera;
     private RoundedImageView roundedImageView;
+    private static String userId = "";
+    private ArrayList<Uri> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
         btn_addCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                arrayList = new ArrayList<>();
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -197,6 +220,8 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
     }
+
+
     public class Regsiter extends HttpURLConnection_AsyncTask{
         WeakReference<Activity> activityReference;
         Regsiter(Activity context){
@@ -212,36 +237,120 @@ public class RegisterActivity extends AppCompatActivity {
             try {
                 jsonObject = new JSONObject(result);
                 status = jsonObject.getBoolean("status");
+                userId = jsonObject.getString("userID");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (status){
 
-//                Toast.makeText(activity, "註冊成功", Toast.LENGTH_LONG).show();
-                // 對Context進行操作
-                sqlReturn.RegisterEmail = etEmail.getText().toString();
-                sqlReturn.LoginPassword = etPassword.getText().toString();
-                sqlReturn.RegisterFirstLogin = false;
-                new AlertDialog.Builder(RegisterActivity.this)
-                        .setCancelable(false)
-                        .setTitle("歡迎您使用Guidary")
-                        .setMessage("接下來只要登入就能使用囉!!!")
-                        .setPositiveButton("好", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-                                startActivity(intent);
-                            }
-                        }).show();
-            }else {
+            if (userId.equals("")){
                 new AlertDialog.Builder(activity)
                         .setTitle("註冊失敗")
                         .setMessage("伺服器維護中，請稍後再嘗試")
                         .setPositiveButton("OK", null)
                         .show();
+            }else {
+                sqlReturn.RegisterEmail = etEmail.getText().toString();
+                sqlReturn.LoginPassword = etPassword.getText().toString();
+                sqlReturn.RegisterFirstLogin = false;
+                uploadImagesToServer();
             }
-            progressBar.setVisibility(View.INVISIBLE);
 
         }
     }
+
+    private void uploadImagesToServer() {
+        if (InternetConnection.checkConnection(RegisterActivity.this)) {
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(ApiService.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            showProgress();
+            // create list of file parts (photo, video, ...)
+            List<MultipartBody.Part> parts = new ArrayList<>();
+
+            // create upload service client
+            ApiService service = retrofit.create(ApiService.class);
+
+
+            try {
+                if (arrayList != null) {
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        parts.add(prepareFilePart("image" + i, arrayList.get(i)));
+                    }
+                }
+            }catch (Exception e){
+
+            }
+
+            RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
+            RequestBody size = createPartFromString(""+parts.size());
+            RequestBody diaryNoToserver = createPartFromString(userId);
+            RequestBody picTarget = createPartFromString("user");
+
+            // finally, execute the request
+            Call<ResponseBody> call = service.uploadMultiple(description, size,diaryNoToserver,picTarget, parts);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                    hideProgress();
+                    if(response.isSuccessful()) {
+                        new AlertDialog.Builder(RegisterActivity.this)
+                                .setCancelable(false)
+                                .setTitle("歡迎您使用Guidary")
+                                .setMessage("接下來只要登入就能使用囉!!!")
+                                .setPositiveButton("好", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }).show();
+                    } else {
+                        Snackbar.make(findViewById(android.R.id.content),
+                                R.string.string_some_thing_wrong, Snackbar.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                    hideProgress();
+                    Snackbar.make(findViewById(android.R.id.content),
+                            "Image upload failed!", Snackbar.LENGTH_LONG).show();
+                }
+            });
+
+        } else {
+            hideProgress();
+        }
+    }
+    private void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgress() {
+        progressBar.setVisibility(View.INVISIBLE);
+
+    }
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(MediaType.parse(FileUtils.MIME_TYPE_TEXT), descriptionString);
+        //return RequestBody.create(MediaType.parse(FileUtils.MIME_TYPE_IMAGE), descriptionString);
+    }
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+        // use the FileUtils to get the actual file by uri
+        File file = FileUtils.getFile(this, fileUri);
+
+        // create RequestBody instance from file
+        RequestBody requestFile = RequestBody.create (MediaType.parse(FileUtils.MIME_TYPE_IMAGE), file);
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+    }
+
+
 }

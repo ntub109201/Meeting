@@ -17,8 +17,8 @@
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:autofillHints="@string/prompt_email"
-        android:hint="   帳號"
         android:background="@drawable/edittext"
+        android:hint="   帳號"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         android:textColorHighlight="#CFAE8F"
@@ -30,7 +30,7 @@
         app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.443" />
+        app:layout_constraintVertical_bias="0.417" />
 
     <EditText
         android:id="@+id/password"
@@ -92,14 +92,13 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.002"
+        app:layout_constraintVertical_bias="0.083"
         app:srcCompat="@mipmap/ic_logo_foreground" />
 
     <com.google.android.gms.common.SignInButton
@@ -130,7 +129,7 @@
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintHorizontal_bias="0.115"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.541"
@@ -142,10 +141,10 @@
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintHorizontal_bias="0.115"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.443"
+        app:layout_constraintVertical_bias="0.43"
         app:srcCompat="@drawable/ic_person_outline_black_24dp" />
 
     <!--    <com.google.android.gms.common.SignInButton-->

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FDEED0"
     tools:context=".takePhoto.TakePhotoActivity">
 
 
@@ -17,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btn_sharehandwritediary"
+            android:id="@+id/btn_sharePhotoDiary"
             android:layout_width="63dp"
             android:layout_height="0dp"
             android:background="@mipmap/ic_handwritesharewhite_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btn_paper_check"
-            app:layout_constraintHorizontal_bias="0.824"
+            app:layout_constraintHorizontal_bias="0.797"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
@@ -64,6 +65,39 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <Button
+        android:id="@+id/btn_sharebestfriend"
+        style="@style/btn_sharefriend"
+        android:layout_width="64dp"
+        android:layout_height="63dp"
+        android:text="摯友"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.907"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024" />
+
+    <Button
+        android:id="@+id/btn_sharefriend"
+        style="@style/btn_sharefriend"
+        android:layout_width="63dp"
+        android:layout_height="64dp"
+        android:text="所有
+            好友"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.672"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout24"
         android:layout_width="0dp"
@@ -73,16 +107,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout1">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:orientation="horizontal"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/noImageView"
+            android:layout_width="330dp"
+            android:layout_height="180dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imgPhoto" />
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.083" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
 
 
@@ -221,19 +273,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.753" />
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_addphoto"-->
-<!--            style="@style/btn_addphoto2"-->
-<!--            android:layout_width="53dp"-->
-<!--            android:layout_height="54dp"-->
-<!--            android:textColor="#FAF8F8"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.915"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.049" />-->
 
         <Button
             android:id="@+id/btn_paper_shopping"

@@ -25,5 +25,7 @@ public interface ApiService {
     Call<ResponseBody> uploadMultiple(
             @Part("description") RequestBody description,
             @Part("size") RequestBody size,
+            @Part("uid") RequestBody uidToserver,
+            @Part("picTarget") RequestBody picTarget,
             @Part List<MultipartBody.Part> files);
 }
