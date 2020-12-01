@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -147,18 +148,21 @@ public class FriendFragment extends Fragment {
             public View itemView;
             public TextView place_text ,place_description_text,tag_text;
             public ImageView photo_image;
+            public ProgressBar progressBarNoData;
             public MyViewHolder(View view){
                 super(view);
                 itemView = view;
                 place_text = itemView.findViewById(R.id.place_text);
                 place_description_text = itemView.findViewById(R.id.place_description_text);
                 tag_text = itemView.findViewById(R.id.tag_text);
+                progressBarNoData = itemView.findViewById(R.id.progressBarNoData);
                 photo_image = itemView.findViewById(R.id.photo_image);
                 itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
                         FriendTag = getAdapterPosition();
                         Intent intent = new Intent(FriendFragment.super.getActivity(),SocialArticalActivity.class);
+                        intent.putExtra("uri",sqlReturn.friendImage[FriendTag]);
                         startActivity(intent);
                     }
                 });
@@ -182,23 +186,22 @@ public class FriendFragment extends Fragment {
             holder.tag_text.setText(data.get(position).get("tag_text"));
             //holder.photo_image.setImageResource(R.drawable.test_photo);
 
-            for(int i = 0; i<sqlReturn.SearchCountFriend; i++){
-                new AsyncTask<String, Void, Bitmap>(){
-                    @Override
-                    protected Bitmap doInBackground(String... params) //實作doInBackground
-                    {
-                        String url = params[0];
-                        return getBitmapFromURL(url);
-                    }
+            new AsyncTask<String, Void, Bitmap>(){
+                @Override
+                protected Bitmap doInBackground(String... params) //實作doInBackground
+                {
+                    String url = params[0];
+                    return getBitmapFromURL(url);
+                }
 
-                    @Override
-                    protected void onPostExecute(Bitmap result) //當doinbackground完成後
-                    {
-                        holder.photo_image.setImageBitmap(result);
-                        super.onPostExecute(result);
-                    }
-                }.execute(sqlReturn.friendImage[i]);
-            }
+                @Override
+                protected void onPostExecute(Bitmap result) //當doinbackground完成後
+                {
+                    holder.photo_image.setImageBitmap(result);
+                    holder.progressBarNoData.setVisibility(View.INVISIBLE);
+                    super.onPostExecute(result);
+                }
+            }.execute(sqlReturn.friendImage[position]);
         }
 
         @Override
@@ -224,6 +227,7 @@ public class FriendFragment extends Fragment {
             e.printStackTrace();
             return null;
         }
+
     }
 
     // 此為社群好友貼文全抓

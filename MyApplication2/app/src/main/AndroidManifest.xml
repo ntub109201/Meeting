@@ -35,7 +35,7 @@
             android:name=".ui.friend.SingleFriendActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PhotoActivity"
+            android:name=".takePhoto.PhotoActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".Diary.DiaryTravelWhereActivity" />
         <activity

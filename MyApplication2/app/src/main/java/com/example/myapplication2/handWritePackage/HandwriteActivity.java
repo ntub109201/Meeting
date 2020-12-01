@@ -44,6 +44,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -102,7 +103,7 @@ public class HandwriteActivity extends AppCompatActivity {
     private CardView noImageView;
     private EditText handWrite_context;
 
-
+    private static String diaryNo ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -607,9 +608,10 @@ public class HandwriteActivity extends AppCompatActivity {
 
             RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
             RequestBody size = createPartFromString(""+parts.size());
+            RequestBody diaryNoToserver = createPartFromString(diaryNo);
 
             // finally, execute the request
-            Call<ResponseBody> call = service.uploadMultiple(description, size, parts);
+            Call<ResponseBody> call = service.uploadMultiple(description, size,diaryNoToserver, parts);
 
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -763,7 +765,6 @@ public class HandwriteActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             DiaryInsert();
-                            //uploadImagesToServer();
                         }
                     }).setNegativeButton("取消",null).create()
                     .show();
@@ -787,6 +788,7 @@ public class HandwriteActivity extends AppCompatActivity {
         new DiaryInsert(this).execute((HashMap)map);
     }
 
+
     private class DiaryInsert extends HttpURLConnection_AsyncTask {
 
         // 建立弱連結
@@ -797,31 +799,35 @@ public class HandwriteActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
             boolean status = false;
             // 取得弱連結的Context
             Activity activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return;
-
+            Log.d(TAG, "onPostExecute: "+result);
             try {
                 jsonObject = new JSONObject(result);
                 status = jsonObject.getBoolean("status");
+                diaryNo = jsonObject.getString("diaryNo");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (status){
-                //Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(HandwriteActivity.this, MainActivity.class);
-                intent.putExtra("id",1);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HandwriteActivity.this);
-                startActivity(intent,options.toBundle());
-                progressBarHandWrite.setVisibility(View.INVISIBLE);
-            }else {
+            if (diaryNo.equals("")){
                 new AlertDialog.Builder(activity)
                         .setTitle("伺服器擁擠中")
                         .setMessage("請重複點選結束按鈕!!")
                         .setPositiveButton("OK", null)
                         .show();
                 progressBarHandWrite.setVisibility(View.INVISIBLE);
+            }else {
+                //Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
+                uploadImagesToServer();
+//                Intent intent = new Intent(HandwriteActivity.this, MainActivity.class);
+//                intent.putExtra("id",1);
+//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HandwriteActivity.this);
+//                startActivity(intent,options.toBundle());
+//                progressBarHandWrite.setVisibility(View.INVISIBLE);
             }
 
         }

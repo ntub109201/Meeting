@@ -126,4 +126,5 @@ public class sqlReturn{
     public static double lat;
     public static double lng;
     public static boolean locationPermissionGranted=false;
+
 }

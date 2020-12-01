@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.myapplication2.PhotoActivity;
+import com.example.myapplication2.takePhoto.PhotoActivity;
 import com.example.myapplication2.Diary.DiaryMoodActivity;
 import com.example.myapplication2.handWritePackage.HandwriteActivity;
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
@@ -480,21 +480,25 @@ public class HomeFragment extends Fragment {
                             homeTag = getAdapterPosition();
                             Intent intent = new Intent(HomeFragment.super.getActivity(),HomeContextActivity.class);
                             intent.putExtra("data",1);
+                            intent.putExtra("diaryNo",sqlReturn.LoginDiaryID[homeTag]);
                             startActivity(intent);
                         }else if(sqlReturn.model==2){
                             homeTag = getAdapterPosition();
                             Intent intent = new Intent(HomeFragment.super.getActivity(),HomeContextActivity.class);
                             intent.putExtra("data",2);
+                            intent.putExtra("diaryNo",sqlReturn.DiaryID1[homeTag]);
                             startActivity(intent);
                         }else if(sqlReturn.model==3){
                             homeTag = getAdapterPosition();
                             Intent intent = new Intent(HomeFragment.super.getActivity(),HomeContextActivity.class);
                             intent.putExtra("data",3);
+                            intent.putExtra("diaryNo",sqlReturn.DiaryID2[homeTag]);
                             startActivity(intent);
                         }else if(sqlReturn.model==4){
                             homeTag = getAdapterPosition();
                             Intent intent = new Intent(HomeFragment.super.getActivity(),HomeContextActivity.class);
                             intent.putExtra("data",4);
+                            intent.putExtra("diaryNo",sqlReturn.DiaryID3[homeTag]);
                             startActivity(intent);
                         }
                     }

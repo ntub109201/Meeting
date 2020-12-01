@@ -34,6 +34,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,6 +100,7 @@ public class DiaryEndActivity extends AppCompatActivity {
     private final int REQUEST_CODE_PERMISSIONS  = 1;
     private final int REQUEST_CODE_READ_STORAGE = 2;
     private CardView noImageView;
+    private static String diaryNo ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -284,10 +286,17 @@ public class DiaryEndActivity extends AppCompatActivity {
             try {
                 jsonObject = new JSONObject(result);
                 status = jsonObject.getBoolean("status");
+                diaryNo = jsonObject.getString("diaryNo");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (status){
+            if (diaryNo.equals("")){
+                new AlertDialog.Builder(activity)
+                        .setTitle("伺服器擁擠中")
+                        .setMessage("請重複點選結束按鈕!!")
+                        .setPositiveButton("OK", null)
+                        .show();
+            }else {
                 DiaryValue.txtTag = "";
                 DiaryValue.txtMood = "";
                 DiaryValue.firstWhat = "";
@@ -303,17 +312,7 @@ public class DiaryEndActivity extends AppCompatActivity {
                 DiaryValue.Mouth_Count = 0;
                 DiaryValue.Smell_Count = 0;
                 DiaryPreviewActivity.total = "";
-                //Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(DiaryEndActivity.this, MainActivity.class);
-                intent.putExtra("id",1);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryEndActivity.this);
-                startActivity(intent,options.toBundle());
-            }else {
-                new AlertDialog.Builder(activity)
-                        .setTitle("伺服器擁擠中")
-                        .setMessage("請重複點選結束按鈕!!")
-                        .setPositiveButton("OK", null)
-                        .show();
+                uploadImagesToServer();
             }
 
         }
@@ -344,7 +343,6 @@ public class DiaryEndActivity extends AppCompatActivity {
                 super(view);
                 itemView = view;
                 imgPhoto = itemView.findViewById(R.id.imgPhoto);
-
             }
         }
 
@@ -454,9 +452,9 @@ public class DiaryEndActivity extends AppCompatActivity {
             // create a map of data to pass along
             RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
             RequestBody size = createPartFromString(""+parts.size());
-
+            RequestBody diaryNoToserver = createPartFromString(diaryNo);
             // finally, execute the request
-            Call<ResponseBody> call = service.uploadMultiple(description, size, parts);
+            Call<ResponseBody> call = service.uploadMultiple(description, size,diaryNoToserver, parts);
 
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -465,9 +463,9 @@ public class DiaryEndActivity extends AppCompatActivity {
                     if(response.isSuccessful()) {
 //                        Toast.makeText(DiaryEndActivity.this,
 //                                "Images successfully uploaded!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(DiaryEndActivity.this,MainActivity.class);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryEndActivity.this);
+                        Intent intent = new Intent(DiaryEndActivity.this, MainActivity.class);
                         intent.putExtra("id",1);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryEndActivity.this);
                         startActivity(intent,options.toBundle());
                     } else {
                         Snackbar.make(findViewById(android.R.id.content),

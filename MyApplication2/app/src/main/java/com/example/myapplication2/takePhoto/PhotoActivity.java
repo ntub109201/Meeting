@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.myapplication2.takePhoto;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,6 @@ import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
@@ -21,12 +20,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.myapplication2.takePhoto.TakePhotoActivity;
+import com.example.myapplication2.MainActivity;
+import com.example.myapplication2.R;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 

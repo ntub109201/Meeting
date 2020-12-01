@@ -64,6 +64,10 @@ public class HomeContextActivity extends AppCompatActivity {
     private HomeContextActivity.MyAdapter myAdapter;
     private LinkedList<HashMap<String,String>> data1;
 
+    private static String context;
+    private static int rowcount;
+    private static String[] image_path;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -411,15 +415,15 @@ public class HomeContextActivity extends AppCompatActivity {
         }
     }
 
-    private String context;
-    private int rowcount;
-    private String[] image_path;
+
 
     // 此為抓圖片
     public void getPhoto(){
+        Intent intent = getIntent();
+        String diaryNo = intent.getStringExtra("diaryNo");
         Map<String,String> map = new HashMap<>();
         map.put("command", "historyContent");
-        map.put("diaryNo", sqlReturn.LoginDiaryID[HomeFragment.contentPosition]);
+        map.put("diaryNo", diaryNo);
         new getPhoto(this).execute((HashMap)map);
     }
 
@@ -469,11 +473,13 @@ public class HomeContextActivity extends AppCompatActivity {
         class MyViewHolder extends RecyclerView.ViewHolder{
             public View itemView;
             public ImageView imgPhoto;
+            public ProgressBar progressBarNoData;
             public MyViewHolder(View view){
                 super(view);
                 itemView = view;
                 imgPhoto = itemView.findViewById(R.id.imgPhoto);
-
+                progressBarNoData = itemView.findViewById(R.id.progressBarNoData);
+                progressBarNoData.setVisibility(View.VISIBLE);
             }
         }
 
@@ -490,27 +496,22 @@ public class HomeContextActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
 
-            if (rowcount == 0){
-                holder.imgPhoto.setImageResource(R.mipmap.ic_wallpaper_foreground);
-            }else {
-                for(int i = 0; i<rowcount; i++){
-                    new AsyncTask<String, Void, Bitmap>(){
-                        @Override
-                        protected Bitmap doInBackground(String... params) //實作doInBackground
-                        {
-                            String url = params[0];
-                            return getBitmapFromURL(url);
-                        }
-
-                        @Override
-                        protected void onPostExecute(Bitmap result) //當doinbackground完成後
-                        {
-                            holder.imgPhoto.setImageBitmap(result);
-                            super.onPostExecute(result);
-                        }
-                    }.execute(image_path[i]);
+            new AsyncTask<String, Void, Bitmap>(){
+                @Override
+                protected Bitmap doInBackground(String... params) //實作doInBackground
+                {
+                    String url = params[0];
+                    return getBitmapFromURL(url);
                 }
-            }
+
+                @Override
+                protected void onPostExecute(Bitmap result) //當doinbackground完成後
+                {
+                    holder.imgPhoto.setImageBitmap(result);
+                    holder.progressBarNoData.setVisibility(View.INVISIBLE);
+                    super.onPostExecute(result);
+                }
+            }.execute(image_path[position]);
         }
 
         @Override

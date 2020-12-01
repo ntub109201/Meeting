@@ -79,7 +79,7 @@ public class TakePhotoActivity extends AppCompatActivity {
     private Bitmap mbmp;
     private Uri imageUri;
     private ArrayList<Uri> arrayList;
-
+    private static String diaryNo ="";
 
 
     @Override
@@ -406,9 +406,9 @@ public class TakePhotoActivity extends AppCompatActivity {
             // create a map of data to pass along
             RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
             RequestBody size = createPartFromString(""+parts.size());
-
+            RequestBody diaryNoToserver = createPartFromString(diaryNo);
             // finally, execute the request
-            Call<ResponseBody> call = service.uploadMultiple(description, size, parts);
+            Call<ResponseBody> call = service.uploadMultiple(description, size,diaryNoToserver,parts);
 
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -493,8 +493,9 @@ public class TakePhotoActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             progressBar.setVisibility(View.VISIBLE);
-                            uploadImagesToServer();
+ //                           uploadImagesToServer();
 //                            DiaryInsert();
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     }).setNegativeButton("我想再改改",null).create()
                     .show();
