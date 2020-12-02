@@ -90,14 +90,16 @@ public class sqlReturn{
     public static String[] bestfriendSearchName;
     // 註冊成功
     public static Boolean RegisterFirstLogin = true;
-    public static String RegisterEmail = "nx01daniel@gmail.com";
+//    public static String RegisterEmail = "nx01daniel@gmail.com";
+//    public static String RegisterPassword = "";
+//    public static String LoginPassword = "1234";
+    public static String RegisterEmail = "";
     public static String RegisterPassword = "";
-    public static String LoginPassword = "1234";
+    public static String LoginPassword = "";
     // 個人資料
     public static String PersonalName;
     public static String PersonalPicture;
     public static String PersonalHobby;
-    public static String PersonalBirthday = "";
     public static String PersonalJob = "";
     public static boolean firstUse = false;
     // 此為搜尋好友

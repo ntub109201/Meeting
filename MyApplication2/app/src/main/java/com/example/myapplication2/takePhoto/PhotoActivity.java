@@ -164,7 +164,7 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, C
         }
         catch(Exception ex)
         {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "請先開啟手機儲存空間", Toast.LENGTH_LONG).show();
         }
     }
 

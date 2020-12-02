@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -28,7 +32,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,11 +46,29 @@ public class PersonalActivity extends AppCompatActivity {
     private String password = "";
     private ProgressBar progressBar;
     private int pageId;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
+
+        imageView = findViewById(R.id.imageView);
+        new AsyncTask<String, Void, Bitmap>(){
+            @Override
+            protected Bitmap doInBackground(String... params) //實作doInBackground
+            {
+                String url = params[0];
+                return getBitmapFromURL(url);
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap result) //當doinbackground完成後
+            {
+                imageView.setImageBitmap(result);
+                super.onPostExecute(result);
+            }
+        }.execute(sqlReturn.PersonalPicture);
 
         textName = findViewById(R.id.textName);
         textName.setText(sqlReturn.PersonalName);
@@ -206,6 +232,26 @@ public class PersonalActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+
+    private static Bitmap getBitmapFromURL(String imageUrl)
+    {
+        try
+        {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
         }
     }
 

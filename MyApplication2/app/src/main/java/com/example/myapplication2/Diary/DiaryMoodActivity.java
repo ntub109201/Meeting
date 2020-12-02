@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication2.DiaryValue;
@@ -16,12 +20,36 @@ import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class DiaryMoodActivity extends AppCompatActivity {
+
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
+
+        imageView = findViewById(R.id.imageView);
+        new AsyncTask<String, Void, Bitmap>(){
+            @Override
+            protected Bitmap doInBackground(String... params) //實作doInBackground
+            {
+                String url = params[0];
+                return getBitmapFromURL(url);
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap result) //當doinbackground完成後
+            {
+                imageView.setImageBitmap(result);
+                super.onPostExecute(result);
+            }
+        }.execute(sqlReturn.PersonalPicture);
 
         final TextView txtHelloName = findViewById(R.id.txtHelloName);
         String getName = sqlReturn.PersonalName;
@@ -114,6 +142,27 @@ public class DiaryMoodActivity extends AppCompatActivity {
             }
         });
     }
+
+    private static Bitmap getBitmapFromURL(String imageUrl)
+    {
+        try
+        {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
     // 擋住手機上回上一頁鍵
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

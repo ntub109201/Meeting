@@ -113,6 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             //取得圖檔的路徑位置
             Uri uri = data.getData();
+            arrayList.add(uri);
             ContentResolver cr = this.getContentResolver();
             try {
                 //由抽象資料接口轉換圖檔路徑為Bitmap
@@ -286,11 +287,11 @@ public class RegisterActivity extends AppCompatActivity {
 
             RequestBody description = createPartFromString("https://10836008.000webhostapp.com");
             RequestBody size = createPartFromString(""+parts.size());
-            RequestBody diaryNoToserver = createPartFromString(userId);
+            RequestBody uidToserver = createPartFromString(userId);
             RequestBody picTarget = createPartFromString("user");
 
             // finally, execute the request
-            Call<ResponseBody> call = service.uploadMultiple(description, size,diaryNoToserver,picTarget, parts);
+            Call<ResponseBody> call = service.uploadMultiple(description, size,uidToserver,picTarget, parts);
 
             call.enqueue(new Callback<ResponseBody>() {
                 @Override

@@ -154,72 +154,83 @@ public class MaybelikeFragment extends Fragment implements OnMapReadyCallback,Go
             assert s != null;
             switch (s){
                 case "GetSurroundingFeatures":
-                    finished_thread_count = 0;
-                    getPlacePhoto = new Thread(new GetPlacePhoto());
-                    getDistanceToPlace = new Thread(new GetDistanceToPlace());
-                    getPlacePhoto.start();
-                    getDistanceToPlace.start();
+                    try {
+                        if(!jObject.getJSONObject(tabText).getString("status").equals("ZERO_RESULTS")){
+                            finished_thread_count = 0;
+                            getPlacePhoto = new Thread(new GetPlacePhoto());
+                            getDistanceToPlace = new Thread(new GetDistanceToPlace());
+                            getPlacePhoto.start();
+                            getDistanceToPlace.start();
+                        }else{
+                            setListView();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case "photo_and_distance":
                     finished_thread_count++;
                     if(finished_thread_count>=2){
-                        mAdapter = new ListViewAdapter(getActivity(), googleAPIResponseDataInterface());
-                        Log.d(TAG, mAdapter.toString());
-                        mListView.setAdapter(mAdapter);
-                        mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
-                        mAdapter.setMode(Attributes.Mode.Single);
-
-                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                //((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
-                                map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(markerList.get(position).getPosition().latitude, markerList.get(position).getPosition().longitude), map.getCameraPosition().zoom, 0f, 0f)));
-                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                            }
-                        });
-                        mListView.setOnTouchListener(new View.OnTouchListener() {
-                            @Override
-                            public boolean onTouch(View v, MotionEvent event) {
-                                Log.e("ListView", "OnTouch");
-                                return false;
-                            }
-                        });
-                        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                            @Override
-                            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                                //Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
-                                return true;
-                            }
-                        });
-                        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-                            @Override
-                            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                                Log.e("ListView", "onScrollStateChanged");
-                            }
-
-                            @Override
-                            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                            }
-                        });
-
-                        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                //Log.e("ListView", "onItemSelected:" + position);
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-                                //Log.e("ListView", "onNothingSelected:");
-                            }
-                        });
-                        addMarker();
+                        setListView();
                     }
             }
             return false;
         }
     });
+    private void setListView(){
+        mAdapter = new ListViewAdapter(getActivity(), googleAPIResponseDataInterface());
+        Log.d(TAG, mAdapter.toString());
+        mListView.setAdapter(mAdapter);
+        mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
+        mAdapter.setMode(Attributes.Mode.Single);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+                map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(markerList.get(position).getPosition().latitude, markerList.get(position).getPosition().longitude), map.getCameraPosition().zoom, 0f, 0f)));
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+        mListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.e("ListView", "OnTouch");
+                return false;
+            }
+        });
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                Log.e("ListView", "onScrollStateChanged");
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+
+        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //Log.e("ListView", "onItemSelected:" + position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //Log.e("ListView", "onNothingSelected:");
+            }
+        });
+        addMarker();
+    }
     //private GoogleAPIResponse googleAPIResponse = new GoogleAPIResponse(getResources().getString(R.string.google_maps_key_web), lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
 
     @Override

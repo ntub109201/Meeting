@@ -3,6 +3,7 @@ package com.example.myapplication2.Login;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -44,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private String pwd;
     private String uid;
     private String name;
+    private Uri userPicture;
     private EditText edUserEmail;
     private EditText edPasswd;
     public static boolean a = false;
@@ -133,9 +135,11 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("121","handleSignInResult getUid:"+account.getId());
             Log.d("111","handleSignInResult getName:"+account.getDisplayName());
             Log.d("2222","handleSignInResult getEmail:"+account.getEmail());
+
             uid = account.getId();
             name = account.getDisplayName();
             mail = account.getEmail();
+            userPicture = account.getPhotoUrl();
 //            Intent intent = new Intent(LoginActivity.this,GoogleLoginSignOutActivity.class);
 //            startActivity(intent);
             googleLogin();
@@ -413,7 +417,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    // 取加入好友
+    // 取自己
     public void personalData(){
         String uid = sqlReturn.GetUserID;
         Map<String,String> map = new HashMap<>();
@@ -440,12 +444,15 @@ public class LoginActivity extends AppCompatActivity {
                 jsonObject = new JSONObject(result);
                 status = jsonObject.getBoolean("status");
                 if(status){
-                    sqlReturn.PersonalName = jsonObject.getString("userName");
-                    sqlReturn.PersonalHobby = jsonObject.getString("hobby");
-                    sqlReturn.PersonalJob = jsonObject.getString("job");
-                    sqlReturn.PersonalBirthday = jsonObject.getString("birthday");
-                    if(sqlReturn.PersonalBirthday.equals("null")){
-                        sqlReturn.PersonalBirthday = "";
+                    if(sqlReturn.googleLogin){
+                        sqlReturn.PersonalPicture = String.valueOf(userPicture);
+                        sqlReturn.PersonalHobby = jsonObject.getString("hobby");
+                        sqlReturn.PersonalJob = jsonObject.getString("job");
+                    }else{
+                        sqlReturn.PersonalPicture = jsonObject.getString("userPicture");
+                        sqlReturn.PersonalName = jsonObject.getString("userName");
+                        sqlReturn.PersonalHobby = jsonObject.getString("hobby");
+                        sqlReturn.PersonalJob = jsonObject.getString("job");
                     }
                 }
             }catch (JSONException e){
@@ -557,17 +564,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         }else {
             if(!sqlReturn.RegisterFirstLogin){
-                if(sqlReturn.RegisterEmail == edUserEmail.getText().toString()){
-                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                    startActivity(intent,options.toBundle());
-                }else {
-                    sqlReturn.RegisterFirstLogin = true;
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                    intent.putExtra("id",1);
-                    startActivity(intent,options.toBundle());
-                }
+//                if(sqlReturn.RegisterEmail == edUserEmail.getText().toString()){
+//                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
+//                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+//                    startActivity(intent,options.toBundle());
+//                }else {
+//                    sqlReturn.RegisterFirstLogin = true;
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+//                    intent.putExtra("id",1);
+//                    startActivity(intent,options.toBundle());
+//                }
+                Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                startActivity(intent,options.toBundle());
             }else {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);

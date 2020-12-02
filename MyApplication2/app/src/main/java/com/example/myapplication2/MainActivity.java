@@ -87,10 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     sqlReturn.PersonalName = jsonObject.getString("userName");
                     sqlReturn.PersonalHobby = jsonObject.getString("hobby");
                     sqlReturn.PersonalJob = jsonObject.getString("job");
-                    sqlReturn.PersonalBirthday = jsonObject.getString("birthday");
-                    if(sqlReturn.PersonalBirthday.equals("null")){
-                        sqlReturn.PersonalBirthday = "";
-                    }
+
                 }
             }catch (JSONException e){
                 e.printStackTrace();
