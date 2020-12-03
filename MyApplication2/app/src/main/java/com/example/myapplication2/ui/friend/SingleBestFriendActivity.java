@@ -47,7 +47,7 @@ public class SingleBestFriendActivity extends AppCompatActivity {
         });
 
         progressBar = findViewById(R.id.progressBar);
-        img_singleBestFriend_photo = findViewById(R.id.img_singleFriend_photo);
+        img_singleBestFriend_photo = findViewById(R.id.img_singleBestFriend_photo);
         roundedImageView = findViewById(R.id.roundedImageView);
         Intent intent = getIntent();
         uri = intent.getStringExtra("uri");
