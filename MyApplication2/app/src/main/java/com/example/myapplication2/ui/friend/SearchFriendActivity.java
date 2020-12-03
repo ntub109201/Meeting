@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -24,12 +27,17 @@ import com.example.myapplication2.HttpURLConnection_AsyncTask;
 import com.example.myapplication2.MainActivity;
 import com.example.myapplication2.R;
 import com.example.myapplication2.sqlReturn;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -130,10 +138,12 @@ public class SearchFriendActivity extends AppCompatActivity {
                     jsonArray = new JSONArray(sqlReturn.textViewSearchFriend);
                     sqlReturn.SearchFriendUserId = new String[sqlReturn.SearchFriend];
                     sqlReturn.SearchFriendName = new String[sqlReturn.SearchFriend];
+                    sqlReturn.SearchFriendPersonImage = new String[sqlReturn.SearchFriend];
                     for (int i = 0; i < sqlReturn.SearchFriend; i++) {
                         JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                         sqlReturn.SearchFriendUserId[i] = obj.getString("userID");
                         sqlReturn.SearchFriendName[i] = obj.getString("strangerName");
+                        sqlReturn.SearchFriendPersonImage[i] = obj.getString("userPicture");
                     }
                 }
             } catch (JSONException e) {
@@ -171,12 +181,14 @@ public class SearchFriendActivity extends AppCompatActivity {
             public View itemView;
             public TextView textName, textUserID;
             public Button btnAdd;
+            public RoundedImageView roundedImageView;
             public MyViewHolder(View view){
                 super(view);
                 itemView = view;
                 textName = itemView.findViewById(R.id.textName);
                 textUserID = itemView.findViewById(R.id.textUserID);
                 btnAdd = itemView.findViewById(R.id.btnAdd);
+                roundedImageView = itemView.findViewById(R.id.roundedImageView);
                 btnAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -212,11 +224,46 @@ public class SearchFriendActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
             holder.textName.setText(data.get(position).get("textName"));
             holder.textUserID.setText(data.get(position).get("textUserID"));
+            new AsyncTask<String, Void, Bitmap>(){
+                @Override
+                protected Bitmap doInBackground(String... params) //實作doInBackground
+                {
+                    String url = params[0];
+                    return getBitmapFromURL(url);
+                }
+
+                @Override
+                protected void onPostExecute(Bitmap result) //當doinbackground完成後
+                {
+                    holder.roundedImageView.setImageBitmap(result);
+                    super.onPostExecute(result);
+                }
+            }.execute(sqlReturn.SearchFriendPersonImage[position]);
         }
 
         @Override
         public int getItemCount() {
             return data.size();
+        }
+
+    }
+
+    private static Bitmap getBitmapFromURL(String imageUrl)
+    {
+        try
+        {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
         }
 
     }

@@ -119,7 +119,7 @@ public class DiaryEndActivity extends AppCompatActivity {
 //        myAdapter = new MyAdapter();
 //        recyclerview.setAdapter(myAdapter);
 //        doData();
-
+        arrayList = new ArrayList<>();
         progressBar = findViewById(R.id.progressBar);
         final String LastView = getIntent().getStringExtra("1");
 
@@ -215,7 +215,7 @@ public class DiaryEndActivity extends AppCompatActivity {
         getPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrayList = new ArrayList<>();
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     askForPermission();
                 } else {
@@ -472,6 +472,8 @@ public class DiaryEndActivity extends AppCompatActivity {
                     for (int i = 0; i < arrayList.size(); i++) {
                         parts.add(prepareFilePart("image" + i, arrayList.get(i)));
                     }
+                }else{
+                    parts.add(prepareFilePart("image" + 0,null));
                 }
             }catch (Exception e){
 

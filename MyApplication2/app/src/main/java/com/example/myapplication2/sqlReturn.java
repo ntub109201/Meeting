@@ -118,7 +118,7 @@ public class sqlReturn{
     public static String textViewSearchFriend = null;
     public static int SearchFriend;
     public static String Message;
-    public static String FriendYesNo;
+    public static String[] SearchFriendPersonImage;
     public static String[] SearchFriendUserId;
     public static String[] SearchFriendName;
     // 加入好友

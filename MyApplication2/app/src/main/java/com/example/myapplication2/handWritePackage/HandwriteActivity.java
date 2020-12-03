@@ -114,7 +114,7 @@ public class HandwriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_handwrite);
 
         btn_sharehandwritediary = findViewById(R.id.btn_sharehandwritediary);
-
+        arrayList = new ArrayList<>();
         final ImageButton imbtnReturnMain = findViewById(R.id.imbtnReturnMain);
         imbtnReturnMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -462,8 +462,6 @@ public class HandwriteActivity extends AppCompatActivity {
         btn_addphoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                arrayList = new ArrayList<>();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     askForPermission();
                 } else {
@@ -630,6 +628,8 @@ public class HandwriteActivity extends AppCompatActivity {
                     for (int i = 0; i < arrayList.size(); i++) {
                         parts.add(prepareFilePart("image" + i, arrayList.get(i)));
                     }
+                }else{
+                    parts.add(prepareFilePart("image" + 0,null));
                 }
             }catch (Exception e){
                 Log.e(TAG, "File select error", e);
