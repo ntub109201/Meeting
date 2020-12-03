@@ -11,6 +11,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -29,7 +32,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -43,7 +50,7 @@ public class BestFriendActivity extends AppCompatActivity {
     private MyAdapter1 myAdapter1;
     private SwipeRefreshLayout RefreshLayoutBestFriendList;
     private ConstraintLayout bestFriend_layout,noBestFriend;
-    public static int  position1;
+    public static int position1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +148,21 @@ public class BestFriendActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyAdapter1.MyViewHolder holder, int position) {
             holder.textName.setText(data1.get(position).get("textName"));
+            new AsyncTask<String, Void, Bitmap>(){
+                @Override
+                protected Bitmap doInBackground(String... params) //實作doInBackground
+                {
+                    String url = params[0];
+                    return getBitmapFromURL(url);
+                }
+
+                @Override
+                protected void onPostExecute(Bitmap result) //當doinbackground完成後
+                {
+                    holder.roundedImageView.setImageBitmap(result);
+                    super.onPostExecute(result);
+                }
+            }.execute(sqlReturn.BestFriendListPersonImage[position]);
         }
 
         @Override
@@ -148,6 +170,27 @@ public class BestFriendActivity extends AppCompatActivity {
             return data1.size();
         }
     }
+
+    private static Bitmap getBitmapFromURL(String imageUrl)
+    {
+        try
+        {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
 
     public void searchBestFriendList(){
         String uid = sqlReturn.GetUserID;
@@ -180,10 +223,12 @@ public class BestFriendActivity extends AppCompatActivity {
                 jsonArray = new JSONArray(sqlReturn.textViewContextBestFriendList);
                 sqlReturn.BestFriendListName = new String[sqlReturn.SearchCountBestFriendList];
                 sqlReturn.BestFriendListNum = new String[sqlReturn.SearchCountBestFriendList];
+                sqlReturn.BestFriendListPersonImage = new String[sqlReturn.SearchCountBestFriendList];
                 for(int i = 0; i<sqlReturn.SearchCountBestFriendList; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.BestFriendListName[i] = obj.getString("friendName01");
                     sqlReturn.BestFriendListNum[i] = obj.getString("friendNum");
+                    sqlReturn.BestFriendListPersonImage[i] = obj.getString("userPicture");
                 }
                 doData1();
                 RefreshLayoutBestFriendList.setRefreshing(false);
@@ -227,6 +272,8 @@ public class BestFriendActivity extends AppCompatActivity {
                 sqlReturn.bestfriendSearchTagName = new String[sqlReturn.bestfriendSearchCount];
                 sqlReturn.bestfriendSearchDate = new String[sqlReturn.bestfriendSearchCount];
                 sqlReturn.bestfriendSearchName = new String[sqlReturn.bestfriendSearchCount];
+                sqlReturn.bestfriendSearchImage = new String[sqlReturn.bestfriendSearchCount];
+                sqlReturn.bestfriendSearchPersonImage = new String[sqlReturn.bestfriendSearchCount];
                 for(int i = 0; i<sqlReturn.bestfriendSearchCount; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.bestfriendSearchNum[i] = obj.getString("friendNum");
@@ -235,6 +282,8 @@ public class BestFriendActivity extends AppCompatActivity {
                     sqlReturn.bestfriendSearchTagName[i] = obj.getString("tagName");
                     sqlReturn.bestfriendSearchDate[i] = obj.getString("date");
                     sqlReturn.bestfriendSearchName[i] = obj.getString("friendName01");
+                    sqlReturn.bestfriendSearchImage[i] = obj.getString("image_path");
+                    sqlReturn.bestfriendSearchPersonImage[i] = obj.getString("userPicture");
                 }
 
             } catch (JSONException e) {
@@ -252,6 +301,8 @@ public class BestFriendActivity extends AppCompatActivity {
                     sqlReturn.bestfriendSearchTagName[i] = "";
                     sqlReturn.bestfriendSearchDate[i] = "";
                     sqlReturn.bestfriendSearchName[i] = "";
+                    sqlReturn.bestfriendSearchImage[i] = "";
+                    sqlReturn.bestfriendSearchPersonImage[i] = "";
                 }
                 sqlReturn.bestfriendSearchCount = 0;
                 sqlReturn.bestfriendSearchNum = new String[1];

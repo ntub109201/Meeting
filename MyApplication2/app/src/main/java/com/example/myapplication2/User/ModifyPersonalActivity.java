@@ -95,11 +95,19 @@ public class ModifyPersonalActivity extends AppCompatActivity {
         btn_setuserphoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrayList = new ArrayList<>();
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 1);
+                if(sqlReturn.googleLogin){
+                    new AlertDialog.Builder(ModifyPersonalActivity.this)
+                            .setTitle("很抱歉")
+                            .setMessage("google登入不提供變更個人圖片")
+                            .setPositiveButton("OK", null)
+                            .show();
+                }else {
+                    arrayList = new ArrayList<>();
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent, 1);
+                }
             }
         });
 
@@ -267,7 +275,9 @@ public class ModifyPersonalActivity extends AppCompatActivity {
                     sqlReturn.PersonalHobby = spinTag.getSelectedItem().toString();
                     sqlReturn.PersonalName = edtName.getText().toString();
                     if(sqlReturn.googleLogin){
-                        finish();
+                        Intent intent = new Intent(ModifyPersonalActivity.this,PersonalActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     }else {
                         uploadImagesToServer();
                     }
@@ -336,7 +346,7 @@ public class ModifyPersonalActivity extends AppCompatActivity {
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                     hideProgress();
                     if(response.isSuccessful()) {
-                        finish();
+                        personalData();
                     } else {
                         Snackbar.make(findViewById(android.R.id.content),
                                 R.string.string_some_thing_wrong, Snackbar.LENGTH_LONG).show();
@@ -379,6 +389,48 @@ public class ModifyPersonalActivity extends AppCompatActivity {
 
         // MultipartBody.Part is used to send also the actual file name
         return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+    }
+
+
+    // 取自己
+    public void personalData(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "getInfo");
+        map.put("uid", uid);
+        new personalData(this).execute((HashMap)map);
+    }
+    private class personalData extends HttpURLConnection_AsyncTask {
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        personalData(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            //JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                if(status){
+                    sqlReturn.PersonalPicture = jsonObject.getString("userPicture");
+                    sqlReturn.PersonalName = jsonObject.getString("userName");
+                    sqlReturn.PersonalHobby = jsonObject.getString("hobby");
+                    sqlReturn.PersonalJob = jsonObject.getString("job");
+                    Intent intent = new Intent(ModifyPersonalActivity.this,PersonalActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     // 擋住手機上回上一頁鍵

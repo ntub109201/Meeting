@@ -76,7 +76,7 @@ public class TakePhotoActivity extends AppCompatActivity {
     private Bitmap mbmp;
     private Uri imageUri;
     private ArrayList<Uri> arrayList;
-    private static String diaryNo ="";
+    private String diaryNo ="";
     private ImageView imageView;
 
     private Animation mOpen,mClose;

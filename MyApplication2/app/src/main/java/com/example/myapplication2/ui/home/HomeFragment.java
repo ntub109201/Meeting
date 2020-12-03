@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
     private Button searchBtn4;
     private Button searchBtn5;
     private Button buttonTest;
-    private Button searchBtnHandWrite;
+    private Button searchBtnHandWrite,searchBtnPhoto;
     private ProgressBar progressBarHome;
     private SwipeRefreshLayout RefreshLayoutHome;
     private ImageButton imBtnPersonal;
@@ -184,6 +184,8 @@ public class HomeFragment extends Fragment {
                     searchByTag();
                 } else if(buttonTest.getText().equals("手寫日記")){
                     SearchHandWrite();
+                } else if(buttonTest.getText().equals("拍照日記")){
+                    SearchTakePicture();
                 } else{
                     history();
                 }
@@ -199,6 +201,7 @@ public class HomeFragment extends Fragment {
         searchBtnMood = root.findViewById(R.id.searchBtnMood);
         searchBtnTag = root.findViewById(R.id.searchBtnTag);
         searchBtnHandWrite = root.findViewById(R.id.searchBtnHandWrite);
+        searchBtnPhoto = root.findViewById(R.id.searchBtnPhoto);
         searchBtn1 = root.findViewById(R.id.searchBtn1);
         searchBtn2 = root.findViewById(R.id.searchBtn2);
         searchBtn3 = root.findViewById(R.id.searchBtn3);
@@ -233,6 +236,14 @@ public class HomeFragment extends Fragment {
                 buttonTest.setText("手寫日記");
                 progressBarHome.setVisibility(View.VISIBLE);
                 SearchHandWrite();
+            }
+        });
+        searchBtnPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonTest.setText("拍照日記");
+                progressBarHome.setVisibility(View.VISIBLE);
+                SearchTakePicture();
             }
         });
         searchBtn1.setOnClickListener(new View.OnClickListener() {
@@ -503,6 +514,12 @@ public class HomeFragment extends Fragment {
                             intent.putExtra("data",4);
                             intent.putExtra("diaryNo",sqlReturn.DiaryID3[homeTag]);
                             startActivity(intent);
+                        }else if(sqlReturn.model==5){
+                            homeTag = getAdapterPosition();
+                            Intent intent = new Intent(HomeFragment.super.getActivity(),HomeContextActivity.class);
+                            intent.putExtra("data",5);
+                            intent.putExtra("diaryNo",sqlReturn.DiaryID4[homeTag]);
+                            startActivity(intent);
                         }
                     }
                 });
@@ -532,7 +549,9 @@ public class HomeFragment extends Fragment {
             }else if(sqlReturn.model == 3){
                 holder.imageView.setImageResource(dict.dict.get(sqlReturn.Option2[position]));
             }else if(sqlReturn.model == 4){
-                holder.imageView.setImageResource(R.drawable.handwrite);
+                holder.imageView.setImageResource(dict.dict.get(sqlReturn.Option3[position]));
+            }else if(sqlReturn.model == 5){
+                holder.imageView.setImageResource(dict.dict.get(sqlReturn.Option4[position]));
             }
 
             holder.textTitle.setText(data.get(position).get("textTitle"));
@@ -801,7 +820,7 @@ public class HomeFragment extends Fragment {
         Map<String,String> map = new HashMap<>();
         map.put("command", "historyHandWrite");
         map.put("uid", uid);
-        map.put("searchHandWrite","手寫日記心情");
+        map.put("searchHandWrite","822");
         new SearchHandWrite(super.getActivity()).execute((HashMap)map);
     }
     private class SearchHandWrite extends HttpURLConnection_AsyncTask {
@@ -837,9 +856,7 @@ public class HomeFragment extends Fragment {
                         JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                         sqlReturn.content3[i] = obj.getString("content");
                         sqlReturn.tagName3[i] = obj.getString("tagName");
-                        if(obj.getString("mood").equals("手寫日記心情")){
-                            sqlReturn.mood3[i] = "手寫日記";
-                        }
+                        sqlReturn.mood3[i] = obj.getString("mood");
                         sqlReturn.date3[i] = obj.getString("date");
                         sqlReturn.Option3[i] = obj.getString("optionNo");
                         sqlReturn.DiaryID3[i] = obj.getString("diaryNo");
@@ -885,7 +902,6 @@ public class HomeFragment extends Fragment {
                 progressBarHome.setVisibility(View.INVISIBLE);
             }
         }
-
     }
     private void doDataSearchHandWrite(){
         data = new LinkedList<>();
@@ -896,6 +912,109 @@ public class HomeFragment extends Fragment {
             row.put("textDescription",sqlReturn.date3[i]);
             data.add(row);
             sqlReturn.model = 4;
+        }
+    }
+
+
+    // 此為抓拍照日記
+
+    public void SearchTakePicture(){
+        String uid = sqlReturn.GetUserID;
+        Map<String,String> map = new HashMap<>();
+        map.put("command", "historyTakePicture");
+        map.put("uid", uid);
+        map.put("searchTakePicture","823");
+        new SearchTakePicture(super.getActivity()).execute((HashMap)map);
+    }
+    private class SearchTakePicture extends HttpURLConnection_AsyncTask {
+
+        // 建立弱連結
+        WeakReference<Activity> activityReference;
+        SearchTakePicture(Activity context){
+            activityReference = new WeakReference<>(context);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+            boolean status = false;
+            // 取得弱連結的Context
+            Activity activity = activityReference.get();
+            if (activity == null || activity.isFinishing()) return;
+
+            try {
+                jsonObject = new JSONObject(result);
+                status = jsonObject.getBoolean("status");
+                if(status){
+                    sqlReturn.textViewContext4 = jsonObject.getString("results");
+                    sqlReturn.SearchCountTakePhoto = jsonObject.getInt("rowcount");
+                    jsonArray = new JSONArray(sqlReturn.textViewContext4);
+                    sqlReturn.content4 = new String[sqlReturn.SearchCountTakePhoto];
+                    sqlReturn.tagName4 = new String[sqlReturn.SearchCountTakePhoto];
+                    sqlReturn.mood4 = new String[sqlReturn.SearchCountTakePhoto];
+                    sqlReturn.date4 = new String[sqlReturn.SearchCountTakePhoto];
+                    sqlReturn.Option4 = new String[sqlReturn.SearchCountTakePhoto];
+                    sqlReturn.DiaryID4 = new String[sqlReturn.SearchCountTakePhoto];
+                    for(int i = 0; i<sqlReturn.SearchCountTakePhoto; i++){
+                        JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
+                        sqlReturn.content4[i] = obj.getString("content");
+                        sqlReturn.tagName4[i] = obj.getString("tagName");
+                        sqlReturn.mood4[i] = obj.getString("mood");
+                        sqlReturn.date4[i] = obj.getString("date");
+                        sqlReturn.Option4[i] = obj.getString("optionNo");
+                        sqlReturn.DiaryID4[i] = obj.getString("diaryNo");
+                    }
+                }else {
+                    sqlReturn.textViewContext4 = "";
+                    sqlReturn.SearchCountTakePhoto = 0;
+                    sqlReturn.content4 = new String[sqlReturn.SearchCountTakePhoto];
+                    sqlReturn.tagName4 = new String[sqlReturn.SearchCountTakePhoto];
+                    sqlReturn.mood4 = new String[sqlReturn.SearchCountTakePhoto];
+                    sqlReturn.date4 = new String[sqlReturn.SearchCountTakePhoto];
+                    sqlReturn.Option4 = new String[sqlReturn.SearchCountTakePhoto];
+                    sqlReturn.DiaryID4 = new String[sqlReturn.SearchCountTakePhoto];
+                    for(int i = 0; i<sqlReturn.SearchCountTakePhoto; i++){
+                        sqlReturn.content4[i] = "";
+                        sqlReturn.tagName4[i] = "";
+                        sqlReturn.mood4[i] = "";
+                        sqlReturn.date4[i] = "";
+                        sqlReturn.Option4[i] = "";
+                        sqlReturn.DiaryID4[i] = "";
+                    }
+                    new AlertDialog.Builder(activity)
+                            .setTitle("提醒")
+                            .setMessage("您沒有撰寫過拍照日記")
+                            .setPositiveButton("OK", null)
+                            .show();
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (sqlReturn.textViewContext4!=null){
+                //Toast.makeText(activity, String.valueOf(sqlReturn.SearchCountMood), Toast.LENGTH_LONG).show();
+                doDataSearchTakePicture();
+                mRecyclerView.setHasFixedSize(true);
+                mLayoutManager = new LinearLayoutManager(HomeFragment.super.getActivity());
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                myAdapter = new MyAdapter();
+                mRecyclerView.setAdapter(myAdapter);
+                progressBarHome.setVisibility(View.INVISIBLE);
+                RefreshLayoutHome.setRefreshing(false);
+            }else {
+                progressBarHome.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+    private void doDataSearchTakePicture(){
+        data = new LinkedList<>();
+        final int SearchCountTakePhoto = sqlReturn.SearchCountTakePhoto;
+        for(int i = 0; i < SearchCountTakePhoto; i++){
+            HashMap<String,String> row = new HashMap<>();
+            row.put("textTitle",sqlReturn.mood4[i]);
+            row.put("textDescription",sqlReturn.date4[i]);
+            data.add(row);
+            sqlReturn.model = 5;
         }
     }
 

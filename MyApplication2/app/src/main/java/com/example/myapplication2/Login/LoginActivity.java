@@ -202,9 +202,9 @@ public class LoginActivity extends AppCompatActivity {
                 a = true;
                 history();
                 searchFriend();
-                personalData();
                 searchBestFriendList();
                 searchFriendList();
+                personalData();
                 sqlReturn.LoginPassword = edPasswd.getText().toString();
                 sqlReturn.RegisterEmail = edUserEmail.getText().toString();
                 sqlReturn.RegisterPassword = password;
@@ -266,9 +266,9 @@ public class LoginActivity extends AppCompatActivity {
                 sqlReturn.googleLogin = true;
                 history();
                 searchFriend();
-                personalData();
                 searchBestFriendList();
                 searchFriendList();
+                personalData();
                 mGoogleSignInClient.signOut();
             }else{
                 mGoogleSignInClient.signOut();
@@ -347,11 +347,7 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if(sqlReturn.LoginTextViewContext!=null){
-                LoginAccess();
-            }else {
-                LoginAccess();
-            }
+            LoginAccess();
 
 
         }
@@ -397,6 +393,7 @@ public class LoginActivity extends AppCompatActivity {
                 sqlReturn.dateFriend = new String[sqlReturn.SearchCountFriend];
                 sqlReturn.friendName = new String[sqlReturn.SearchCountFriend];
                 sqlReturn.friendImage = new String[sqlReturn.SearchCountFriend];
+                sqlReturn.friendPersonImage = new String[sqlReturn.SearchCountFriend];
                 for(int i = 0; i<sqlReturn.SearchCountFriend; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.contentFriend[i] = obj.getString("content");
@@ -405,6 +402,7 @@ public class LoginActivity extends AppCompatActivity {
                     sqlReturn.dateFriend[i] = obj.getString("date");
                     sqlReturn.friendName[i] = obj.getString("friendName01");
                     sqlReturn.friendImage[i] = obj.getString("image_path");
+                    sqlReturn.friendPersonImage[i] = obj.getString("userPicture");
                 }
                 if(sqlReturn.SearchCountFriend>0){
                     sqlReturn.check_friend = true;
@@ -461,6 +459,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // 取摯友
     public void searchBestFriendList(){
         String uid = sqlReturn.GetUserID;
         Map<String,String> map = new HashMap<>();
@@ -492,10 +491,12 @@ public class LoginActivity extends AppCompatActivity {
                 jsonArray = new JSONArray(sqlReturn.textViewContextBestFriendList);
                 sqlReturn.BestFriendListName = new String[sqlReturn.SearchCountBestFriendList];
                 sqlReturn.BestFriendListNum = new String[sqlReturn.SearchCountBestFriendList];
+                sqlReturn.BestFriendListPersonImage = new String[sqlReturn.SearchCountBestFriendList];
                 for(int i = 0; i<sqlReturn.SearchCountBestFriendList; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.BestFriendListName[i] = obj.getString("friendName01");
                     sqlReturn.BestFriendListNum[i] = obj.getString("friendNum");
+                    sqlReturn.BestFriendListPersonImage[i] = obj.getString("userPicture");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -503,6 +504,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // 取好友
     public void searchFriendList(){
         String uid = sqlReturn.GetUserID;
         Map<String,String> map = new HashMap<>();
@@ -535,11 +537,13 @@ public class LoginActivity extends AppCompatActivity {
                 sqlReturn.friendListNum = new String[sqlReturn.SearchCountFriendList];
                 sqlReturn.friendListName = new String[sqlReturn.SearchCountFriendList];
                 sqlReturn.friendListBFF = new String[sqlReturn.SearchCountFriendList];
+                sqlReturn.friendListPersonImage = new String[sqlReturn.SearchCountFriendList];
                 for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.friendListNum[i] = obj.getString("friendNum");
                     sqlReturn.friendListName[i] = obj.getString("friendName01");
                     sqlReturn.friendListBFF[i] = obj.getString("BFF");
+                    sqlReturn.friendListPersonImage[i] = obj.getString("userPicture");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -550,34 +554,24 @@ public class LoginActivity extends AppCompatActivity {
 
     private void LoginAccess(){
         if(googleIn == true){
-            if(!sqlReturn.RegisterFirstLogin){
-                sqlReturn.RegisterFirstLogin = true;
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                intent.putExtra("id",1);
-                startActivity(intent,options.toBundle());
-            }else {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                intent.putExtra("id",1);
-                startActivity(intent,options.toBundle());
-            }
+            sqlReturn.RegisterFirstLogin = true;
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+            intent.putExtra("id",1);
+            startActivity(intent,options.toBundle());
         }else {
-            if(!sqlReturn.RegisterFirstLogin){
-//                if(sqlReturn.RegisterEmail == edUserEmail.getText().toString()){
-//                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
-//                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-//                    startActivity(intent,options.toBundle());
-//                }else {
-//                    sqlReturn.RegisterFirstLogin = true;
-//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-//                    intent.putExtra("id",1);
-//                    startActivity(intent,options.toBundle());
-//                }
-                Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
-                startActivity(intent,options.toBundle());
+            if(sqlReturn.RegisterFirstLogin == false){
+                if(sqlReturn.RegisterEmail.equals(edUserEmail.getText().toString())){
+                    Intent intent = new Intent(LoginActivity.this, FirstLoginActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                    startActivity(intent,options.toBundle());
+                }else {
+                    sqlReturn.RegisterFirstLogin = true;
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);
+                    intent.putExtra("id",1);
+                    startActivity(intent,options.toBundle());
+                }
             }else {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this);

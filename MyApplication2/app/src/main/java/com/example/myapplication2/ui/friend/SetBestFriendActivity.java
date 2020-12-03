@@ -11,7 +11,10 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -30,7 +33,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -112,6 +119,7 @@ public class SetBestFriendActivity extends AppCompatActivity {
             HashMap<String, String> row = new HashMap<>();
             row.put("txtName",sqlReturn.friendListName[i]);
             row.put("bff",sqlReturn.friendListBFF[i]);
+            row.put("userPicture",sqlReturn.friendPersonImage[i]);
             data1.add(row);
         }
     }
@@ -168,6 +176,22 @@ public class SetBestFriendActivity extends AppCompatActivity {
                     }
                 }
             });
+            new AsyncTask<String, Void, Bitmap>(){
+                @Override
+                protected Bitmap doInBackground(String... params) //實作doInBackground
+                {
+                    String url = params[0];
+                    return getBitmapFromURL(url);
+                }
+
+                @Override
+                protected void onPostExecute(Bitmap result) //當doinbackground完成後
+                {
+                    holder.roundedImageView.setImageBitmap(result);
+                    super.onPostExecute(result);
+                }
+            }.execute(sqlReturn.friendListPersonImage[position]);
+
         }
 
         @Override
@@ -221,6 +245,27 @@ public class SetBestFriendActivity extends AppCompatActivity {
             }
         }
     }
+
+    private static Bitmap getBitmapFromURL(String imageUrl)
+    {
+        try
+        {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     // 擋住手機上回上一頁鍵
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -45,10 +45,15 @@ public class sqlReturn{
     public static String[] date3;
     public static String[] Option3;
     public static String[] DiaryID3;
-    // 此為歷史抓圖片
-    public static String HistoryPhotoContext;
-    public static int HistoryPhotoRowcount;
-    public static String[] HistoryPhoto_image_path;
+    // 此為歷史抓拍照日記
+    public static String textViewContext4 = null;
+    public static int SearchCountTakePhoto;
+    public static String[] content4;
+    public static String[] mood4;
+    public static String[] tagName4;
+    public static String[] date4;
+    public static String[] Option4;
+    public static String[] DiaryID4;
     // 此為社群好友貼文全抓
     public static String textViewContextFriend = null;
     public static int SearchCountFriend;
@@ -59,17 +64,20 @@ public class sqlReturn{
     public static String[] friendName;
     public static String[] friendBFF;
     public static String[] friendImage;
+    public static String[] friendPersonImage;
     // 此為抓好友
     public static String textViewContextFriendList = null;
     public static int SearchCountFriendList;
     public static String[] friendListName;
     public static String[] friendListNum;
     public static String[] friendListBFF;
+    public static String[] friendListPersonImage;
     // 此為抓摯友
     public static String textViewContextBestFriendList = null;
     public static int SearchCountBestFriendList;
     public static String[] BestFriendListName;
     public static String[] BestFriendListNum;
+    public static String[] BestFriendListPersonImage;
     // 此為抓特定好友日記
     public static String textViewContextfriendSearch = null;
     public static int friendSearchCount;
@@ -79,6 +87,8 @@ public class sqlReturn{
     public static String[] friendSearchTagName;
     public static String[] friendSearchDate;
     public static String[] friendSearchName;
+    public static String[] friendSearchImage;
+    public static String[] friendSearchPersonImage;
     // 此為抓特定摯友日記
     public static String textViewContextbestfriendSearch = null;
     public static int bestfriendSearchCount;
@@ -88,14 +98,16 @@ public class sqlReturn{
     public static String[] bestfriendSearchTagName;
     public static String[] bestfriendSearchDate;
     public static String[] bestfriendSearchName;
+    public static String[] bestfriendSearchImage;
+    public static String[] bestfriendSearchPersonImage;
     // 註冊成功
     public static Boolean RegisterFirstLogin = true;
-//    public static String RegisterEmail = "nx01daniel@gmail.com";
-//    public static String RegisterPassword = "";
-//    public static String LoginPassword = "1234";
-    public static String RegisterEmail = "";
+    public static String RegisterEmail = "nx01daniel@gmail.com";
     public static String RegisterPassword = "";
-    public static String LoginPassword = "";
+    public static String LoginPassword = "1234";
+//    public static String RegisterEmail = "";
+//    public static String RegisterPassword = "";
+//    public static String LoginPassword = "";
     // 個人資料
     public static String PersonalName;
     public static String PersonalPicture;

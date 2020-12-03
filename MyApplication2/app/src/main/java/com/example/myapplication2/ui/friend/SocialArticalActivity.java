@@ -28,8 +28,8 @@ import java.net.URL;
 public class SocialArticalActivity extends AppCompatActivity {
 
     private TextView SocialDiaryTitle,SocialUserName,SocialDiaryDateTime,txtSocialContext,SocialMood;
-    private ImageView img_friend_photo;
-    private String uri;
+    private ImageView img_friend_photo,roundedImageView;
+    private String uri,personUri;
     private ProgressBar progressBar2;
 
     @Override
@@ -38,10 +38,12 @@ public class SocialArticalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_socialartical);
 
         img_friend_photo = findViewById(R.id.img_friend_photo);
+        roundedImageView = findViewById(R.id.roundedImageView);
         progressBar2 = findViewById(R.id.progressBar2);
 
         Intent intent = getIntent();
         uri = intent.getStringExtra("uri");
+        personUri = intent.getStringExtra("personUri");
 
         new AsyncTask<String, Void, Bitmap>(){
             @Override
@@ -59,6 +61,22 @@ public class SocialArticalActivity extends AppCompatActivity {
                 super.onPostExecute(result);
             }
         }.execute(uri);
+
+        new AsyncTask<String, Void, Bitmap>(){
+            @Override
+            protected Bitmap doInBackground(String... params) //實作doInBackground
+            {
+                String url = params[0];
+                return getBitmapFromURL(url);
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap result) //當doinbackground完成後
+            {
+                roundedImageView.setImageBitmap(result);
+                super.onPostExecute(result);
+            }
+        }.execute(personUri);
 
         final ImageButton imbtnReturnToSocial = findViewById(R.id.imbtnReturnToSocial);
         imbtnReturnToSocial.setOnClickListener(new View.OnClickListener() {

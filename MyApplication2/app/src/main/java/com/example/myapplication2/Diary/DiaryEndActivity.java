@@ -100,7 +100,7 @@ public class DiaryEndActivity extends AppCompatActivity {
     private final int REQUEST_CODE_PERMISSIONS  = 1;
     private final int REQUEST_CODE_READ_STORAGE = 2;
 
-    private static String diaryNo ="";
+    private String diaryNo ="";
     private ProgressBar progressBar;
 
     private ImageView imageView;

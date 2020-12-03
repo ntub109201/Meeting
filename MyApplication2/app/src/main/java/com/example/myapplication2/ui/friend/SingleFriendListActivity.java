@@ -10,6 +10,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.myapplication2.HttpURLConnection_AsyncTask;
@@ -32,7 +36,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -49,6 +57,7 @@ public class SingleFriendListActivity extends AppCompatActivity {
     public static int position;
     private ImageButton imbtnReturnToFriendList;
     private Button deleteFriend;
+    private RoundedImageView roundedImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +67,22 @@ public class SingleFriendListActivity extends AppCompatActivity {
         textName = findViewById(R.id.textName);
 
         textName.setText(sqlReturn.friendListName[FriendListActivity.position2]);
+        roundedImageView = findViewById(R.id.roundedImageView);
+        new AsyncTask<String, Void, Bitmap>(){
+            @Override
+            protected Bitmap doInBackground(String... params) //實作doInBackground
+            {
+                String url = params[0];
+                return getBitmapFromURL(url);
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap result) //當doinbackground完成後
+            {
+                roundedImageView.setImageBitmap(result);
+                super.onPostExecute(result);
+            }
+        }.execute(sqlReturn.friendListPersonImage[FriendListActivity.position2]);
 
         imbtnReturnToFriendList = findViewById(R.id.imbtnReturnToFriendList);
         imbtnReturnToFriendList.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +127,26 @@ public class SingleFriendListActivity extends AppCompatActivity {
 
     }
 
+    private static Bitmap getBitmapFromURL(String imageUrl)
+    {
+        try
+        {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     private void doData(){
 
         data = new LinkedList<>();
@@ -120,11 +165,13 @@ public class SingleFriendListActivity extends AppCompatActivity {
             public View itemView;
             public TextView date,tag;
             public ImageView photo_image;
+            public ProgressBar progressBar;
             public MyViewHolder(View view){
                 super(view);
                 itemView = view;
                 date = itemView.findViewById(R.id.date);
                 tag = itemView.findViewById(R.id.tag);
+                progressBar = itemView.findViewById(R.id.progressBar);
                 photo_image = itemView.findViewById(R.id.photo_image);
 
                 itemView.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +179,8 @@ public class SingleFriendListActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         position = getAdapterPosition();
                         Intent intent = new Intent(SingleFriendListActivity.this,SingleFriendActivity.class);
+                        intent.putExtra("uri",sqlReturn.friendSearchImage[position]);
+                        intent.putExtra("personUri",sqlReturn.friendSearchPersonImage[position]);
                         startActivity(intent);
                     }
                 });
@@ -152,13 +201,22 @@ public class SingleFriendListActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
             holder.date.setText(data.get(position).get("date"));
             holder.tag.setText(data.get(position).get("tag"));
-            if(position % 3 == 0){
-                holder.photo_image.setImageResource(R.drawable.test_photo);
-            }else if(position % 3 == 1){
-                holder.photo_image.setImageResource(R.drawable.image2);
-            }else {
-                holder.photo_image.setImageResource(R.mipmap.ic_wallpaper_foreground);
-            }
+            new AsyncTask<String, Void, Bitmap>(){
+                @Override
+                protected Bitmap doInBackground(String... params) //實作doInBackground
+                {
+                    String url = params[0];
+                    return getBitmapFromURL(url);
+                }
+
+                @Override
+                protected void onPostExecute(Bitmap result) //當doinbackground完成後
+                {
+                    holder.progressBar.setVisibility(View.INVISIBLE);
+                    holder.photo_image.setImageBitmap(result);
+                    super.onPostExecute(result);
+                }
+            }.execute(sqlReturn.friendSearchImage[position]);
         }
 
         @Override
@@ -166,6 +224,7 @@ public class SingleFriendListActivity extends AppCompatActivity {
             return data.size();
         }
     }
+
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -260,6 +319,8 @@ public class SingleFriendListActivity extends AppCompatActivity {
                 sqlReturn.friendSearchTagName = new String[sqlReturn.friendSearchCount];
                 sqlReturn.friendSearchDate = new String[sqlReturn.friendSearchCount];
                 sqlReturn.friendSearchName = new String[sqlReturn.friendSearchCount];
+                sqlReturn.friendSearchImage = new String[sqlReturn.friendSearchCount];
+                sqlReturn.friendSearchPersonImage = new String[sqlReturn.friendSearchCount];
                 for(int i = 0; i<sqlReturn.friendSearchCount; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.friendSearchNum[i] = obj.getString("friendNum");
@@ -268,6 +329,8 @@ public class SingleFriendListActivity extends AppCompatActivity {
                     sqlReturn.friendSearchTagName[i] = obj.getString("tagName");
                     sqlReturn.friendSearchDate[i] = obj.getString("date");
                     sqlReturn.friendSearchName[i] = obj.getString("friendName01");
+                    sqlReturn.friendSearchImage[i] = obj.getString("image_path");
+                    sqlReturn.friendSearchPersonImage[i] = obj.getString("userPicture");
                 }
 
             } catch (JSONException e) {
@@ -283,6 +346,8 @@ public class SingleFriendListActivity extends AppCompatActivity {
                     sqlReturn.friendSearchTagName[i] = "";
                     sqlReturn.friendSearchDate[i] = "";
                     sqlReturn.friendSearchName[i] = "";
+                    sqlReturn.friendSearchImage[i] = "";
+                    sqlReturn.friendSearchPersonImage[i] = "";
                 }
                 RefreshLayoutFriendList.setRefreshing(false);
             }
@@ -373,11 +438,13 @@ public class SingleFriendListActivity extends AppCompatActivity {
                 sqlReturn.friendListNum = new String[sqlReturn.SearchCountFriendList];
                 sqlReturn.friendListName = new String[sqlReturn.SearchCountFriendList];
                 sqlReturn.friendListBFF = new String[sqlReturn.SearchCountFriendList];
+                sqlReturn.friendListPersonImage = new String[sqlReturn.SearchCountFriendList];
                 for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.friendListNum[i] = obj.getString("friendNum");
                     sqlReturn.friendListName[i] = obj.getString("friendName01");
                     sqlReturn.friendListBFF[i] = obj.getString("BFF");
+                    sqlReturn.friendListPersonImage[i] = obj.getString("userPicture");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

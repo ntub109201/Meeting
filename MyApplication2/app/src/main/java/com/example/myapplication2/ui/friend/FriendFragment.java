@@ -147,7 +147,7 @@ public class FriendFragment extends Fragment {
         class MyViewHolder extends RecyclerView.ViewHolder{
             public View itemView;
             public TextView place_text ,place_description_text,tag_text;
-            public ImageView photo_image;
+            public ImageView photo_image,friendPersonImage;
             public ProgressBar progressBarNoData;
             public MyViewHolder(View view){
                 super(view);
@@ -157,12 +157,14 @@ public class FriendFragment extends Fragment {
                 tag_text = itemView.findViewById(R.id.tag_text);
                 progressBarNoData = itemView.findViewById(R.id.progressBarNoData);
                 photo_image = itemView.findViewById(R.id.photo_image);
+                friendPersonImage = itemView.findViewById(R.id.friendPersonImage);
                 itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
                         FriendTag = getAdapterPosition();
                         Intent intent = new Intent(FriendFragment.super.getActivity(),SocialArticalActivity.class);
                         intent.putExtra("uri",sqlReturn.friendImage[FriendTag]);
+                        intent.putExtra("personUri",sqlReturn.friendPersonImage[FriendTag]);
                         startActivity(intent);
                     }
                 });
@@ -202,6 +204,22 @@ public class FriendFragment extends Fragment {
                     super.onPostExecute(result);
                 }
             }.execute(sqlReturn.friendImage[position]);
+
+            new AsyncTask<String, Void, Bitmap>(){
+                @Override
+                protected Bitmap doInBackground(String... params) //實作doInBackground
+                {
+                    String url = params[0];
+                    return getBitmapFromURL(url);
+                }
+
+                @Override
+                protected void onPostExecute(Bitmap result) //當doinbackground完成後
+                {
+                    holder.friendPersonImage.setImageBitmap(result);
+                    super.onPostExecute(result);
+                }
+            }.execute(sqlReturn.friendPersonImage[position]);
         }
 
         @Override
@@ -266,6 +284,7 @@ public class FriendFragment extends Fragment {
                 sqlReturn.friendName = new String[sqlReturn.SearchCountFriend];
                 sqlReturn.friendBFF = new String[sqlReturn.SearchCountFriend];
                 sqlReturn.friendImage = new String[sqlReturn.SearchCountFriend];
+                sqlReturn.friendPersonImage = new String[sqlReturn.SearchCountFriend];
                 for(int i = 0; i<sqlReturn.SearchCountFriend; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.contentFriend[i] = obj.getString("content");
@@ -275,6 +294,7 @@ public class FriendFragment extends Fragment {
                     sqlReturn.friendName[i] = obj.getString("friendName01");
                     sqlReturn.friendBFF[i] = obj.getString("BFF");
                     sqlReturn.friendImage[i] = obj.getString("image_path");
+                    sqlReturn.friendPersonImage[i] = obj.getString("userPicture");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -331,11 +351,13 @@ public class FriendFragment extends Fragment {
                 sqlReturn.friendListNum = new String[sqlReturn.SearchCountFriendList];
                 sqlReturn.friendListName = new String[sqlReturn.SearchCountFriendList];
                 sqlReturn.friendListBFF = new String[sqlReturn.SearchCountFriendList];
+                sqlReturn.friendListPersonImage = new String[sqlReturn.SearchCountFriendList];
                 for(int i = 0; i<sqlReturn.SearchCountFriendList; i++){
                     JSONObject obj = new JSONObject(String.valueOf(jsonArray.get(i)));
                     sqlReturn.friendListNum[i] = obj.getString("friendNum");
                     sqlReturn.friendListName[i] = obj.getString("friendName01");
                     sqlReturn.friendListBFF[i] = obj.getString("BFF");
+                    sqlReturn.friendListPersonImage[i] = obj.getString("userPicture");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

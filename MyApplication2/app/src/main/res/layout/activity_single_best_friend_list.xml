@@ -29,10 +29,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/roundedImageView4"
-                android:layout_width="104dp"
-                android:layout_height="83dp"
-                android:src="@mipmap/ic_usericon_foreground"
+                android:id="@+id/roundedImageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/ic_user_icon_foreground"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

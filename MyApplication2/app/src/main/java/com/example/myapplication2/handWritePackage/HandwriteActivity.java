@@ -106,7 +106,7 @@ public class HandwriteActivity extends AppCompatActivity {
     private ProgressBar progressBarHandWrite;
     private EditText handWrite_context;
     private ImageView imageView;
-    private static String diaryNo ="";
+    private String diaryNo ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -853,11 +853,6 @@ public class HandwriteActivity extends AppCompatActivity {
             }else {
                 //Toast.makeText(activity, "日記新增成功", Toast.LENGTH_LONG).show();
                 uploadImagesToServer();
-//                Intent intent = new Intent(HandwriteActivity.this, MainActivity.class);
-//                intent.putExtra("id",1);
-//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HandwriteActivity.this);
-//                startActivity(intent,options.toBundle());
-//                progressBarHandWrite.setVisibility(View.INVISIBLE);
             }
 
         }

@@ -41,14 +41,15 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/roundedImageView"
-                android:layout_width="83dp"
-                android:layout_height="73dp"
-                android:src="@mipmap/ic_usericon_foreground"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_user_icon_foreground"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.17"
+                app:layout_constraintVertical_bias="0.0"
                 app:riv_border_color="#333333"
                 app:riv_oval="true" />
         </androidx.constraintlayout.widget.ConstraintLayout>

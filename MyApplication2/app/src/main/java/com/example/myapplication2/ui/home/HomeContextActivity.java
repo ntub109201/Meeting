@@ -243,10 +243,40 @@ public class HomeContextActivity extends AppCompatActivity {
             String total = sqlReturn.content3[HomeFragment.homeTag];
             String mood = sqlReturn.mood3[HomeFragment.homeTag];
             String date = sqlReturn.date3[HomeFragment.homeTag];
+            if(mood.equals("心情1")){
+                mood = "心情超棒的";
+            }else if(mood.equals("心情2")){
+                mood = "心情不錯歐";
+            }else if(mood.equals("心情3")){
+                mood = "心情普普呢";
+            }else if(mood.equals("心情4")){
+                mood = "心情不好啊";
+            }else if(mood.equals("心情5")){
+                mood = "心情很差呢";
+            }
             txtHistoryDiary.setText(total);
             textTitle.setText(mood);
             textDescription.setText(date);
-            ContextImageView.setImageResource(R.drawable.handwrite);
+            ContextImageView.setImageResource(dict.dict.get(sqlReturn.Option3[HomeFragment.homeTag]));
+        }else if(Getdata == 5){
+            String total = sqlReturn.content4[HomeFragment.homeTag];
+            String mood = sqlReturn.mood4[HomeFragment.homeTag];
+            String date = sqlReturn.date4[HomeFragment.homeTag];
+            if(mood.equals("心情1")){
+                mood = "心情超棒的";
+            }else if(mood.equals("心情2")){
+                mood = "心情不錯歐";
+            }else if(mood.equals("心情3")){
+                mood = "心情普普呢";
+            }else if(mood.equals("心情4")){
+                mood = "心情不好啊";
+            }else if(mood.equals("心情5")){
+                mood = "心情很差呢";
+            }
+            txtHistoryDiary.setText(total);
+            textTitle.setText(mood);
+            textDescription.setText(date);
+            ContextImageView.setImageResource(dict.dict.get(sqlReturn.Option4[HomeFragment.homeTag]));
         }
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -318,6 +348,14 @@ public class HomeContextActivity extends AppCompatActivity {
             map.put("share",sharefriend);
             map.put("bff",sharebestfriend);
             new EditDiary(this).execute((HashMap)map);
+        }else if(Getdata == 5){
+            Map<String,String> map = new HashMap<>();
+            map.put("command", "editDiary");
+            map.put("diaryNo",sqlReturn.DiaryID4[HomeFragment.homeTag]);
+            map.put("diaryNewContent",txtHistoryDiary.getText().toString());
+            map.put("share",sharefriend);
+            map.put("bff",sharebestfriend);
+            new EditDiary(this).execute((HashMap)map);
         }
     }
     private class EditDiary extends HttpURLConnection_AsyncTask {
@@ -376,6 +414,11 @@ public class HomeContextActivity extends AppCompatActivity {
             Map<String,String> map = new HashMap<>();
             map.put("command", "deleteDiary");
             map.put("diaryNo",sqlReturn.DiaryID3[HomeFragment.homeTag]);
+            new DeleteDiary(this).execute((HashMap)map);
+        }else if(Getdata == 5){
+            Map<String,String> map = new HashMap<>();
+            map.put("command", "deleteDiary");
+            map.put("diaryNo",sqlReturn.DiaryID4[HomeFragment.homeTag]);
             new DeleteDiary(this).execute((HashMap)map);
         }
 
