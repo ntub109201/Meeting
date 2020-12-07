@@ -74,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         roundedImageView = findViewById(R.id.roundedImageView);
+        arrayList = new ArrayList<>();
 
         imBtnBack.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -96,7 +97,6 @@ public class RegisterActivity extends AppCompatActivity {
         btn_addCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrayList = new ArrayList<>();
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -280,6 +280,8 @@ public class RegisterActivity extends AppCompatActivity {
                     for (int i = 0; i < arrayList.size(); i++) {
                         parts.add(prepareFilePart("image" + i, arrayList.get(i)));
                     }
+                }else{
+                    parts.add(prepareFilePart("image" + 0,null));
                 }
             }catch (Exception e){
 
