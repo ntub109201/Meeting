@@ -232,10 +232,11 @@ public class SingleFriendListActivity extends AppCompatActivity {
     }
 
     public void deleteFriend(){
+        int position = FriendListActivity.position2;
         Map<String,String> map = new HashMap<>();
         map.put("command", "deleteFriend");
         map.put("uid",sqlReturn.GetUserID);
-        map.put("friendNum",sqlReturn.friendListNum[FriendListActivity.position2]);
+        map.put("friendNum",sqlReturn.friendListNum[position]);
         new deleteFriend(this).execute((HashMap)map);
     }
 
@@ -262,16 +263,8 @@ public class SingleFriendListActivity extends AppCompatActivity {
             }
 
             if(status == true){
-
-                if(sqlReturn.SearchCountFriendList == 1){
-                    sqlReturn.SearchCountFriendList = 0;
-                }
-
-                if (sqlReturn.SearchCountFriend == 1){
-                   sqlReturn.SearchCountFriend = 0;
-                }
-
-
+                sqlReturn.SearchCountFriendList = 0;
+                sqlReturn.SearchCountFriend = 0;
                 friendList();
 
             }else{

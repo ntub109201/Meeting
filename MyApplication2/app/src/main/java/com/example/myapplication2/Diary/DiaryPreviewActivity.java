@@ -47,6 +47,19 @@ public class DiaryPreviewActivity extends AppCompatActivity{
         imBtnBack = findViewById(R.id.imbtnReturn);
         imBtnBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                switch (DiaryValue.txtWhat){
+                    case "美食無What":
+                        DiaryValue.txtWhat="";
+                    case "購物無What":
+                        DiaryValue.txtWhat="";
+                    case "戀愛無What":
+                        DiaryValue.txtWhat="";
+                    case "休閒娛樂無What":
+                        DiaryValue.txtWhat="";
+                    case "旅遊無What":
+                        DiaryValue.txtWhat="";
+                }
                 if (tag1.equals("DiaryTagActivity")) {
                     Intent intent = new Intent(DiaryPreviewActivity.this, DiaryTagActivity.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DiaryPreviewActivity.this);
@@ -1945,6 +1958,7 @@ public class DiaryPreviewActivity extends AppCompatActivity{
         textView.setText(finalTotal);
 
 
+
         // 返回主題頁
         final TextView mChangeTag = findViewById(R.id.btn_changeTag);
         mChangeTag.setOnClickListener(new View.OnClickListener() {
@@ -1979,7 +1993,6 @@ public class DiaryPreviewActivity extends AppCompatActivity{
         mEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(DiaryPreviewActivity.this, DiaryEndActivity.class);
                 intent.putExtra("total",textView.getText().toString());
                 intent.putExtra("1",tag1);
