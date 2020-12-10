@@ -102,12 +102,12 @@ public class sqlReturn{
     public static String[] bestfriendSearchPersonImage;
     // 註冊成功
     public static Boolean RegisterFirstLogin = true;
-    public static String RegisterEmail = "nx01daniel@gmail.com";
-    public static String RegisterPassword = "";
-    public static String LoginPassword = "1234";
-//    public static String RegisterEmail = "";
+//    public static String RegisterEmail = "nx01daniel@gmail.com";
 //    public static String RegisterPassword = "";
-//    public static String LoginPassword = "";
+//    public static String LoginPassword = "1234";
+    public static String RegisterEmail = "";
+    public static String RegisterPassword = "";
+    public static String LoginPassword = "";
     // 個人資料
     public static String PersonalName;
     public static String PersonalPicture;
