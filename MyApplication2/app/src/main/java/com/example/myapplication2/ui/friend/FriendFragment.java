@@ -365,7 +365,7 @@ public class FriendFragment extends Fragment {
         }
     }
 
-    // 取待加入好友
+    // 取得加入好友
     public void addFriend(){
         String uid = sqlReturn.GetUserID;
         Map<String,String> map = new HashMap<>();

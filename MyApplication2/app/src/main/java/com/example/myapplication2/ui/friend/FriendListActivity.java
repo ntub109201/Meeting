@@ -432,6 +432,7 @@ public class FriendListActivity extends AppCompatActivity {
             }
             if (status){
                 Intent intent = new Intent(FriendListActivity.this,SingleFriendListActivity.class);
+                intent.putExtra("position",FriendListActivity.position2);
                 startActivity(intent);
                 RefreshLayoutFriendList2.setRefreshing(false);
             }else {

@@ -2,6 +2,7 @@ package com.example.myapplication2.ui.home;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,10 +12,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +28,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +51,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.function.BiPredicate;
 
 public class HomeContextActivity extends AppCompatActivity {
 
@@ -70,7 +76,6 @@ public class HomeContextActivity extends AppCompatActivity {
     private String context = "";
     private int rowcount = 0;
     private String image_path[];
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -589,7 +594,7 @@ public class HomeContextActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private static Bitmap getBitmapFromURL(String imageUrl)
+    public Bitmap getBitmapFromURL(String imageUrl)
     {
         try
         {

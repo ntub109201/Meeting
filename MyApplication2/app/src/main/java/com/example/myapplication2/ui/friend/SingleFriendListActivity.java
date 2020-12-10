@@ -232,11 +232,13 @@ public class SingleFriendListActivity extends AppCompatActivity {
     }
 
     public void deleteFriend(){
-        int position = FriendListActivity.position2;
+        Intent intent = getIntent();
+        int positionFromFriendlist = intent.getIntExtra("position",0);
         Map<String,String> map = new HashMap<>();
         map.put("command", "deleteFriend");
         map.put("uid",sqlReturn.GetUserID);
-        map.put("friendNum",sqlReturn.friendListNum[position]);
+        map.put("friendNum",sqlReturn.friendListNum[positionFromFriendlist]);
+        //map.put("friendNum","110455093800285988490");
         new deleteFriend(this).execute((HashMap)map);
     }
 
@@ -262,11 +264,8 @@ public class SingleFriendListActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if(status == true){
-                sqlReturn.SearchCountFriendList = 0;
-                sqlReturn.SearchCountFriend = 0;
+            if(status){
                 friendList();
-
             }else{
                 new AlertDialog.Builder(activity)
                         .setTitle("刪除好友失敗")
@@ -391,11 +390,10 @@ public class SingleFriendListActivity extends AppCompatActivity {
                     sqlReturn.friendName[i] = obj.getString("friendName01");
                     sqlReturn.friendBFF[i] = obj.getString("BFF");
                 }
-
+                friendInfoList();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            friendInfoList();
         }
     }
 
@@ -439,13 +437,13 @@ public class SingleFriendListActivity extends AppCompatActivity {
                     sqlReturn.friendListBFF[i] = obj.getString("BFF");
                     sqlReturn.friendListPersonImage[i] = obj.getString("userPicture");
                 }
+                Intent intent = new Intent(SingleFriendListActivity.this, MainActivity.class);
+                intent.putExtra("id",2);
+                startActivity(intent);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            Intent intent = new Intent(SingleFriendListActivity.this, MainActivity.class);
-            intent.putExtra("id",2);
-            startActivity(intent);
         }
     }
 
